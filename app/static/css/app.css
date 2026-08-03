@@ -1,0 +1,152 @@
+/* CISS SE Capstone — shared look with SDC Time Tracker family */
+
+.collage-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at 20% 20%, rgba(67, 56, 202, 0.25), transparent 50%),
+                radial-gradient(ellipse at 80% 0%, rgba(14, 165, 233, 0.12), transparent 40%),
+                #020617;
+    pointer-events: none;
+}
+
+.scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.65rem;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    transition: all 0.15s ease;
+}
+.nav-link:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
+
+.card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.badge-se { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+.badge-ops { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.badge-weight { background: rgba(34,197,94,0.12); color: #4ade80; }
+
+.prose-course h1, .prose-course h2, .prose-course h3 {
+    color: #f1f5f9;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.prose-course h1 { font-size: 1.75rem; }
+.prose-course h2 { font-size: 1.35rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.35rem; }
+.prose-course h3 { font-size: 1.1rem; color: #c7d2fe; }
+.prose-course p, .prose-course li { color: #cbd5e1; line-height: 1.65; font-size: 0.95rem; }
+.prose-course ul, .prose-course ol { margin: 0.75rem 0 0.75rem 1.25rem; }
+.prose-course li { margin: 0.35rem 0; }
+.prose-course table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+}
+.prose-course th {
+    text-align: left;
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 0.5rem 0.65rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.prose-course td {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 0.55rem 0.65rem;
+    color: #cbd5e1;
+    vertical-align: top;
+}
+.prose-course code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(99,102,241,0.12);
+    color: #a5b4fc;
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.3rem;
+}
+.prose-course pre {
+    background: rgba(2,6,23,0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+.prose-course pre code { background: transparent; padding: 0; color: #e2e8f0; }
+.prose-course blockquote {
+    border-left: 3px solid #6366f1;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background: rgba(99,102,241,0.08);
+    color: #cbd5e1;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose-course strong { color: #f8fafc; }
+
+.input-dark {
+    width: 100%;
+    background: rgba(2,6,23,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    color: #f1f5f9;
+}
+.input-dark:focus {
+    outline: none;
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: white;
+    font-weight: 600;
+    padding: 0.65rem 1.1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.1s, box-shadow 0.15s;
+}
+.btn-primary:hover { box-shadow: 0 8px 24px rgba(79,70,229,0.35); }
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    background: rgba(255,255,255,0.04);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }

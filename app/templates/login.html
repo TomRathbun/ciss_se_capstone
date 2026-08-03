@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Login — {{ app_name }}{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-8">
+    <div class="card p-6">
+        <h1 class="text-2xl font-bold mb-1">Sign in</h1>
+        <p class="text-sm text-gray-500 mb-6">Select your name and enter your PIN.</p>
+        {% if error %}
+        <div class="mb-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl p-3">{{ error }}</div>
+        {% endif %}
+        <form method="post" action="/login" class="space-y-4">
+            <div>
+                <label class="text-xs text-gray-500 uppercase tracking-wide">Name</label>
+                <select name="candidate_id" class="input-dark mt-1" required>
+                    {% for p in people %}
+                    <option value="{{ p.id }}">{{ p.name }}{% if p.role.value == 'instructor' %} (instructor){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="text-xs text-gray-500 uppercase tracking-wide">PIN</label>
+                <input type="password" name="pin" inputmode="numeric" class="input-dark mt-1 text-center tracking-widest text-xl" required maxlength="8" autocomplete="off">
+            </div>
+            <button type="submit" class="btn-primary w-full">Enter course</button>
+        </form>
+        <p class="text-[11px] text-gray-600 mt-6">
+            Demo defaults — Instructor PIN <code class="text-primary-400">4242</code>,
+            Intern PIN <code class="text-primary-400">1234</code>. Change before real cohort use.
+        </p>
+    </div>
+</div>
+{% endblock %}

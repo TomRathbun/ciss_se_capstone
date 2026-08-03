@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Home — {{ app_name }}{% endblock %}
+{% block content %}
+<div class="mb-10">
+    <p class="text-[11px] font-bold tracking-widest text-primary-400 uppercase mb-2">CISS · UAE intern pathway</p>
+    <h1 class="text-4xl font-extrabold tracking-tight mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+        {{ app_name }}
+    </h1>
+    <p class="text-gray-400 max-w-2xl leading-relaxed">{{ app_tagline }}</p>
+    <p class="text-gray-500 text-sm mt-3 max-w-2xl">
+        Monday deep sessions · Thursday Q&amp;A and grading · SE craft + air operations literacy ·
+        Scores distinguish who advances to the main project.
+    </p>
+    <div class="flex flex-wrap gap-3 mt-6">
+        <a href="/modules" class="btn-primary">Start modules</a>
+        <a href="/selection" class="btn-ghost">Selection criteria</a>
+        <a href="{{ case_study_url }}" target="_blank" class="btn-ghost">Open ETAS case study ↗</a>
+        <a href="{{ case_study_app_url }}" target="_blank" class="btn-ghost">Time tracker app ↗</a>
+    </div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-4 mb-10">
+    <div class="card p-5">
+        <p class="text-xs text-primary-400 font-bold tracking-wide uppercase mb-2">Purpose</p>
+        <p class="text-sm text-gray-300">Train interns and <strong class="text-white">rank candidates</strong> for the main CISS engineering project using rubric-based scores.</p>
+    </div>
+    <div class="card p-5">
+        <p class="text-xs text-amber-400 font-bold tracking-wide uppercase mb-2">Two tracks</p>
+        <p class="text-sm text-gray-300"><strong class="text-white">Systems engineering</strong> fundamentals, then <strong class="text-white">military air ops</strong> (ATO planning &amp; execution).</p>
+    </div>
+    <div class="card p-5">
+        <p class="text-xs text-sky-400 font-bold tracking-wide uppercase mb-2">Later phase</p>
+        <p class="text-sm text-gray-300">Radar situational awareness capstone — framed after SE + ops foundation (placeholder module ready).</p>
+    </div>
+</div>
+
+<div class="grid lg:grid-cols-2 gap-8">
+    <section>
+        <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+            <span class="badge badge-se">SE</span> Systems engineering modules
+        </h2>
+        <div class="space-y-2">
+            {% for m in modules_se %}
+            <a href="/modules/{{ m.id }}" class="card p-4 block hover:border-primary-500/30 transition-colors">
+                <div class="flex justify-between gap-3">
+                    <div>
+                        <p class="font-semibold text-white text-sm">{{ m.title }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
+                    </div>
+                    <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    <section>
+        <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+            <span class="badge badge-ops">OPS</span> Military operations modules
+        </h2>
+        <div class="space-y-2">
+            {% for m in modules_ops %}
+            <a href="/modules/{{ m.id }}" class="card p-4 block hover:border-amber-500/30 transition-colors">
+                <div class="flex justify-between gap-3">
+                    <div>
+                        <p class="font-semibold text-white text-sm">{{ m.title }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
+                    </div>
+                    <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <h2 class="text-lg font-bold mt-8 mb-3">Upcoming graded work</h2>
+        <div class="space-y-2">
+            {% for a in assignments %}
+            <a href="/assignments/{{ a.id }}" class="card p-4 block hover:border-white/10">
+                <div class="flex justify-between">
+                    <p class="text-sm font-semibold">{{ a.title }}</p>
+                    <span class="badge badge-weight">{{ a.weight }}%</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Due: {{ a.due_session }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

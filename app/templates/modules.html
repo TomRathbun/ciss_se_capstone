@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Modules — {{ app_name }}{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-2">Modules</h1>
+<p class="text-gray-500 text-sm mb-8">Lecture material and offline reading. Mark complete after you finish.</p>
+<div class="space-y-3">
+    {% for m in modules %}
+    <a href="/modules/{{ m.id }}" class="card p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="badge {% if m.track == 'ops' %}badge-ops{% else %}badge-se{% endif %}">{{ m.track }}</span>
+                {% if m.offline %}<span class="text-[10px] text-gray-600">offline-friendly</span>{% endif %}
+            </div>
+            <p class="font-semibold text-white">{{ loop.index }}. {{ m.title }}</p>
+            <p class="text-sm text-gray-500 mt-1">{{ m.summary }}</p>
+        </div>
+        <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

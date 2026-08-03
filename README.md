@@ -1,0 +1,101 @@
+# CISS SE Capstone
+
+**Systems Engineering · Military Operations · Intern Selection**
+
+A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Time Tracker: dark UI, module-based learning, rubric grading to **distinguish candidates** for the main project.
+
+## Purpose
+
+| Goal | How |
+|------|-----|
+| Teach SE foundations | Modules + offline reading + workshops |
+| Teach military air ops literacy | ATO planning & execution modules |
+| Use a living case study | Links to SDC Time Tracker `/systems-engineering` |
+| Select interns | Weighted assignments + instructor leaderboard (private) |
+| Later | Radar situational awareness capstone (placeholder module) |
+
+## Rhythm
+
+- **Monday** — 3–4h introduce topic + workshop  
+- **Thursday** — Q&A, peer feedback, grading  
+- Not every week is an SE lecture; ops weeks and catch-up are scheduled  
+
+See `content/schedule/cohort.yaml`.
+
+## Quick start
+
+```bash
+cd ciss_se_capstone
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+pip install -r requirements.txt
+python run.py
+```
+
+Open **http://localhost:8890**
+
+### Demo logins (change for real cohort)
+
+| Role | PIN |
+|------|-----|
+| Course Instructor | `4242` |
+| Intern Alpha–Delta | `1234` |
+
+## Content layout
+
+```
+content/
+  catalog.yaml              # modules + assignment metadata + rubrics
+  selection_criteria.yaml   # how candidates are judged
+  schedule/cohort.yaml      # Mon/Thu plan
+  glossary/terms.yaml
+  modules/*.md              # lecture / reading bodies
+  assignments/*.md          # student-facing briefs
+```
+
+Edit Markdown and YAML; restart not always required for content (read on each request).
+
+## App features
+
+- **Modules** — SE track + OPS track, mark complete  
+- **Assignments A1–A6** — weighted; student draft/submit  
+- **Instructor desk** — leaderboard, per-dimension grading, recommend flag, add interns  
+- **My progress** — student weighted % so far  
+- **Glossary / Selection / Schedule**  
+- **Case study links** — env `CISS_CASE_STUDY_URL` (default `http://localhost:8888/systems-engineering`)
+
+## Scoring (discrimination)
+
+Assignment weights (from catalog):
+
+| ID | Focus | Weight |
+|----|--------|--------|
+| A1 | Context & stakeholders | 10% |
+| A2 | Requirements + ACs | 25% |
+| A3 | State + sequence | 20% |
+| A4 | RTM + V&V | 20% |
+| A5 | Mission card (ops) | 15% |
+| A6 | Professionalism | 10% |
+
+Overall % = weighted average of assignments that have grades. Instructor **recommended** flag is separate judgment for main-project select.
+
+## Ports
+
+| App | Default port |
+|-----|----------------|
+| CISS SE Capstone | **8890** |
+| SDC Time Tracker (case study) | **8888** |
+
+## Roadmap
+
+- [x] Scaffold + SE modules + ATO modules  
+- [x] Grading / leaderboard  
+- [ ] Richer ATO exercises / red-team injects  
+- [ ] Full radar SA capstone pack  
+- [ ] Export gradebook CSV  
+- [ ] Cohort multi-tenancy  
+
+## License
+
+Internal training use unless otherwise noted.

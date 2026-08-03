@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Glossary — {{ app_name }}{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-2">Glossary</h1>
+<p class="text-gray-500 text-sm mb-8">Shared language for SE and ops. Learn these early.</p>
+<div class="space-y-3">
+    {% for t in terms %}
+    <div class="card p-4">
+        <p class="font-semibold text-primary-300">{{ t.term }}</p>
+        <p class="text-sm text-gray-400 mt-1">{{ t.definition }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

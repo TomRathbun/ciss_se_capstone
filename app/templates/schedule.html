@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Schedule — {{ app_name }}{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-2">Cohort schedule</h1>
+<p class="text-gray-500 text-sm mb-2">{{ schedule.get('pattern', '') }}</p>
+<p class="text-xs text-gray-600 mb-8">Cohort: {{ schedule.get('cohort_id') }} · {{ schedule.get('timezone') }}</p>
+<div class="space-y-3">
+    {% for s in schedule.get('sessions', []) %}
+    <div class="card p-5">
+        <div class="flex flex-wrap justify-between gap-2 mb-1">
+            <p class="font-semibold">Week {{ s.week }} · {{ s.day }} — {{ s.title }}</p>
+            <span class="badge badge-se">{{ s.type }}</span>
+        </div>
+        <p class="text-xs text-gray-500">Modules: {{ s.modules | join(', ') }}</p>
+        {% if s.get('assignment_due') %}
+        <p class="text-xs text-amber-400/90 mt-2">Assignment due: {{ s.assignment_due }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{ assignment.title }} — {{ app_name }}{% endblock %}
+{% block content %}
+<a href="/assignments" class="text-sm text-primary-400">← Assignments</a>
+<div class="flex flex-wrap items-center gap-2 mt-3 mb-2">
+    <span class="badge badge-weight">weight {{ assignment.weight }}%</span>
+    <span class="text-xs text-gray-600">Due {{ assignment.due_session }}</span>
+</div>
+<h1 class="text-3xl font-bold mb-6">{{ assignment.title }}</h1>
+
+<article class="card p-6 prose-course mb-8">
+    {{ assignment.body_html | safe }}
+    {% if assignment.rubric %}
+    <h2>Rubric dimensions</h2>
+    <table>
+        <thead><tr><th>Dimension</th><th>Max</th><th>What we look for</th></tr></thead>
+        <tbody>
+        {% for r in assignment.rubric %}
+            <tr>
+                <td><code>{{ r.dimension }}</code></td>
+                <td>{{ r.max_points }}</td>
+                <td>{{ r.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</article>
+
+{% if my_scores %}
+<div class="card p-5 mb-8">
+    <h2 class="font-bold mb-3">Your scores</h2>
+    <ul class="text-sm space-y-2">
+        {% for s in my_scores %}
+        <li class="flex justify-between gap-4 border-b border-white/5 pb-2">
+            <span><code class="text-primary-400">{{ s.dimension }}</code> — {{ s.feedback or '—' }}</span>
+            <span class="font-mono">{{ s.points }}/{{ s.max_points }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if user and user.role.value == 'student' %}
+<div class="card p-6">
+    <h2 class="font-bold mb-2">Your submission</h2>
+    <p class="text-xs text-gray-500 mb-4">Status: <strong class="text-gray-300">{{ submission.status if submission else 'not started' }}</strong></p>
+    <form method="post" action="/assignments/{{ assignment.id }}/submit" class="space-y-4">
+        <textarea name="body" rows="16" class="input-dark font-mono text-sm" placeholder="Paste your write-up in Markdown or plain text…">{{ submission.body if submission else '' }}</textarea>
+        <div class="flex flex-wrap gap-3">
+            <button type="submit" name="action" value="save" class="btn-ghost">Save draft</button>
+            <button type="submit" name="action" value="submit" class="btn-primary">Submit for grading</button>
+        </div>
+    </form>
+</div>
+{% elif not user %}
+<p class="text-sm text-gray-500"><a class="text-primary-400" href="/login">Log in</a> as a student to submit work.</p>
+{% endif %}
+{% endblock %}

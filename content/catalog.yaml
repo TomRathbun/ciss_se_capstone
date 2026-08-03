@@ -1,0 +1,225 @@
+# CISS SE Capstone — curriculum catalog
+course:
+  title: CISS SE Capstone
+  subtitle: Systems Engineering & Military Operations for Intern Selection
+  purpose: >
+    Prepare and assess interns for selection onto the main CISS engineering project.
+    Candidates who demonstrate clear thinking, testable requirements, and operational
+    awareness advance; scoring distinguishes top performers.
+
+modules:
+  - id: se-00-welcome
+    order: 1
+    track: se
+    title: Welcome & How This Course Works
+    duration_min: 45
+    summary: Course purpose, selection criteria, Monday/Thursday rhythm, tools, and professional expectations.
+    offline: false
+
+  - id: se-01-what-is-se
+    order: 2
+    track: se
+    title: What Is Systems Engineering?
+    duration_min: 90
+    summary: Need vs requirement vs design; system boundary; why SE matters on multi-discipline programs.
+    offline: true
+
+  - id: se-02-stakeholders
+    order: 3
+    track: se
+    title: Stakeholders, Context & Boundaries
+    duration_min: 90
+    summary: Stakeholder analysis, operational need, context diagrams, in-scope vs out-of-scope.
+    offline: true
+
+  - id: se-03-requirements
+    order: 4
+    track: se
+    title: Requirements & Acceptance Criteria
+    duration_min: 120
+    summary: Shall language, IDs, functional vs non-functional, Given/When/Then acceptance criteria.
+    offline: true
+
+  - id: se-04-architecture
+    order: 5
+    track: se
+    title: Architecture Views
+    duration_min: 90
+    summary: Logical layers, allocation of requirements to components, design decisions with rationale.
+    offline: true
+
+  - id: se-05-behavior
+    order: 6
+    track: se
+    title: Behavior — States & Sequences
+    duration_min: 120
+    summary: State machines and sequence diagrams for dynamic behavior; illegal transitions.
+    offline: true
+
+  - id: se-06-interfaces
+    order: 7
+    track: se
+    title: Interfaces & ICDs
+    duration_min: 90
+    summary: External interfaces, data contracts, error behavior; lightweight ICD thinking.
+    offline: true
+
+  - id: se-07-vv-trace
+    order: 8
+    track: se
+    title: Verification, Validation & Traceability
+    duration_min: 90
+    summary: Verify vs validate; requirement → design → test; building a trace matrix.
+    offline: true
+
+  - id: se-08-case-etas
+    order: 9
+    track: se
+    title: Case Study — SDC Time Tracker (ETAS)
+    duration_min: 120
+    summary: Walk the living system and its SE artifacts; connect FR-IDs to real code and export.
+    offline: false
+
+  - id: ops-01-ato-planning
+    order: 10
+    track: ops
+    title: Military Ops — Air Tasking Order (Planning)
+    duration_min: 150
+    summary: Missions, weapons load, tanker/refueling, aircraft availability, voice & datalink planning.
+    offline: true
+
+  - id: ops-02-ato-execution
+    order: 11
+    track: ops
+    title: Military Ops — ATO Execution
+    duration_min: 150
+    summary: Training vs strike vs air defense execution; monitoring, changes, and after-action.
+    offline: true
+
+  - id: ops-03-weapons-context
+    order: 12
+    track: ops
+    title: Weapons & Platforms Context (Lockheed Heritage)
+    duration_min: 90
+    summary: How platforms and weapons relate to mission planning using the Tactical Library examples.
+    offline: true
+
+  - id: se-09-capstone-preview
+    order: 13
+    track: se
+    title: Capstone Preview — Radar Situational Awareness
+    duration_min: 60
+    summary: Coming next — multi-feed SA problem framing (placeholder until project kickoff).
+    offline: false
+
+assignments:
+  - id: a1-context
+    order: 1
+    title: Context & Stakeholders (ETAS or simple system)
+    module_id: se-02-stakeholders
+    due_session: "Week 2 Thursday"
+    weight: 10
+    summary: One-page context diagram + stakeholder table with concerns.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: All major actors and external systems identified
+      - dimension: boundary_clarity
+        max_points: 10
+        description: Clear in-scope / out-of-scope
+      - dimension: communication
+        max_points: 5
+        description: Readable by a non-author engineer
+
+  - id: a2-requirements
+    order: 2
+    title: Requirements Pack (shall + acceptance)
+    module_id: se-03-requirements
+    due_session: "Week 3 Thursday"
+    weight: 25
+    summary: 8–12 FRs, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
+    rubric:
+      - dimension: testability
+        max_points: 15
+        description: Requirements and ACs are objectively testable
+      - dimension: shall_quality
+        max_points: 10
+        description: Correct shall language; no design disguised as need
+      - dimension: coverage
+        max_points: 10
+        description: Happy path + key error/edge cases
+      - dimension: communication
+        max_points: 5
+        description: Clear IDs and structure
+
+  - id: a3-behavior
+    order: 3
+    title: State Chart + Sequence
+    module_id: se-05-behavior
+    due_session: "Week 4 Thursday"
+    weight: 20
+    summary: One state machine and one sequence for a chosen feature (ETAS punch or leave OK).
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Legal/illegal transitions and messages make sense
+      - dimension: consistency
+        max_points: 10
+        description: Aligns with stated requirements
+      - dimension: communication
+        max_points: 5
+        description: Labels readable; legend if needed
+
+  - id: a4-trace-vv
+    order: 4
+    title: Traceability & V&V Plan
+    module_id: se-07-vv-trace
+    due_session: "Week 5 Thursday"
+    weight: 20
+    summary: RTM for your FRs + verification method per FR; short validation approach.
+    rubric:
+      - dimension: traceability
+        max_points: 15
+        description: Every FR maps to design idea and test method
+      - dimension: vv_clarity
+        max_points: 10
+        description: Clear verify vs validate activities
+      - dimension: communication
+        max_points: 5
+        description: Table usable by an independent tester
+
+  - id: a5-ops-mission
+    order: 5
+    title: Mini Mission Card (Planning + Execution notes)
+    module_id: ops-01-ato-planning
+    due_session: "Week 6 Thursday"
+    weight: 15
+    summary: Build a simple mission card (type, assets, weapons concept, comms, execution risks).
+    rubric:
+      - dimension: operational_realism
+        max_points: 10
+        description: Planning factors considered (fuel/time/role/threat at basic level)
+      - dimension: structure
+        max_points: 10
+        description: Planning vs execution sections distinct
+      - dimension: communication
+        max_points: 5
+        description: Clear for a peer to brief from
+
+  - id: a6-professional
+    order: 6
+    title: Professionalism & Participation
+    module_id: se-00-welcome
+    due_session: "Ongoing"
+    weight: 10
+    summary: Attendance, questions on Thursday, peer review quality, integrity.
+    rubric:
+      - dimension: engagement
+        max_points: 10
+        description: Shows up prepared; constructive questions
+      - dimension: collaboration
+        max_points: 5
+        description: Helps peers without doing their work
+      - dimension: integrity
+        max_points: 5
+        description: Own work; cites sources

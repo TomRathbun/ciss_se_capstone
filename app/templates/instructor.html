@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Instructor — {{ app_name }}{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-2">Instructor desk</h1>
+<p class="text-gray-500 text-sm mb-8">Candidate ranking is instructor-only. Students do not see this board.</p>
+
+<div class="card p-5 mb-8 overflow-x-auto">
+    <h2 class="font-bold mb-4">Leaderboard / selection board</h2>
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="text-left text-xs text-gray-500 uppercase">
+                <th class="pb-2 pr-3">Candidate</th>
+                <th class="pb-2 pr-3">Score</th>
+                <th class="pb-2 pr-3">Rec</th>
+                <th class="pb-2">Grade links</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in board %}
+            <tr class="border-t border-white/5">
+                <td class="py-3 pr-3 font-medium">{{ r.name }}</td>
+                <td class="py-3 pr-3 font-mono">{% if r.overall_pct is not none %}{{ r.overall_pct }}%{% else %}—{% endif %}</td>
+                <td class="py-3 pr-3">{% if r.recommended %}<span class="text-green-400">yes</span>{% else %}—{% endif %}</td>
+                <td class="py-3">
+                    <div class="flex flex-wrap gap-2">
+                        {% for a in assignments %}
+                        <a class="text-xs text-primary-400 hover:underline" href="/instructor/grade/{{ r.id }}/{{ a.id }}">{{ a.id }}</a>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card p-5">
+    <h2 class="font-bold mb-3">Add intern</h2>
+    <form method="post" action="/instructor/add-student" class="grid sm:grid-cols-4 gap-3 items-end">
+        <div>
+            <label class="text-xs text-gray-500">Name</label>
+            <input name="name" class="input-dark mt-1" required>
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">PIN</label>
+            <input name="pin" class="input-dark mt-1" value="1234">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Cohort</label>
+            <input name="cohort" class="input-dark mt-1" value="2026-UAE">
+        </div>
+        <button class="btn-primary" type="submit">Add</button>
+    </form>
+</div>
+{% endblock %}

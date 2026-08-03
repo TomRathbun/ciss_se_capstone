@@ -1,0 +1,53 @@
+title: Candidate Selection Criteria
+purpose: >
+  This course is a filter for the main CISS engineering project. Scores and
+  instructor judgment decide who advances. Being "nice" is not enough — we need
+  people who can think clearly under structure.
+
+dimensions:
+  - id: technical_se
+    name: Systems thinking & SE craft
+    weight_pct: 40
+    signals:
+      - Testable requirements and acceptance criteria
+      - Clean system boundaries
+      - Traceability discipline
+      - Learns from the ETAS case study without copy-paste only
+
+  - id: operational_awareness
+    name: Operational / military context
+    weight_pct: 20
+    signals:
+      - Understands planning vs execution
+      - Can discuss missions, sensors, platforms at conceptual level
+      - Asks sensible questions about real ops constraints
+
+  - id: communication
+    name: Communication
+    weight_pct: 20
+    signals:
+      - Clear written artifacts
+      - Can brief a design in 5 minutes
+      - English technical communication adequate for team work
+
+  - id: professionalism
+    name: Professionalism & growth
+    weight_pct: 20
+    signals:
+      - Attendance Mon/Thu
+      - Owns mistakes; improves next assignment
+      - Works ethically; no plagiarism
+      - Coachable feedback response
+
+tiers:
+  - name: Strong select
+    guidance: Top band — ready for main project with mentoring
+  - name: Select with conditions
+    guidance: Gaps exist but trajectory is positive; assign focused remediation
+  - name: Not selected this cycle
+    guidance: Below bar on testability, integrity, or engagement — document reasons
+
+instructor_notes:
+  - Grade on rubrics every Thursday when possible; do not wait until end.
+  - Record short feedback every score — candidates deserve a learning signal.
+  - Recommended flag is instructor-only; do not show ranking publicly to students.

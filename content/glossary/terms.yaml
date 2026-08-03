@@ -1,0 +1,43 @@
+terms:
+  - term: System
+    definition: A combination of interacting elements organized to achieve one or more stated purposes.
+  - term: Systems Engineering (SE)
+    definition: Interdisciplinary approach to enable the realization of successful systems — balancing need, requirements, design, integration, and verification.
+  - term: Stakeholder
+    definition: Person or organization with an interest in the system (user, operator, acquirer, maintainer, regulator).
+  - term: Operational need
+    definition: The problem or capability gap in the real world that motivates building a system.
+  - term: Requirement
+    definition: A formal statement of what the system shall do or a constraint it shall satisfy (not how to implement it).
+  - term: Shall
+    definition: Mandatory requirement language. Avoid "should/may" for critical behaviors unless intentionally optional.
+  - term: Acceptance criterion (AC)
+    definition: Objective condition that must be true to accept that a requirement is met (often Given/When/Then).
+  - term: NFR
+    definition: Non-functional requirement — quality attributes such as security, performance, usability, maintainability.
+  - term: System boundary
+    definition: What is inside the system under design versus external systems and users.
+  - term: Interface
+    definition: A shared boundary where information, energy, or material is exchanged.
+  - term: ICD
+    definition: Interface Control Document — agreement on what crosses an interface (format, timing, errors).
+  - term: Verification
+    definition: Confirm the product was built correctly against requirements/design ("Did we build it right?").
+  - term: Validation
+    definition: Confirm the product meets the operational need ("Did we build the right thing?").
+  - term: Traceability
+    definition: Ability to follow a requirement to design elements and tests (and back).
+  - term: RTM
+    definition: Requirements Traceability Matrix.
+  - term: Baseline
+    definition: An approved set of artifacts at a point in time under change control.
+  - term: ATO
+    definition: Air Tasking Order — the plan that assigns air missions, resources, and timing for a period of operations.
+  - term: Planning (air ops)
+    definition: Building missions — objectives, assets, weapons, tankers, routes, comms, timing — before execution.
+  - term: Execution (air ops)
+    definition: Flying and controlling the plan — launch, monitor, re-task, recover, assess.
+  - term: Datalink
+    definition: Digital exchange of tactical data between platforms (as opposed to voice radio only).
+  - term: Case study (ETAS)
+    definition: SDC Time Tracker — living example system used to teach SE with real artifacts.
