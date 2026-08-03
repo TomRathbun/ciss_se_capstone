@@ -48,6 +48,18 @@ def get_module(module_id: str) -> dict | None:
     return None
 
 
+def module_neighbors(module_id: str) -> tuple[dict | None, dict | None, int, int]:
+    """Return (prev, next, index_1based, total) in catalog order."""
+    modules = list_modules()
+    total = len(modules)
+    for i, m in enumerate(modules):
+        if m.get("id") == module_id:
+            prev_m = modules[i - 1] if i > 0 else None
+            next_m = modules[i + 1] if i + 1 < total else None
+            return prev_m, next_m, i + 1, total
+    return None, None, 0, total
+
+
 def list_assignments() -> list[dict]:
     catalog = load_catalog()
     items = catalog.get("assignments") or []

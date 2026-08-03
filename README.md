@@ -22,18 +22,35 @@ A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Ti
 
 See `content/schedule/cohort.yaml`.
 
-## Quick start
+## Quick start (uv — same as SDC Time Tracker)
 
 ```bash
 cd ciss_se_capstone
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-pip install -r requirements.txt
-python run.py
+uv sync
+uv run python run.py
 ```
 
-Open **http://localhost:8890**
+Ctrl+Click the **Local** URL in the terminal (e.g. `http://127.0.0.1:8890`).
+
+The server still binds `0.0.0.0` so other devices on the network can connect; `0.0.0.0` itself is not a browser address, which is why that link does not open.
+
+Optional:
+
+```bash
+uv run python run.py --port 8890
+uv run python run.py --host 127.0.0.1   # local-only bind
+uv run python run.py --no-reload        # stable if packages are being updated
+```
+
+### If the server crashes on reload (`ssl_context_factory`)
+
+That usually means the venv was half-upgraded while the server was running (WatchFiles saw `.venv` change). Fix:
+
+1. Stop every course server window (`Ctrl+C`).
+2. `uv sync`
+3. `uv run python run.py`
+
+Reload now watches only `app/` and `content/`, not `.venv`.
 
 ### Demo logins (change for real cohort)
 

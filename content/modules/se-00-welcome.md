@@ -7,9 +7,11 @@ This is not a passive lecture series. **CISS SE Capstone** is how we train inter
 You will:
 
 1. Learn core **systems engineering** skills used on real programs.
-2. Learn enough **military air operations** language to work around planning/execution products (e.g. air tasking).
-3. Practice on a **living case study** (SDC Time Tracker / ETAS) that already has requirements, states, sequences, and export interfaces.
-4. Produce graded artifacts. Scores + professionalism determine selection.
+2. Practice the derivation chain used on real efforts:  
+   **Vision → Needs → Use cases → Requirements (EARS) → Design**
+3. Learn enough **military air operations** language to work around planning/execution products (e.g. air tasking).
+4. Practice on a **living case study** (SDC Time Tracker / ETAS) that already has requirements, states, sequences, and export interfaces.
+5. Produce graded artifacts. Scores + professionalism determine selection.
 
 ## Rhythm (typical week)
 

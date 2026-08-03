@@ -29,6 +29,7 @@ from app.curriculum import (
     load_glossary,
     load_schedule,
     load_selection_criteria,
+    module_neighbors,
 )
 from app.database import get_db
 from app.models import Candidate, Progress, Role, Score, Submission
@@ -133,6 +134,7 @@ async def module_detail(module_id: str, request: Request, db: Session = Depends(
     mod = get_module(module_id)
     if not mod:
         return RedirectResponse("/modules", status_code=303)
+    prev_m, next_m, index, total = module_neighbors(module_id)
     done = False
     user = get_current_user(request, db)
     if user and user.role == Role.student:
@@ -144,7 +146,15 @@ async def module_detail(module_id: str, request: Request, db: Session = Depends(
         done = bool(p and p.completed)
     return templates.TemplateResponse(
         "module_detail.html",
-        _ctx(request, db, module=mod, completed=done),
+        _ctx(
+            request, db,
+            module=mod,
+            completed=done,
+            prev_module=prev_m,
+            next_module=next_m,
+            module_index=index,
+            module_total=total,
+        ),
     )
 
 

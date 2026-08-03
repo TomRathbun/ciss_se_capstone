@@ -5,12 +5,36 @@ terms:
     definition: Interdisciplinary approach to enable the realization of successful systems — balancing need, requirements, design, integration, and verification.
   - term: Stakeholder
     definition: Person or organization with an interest in the system (user, operator, acquirer, maintainer, regulator).
+  - term: Vision statement
+    definition: A shared description of the desired future state of a system or program phase, often with guiding principles — used to align stakeholders before needs and requirements.
+  - term: Key principle (vision)
+    definition: A standing rule of the vision (e.g. hybrid AI, human-in-the-loop, MOSA/open standards) that guides trades and later requirements.
   - term: Operational need
-    definition: The problem or capability gap in the real world that motivates building a system.
+    definition: The problem or capability gap in the real world that motivates building a system — expressed for a stakeholder with a benefit; derived from vision.
+  - term: Needs statement (course grammar)
+    definition: "Fixed form: As <stakeholder>, we need <the need>, so that <benefit>. Captures who, what capability, and why — not system shall-language."
+  - term: Use case
+    definition: A goal-oriented interaction between an actor and the system that delivers part of a need; includes main success scenario and extensions (failures/alternates).
+  - term: Derivation chain (this course)
+    definition: Vision → Needs → Use cases → Requirements (EARS) → Design. Each layer refines the previous; skip layers and quality drops.
+  - term: Stakeholder (in a need)
+    definition: The role or unit named after "As …" — owner of the need (e.g. UAE AFAD Mission Operators, FOSC program administrators).
+  - term: Benefit (in a need)
+    definition: The "so that …" clause — mission or business outcome that validates success with that stakeholder.
   - term: Requirement
-    definition: A formal statement of what the system shall do or a constraint it shall satisfy (not how to implement it).
+    definition: A formal statement of what the system shall do or a constraint it shall satisfy (not how to implement it). Derived from needs; written with shall / EARS in this course.
   - term: Shall
     definition: Mandatory requirement language. Avoid "should/may" for critical behaviors unless intentionally optional.
+  - term: EARS
+    definition: Easy Approach to Requirements Syntax — patterned requirement sentences using WHEN, WHILE, IF/THEN, WHERE, or ubiquitous form so triggers and responses are explicit.
+  - term: WHEN (EARS)
+    definition: Event-driven requirement — WHEN a trigger occurs, the system shall respond.
+  - term: WHILE (EARS)
+    definition: State-driven requirement — WHILE a condition/state holds, the system shall maintain a behavior.
+  - term: IF/THEN (EARS)
+    definition: Unwanted-condition requirement — IF something goes wrong or is illegal, THEN the system shall handle it.
+  - term: WHERE (EARS)
+    definition: Optional-feature requirement — WHERE a feature is included, the system shall provide related behavior.
   - term: Acceptance criterion (AC)
     definition: Objective condition that must be true to accept that a requirement is met (often Given/When/Then).
   - term: NFR

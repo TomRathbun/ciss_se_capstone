@@ -21,27 +21,35 @@ modules:
     track: se
     title: What Is Systems Engineering?
     duration_min: 90
-    summary: Need vs requirement vs design; system boundary; why SE matters on multi-discipline programs.
+    summary: Vision → needs → use cases → requirements → design; why SE matters on multi-discipline programs.
     offline: true
 
   - id: se-02-stakeholders
     order: 3
     track: se
-    title: Stakeholders, Context & Boundaries
+    title: Vision, Stakeholders & Needs
+    duration_min: 120
+    summary: Vision statement for shared perspective; stakeholders; needs grammar (As… we need… so that…); context & scope.
+    offline: true
+
+  - id: se-usecases
+    order: 4
+    track: se
+    title: Use Cases from Needs
     duration_min: 90
-    summary: Stakeholder analysis, operational need, context diagrams, in-scope vs out-of-scope.
+    summary: Derive use cases from needs; actors, main success scenario, extensions; bridge to EARS requirements.
     offline: true
 
   - id: se-03-requirements
-    order: 4
+    order: 5
     track: se
     title: Requirements & Acceptance Criteria
     duration_min: 120
-    summary: Shall language, IDs, functional vs non-functional, Given/When/Then acceptance criteria.
+    summary: Shall language, EARS grammar, IDs, NFRs, ACs — derived from use cases and needs.
     offline: true
 
   - id: se-04-architecture
-    order: 5
+    order: 6
     track: se
     title: Architecture Views
     duration_min: 90
@@ -49,7 +57,7 @@ modules:
     offline: true
 
   - id: se-05-behavior
-    order: 6
+    order: 7
     track: se
     title: Behavior — States & Sequences
     duration_min: 120
@@ -57,7 +65,7 @@ modules:
     offline: true
 
   - id: se-06-interfaces
-    order: 7
+    order: 8
     track: se
     title: Interfaces & ICDs
     duration_min: 90
@@ -65,7 +73,7 @@ modules:
     offline: true
 
   - id: se-07-vv-trace
-    order: 8
+    order: 9
     track: se
     title: Verification, Validation & Traceability
     duration_min: 90
@@ -73,7 +81,7 @@ modules:
     offline: true
 
   - id: se-08-case-etas
-    order: 9
+    order: 10
     track: se
     title: Case Study — SDC Time Tracker (ETAS)
     duration_min: 120
@@ -81,7 +89,7 @@ modules:
     offline: false
 
   - id: ops-01-ato-planning
-    order: 10
+    order: 11
     track: ops
     title: Military Ops — Air Tasking Order (Planning)
     duration_min: 150
@@ -89,7 +97,7 @@ modules:
     offline: true
 
   - id: ops-02-ato-execution
-    order: 11
+    order: 12
     track: ops
     title: Military Ops — ATO Execution
     duration_min: 150
@@ -97,7 +105,7 @@ modules:
     offline: true
 
   - id: ops-03-weapons-context
-    order: 12
+    order: 13
     track: ops
     title: Weapons & Platforms Context (Lockheed Heritage)
     duration_min: 90
@@ -105,7 +113,7 @@ modules:
     offline: true
 
   - id: se-09-capstone-preview
-    order: 13
+    order: 14
     track: se
     title: Capstone Preview — Radar Situational Awareness
     duration_min: 60
@@ -115,42 +123,42 @@ modules:
 assignments:
   - id: a1-context
     order: 1
-    title: Context & Stakeholders (ETAS or simple system)
+    title: Vision, Context & Stakeholders
     module_id: se-02-stakeholders
     due_session: "Week 2 Thursday"
     weight: 10
-    summary: One-page context diagram + stakeholder table with concerns.
+    summary: Short vision, needs grammar, context diagram, stakeholder table.
     rubric:
       - dimension: completeness
         max_points: 10
-        description: All major actors and external systems identified
+        description: Vision + needs grammar; major actors and external systems identified
       - dimension: boundary_clarity
         max_points: 10
-        description: Clear in-scope / out-of-scope
+        description: Clear in-scope / out-of-scope; vision/need/design not mixed
       - dimension: communication
         max_points: 5
-        description: Readable by a non-author engineer
+        description: Readable by a non-author engineer; shared perspective is clear
 
   - id: a2-requirements
     order: 2
-    title: Requirements Pack (shall + acceptance)
+    title: Requirements Pack (EARS + acceptance)
     module_id: se-03-requirements
-    due_session: "Week 3 Thursday"
+    due_session: "Week 4 Thursday"
     weight: 25
-    summary: 8–12 FRs, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
+    summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
     rubric:
       - dimension: testability
         max_points: 15
         description: Requirements and ACs are objectively testable
       - dimension: shall_quality
         max_points: 10
-        description: Correct shall language; no design disguised as need
+        description: Correct EARS patterns and shall language; no design disguised as need
       - dimension: coverage
         max_points: 10
-        description: Happy path + key error/edge cases
+        description: WHEN + WHILE + IF/THEN represented; happy path and key errors
       - dimension: communication
         max_points: 5
-        description: Clear IDs and structure
+        description: Clear IDs, pattern tags, and structure
 
   - id: a3-behavior
     order: 3
