@@ -9,6 +9,8 @@
 
 > Training context only. Unclassified conceptual material for intern education — not real tasking.
 
+**Prerequisite:** *Military Ops — CONOPS & Air Operations Center* (AOC as the hub; detect→assess chain; voice/datalink).
+
 ## What is an ATO?
 
 An **Air Tasking Order** is the plan that assigns air missions, resources, and timing for a period of operations. It turns commander intent into flyable tasks: who goes where, when, with what, talking how.

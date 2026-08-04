@@ -26,6 +26,20 @@ VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS  →  DESIGN / IMPLEMENTAT
  picture   benefit     use it         shall do (EARS)
 ```
 
+```mermaid
+flowchart LR
+    V[Vision] --> N[Needs]
+    N --> U[Use cases]
+    U --> R[Requirements EARS]
+    R --> D[Design]
+```
+
+Optional display math (KaTeX) when you need formal models later:
+
+$$
+R_{\mathrm{trace}} = \frac{\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\#\{\mathrm{FR}\}}
+$$
+
 | Layer | Question | Artifact form (this course) |
 |-------|----------|------------------------------|
 | **Vision** | What future are we building toward together? | Short vision statement + optional key principles |

@@ -88,8 +88,16 @@ modules:
     summary: Walk the living system and its SE artifacts; connect FR-IDs to real code and export.
     offline: false
 
-  - id: ops-01-ato-planning
+  - id: ops-00-conops-aoc
     order: 11
+    track: ops
+    title: Military Ops — CONOPS & Air Operations Center
+    duration_min: 120
+    summary: CONOPS definition; AOC stack (HQ→C2/TEWA/COP→VCS/Link16→effectors); detect-to-assess workflow; Frequentis voice; roles. Source- SME training lecture.
+    offline: true
+
+  - id: ops-01-ato-planning
+    order: 12
     track: ops
     title: Military Ops — Air Tasking Order (Planning)
     duration_min: 150
@@ -97,7 +105,7 @@ modules:
     offline: true
 
   - id: ops-02-ato-execution
-    order: 12
+    order: 13
     track: ops
     title: Military Ops — ATO Execution
     duration_min: 150
@@ -105,7 +113,7 @@ modules:
     offline: true
 
   - id: ops-03-weapons-context
-    order: 13
+    order: 14
     track: ops
     title: Weapons & Platforms Context (Lockheed Heritage)
     duration_min: 90
@@ -113,7 +121,7 @@ modules:
     offline: true
 
   - id: se-09-capstone-preview
-    order: 14
+    order: 15
     track: se
     title: Capstone Preview — Radar Situational Awareness
     duration_min: 60

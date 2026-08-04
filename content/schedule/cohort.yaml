@@ -85,8 +85,8 @@ sessions:
   - id: w6-mon
     week: 6
     day: Monday
-    title: Military ops — ATO planning
-    modules: [ops-01-ato-planning, ops-03-weapons-context]
+    title: Military ops — CONOPS/AOC then ATO planning
+    modules: [ops-00-conops-aoc, ops-01-ato-planning]
     type: lecture_ops
 
   - id: w6-thu

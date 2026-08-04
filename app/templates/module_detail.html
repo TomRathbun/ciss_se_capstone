@@ -81,4 +81,22 @@
     </a>
     {% endif %}
 </nav>
+{% if user and user.role.value == 'instructor' %}
+<p class="mt-6 text-center">
+    <a href="/instructor/content/modules/{{ module.id }}" class="text-xs text-primary-400 hover:text-primary-300">
+        Edit this module in content editor →
+    </a>
+</p>
+{% endif %}
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="/static/js/content_view.js"></script>
 {% endblock %}

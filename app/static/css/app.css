@@ -111,6 +111,51 @@
     border-radius: 0 0.5rem 0.5rem 0;
 }
 .prose-course strong { color: #f8fafc; }
+.prose-course .mermaid-render {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(2, 6, 23, 0.55);
+    overflow-x: auto;
+}
+.prose-course .mermaid-render svg { max-width: 100%; height: auto; }
+.prose-course pre.mermaid {
+    background: rgba(2, 6, 23, 0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    overflow-x: auto;
+    color: #a5b4fc;
+    font-size: 0.8rem;
+}
+.prose-course .plantuml-render {
+    margin: 1.25rem 0;
+    text-align: center;
+}
+.prose-course .plantuml-render img {
+    max-width: 100%;
+    height: auto;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+.prose-course .katex { color: #e2e8f0; font-size: 1.05em; }
+.prose-course .katex-display {
+    margin: 1rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.prose-course .math-display {
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+.prose-course img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 0.75rem 0;
+}
 
 .input-dark {
     width: 100%;

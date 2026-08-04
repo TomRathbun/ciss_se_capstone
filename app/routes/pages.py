@@ -1,9 +1,12 @@
 """All HTTP routes for the course app."""
 
+import re
+import uuid
 from datetime import datetime
+from pathlib import Path
 
-from fastapi import APIRouter, Depends, Form, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
@@ -14,22 +17,29 @@ from app.auth import (
     verify_pin,
 )
 from app.config import (
+    ALLOWED_IMAGE_EXTS,
     APP_NAME,
     APP_TAGLINE,
     APP_VERSION,
     CASE_STUDY_APP_URL,
     CASE_STUDY_URL,
+    MAX_UPLOAD_BYTES,
     SESSION_COOKIE,
+    UPLOAD_DIR,
+    UPLOAD_URL_PREFIX,
 )
 from app.curriculum import (
     get_assignment,
     get_module,
     list_assignments,
+    list_editable_files,
     list_modules,
     load_glossary,
     load_schedule,
     load_selection_criteria,
     module_neighbors,
+    read_editable,
+    write_editable,
 )
 from app.database import get_db
 from app.models import Candidate, Progress, Role, Score, Submission
@@ -259,6 +269,15 @@ async def glossary_page(request: Request, db: Session = Depends(get_db)):
     )
 
 
+@router.get("/tutorial", response_class=HTMLResponse)
+async def syntax_tutorial(request: Request, db: Session = Depends(get_db)):
+    """Markdown, Mermaid, PlantUML, and KaTeX syntax guide with live examples."""
+    return templates.TemplateResponse(
+        "syntax_tutorial.html",
+        _ctx(request, db),
+    )
+
+
 @router.get("/selection", response_class=HTMLResponse)
 async def selection_page(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse(
@@ -294,8 +313,142 @@ async def instructor_home(request: Request, db: Session = Depends(get_db)):
             request, db,
             board=leaderboard(db),
             assignments=list_assignments(),
+            editable=list_editable_files(),
         ),
     )
+
+
+@router.get("/instructor/content", response_class=HTMLResponse)
+async def content_editor_index(request: Request, db: Session = Depends(get_db)):
+    """List editable markdown curriculum files."""
+    user = get_current_user(request, db)
+    if not user or user.role != Role.instructor:
+        return RedirectResponse("/login", status_code=303)
+    return templates.TemplateResponse(
+        "content_editor.html",
+        _ctx(
+            request, db,
+            files=list_editable_files(),
+            kind=None,
+            content_id=None,
+            body="",
+            title="Content editor",
+            saved=False,
+            error=None,
+        ),
+    )
+
+
+@router.get("/instructor/content/{kind}/{content_id}", response_class=HTMLResponse)
+async def content_editor_page(
+    kind: str,
+    content_id: str,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    user = get_current_user(request, db)
+    if not user or user.role != Role.instructor:
+        return RedirectResponse("/login", status_code=303)
+    body = read_editable(kind, content_id)
+    if body is None:
+        return RedirectResponse("/instructor/content", status_code=303)
+    title = content_id
+    if kind == "modules":
+        m = get_module(content_id)
+        if m:
+            title = m["title"]
+    elif kind == "assignments":
+        a = get_assignment(content_id)
+        if a:
+            title = a["title"]
+    return templates.TemplateResponse(
+        "content_editor.html",
+        _ctx(
+            request, db,
+            files=list_editable_files(),
+            kind=kind,
+            content_id=content_id,
+            body=body,
+            title=title,
+            saved=request.query_params.get("saved") == "1",
+            error=None,
+        ),
+    )
+
+
+@router.post("/instructor/content/{kind}/{content_id}")
+async def content_editor_save(
+    kind: str,
+    content_id: str,
+    request: Request,
+    body: str = Form(""),
+    db: Session = Depends(get_db),
+):
+    user = get_current_user(request, db)
+    if not user or user.role != Role.instructor:
+        return RedirectResponse("/login", status_code=303)
+    ok = write_editable(kind, content_id, body)
+    if not ok:
+        return templates.TemplateResponse(
+            "content_editor.html",
+            _ctx(
+                request, db,
+                files=list_editable_files(),
+                kind=kind,
+                content_id=content_id,
+                body=body,
+                title=content_id,
+                saved=False,
+                error="Could not save — invalid path or file.",
+            ),
+            status_code=400,
+        )
+    return RedirectResponse(
+        f"/instructor/content/{kind}/{content_id}?saved=1",
+        status_code=303,
+    )
+
+
+@router.post("/instructor/upload-image")
+async def upload_content_image(
+    request: Request,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+):
+    """Upload an image for curriculum markdown; returns JSON {url, markdown}."""
+    user = get_current_user(request, db)
+    if not user or user.role != Role.instructor:
+        return JSONResponse({"error": "Unauthorized"}, status_code=401)
+
+    original = file.filename or "upload.bin"
+    ext = Path(original).suffix.lower()
+    if ext not in ALLOWED_IMAGE_EXTS:
+        return JSONResponse(
+            {"error": f"File type not allowed. Use: {', '.join(sorted(ALLOWED_IMAGE_EXTS))}"},
+            status_code=400,
+        )
+
+    data = await file.read()
+    if len(data) > MAX_UPLOAD_BYTES:
+        return JSONResponse(
+            {"error": f"File too large (max {MAX_UPLOAD_BYTES // (1024 * 1024)} MB)"},
+            status_code=400,
+        )
+    if not data:
+        return JSONResponse({"error": "Empty file"}, status_code=400)
+
+    safe_stem = re.sub(r"[^a-zA-Z0-9_-]+", "-", Path(original).stem)[:40].strip("-") or "img"
+    name = f"{safe_stem}-{uuid.uuid4().hex[:10]}{ext}"
+    dest = UPLOAD_DIR / name
+    dest.write_bytes(data)
+
+    url = f"{UPLOAD_URL_PREFIX}/{name}"
+    alt = safe_stem.replace("-", " ")
+    return JSONResponse({
+        "url": url,
+        "markdown": f"![{alt}]({url})",
+        "filename": name,
+    })
 
 
 @router.get("/instructor/grade/{candidate_id}/{assignment_id}", response_class=HTMLResponse)

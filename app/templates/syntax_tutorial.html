@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+{% block title %}Syntax tutorial — {{ app_name }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  .tutorial-nav a { color: #94a3b8; }
+  .tutorial-nav a:hover { color: #a5b4fc; }
+  .ex-grid { display: grid; gap: 1rem; }
+  @media (min-width: 900px) {
+    .ex-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .ex-src {
+    background: rgba(2,6,23,0.75);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .ex-out {
+    background: rgba(15,23,42,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1rem;
+  }
+  .ex-out .katex { color: #e2e8f0; }
+  .section-anchor { scroll-margin-top: 5rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <p class="text-[11px] font-bold tracking-widest text-primary-400 uppercase mb-2">Instructor &amp; student reference</p>
+    <h1 class="text-3xl font-bold mb-2">Markdown &amp; diagram syntax tutorial</h1>
+    <p class="text-gray-400 text-sm max-w-3xl">
+        Same patterns as the artifact registry: write Markdown, embed Mermaid and PlantUML in fenced code blocks,
+        and use KaTeX for math. Diagrams and formulas render in the content editor and on module pages.
+    </p>
+    {% if user and user.role.value == 'instructor' %}
+    <a href="/instructor/content" class="inline-block mt-4 btn-primary text-sm">Open content editor</a>
+    {% endif %}
+</div>
+
+<div class="grid lg:grid-cols-12 gap-8">
+    <nav class="lg:col-span-3 tutorial-nav card p-4 h-fit lg:sticky lg:top-20 text-sm space-y-1">
+        <p class="text-[10px] uppercase tracking-wide text-gray-500 font-bold mb-2">Contents</p>
+        <a href="#markdown" class="block py-1">1. Markdown</a>
+        <a href="#mermaid" class="block py-1">2. Mermaid</a>
+        <a href="#plantuml" class="block py-1">3. PlantUML</a>
+        <a href="#katex" class="block py-1">4. KaTeX math</a>
+        <a href="#images" class="block py-1">5. Images</a>
+        <a href="#se-snippets" class="block py-1">6. SE snippets</a>
+    </nav>
+
+    <div class="lg:col-span-9 space-y-14 prose-course math-root">
+
+        <section id="markdown" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">1. Markdown basics</h2>
+            <p class="text-gray-400 text-sm mb-4">Standard GitHub-flavored Markdown for headings, emphasis, lists, tables, quotes, and links.</p>
+
+            <div class="ex-grid mb-6">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src"># Heading 1
+## Heading 2
+### Heading 3
+
+*italic* · **bold** · ***both*** · ~~strike~~
+
+- Unordered item
+- Nested
+  - Sub-item
+
+1. Ordered one
+2. Ordered two
+
+> Blockquote for teaching notes
+
+`inline code` and tables:
+
+| Role | Cares about |
+| --- | --- |
+| Operator | COP clarity |
+| Commander | Authority |</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out prose-course">
+                        <h1>Heading 1</h1>
+                        <h2>Heading 2</h2>
+                        <h3>Heading 3</h3>
+                        <p><em>italic</em> · <strong>bold</strong> · <strong><em>both</em></strong> · <del>strike</del></p>
+                        <ul>
+                            <li>Unordered item</li>
+                            <li>Nested
+                                <ul><li>Sub-item</li></ul>
+                            </li>
+                        </ul>
+                        <ol>
+                            <li>Ordered one</li>
+                            <li>Ordered two</li>
+                        </ol>
+                        <blockquote>Blockquote for teaching notes</blockquote>
+                        <p><code>inline code</code> and tables:</p>
+                        <table>
+                            <thead><tr><th>Role</th><th>Cares about</th></tr></thead>
+                            <tbody>
+                                <tr><td>Operator</td><td>COP clarity</td></tr>
+                                <tr><td>Commander</td><td>Authority</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mermaid" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">2. Mermaid diagrams</h2>
+            <p class="text-gray-400 text-sm mb-4">
+                Use a fenced block with language <code class="text-primary-400">mermaid</code>.
+                Great for flowcharts, sequence, and state diagrams (SE behavior models).
+            </p>
+
+            <h3 class="text-lg font-semibold text-primary-300 mb-2">Flowchart</h3>
+            <div class="ex-grid mb-8">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src">```mermaid
+flowchart LR
+    V[Vision] --> N[Needs]
+    N --> U[Use cases]
+    U --> R[EARS requirements]
+    R --> D[Design]
+```</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out">
+<pre class="mermaid">flowchart LR
+    V[Vision] --> N[Needs]
+    N --> U[Use cases]
+    U --> R[EARS requirements]
+    R --> D[Design]
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-semibold text-primary-300 mb-2">Sequence diagram</h3>
+            <div class="ex-grid mb-8">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src">```mermaid
+sequenceDiagram
+    actor Op as Operator
+    participant AOC
+    participant VCS as Frequentis VCS
+    Op->>AOC: Report track
+    AOC->>VCS: Voice tasking
+    VCS-->>Op: Acknowledge
+```</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out">
+<pre class="mermaid">sequenceDiagram
+    actor Op as Operator
+    participant AOC
+    participant VCS as Frequentis VCS
+    Op->>AOC: Report track
+    AOC->>VCS: Voice tasking
+    VCS-->>Op: Acknowledge
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-semibold text-primary-300 mb-2">State diagram</h3>
+            <div class="ex-grid mb-4">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src">```mermaid
+stateDiagram-v2
+    [*] --> NotStarted
+    NotStarted --> CheckedIn: check_in
+    CheckedIn --> CheckedOut: check_out
+    CheckedOut --> CheckedIn: check_in
+```</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out">
+<pre class="mermaid">stateDiagram-v2
+    [*] --> NotStarted
+    NotStarted --> CheckedIn: check_in
+    CheckedIn --> CheckedOut: check_out
+    CheckedOut --> CheckedIn: check_in
+</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plantuml" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">3. PlantUML</h2>
+            <p class="text-gray-400 text-sm mb-4">
+                Use language <code class="text-primary-400">plantuml</code>. Diagrams render via the PlantUML server
+                (same approach as the registry). Prefer <code>@startuml</code> … <code>@enduml</code>.
+            </p>
+            <div class="ex-grid mb-4">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src">```plantuml
+@startuml
+skinparam style strictuml
+actor Operator
+participant "AOC / C2" as AOC
+participant TEWA
+participant VCS
+
+Operator -> AOC: Detect / track report
+AOC -> TEWA: Evaluate threat
+TEWA --> AOC: Assign recommendation
+AOC -> VCS: Voice order to effector
+@enduml
+```</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out plantuml-live" data-plantuml="@startuml
+skinparam style strictuml
+actor Operator
+participant &quot;AOC / C2&quot; as AOC
+participant TEWA
+participant VCS
+
+Operator -> AOC: Detect / track report
+AOC -> TEWA: Evaluate threat
+TEWA --> AOC: Assign recommendation
+AOC -> VCS: Voice order to effector
+@enduml"></div>
+                </div>
+            </div>
+            <p class="text-xs text-gray-600">Requires network access to <code>plantuml.com</code> (or set <code>CISS_PLANTUML_SERVER</code> for a private server).</p>
+        </section>
+
+        <section id="katex" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">4. KaTeX mathematics</h2>
+            <p class="text-gray-400 text-sm mb-4">
+                Inline: <code class="text-primary-400">$...$</code> or <code>\(...\)</code>.
+                Display: <code>$$...$$</code>, <code>\[...\]</code>, or a fenced <code>math</code> / <code>latex</code> block.
+            </p>
+
+            <div class="ex-grid mb-6">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Source</p>
+                    <div class="ex-src">Inline: the energy relation $E = mc^2$ is familiar.
+
+Display:
+
+$$
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+$$
+
+Fenced block:
+
+```math
+P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}
+```</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Rendered</p>
+                    <div class="ex-out prose-course">
+                        <p>Inline: the energy relation $E = mc^2$ is familiar.</p>
+                        <p>Display:</p>
+                        <p>$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$$</p>
+                        <p>Fenced block:</p>
+                        <div class="math-display">\[P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}\]</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="images" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">5. Images</h2>
+            <p class="text-gray-400 text-sm mb-4">
+                In the content editor, use <strong class="text-gray-200">🖼 Image</strong> or paste from the clipboard.
+                Instructors only. Markdown form:
+            </p>
+            <div class="ex-src mb-3">![Alt text describing the figure](/static/uploads/content/your-file-name.png)</div>
+            <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
+                <li>Allowed: PNG, JPEG, GIF, WebP, SVG</li>
+                <li>Max size: 5&nbsp;MB (configurable)</li>
+                <li>Stored under <code class="text-primary-400">app/static/uploads/content/</code></li>
+            </ul>
+        </section>
+
+        <section id="se-snippets" class="section-anchor">
+            <h2 class="text-2xl font-bold text-white mb-2">6. SE course snippets</h2>
+            <div class="ex-grid">
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Need grammar</p>
+                    <div class="ex-src">As UAE AFAD Mission Operators,
+we need AI tools that combine smart learning with proven rules
+for better tracking, identification, threat prediction, and engagement calculations,
+so that we can handle dense threat environments and asymmetric threats.</div>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">EARS examples</p>
+                    <div class="ex-src">WHEN an operator selects a track, the SA system shall display the detail panel.
+
+WHILE a track is in Lost status, the SA system shall render Lost symbology.
+
+IF a feed message fails schema validation THEN the ingest service shall discard it and increment the invalid-message counter.
+
+WHERE dual-feed correlation is enabled, WHEN plots match the gate the SA system shall attempt merge.</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/plantuml-encoder@1.4.0/dist/plantuml-encoder.min.js"></script>
+<script src="/static/js/content_view.js"></script>
+<script>
+  // PlantUML demo blocks on this page
+  (function () {
+    document.querySelectorAll('.plantuml-live').forEach(function (el) {
+      var code = el.getAttribute('data-plantuml') || '';
+      code = code.replace(/&quot;/g, '"');
+      if (typeof plantumlEncoder === 'undefined') {
+        el.textContent = 'PlantUML encoder not loaded';
+        return;
+      }
+      var url = 'https://www.plantuml.com/plantuml/svg/' + plantumlEncoder.encode(code);
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = 'PlantUML example';
+      img.className = 'max-w-full mx-auto bg-white rounded-lg p-2';
+      img.loading = 'lazy';
+      el.appendChild(img);
+    });
+  })();
+</script>
+{% endblock %}

@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Instructor — {{ app_name }}{% endblock %}
 {% block content %}
-<h1 class="text-3xl font-bold mb-2">Instructor desk</h1>
-<p class="text-gray-500 text-sm mb-8">Candidate ranking is instructor-only. Students do not see this board.</p>
+<div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+    <div>
+        <h1 class="text-3xl font-bold mb-2">Instructor desk</h1>
+        <p class="text-gray-500 text-sm">Candidate ranking is instructor-only. Students do not see this board.</p>
+    </div>
+    <a href="/instructor/content" class="btn-primary">
+        Content editor (Markdown + Mermaid)
+    </a>
+</div>
 
 <div class="card p-5 mb-8 overflow-x-auto">
     <h2 class="font-bold mb-4">Leaderboard / selection board</h2>

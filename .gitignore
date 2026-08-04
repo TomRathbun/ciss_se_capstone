@@ -9,3 +9,8 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+# Windows "Read-Only" copies of reference decks (canonical copy under content/reference/)
+*Read-Only*
+# Uploaded curriculum images (keep folder, ignore binaries)
+app/static/uploads/content/*
+!app/static/uploads/content/.gitkeep

@@ -28,3 +28,16 @@ CASE_STUDY_APP_URL = os.environ.get(
 # Default instructor PIN (change in production)
 DEFAULT_INSTRUCTOR_PIN = os.environ.get("CISS_INSTRUCTOR_PIN", "4242")
 DEFAULT_STUDENT_PIN = os.environ.get("CISS_STUDENT_PIN", "1234")
+
+# Uploaded images for curriculum markdown (served under /static/uploads/...)
+UPLOAD_DIR = BASE_DIR / "app" / "static" / "uploads" / "content"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+UPLOAD_URL_PREFIX = "/static/uploads/content"
+MAX_UPLOAD_BYTES = int(os.environ.get("CISS_MAX_UPLOAD_BYTES", str(5 * 1024 * 1024)))  # 5 MB
+ALLOWED_IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
+
+# PlantUML public render server (override if self-hosting)
+PLANTUML_SERVER = os.environ.get(
+    "CISS_PLANTUML_SERVER",
+    "https://www.plantuml.com/plantuml/svg/",
+)

@@ -55,6 +55,18 @@ terms:
     definition: Requirements Traceability Matrix.
   - term: Baseline
     definition: An approved set of artifacts at a point in time under change control.
+  - term: CONOPS
+    definition: Concept of Operations — describes how a system is used; defines users, missions, and operational concepts; bridges needs/requirements and design.
+  - term: AOC
+    definition: Air Operations Center — hub for air planning, monitoring, and direction between higher HQ and executing forces.
+  - term: COP
+    definition: Common Operational Picture — shared situational awareness display of the battlespace.
+  - term: TEWA
+    definition: Threat Evaluation and Weapon Assignment — process/system function to prioritize threats and assign responses.
+  - term: VCS
+    definition: Voice Communication System — integrated radios/telephone/VoIP (e.g. training context Frequentis) for mission voice, often with recording and redundancy.
+  - term: Link 16
+    definition: Tactical datalink used to exchange digital tactical data among platforms (training-level mention; details are procedural/technical beyond this course).
   - term: ATO
     definition: Air Tasking Order — the plan that assigns air missions, resources, and timing for a period of operations.
   - term: Planning (air ops)

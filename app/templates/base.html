@@ -44,10 +44,12 @@
                     <a class="nav-link" href="/assignments">Assignments</a>
                     <a class="nav-link" href="/schedule">Schedule</a>
                     <a class="nav-link" href="/glossary">Glossary</a>
+                    <a class="nav-link" href="/tutorial">Tutorial</a>
                     <a class="nav-link" href="/selection">Selection</a>
                     {% if user %}
                         {% if user.role.value == 'instructor' %}
                         <a class="nav-link text-amber-300" href="/instructor">Instructor</a>
+                        <a class="nav-link text-amber-200/80" href="/instructor/content" title="Edit curriculum Markdown">Editor</a>
                         {% else %}
                         <a class="nav-link" href="/me">My progress</a>
                         {% endif %}

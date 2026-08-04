@@ -78,6 +78,8 @@ Edit Markdown and YAML; restart not always required for content (read on each re
 - **Modules** — SE track + OPS track, mark complete  
 - **Assignments A1–A6** — weighted; student draft/submit  
 - **Instructor desk** — leaderboard, per-dimension grading, recommend flag, add interns  
+- **Content editor** (instructor) — dual-pane Markdown with live **Mermaid**, **PlantUML**, **KaTeX**, and **image upload** (paste or button); saves to `content/modules|assignments/*.md`  
+- **Syntax tutorial** — `/tutorial` examples for Markdown, Mermaid, PlantUML, KaTeX, images  
 - **My progress** — student weighted % so far  
 - **Glossary / Selection / Schedule**  
 - **Case study links** — env `CISS_CASE_STUDY_URL` (default `http://localhost:8888/systems-engineering`)
