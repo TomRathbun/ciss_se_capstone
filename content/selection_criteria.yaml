@@ -9,7 +9,7 @@ dimensions:
     name: Systems thinking & SE craft
     weight_pct: 40
     signals:
-      - Testable requirements and acceptance criteria
+      - Testable requirements that stand alone; ACs prove FRs without rewriting them
       - Clean system boundaries
       - Traceability discipline
       - Learns from the ETAS case study without copy-paste only

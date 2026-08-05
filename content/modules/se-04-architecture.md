@@ -8,19 +8,19 @@
 
 ## Architecture is not decoration
 
-Architecture answers:
+Architecture answers four essential questions:
 
 - What are the major pieces?
 - What are their responsibilities?
 - How do they interact?
 - What quality attributes does this structure support?
 
-## Useful views for software-heavy systems
+## Useful views for software-heavy systems (C4-style)
 
 1. **Context** — system vs world (from prior module)  
 2. **Containers / layers** — UI, application services, data  
-3. **Component** — modules inside a layer  
-4. **Runtime** — who calls whom for a key scenario  
+3. **Components** — modules inside a layer  
+4. **Runtime (sequence)** — who calls whom for a key scenario  
 
 ETAS example layers:
 
@@ -32,29 +32,31 @@ ETAS example layers:
 | Persistence    | Storage of permanent data      | SQLite DB, ORM models            |
 
 
-## Allocation (simple RTM column)
+## Allocation (**allocated_to** design)
 
-| Requirement ID | Design element (code path)               | Originating UC / Need |
-|----------------|------------------------------------------|-----------------------|
-| FR‑CI‑02       | `time_state.can_check_in`                | UC‑Check‑In            |
-| FR‑BEOD‑01    | `time_calc.update_daily_summary`         | Need‑BEOD support      |
-| FR‑DISC‑01    | `fosc_export.write_discrepancy_sheet`    | UC‑Export package      |
+In the derivation chain, use cases are **allocated_to** requirements; here each requirement is **allocated_to** a design element.
 
+| Requirement ID | **allocated_to** (design / code path) | Originating UC / Need |
+|----------------|----------------------------------------|-----------------------|
+| FR-CI-02 | `time_state.can_check_in` | UC-Check-In |
+| FR-BEOD-01 | `time_calc.update_daily_summary` | Need-BEOD support |
+| FR-DISC-01 | `fosc_export.write_discrepancy_sheet` | UC-Export package |
 
-If you cannot allocate an FR, either the architecture is incomplete or the FR is not real.
+If you cannot place an FR (**allocated_to** nowhere), either the architecture is incomplete or the FR is not real.
 
 ## Design decision template
 
 ```text
-Decision: Keep punch legality in a single service (`time_state`)  
-Status: **Approved** (reviewed 2026‑08‑05)  
-Rationale: Prevent UI and API from diverging on rules  
-Alternatives considered: Checks only in route handlers  
+Decision: Keep punch legality in a single service (`time_state`)
+Status: **Approved** (reviewed 2026-08-05)
+Rationale: Prevent UI and API from diverging on rules
+Alternatives considered: Checks only in route handlers
 Consequences: Routes stay thin; tests focus on one module; easier to extend legality logic
-
 ```
 
-## Workshop (10 min)
+> **Reminder:** If any part of a decision record is generated with AI assistance, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying rationale must remain yours.
+
+## Workshop (10 min)
 
 Pick one FR from the case study. Write:
 
@@ -67,7 +69,7 @@ Pick one FR from the case study. Write:
 ```mermaid
 graph LR
     subgraph Context
-        EXT[External actors & systems]
+        EXT[External actors and systems]
     end
     subgraph Containers
         UI[Presentation UI]
@@ -81,10 +83,9 @@ graph LR
     DOM --> DB
 ```
 
+*Alt text: Four-view C4-style stack — external actors into Presentation → Application services → Domain → Persistence.*
+
 ## Next
 
-**Behavior** – you will model states and sequences (runtime view) for time‑dependent rules, showing how the architecture you just built is exercised.
-
-> **Reminder:** If any part of a decision record is generated with AI assistance, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying rationale must remain yours.
-
+**Behavior — States & Sequences** — model states and sequences (runtime view) for time-dependent rules, showing how the architecture you just built is exercised.
 

@@ -10,15 +10,16 @@
 
 ```text
 VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS (EARS)
+              derives_from   traces_to    allocated_to
 ```
 
-| Layer | Focus |
-|-------|--------|
-| Need | Capability + benefit for a stakeholder |
-| Use case | A **goal-oriented interaction** that delivers part of that benefit |
-| Requirement | System rules that make the use case work in all relevant conditions |
+| Layer | Focus | Link |
+|-------|--------|------|
+| Need | Capability + benefit for a stakeholder | **derives_from** vision |
+| Use case | A **goal-oriented interaction** that delivers part of that benefit | Need **traces_to** use case |
+| Requirement | System rules that make the use case work in all relevant conditions | Use case **allocated_to** requirement |
 
-One need → **several** use cases. One use case → **several** requirements.
+One need → **several** use cases (`traces_to`). One use case → **several** requirements (`allocated_to`).
 
 ## What is a use case?
 
@@ -95,12 +96,14 @@ Those extensions become EARS requirements in the next module.
 
 ## Traceability table (required habit)
 
-| Vision theme | Need (short) | Use case | Later FR IDs |
-|--------------|--------------|----------|--------------|
+Record the **link types**, not only the IDs:
+
+| Vision (parent) | Need **derives_from** | Use case **traces_to** | Later FR **allocated_to** |
+|-----------------|----------------------|------------------------|---------------------------|
 | Hybrid human–AI SA | Operators need better tracking… | UC-TRK-01 | FR-TRK-… |
 | Auditable FOSC export | Admins need TEMPO-aware package… | UC-EX-02 | FR-FOSC-…, FR-DISC-… |
 
-Leave FR column blank until the requirements module — but keep the rows.
+Leave the FR column blank until the requirements module — but keep the rows and the relationship names.
 
 ## Workshop (20 min)
 
@@ -116,6 +119,8 @@ Take **one** needs statement from A1 or the AFAD example.
 - Not EARS requirements (those are the next layer)  
 - Not the vision paragraph  
 
+> **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
+
 ## Next
 
-**Requirements & Acceptance Criteria** — write EARS shall statements that make each use case succeed and fail safely.
+**Requirements & Acceptance Criteria** — write EARS shall-statements that make each use case succeed and fail safely, with Given/When/Then acceptance criteria.

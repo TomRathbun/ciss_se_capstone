@@ -1,5 +1,11 @@
 # Capstone Preview — Radar Situational Awareness
 
+## Learning outcomes (when opened)
+
+- Frame a multi-feed SA problem with vision, stakeholders, and scope  
+- Produce an SE artifact pack (FRs/NFRs, ACs, behavior, ICDs, RTM/V&V) for a radar SA capability  
+- Reuse ops vocabulary from ATO modules when stating mission context  
+
 ## Status
 
 **Placeholder for the next phase of the course.**  
@@ -19,9 +25,10 @@ Exact feed definitions, scoring, and deliverables will be published when this ph
 ## How to prepare now
 
 1. Finish A1–A5 with strong testability.  
-2. Practice RTMs.  
+2. Practice RTMs and “We would test it by…” answers.  
 3. Keep ops vocabulary from ATO modules.  
-4. Watch the ETAS case study for interface discipline — feeds are interfaces.
+4. Watch the ETAS case study for **interface discipline** — feeds are interfaces.  
+5. Steal SE practices from your ETAS reflection (A6) that transfer to SA.  
 
 ## Deliverable when opened (expected shape)
 
@@ -35,3 +42,7 @@ Exact feed definitions, scoring, and deliverables will be published when this ph
 ## Instructor
 
 Do not grade radar SA work until this module is expanded with a formal problem statement and rubric.
+
+## Next
+
+When this phase opens: problem statement, feeds, and rubric. Until then, complete remaining SE and **military ops** modules on schedule.

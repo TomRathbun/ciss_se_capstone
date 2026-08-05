@@ -11,9 +11,10 @@
 
 ```text
 VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS
+              ↑ derives_from
 ```
 
-This module covers **vision + stakeholders + needs**. Use cases are the next module; EARS requirements follow after that.
+This module covers **vision + stakeholders + needs**. Each need **derives_from** the vision (or a key principle). Use cases are the next module (`traces_to`); EARS requirements follow after that (`allocated_to`).
 
 ---
 
@@ -43,7 +44,7 @@ Vision is used across industry (product vision, system vision, CONOPS-adjacent f
 
 ### Vision quality checklist
 
-- [ ] A new engineer can read it and explain the program intent in 60 seconds  
+- [ ] A new engineer can read it and describe the program intent within 60 seconds  
 - [ ] Ops and engineering would both recognize their world in it  
 - [ ] It is **phase-aware** if you are in a refresh/increment (what continues, what is new)  
 - [ ] Principles are **actionable** (they will ban or favor classes of design)  
@@ -118,7 +119,8 @@ A stakeholder is anyone who cares about the system’s success or failure.
 
 ---
 
-## Needs statement grammar 
+## Needs statement grammar
+
 **Required form**
 
 ```text
@@ -136,14 +138,16 @@ so that <benefit>.
 | **we need &lt;the need&gt;** | Capability / outcome in ops language |
 | **so that &lt;benefit&gt;** | Mission or business value |
 
-### Derive needs **from** the vision
+### Needs **derives_from** the vision
 
 Do not invent needs in a vacuum. Walk the vision and ask:
 
 1. Who must succeed for this vision to be real? → **stakeholders**  
 2. What capability must they have? → **need**  
 3. What mission outcome improves? → **benefit**  
-4. Which vision **principle** does this need support? (traceability note)  
+4. Which vision line or **principle** does this need **derives_from**? (record the link)  
+
+On multi-level visions, a system/phase vision may itself **derives_from** a global program vision before needs hang off the phase vision.
 
 #### From AIC2-style vision → needs (examples)
 
@@ -188,7 +192,7 @@ so that we spend time on the mission instead of fighting the timesheet.
 
 ### Quality checklist (needs)
 
-- [ ] Traces to a vision phrase or principle (write the link in one line)  
+- [ ] **derives_from** a vision phrase or principle (write the parent ID or one-line link)  
 - [ ] Stakeholder is a real role/unit  
 - [ ] Need is not a design (“use ONNX”) — that may be a principle or later requirement  
 - [ ] Benefit is recognizable to that stakeholder  
@@ -217,11 +221,11 @@ graph LR
     SDC -->|xlsx| FOSC[FOSC package]
 ```
 
-#### f. Scope‑boundary table with bullets
+### Scope boundary
 
 | In scope (example) | Out of scope (example) |
 |--------------------|------------------------|
-| - Check‑in state machine<br>- BEOD credit rules | - Replacing TEMPO itself<br>- Payroll tax calculation |
+| - Check-in state machine<br>- BEOD credit rules | - Replacing TEMPO itself<br>- Payroll tax calculation |
 
 Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides what **this system** owns in this phase.
 
@@ -244,9 +248,9 @@ Submit a single document that includes:
 
 All artifacts will be graded for traceability, completeness, and professionalism per the selection‑criteria rubric.
 
-> **Note:** If you generate any wording with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be your own.
+> **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
 
 ## Next
 
-**Use Cases from Needs** — turn each need into actor goals, main success paths, and extensions; then write EARS requirements.
+**Use Cases from Needs** — turn each need into actor goals, main success scenarios, and extensions (where IF/THEN requirements are born).

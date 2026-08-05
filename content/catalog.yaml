@@ -13,7 +13,7 @@ modules:
     track: se
     title: Welcome & How This Course Works
     duration_min: 45
-    summary: Course purpose, selection criteria, Monday/Thursday rhythm, tools, and professional expectations.
+    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, tools, and professional expectations.
     offline: false
 
   - id: se-01-what-is-se
@@ -21,7 +21,7 @@ modules:
     track: se
     title: What Is Systems Engineering?
     duration_min: 90
-    summary: Vision → needs → use cases → requirements → design; why SE matters on multi-discipline programs.
+    summary: Vision → needs → use cases → requirements → design with derives_from / traces_to / allocated_to links; why SE matters.
     offline: true
 
   - id: se-02-stakeholders
@@ -45,7 +45,7 @@ modules:
     track: se
     title: Requirements & Acceptance Criteria
     duration_min: 120
-    summary: Shall language, EARS grammar, IDs, NFRs, ACs — derived from use cases and needs.
+    summary: Shall language, EARS grammar, IDs, NFRs, ACs that prove FRs without papering over vague shalls.
     offline: true
 
   - id: se-04-architecture
@@ -88,40 +88,48 @@ modules:
     summary: Walk the living system and its SE artifacts; connect FR-IDs to real code and export.
     offline: false
 
-  - id: ops-00-conops-aoc
+  - id: ops-uae-military
     order: 11
+    track: ops
+    title: UAE Military Context (Open Source)
+    duration_min: 90
+    summary: UAE Armed Forces branches, leadership roles, ranks, and public weapon/platform vocabulary — unclassified only.
+    offline: true
+
+  - id: ops-00-conops-aoc
+    order: 12
     track: ops
     title: Military Ops — CONOPS & Air Operations Center
     duration_min: 120
-    summary: CONOPS definition; AOC stack (HQ→C2/TEWA/COP→VCS/Link16→effectors); detect-to-assess workflow; Frequentis voice; roles. Source- SME training lecture.
+    summary: CONOPS & AOC with glossary, detect-to-assess workflow, VCS/Link16, roles, self-check, and SE-linked scenario. SME lecture.
     offline: true
 
   - id: ops-01-ato-planning
-    order: 12
+    order: 13
     track: ops
     title: Military Ops — Air Tasking Order (Planning)
     duration_min: 150
-    summary: Missions, weapons load, tanker/refueling, aircraft availability, voice & datalink planning.
+    summary: ATO planning vs execution; planning factors; sample mission card; self-check; starts A5.
     offline: true
 
   - id: ops-02-ato-execution
-    order: 13
+    order: 14
     track: ops
     title: Military Ops — ATO Execution
     duration_min: 150
-    summary: Training vs strike vs air defense execution; monitoring, changes, and after-action.
+    summary: Execution steps, change drivers, state-chart parallel, annex/AAR templates, self-check.
     offline: true
 
   - id: ops-03-weapons-context
-    order: 14
+    order: 15
     track: ops
     title: Weapons & Platforms Context (Lockheed Heritage)
     duration_min: 90
-    summary: How platforms and weapons relate to mission planning using the Tactical Library examples.
+    summary: Public platform/weapon vocabulary for mission cards; integrity rules; one-page brief; self-check.
     offline: true
 
   - id: se-09-capstone-preview
-    order: 15
+    order: 16
     track: se
     title: Capstone Preview — Radar Situational Awareness
     duration_min: 60
@@ -157,10 +165,10 @@ assignments:
     rubric:
       - dimension: testability
         max_points: 15
-        description: Requirements and ACs are objectively testable
+        description: Requirements and ACs are objectively testable; ACs prove FRs without adding hidden rules
       - dimension: shall_quality
         max_points: 10
-        description: Correct EARS patterns and shall language; no design disguised as need
+        description: Correct EARS and shall; FR stands alone without needing the AC to explain it
       - dimension: coverage
         max_points: 10
         description: WHEN + WHILE + IF/THEN represented; happy path and key errors
@@ -210,17 +218,17 @@ assignments:
     module_id: ops-01-ato-planning
     due_session: "Week 6 Thursday"
     weight: 15
-    summary: Build a simple mission card (type, assets, weapons concept, comms, execution risks).
+    summary: Unclassified mission card + execution annex + public platform justification (A5).
     rubric:
       - dimension: operational_realism
         max_points: 10
-        description: Planning factors considered (fuel/time/role/threat at basic level)
+        description: Planning factors, contingencies, and voice/datalink thinking at intern level
       - dimension: structure
         max_points: 10
-        description: Planning vs execution sections distinct
+        description: Planning vs execution annex distinct; template fields complete
       - dimension: communication
         max_points: 5
-        description: Clear for a peer to brief from
+        description: Clear for a peer to brief from in ~2 minutes
 
   - id: a6-professional
     order: 6

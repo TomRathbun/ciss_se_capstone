@@ -6,26 +6,28 @@
 - Use **EARS grammar** patterns so requirements are clear and consistent  
 - Derive FRs from **use cases** (which come from needs and vision)  
 - Separate **functional** and **non-functional** requirements  
-- Write **Given / When / Then** acceptance criteria that map to EARS FRs  
+- Write **Given / When / Then** acceptance criteria that **prove** EARS FRs without rewriting them  
+- Spot when ACs are **papering over** a vague requirement — and fix the requirement instead  
 - Spot bad requirements and rewrite them into EARS form  
 
 ## From vision → needs → use cases → requirements
 
-Full cascade (do not skip):
+**Full cascade (do not skip)** — skipping any upstream artifact breaks traceability and makes validation impossible.
 
 ```text
 VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS (this module)
+              derives_from   traces_to    allocated_to
 ```
 
-| Layer | Form |
-|-------|------|
-| Vision | Shared future state + principles |
-| Needs | `As <stakeholder>, we need …, so that …` |
-| Use cases | Actor + goal + main success + extensions |
-| Requirements | **EARS + shall** + IDs + acceptance criteria |
+| Layer | Form | Link |
+|-------|------|------|
+| Vision | Shared future state + principles | (system vision may **derives_from** global vision) |
+| Needs | `As <stakeholder>, we need …, so that …` | **derives_from** vision |
+| Use cases | Actor + goal + main success + extensions | Need **traces_to** use case |
+| Requirements | **EARS + shall** + IDs + acceptance criteria | Use case **allocated_to** this FR |
 
 Requirements answer: **What shall the system do** so each use case works (including failures)?  
-Do **not** paste a need or vision paragraph as a requirement.
+Do **not** paste a need or vision paragraph as a requirement. The FR is **allocated_to** from a use case — not a free-floating shall.
 
 | Source (UC)                              | System requirement (EARS)                                                                                     | EARS pattern |
 |------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------------|
@@ -34,7 +36,7 @@ Do **not** paste a need or vision paragraph as a requirement.
 | Maintain tracks in clutter (AFAD need)  | WHEN a new plot is associated to a track, the SA system shall update track kinematics within *T* seconds     | WHEN |
 
 
-**Habit:** Every FR should list `UC-…` (and ideally need/vision) in a trace column.
+**Habit:** Every FR lists its parent use case (`UC-…` via **allocated_to**) and, when known, the need/vision chain (**traces_to** / **derives_from**).
 
 ## Shall language
 
@@ -191,7 +193,7 @@ Use stable IDs for traceability:
 - `FR-CI-02` — functional, check-in family  
 - `NFR-SEC-01` — non-functional, security  
 
-IDs never change meaning mid-course without a baseline note.
+IDs never change meaning mid-course without a baseline note. If content must change, note the revision (e.g. `FR-CI-02` rev 2, or a change log line) so reviewers know the baseline.
 
 Tag the EARS pattern in a column or footnote if helpful: `FR-CI-02 [IF/THEN]`.
 
@@ -207,7 +209,30 @@ The ETAS shall complete primary check-in API handling in under 2 seconds under n
 
 ## Acceptance criteria
 
-ACs prove an EARS requirement. Prefer **Given / When / Then** — it aligns naturally with WHEN / WHILE / IF.
+ACs **prove** an EARS requirement. Prefer **Given / When / Then** — it aligns naturally with WHEN / WHILE / IF.
+
+They are **not** a second requirements document. On real programs (especially when FRs are **on contract**), the customer is entitled to the **shall-language**, not your favorite reading of an AC.
+
+### Requirements vs acceptance criteria
+
+| Artifact | Role | What it must not do |
+|----------|------|---------------------|
+| **Requirement (shall / EARS)** | Obligates the system — *what must be true* | Hide meaning that only appears in a test |
+| **Acceptance criterion** | Shows *how we will check* that the shall is met | Add, drop, or reinterpret obligations that are not in the FR |
+
+**Rule of thumb:** If you need the AC to understand what the requirement means, the **requirement is incomplete**. Fix the FR under change control; do not “clarify” it only in the AC.
+
+### Why this bites on contract work
+
+Programs sometimes write vague FRs and then lean on detailed ACs so the team can build something. That often **backfires**:
+
+1. The team implements what the **AC** says.  
+2. The customer (or inspector) points at the **contractual requirement** and demands *their* interpretation.  
+3. The AC does not protect you — it is usually a **verification artifact**, not the binding obligation.  
+
+So: make the **shall** testable and unambiguous *on its own*. Use ACs to exercise that meaning, not to replace it.
+
+### Aligned example (AC faithful to FR)
 
 ```text
 FR-CI-02 [IF/THEN]
@@ -217,15 +242,36 @@ THEN the ETAS shall reject the request and shall not create a new time entry.
 AC-CI-02 · FR-CI-02
 Given employee E is checked in today
 When E submits another check-in for today
-Then the system rejects with a clear error and stores no new check-in entry
+Then the system rejects the request and stores no new check-in entry
 ```
+
+The AC checks **reject** and **no new entry** — what the shall already states. It does not invent a specific UI message unless the FR requires one (that would be an extra obligation).
+
+### Anti-pattern — AC papers over a bad FR
+
+| Bad FR (vague) | Tempting AC (sneaks in the real rule) | What went wrong |
+|----------------|----------------------------------------|-----------------|
+| The ETAS shall handle BEOD correctly. | Given raw hours ≥ 6.0 and BEOD claimed… Then credit = 1.0 h | The **6.0 h / 1.0 h** rule only lives in the AC. Customer can still argue “correctly” means something else. |
+| The SA system shall update tracks in a timely manner. | Given a new plot… Then kinematics update within 2 s | Timeliness was never in the shall. Fix the FR: “within *T* seconds.” |
+| The export shall be contract-compliant. | Given TEMPO import… Then column M variance is zeroed above TEMPO | “Compliant” is undefined in the FR. Put TEMPO shortfall rules in the **shall** (or an ICD + FR), not only the AC. |
+
+**Repair path:** rewrite the FR in EARS with the numbers and conditions, *then* write ACs that only demonstrate that FR.
+
+### Alignment checks (before you submit)
+
+1. **Cover test** — Every obligation in the FR (triggers, states, responses, thresholds) is exercised by at least one AC.  
+2. **No-extra test** — Nothing in the AC is a new obligation the FR does not state (no new thresholds, roles, or reject reasons).  
+3. **Stand-alone FR** — A peer who never sees the AC can still pass/fail the FR in principle.  
+4. **Conflict** — If AC and FR disagree, **the FR wins** until the baseline is changed. Do not “win the argument” with a cleverer AC.
 
 ### Quality checklist for ACs
 
 - [ ] Observable result (not “user is happy”)  
 - [ ] Named preconditions (match EARS WHEN/WHILE/IF)  
+- [ ] Faithful to the FR — no new rules, no dropped thresholds  
 - [ ] Covers at least one failure path for critical FRs  
 - [ ] Independent tester could run it without asking you  
+- [ ] If the FR is vague, you **fixed the FR** instead of only writing a better AC  
 
 ## Bad → better (EARS)
 
@@ -250,7 +296,7 @@ The ETAS shall store all employee PINs as one‑way SHA‑256 hashes and shall r
 
 ## Case study pointer
 
-Open the ETAS **Systems Engineering** page (requirements section). Rewrite 3 listed FRs into strict EARS form and note which pattern you used. Do not copy blindly — understand *why* each FR exists.
+Open the ETAS app → **Systems Engineering** page (linked from course Home; path often `/systems-engineering`) → requirements section. Rewrite 3 listed FRs into strict EARS form and note which pattern you used. Do not copy blindly — understand *why* each FR exists.
 
 ## Offline practice (45 min)
 
@@ -260,7 +306,12 @@ Open the ETAS **Systems Engineering** page (requirements section). Rewrite 3 lis
 2. **2 NFRs** with measurable criteria.  
 3. **3 ACs** in Given/When/Then, each linked to an FR ID.  
 
-Self‑score: every FR must match an EARS skeleton from the cheat sheet; every AC must reference the exact FR ID it validates.
+Self-score:
+
+- Every FR matches an EARS skeleton from the cheat sheet.  
+- Every AC references the exact FR ID it validates.  
+- For each AC: cover test + no-extra test (see **Alignment checks** above).  
+- No AC is the only place a threshold or reject rule appears.  
 
 
 ## Assignment A2
@@ -273,4 +324,4 @@ Functional requirements **must** use EARS grammar. See Assignments.
 
 ## Next
 
-**Architecture views** — where requirements live in the design.
+**Architecture views** — map each requirement to a design element (layers, allocation matrix, and decision records). This shows where requirements live in the system architecture.

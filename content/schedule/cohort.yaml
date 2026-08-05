@@ -85,8 +85,8 @@ sessions:
   - id: w6-mon
     week: 6
     day: Monday
-    title: Military ops — CONOPS/AOC then ATO planning
-    modules: [ops-00-conops-aoc, ops-01-ato-planning]
+    title: Military ops — UAE context, CONOPS/AOC, ATO planning
+    modules: [ops-uae-military, ops-00-conops-aoc, ops-01-ato-planning]
     type: lecture_ops
 
   - id: w6-thu
@@ -100,8 +100,8 @@ sessions:
   - id: w7-mon
     week: 7
     day: Monday
-    title: Military ops — ATO execution
-    modules: [ops-02-ato-execution]
+    title: Military ops — ATO execution & public platforms
+    modules: [ops-02-ato-execution, ops-03-weapons-context]
     type: lecture_ops
 
   - id: w7-thu

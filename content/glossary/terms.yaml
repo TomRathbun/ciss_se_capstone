@@ -16,7 +16,23 @@ terms:
   - term: Use case
     definition: A goal-oriented interaction between an actor and the system that delivers part of a need; includes main success scenario and extensions (failures/alternates).
   - term: Derivation chain (this course)
-    definition: Vision → Needs → Use cases → Requirements (EARS) → Design. Each layer refines the previous; skip layers and quality drops.
+    definition: >
+      Vision → Needs → Use cases → Requirements (EARS) → Design, linked with typed relationships
+      (not a vague "refine"): system vision derives_from global vision (when both exist);
+      need derives_from vision; need traces_to use case; use case allocated_to requirement;
+      requirement allocated_to design.
+  - term: derives_from
+    definition: >
+      Link from a more specific artifact to its parent justification — e.g. phase/system vision
+      derives_from global vision; need derives_from vision (or a vision principle).
+  - term: traces_to
+    definition: >
+      Link from a need to the use case(s) that realize it (need traces_to use case). Part of
+      the forward chain; full traceability also walks links backward to vision and forward to tests.
+  - term: allocated_to
+    definition: >
+      Link that places responsibility: use case allocated_to requirement(s); requirement
+      allocated_to design element(s). If you cannot allocate, the architecture or the FR is incomplete.
   - term: Stakeholder (in a need)
     definition: The role or unit named after "As …" — owner of the need (e.g. UAE AFAD Mission Operators, FOSC program administrators).
   - term: Benefit (in a need)
@@ -36,7 +52,15 @@ terms:
   - term: WHERE (EARS)
     definition: Optional-feature requirement — WHERE a feature is included, the system shall provide related behavior.
   - term: Acceptance criterion (AC)
-    definition: Objective condition that must be true to accept that a requirement is met (often Given/When/Then).
+    definition: >
+      Objective check that a requirement is met (often Given/When/Then). ACs prove the shall;
+      they do not redefine it. If you need the AC to understand the requirement, the requirement
+      is incomplete — fix the FR (especially when requirements are contractual).
+  - term: AC–requirement alignment
+    definition: >
+      Every AC obligation must already be in the FR (no-extra), and every FR obligation must be
+      exercised by some AC (cover). When FR and AC conflict, the requirement baseline wins until
+      changed under control.
   - term: NFR
     definition: Non-functional requirement — quality attributes such as security, performance, usability, maintainability.
   - term: System boundary
@@ -77,3 +101,13 @@ terms:
     definition: Digital exchange of tactical data between platforms (as opposed to voice radio only).
   - term: Case study (ETAS)
     definition: SDC Time Tracker — living example system used to teach SE with real artifacts.
+  - term: UAE Armed Forces
+    definition: Federal armed forces of the United Arab Emirates (Army, Navy, Air Force, Presidential Guard, and other public components). Training material is open-source only.
+  - term: UAEAF
+    definition: United Arab Emirates Air Force — public inventories commonly cite F-16E/F Block 60 and Mirage 2000-9 among other types.
+  - term: Ministry of Defence (UAE)
+    definition: Federal ministry overseeing defence policy and the armed forces; leadership titles change — verify on official UAE sources before briefing names.
+  - term: EDGE Group
+    definition: UAE defence and advanced technology group (public industry stakeholder); appears in open sources as a national defence-industry cluster.
+  - term: F-16E/F Block 60 (Desert Falcon)
+    definition: Advanced F-16 variant publicly associated with UAEAF; use for unclassified mission-card vocabulary only.
