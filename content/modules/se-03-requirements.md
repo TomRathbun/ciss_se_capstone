@@ -27,11 +27,12 @@ VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS (this module)
 Requirements answer: **What shall the system do** so each use case works (including failures)?  
 Do **not** paste a need or vision paragraph as a requirement.
 
-| Source | System requirement (EARS) |
-|--------|---------------------------|
-| UC: Check in / already checked in | IF an employee submits check-in WHILE already checked in that date, THEN the ETAS shall reject … |
-| UC: Export quarterly package | WHEN an authorized user exports a quarter, the ETAS shall include a Discrepancy Tracker sheet |
-| UC: Maintain tracks in clutter (from AFAD-style need) | WHEN a new plot is associated to a track, the SA system shall update track kinematics within T seconds |
+| Source (UC)                              | System requirement (EARS)                                                                                     | EARS pattern |
+|------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------------|
+| Check in / already checked in            | IF an employee submits check‑in WHILE already checked in that date, THEN the ETAS shall reject …               | IF/THEN + WHILE |
+| Export quarterly package                  | WHEN an authorized user exports a quarter, the ETAS shall include a Discrepancy Tracker sheet                | WHEN |
+| Maintain tracks in clutter (AFAD need)  | WHEN a new plot is associated to a track, the SA system shall update track kinematics within *T* seconds     | WHEN |
+
 
 **Habit:** Every FR should list `UC-…` (and ideally need/vision) in a trace column.
 
@@ -154,13 +155,14 @@ WHERE <feature> WHEN <trigger> the <system> shall <response>.
 
 ### EARS pattern cheat sheet
 
-| Keyword | Use when… | Skeleton |
-|---------|-----------|----------|
-| *(none)* | Always true | The system shall … |
-| **WHEN** | Event / trigger | WHEN … the system shall … |
-| **WHILE** | In a state / mode | WHILE … the system shall … |
-| **IF / THEN** | Unwanted / exception | IF … THEN the system shall … |
-| **WHERE** | Optional feature on | WHERE … the system shall … |
+| Keyword | Use when…                     | Skeleton                              | Example pattern |
+|----------|------------------------------|--------------------------------------|-----------------|
+| *(none)* | Always true                  | The system shall …                   | Ubiquitous      |
+| **WHEN** | Event / trigger              | WHEN … the system shall …            | Event‑driven    |
+| **WHILE**| State / mode                 | WHILE … the system shall …            | State‑driven    |
+| **IF / THEN** | Unwanted / exception     | IF … THEN the system shall …         | Unwanted condition |
+| **WHERE**| Optional feature enabled      | WHERE … the system shall …            | Optional feature |
+
 
 ### Workshop — rewrite into EARS (10 min)
 
@@ -227,31 +229,47 @@ Then the system rejects with a clear error and stores no new check-in entry
 
 ## Bad → better (EARS)
 
-| Bad | Better (EARS) |
-|-----|----------------|
-| System should handle leave | WHEN an employee submits a leave request with valid dates and sufficient balance, the ETAS shall create a leave request in pending status. |
-| UI must be modern | WHEN an employee starts check-in from the login list, the ETAS shall complete the primary check-in flow in ≤ 3 user interactions. |
-| BEOD works correctly | WHEN daily hours are recalculated, IF BEOD is claimed and approved and raw hours ≥ 6.0, THEN the ETAS shall apply 1.0 hour of BEOD credit. |
-| Don’t allow bad check-out | IF an employee requests check-out and there is no open check-in for that date, THEN the ETAS shall reject the check-out. |
+| Bad                                               | Better (EARS)                                                                                                                       | EARS pattern |
+|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| System should handle leave                        | WHEN an employee submits a leave request with valid dates and sufficient balance, the ETAS shall create a leave request in pending status. | WHEN |
+| UI must be modern                                 | WHEN an employee starts check‑in from the login list, the ETAS shall complete the primary check‑in flow in ≤ 3 user interactions.       | WHEN |
+| BEOD works correctly                             | WHEN daily hours are recalculated, IF BEOD is claimed and approved and raw hours ≥ 6.0, THEN the ETAS shall apply 1.0 h BEOD credit.       | WHEN + IF/THEN |
+| Don’t allow bad check‑out                         | IF an employee requests check‑out and there is no open check‑in for that date, THEN the ETAS shall reject the check‑out.               | IF/THEN |
+
+**NFR example (security – ubiquitous style)**  
+The ETAS shall store all employee PINs as one‑way SHA‑256 hashes and shall reject any login attempt that supplies a PIN not matching the stored hash.
+
+## Acceptance‑criteria mapping table
+
+| FR ID      | AC ID(s)          |
+|------------|-------------------|
+| FR‑CI‑02   | AC‑CI‑02          |
+| FR‑EXP‑01 | AC‑EXP‑01, AC‑EXP‑02 |
+| FR‑TRK‑05 | AC‑TRK‑05        |
+
 
 ## Case study pointer
 
 Open the ETAS **Systems Engineering** page (requirements section). Rewrite 3 listed FRs into strict EARS form and note which pattern you used. Do not copy blindly — understand *why* each FR exists.
 
-## Offline practice (45 min)
+## Offline practice (45 min)
 
-For a “meeting room booking” system, write:
+*Work in 20‑minute blocks with a 5‑minute stretch break to keep focus.*
 
-1. **5 FRs in EARS** — at least one of each: WHEN, WHILE, IF/THEN, WHERE, and one ubiquitous  
-2. **2 NFRs** with measurable criteria  
-3. **3 ACs** in Given/When/Then, each linked to an FR ID  
+1. **5 FRs in EARS** — at least one of each pattern (WHEN, WHILE, IF/THEN, WHERE, ubiquitous).  
+2. **2 NFRs** with measurable criteria.  
+3. **3 ACs** in Given/When/Then, each linked to an FR ID.  
 
-Self-score: every FR must match an EARS skeleton from the cheat sheet.
+Self‑score: every FR must match an EARS skeleton from the cheat sheet; every AC must reference the exact FR ID it validates.
+
 
 ## Assignment A2
 
 **Requirements Pack** — major graded item (weight 25%).  
 Functional requirements **must** use EARS grammar. See Assignments.
+
+> **Reminder:** If you generate any wording with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must remain your own.
+
 
 ## Next
 

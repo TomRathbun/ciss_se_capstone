@@ -51,17 +51,17 @@ Vision is used across industry (product vision, system vision, CONOPS-adjacent f
 
 ### Structure template
 
-```text
-<title> Vision for <phase / system name>
 
-<1–2 paragraphs: future state, who it serves, what capability class it creates,
- what it builds on if continuing prior work.>
+**Title:** Vision for <phase / system name>
 
-Key principles (optional but recommended)
-- Principle 1: …
-- Principle 2: …
-- Principle 3: …
-```
+**Vision body (1–2 paragraphs):**  
+[Describe the future state, who it serves, and what capability class it creates. Mention any continuation from prior work.]
+
+**Key principles (optional but recommended)**
+- Principle 1: …
+- Principle 2: …
+- Principle 3: …
+
 
 ### Teaching example — AI-Augmented C2 (condensed, unclassified)
 
@@ -104,26 +104,31 @@ Include **two principles**. Peer: can they restate your vision without the paper
 
 A stakeholder is anyone who cares about the system’s success or failure.
 
-| Stakeholder | Cares about |
-|-------------|-------------|
-| Employee | Fast punch, leave balance, fair rules |
-| Manager | Approvals, declared vs submitted time |
-| Program / FOSC admin | Contract Excel package, TEMPO shortfalls |
-| IT / security | PIN safety, audit trail |
-| Mission operator (C2 example) | SA quality, trust in AI aids, override |
-| Systems engineer | Traceability, testability |
+| Stakeholder                     | Primary concern / goal                     | Cares about                                 |
+|--------------------------------|--------------------------------------------|--------------------------------------------|
+| Employee                       | Quick, accurate time capture               | Fast punch, leave balance, fair rules     |
+| Manager                        | Oversight of staff time                    | Approvals, declared vs submitted time      |
+| Program / FOSC admin           | Contract compliance & auditability          | Excel package, TEMPO shortfalls           |
+| IT / security                  | Data protection and traceability           | PIN safety, audit trail                   |
+| Mission operator (C2 example) | Situational awareness and decision support| SA quality, trust in AI aids, override    |
+| Systems engineer                | Traceability, testability                 | Architecture consistency, verification    |
+
 
 **Tip:** Vision usually names or implies primary stakeholders; list them explicitly next.
 
 ---
 
-## Needs statement grammar (required form)
+## Needs statement grammar 
+**Required form**
 
 ```text
 As <stakeholder>,
 we need <the need>,
 so that <benefit>.
 ```
+
+*The **need** must be expressed in the stakeholder’s operational language, not as a design choice (e.g., “use ONNX”).*
+
 
 | Slot | What goes here |
 |------|----------------|
@@ -204,15 +209,19 @@ so that we spend time on the mission instead of fighting the timesheet.
 
 Show actors, your system, external systems, labeled flows.
 
+```mermaid
+graph LR
+    Employee -->|PIN / punches| SDC[SDC Time Tracker]
+    Manager -->|approve / export| SDC
+    SDC -->|import| TEMPO[TEMPO]
+    SDC -->|xlsx| FOSC[FOSC package]
 ```
-Employee ──PIN / punches──► [ SDC Time Tracker ] ──import──► TEMPO
-Manager  ──approve/export─► [                 ] ──xlsx───► FOSC package
-```
+
+#### f. Scope‑boundary table with bullets
 
 | In scope (example) | Out of scope (example) |
 |--------------------|------------------------|
-| Check-in state machine | Replacing TEMPO itself |
-| BEOD credit rules | Payroll tax calculation |
+| - Check‑in state machine<br>- BEOD credit rules | - Replacing TEMPO itself<br>- Payroll tax calculation |
 
 Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides what **this system** owns in this phase.
 
@@ -225,9 +234,18 @@ Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides wha
 3. **≥ 2 needs** in grammar, each linked to a vision line  
 4. Context sketch + 3 in / 3 out of scope  
 
-## Assignment A1
+**Assignment A1 – Vision, Context & Stakeholders**
 
-**Vision, Context & Stakeholders** — see Assignments. Needs grammar **and** a short vision are required.
+Submit a single document that includes:
+1. A half‑page vision (including at least **two** key principles).  
+2. A stakeholder table with **≥ 4** rows.  
+3. **≥ 2** needs statements in the required grammar, each linked to a specific vision line.  
+4. A context diagram (ASCII or Mermaid) plus a list of **≥ 3** in‑scope and **≥ 3** out‑of‑scope items.
+
+All artifacts will be graded for traceability, completeness, and professionalism per the selection‑criteria rubric.
+
+> **Note:** If you generate any wording with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be your own.
+
 
 ## Next
 

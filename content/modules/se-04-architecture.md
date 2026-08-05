@@ -24,40 +24,67 @@ Architecture answers:
 
 ETAS example layers:
 
-| Layer | Responsibility | Example module |
-|-------|----------------|----------------|
-| Presentation | Screens, forms | Jinja templates, routes |
-| Application services | Business rules | `time_state`, `time_calc`, `fosc_export` |
-| Domain | Entities | `Employee`, `TimeEntry`, `DailySummary` |
-| Persistence | Storage | SQLite |
+| Layer          | Responsibility                 | Typical implementation artifact |
+|----------------|--------------------------------|---------------------------------|
+| Presentation   | Screens, forms                 | UI templates, route handlers    |
+| Application services | Business rules            | Service classes (`time_state`, `time_calc`, `fosc_export`) |
+| Domain         | Core entities                  | Entity classes (`Employee`, `TimeEntry`, `DailySummary`) |
+| Persistence    | Storage of permanent data      | SQLite DB, ORM models            |
+
 
 ## Allocation (simple RTM column)
 
-| Requirement | Design element |
-|-------------|----------------|
-| FR-CI-02 | `time_state.can_check_in` |
-| FR-BEOD-01 | `time_calc.update_daily_summary` |
-| FR-DISC-01 | `fosc_export.write_discrepancy_sheet` |
+| Requirement ID | Design element (code path)               | Originating UC / Need |
+|----------------|------------------------------------------|-----------------------|
+| FR‑CI‑02       | `time_state.can_check_in`                | UC‑Check‑In            |
+| FR‑BEOD‑01    | `time_calc.update_daily_summary`         | Need‑BEOD support      |
+| FR‑DISC‑01    | `fosc_export.write_discrepancy_sheet`    | UC‑Export package      |
+
 
 If you cannot allocate an FR, either the architecture is incomplete or the FR is not real.
 
 ## Design decision template
 
 ```text
-Decision: Keep punch legality in a single service (time_state)
-Rationale: Prevent UI and API from diverging on rules
-Alternatives considered: Checks only in route handlers
-Consequences: Routes stay thin; tests target one module
+Decision: Keep punch legality in a single service (`time_state`)  
+Status: **Approved** (reviewed 2026‑08‑05)  
+Rationale: Prevent UI and API from diverging on rules  
+Alternatives considered: Checks only in route handlers  
+Consequences: Routes stay thin; tests focus on one module; easier to extend legality logic
+
 ```
 
-## Workshop
+## Workshop (10 min)
 
-Pick one FR from the case study. Name:
+Pick one FR from the case study. Write:
 
-1. The component that enforces it  
-2. The data it reads/writes  
-3. One risk if that component is wrong  
+1. The component that enforces it.  
+2. The data it reads/writes.  
+3. One risk if that component behaves incorrectly.
+
+**Share** your answer in a 2‑minute stand‑up with the class.
+
+```mermaid
+graph LR
+    subgraph Context
+        EXT[External actors & systems]
+    end
+    subgraph Containers
+        UI[Presentation UI]
+        APP[Application Services]
+        DOM[Domain entities]
+        DB[Persistence]
+    end
+    EXT --> UI
+    UI --> APP
+    APP --> DOM
+    DOM --> DB
+```
 
 ## Next
 
-**Behavior** — states and sequences for time-dependent rules.
+**Behavior** – you will model states and sequences (runtime view) for time‑dependent rules, showing how the architecture you just built is exercised.
+
+> **Reminder:** If any part of a decision record is generated with AI assistance, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying rationale must remain yours.
+
+

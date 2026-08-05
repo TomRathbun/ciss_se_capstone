@@ -1,53 +1,78 @@
 # Case Study — SDC Time Tracker (ETAS)
 
 ## Purpose
+Connect classroom SE to a **running system** used for FOSC‑related timekeeping.
 
-Connect classroom SE to a **running system** used on FOSC-related timekeeping.
+## Learning outcomes reinforced
+- Traceability from **vision → need → requirement → design → verification → validation** (Lessons 1‑7).  
+- Practice **stakeholder identification**, **requirement analysis**, **state‑machine** and **sequence** modeling, and **interface control**.  
+- Demonstrate **professionalism** (A6) through a reflection exercise.
 
 ## Before class
+1. Open the time‑tracker app (instructor provides URL; default local `http://localhost:8888`).  
+2. Navigate to **Systems Engineering** (`/systems-engineering`).  
+3. (Optional) Log a check‑in / leave flow on a demo account to familiarize yourself with the UI.
 
-1. Open the time tracker app (instructor provides URL; default local `http://localhost:8888`).  
-2. Open **Systems Engineering** (`/systems-engineering`).  
-3. Optionally log a check-in / leave flow on a demo account.
+## Walkthrough agenda (≈ 2 hours)
 
-## Walkthrough agenda (≈ 2 hours)
+### 1. Need & stakeholders (15 min)
+- Read the operational need on the SE page.  
+- **Prompt:** “If you joined CISS as a *tool‑support engineer* or an *ops analyst*, write down the role and one key concern for that role.”  
 
-### 1. Need & stakeholders (15 min)
+### 2. Requirements & ACs (25 min)
+- Locate `FR‑BEOD‑01` and `AC‑BEOD‑01`.  
+- **Group discussion:**  
+  1. Why is the **6.0 h minimum** a *requirement* rather than a simple implementation detail?  
+  2. How would you test the boundary **5.99 h vs 6.0 h**?  
+  3. *What‑if* the rule changed to **5.5 h** – which downstream artifacts would need updating?  
 
-Read the operational need on the SE page. Identify which stakeholder you would be if you joined CISS as an engineer supporting tools vs ops.
+### 3. State machine (20 min)
+- Open the punch‑state diagram.  
+- **Role‑play illegal actions:**  
+  1. **Checkout without check‑in**  
+  2. **Double check‑in**  
+- Use a shared whiteboard (or virtual sticky notes) to record the transition and system response.
 
-### 2. Requirements & ACs (25 min)
+### 4. Sequence — leave approval (20 min)
+- Trace the flow: *request → pending reserve → approve → daily‑summary leave hours = target*.  
+- **Optional PlantUML snippet** (copy to generate later):  
 
-Find `FR-BEOD-01` and `AC-BEOD-01`. Discuss as a group:
-
-- Why is the 6.0 hour minimum a requirement, not “just code”?  
-- How would you test the boundary 5.99 vs 6.0?
-
-### 3. State machine (20 min)
-
-Open punch states. Role-play illegal actions:
-
-- Checkout without check-in  
-- Double check-in  
-
-### 4. Sequence — leave approval (20 min)
-
-Trace: request → pending reserve → approve → daily summary leave hours = target.
+```plantuml
+@startuml
+actor Employee
+participant "Leave Service" as LS
+participant "Summary Engine" as SE
+Employee -> LS : submit leave request
+LS -> LS : reserve balance (pending)
+LS -> Employee : pending confirmation
+Employee -> LS : approve
+LS -> SE : update daily summary
+SE --> LS : success
+@enduml
+```
 
 ### 5. Interface — FOSC export (25 min)
 
-Discuss TEMPO shortfalls only. Why base hours **above** TEMPO are zeroed for discrepancy.
+- Review the FOSC export interface.
+- Discuss TEMPO shortfalls: why hours above TEMPO are zeroed for the discrepancy tracker.
+- Prompt: “Identify the exact data element that is zeroed and map it to the supporting FR.”
 
 ### 6. Reflection (15 min)
 
-Each intern writes 5 bullets: “What SE practice would I steal for a radar SA project?”
+- Each intern writes 5 bullet points answering: “What SE practice would I steal for a radar SA project?”
+- Submit the bullets to the A6 Professionalism notes (or hand a printed sheet to the instructor).
 
 ## Deliverable (in-class)
 
-Submit reflection bullets under **A6 professionalism** notes or bring paper to instructor.
+- 5‑bullet reflection (submitted under A6).
 
 ## Instructor notes
 
-- Prefer demo over slides.  
-- If network fails, use screenshots / SE page alone.  
-- Score engagement under A6.
+- Demo first, slides second. If the network drops, fall back to the prepared screenshots in the ‘ETAS‑screenshots’ folder.
+- Score engagement under the A6 Professionalism rubric.
+
+> **Reminder:** If any text in the RTM or V&V plan is generated with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying logic must be yours.
+
+
+## Next
+**Case‑study walkthrough** of the living ETAS system (Lesson 9)

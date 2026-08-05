@@ -6,6 +6,7 @@ After this module you can:
 
 - Explain SE in one paragraph to a non-engineer  
 - Follow the course derivation chain: **Vision → Needs → Use cases → Requirements → Design**  
+- Trace each requirement back to a vision, need, and use case (traceability).
 - Separate those layers without mixing them  
 - Name why projects fail without SE discipline  
 
@@ -37,16 +38,17 @@ flowchart LR
 Optional display math (KaTeX) when you need formal models later:
 
 $$
-R_{\mathrm{trace}} = \frac{\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\#\{\mathrm{FR}\}}
+R_{\mathrm{trace}} = \frac{\\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\\#\{\mathrm{FR}\}}
 $$
 
-| Layer | Question | Artifact form (this course) |
-|-------|----------|------------------------------|
-| **Vision** | What future are we building toward together? | Short vision statement + optional key principles |
-| **Needs** | Who needs what, so that what benefit? | `As <stakeholder>, we need …, so that …` |
-| **Use cases** | How does a stakeholder achieve value with the system? | Named use case: actor, goal, main flow, extensions |
-| **Requirements** | What shall the system do in each situation? | EARS + shall, IDs, acceptance criteria |
-| **Design** | How will we implement it? | Architecture, modules, algorithms, UI |
+| Layer      | Question                              | Artifact form (this course)                     | Typical tool / file type |
+|------------|--------------------------------------|------------------------------------------------|--------------------------|
+| **Vision** | What future are we building toward together? | Short vision statement + optional key principles | .md or Confluence page |
+| **Needs**  | Who needs what, so that what benefit? | `As <stakeholder>, we need …, so that …`          | .md, .txt |
+| **Use cases** | How does a stakeholder achieve value with the system? | Named use case: actor, goal, main flow, extensions | .md, .xlsx |
+| **Requirements** | What shall the system do in each situation? | EARS + shall, IDs, acceptance criteria            | .md, .reqs |
+| **Design** | How will we implement it? | Architecture, modules, algorithms, UI         | .md, .drawio, .py |
+
 
 **Common intern mistake:** jumping straight to design or to shall-language without a shared vision and named stakeholders.
 
@@ -88,24 +90,26 @@ SE gives a shared language so software, ops, and leadership do not talk past eac
 
 ## Classic failure modes (watch for these in your work)
 
-1. **No shared vision** — every team invents a different product  
-2. **Unstated assumptions** — “obvious” to you, invisible to the tester  
-3. **Gold plating** — features nobody needed (no path to vision/need)  
-4. **Interface surprises** — two teams meet at a boundary with different formats  
-5. **Untestable “requirements”** — “the UI shall be intuitive”  
-6. **No validation** — built the wrong thing correctly  
+1. **No shared vision** – every team invents a different product.  
+2. **Unstated assumptions** – “obvious” to you, invisible to the tester.  
+3. **Gold plating** – features nobody needed (no path to vision/need).  
+4. **Interface surprises** – two teams meet at a boundary with different formats.  
+5. **Untestable “requirements”** – “the UI shall be intuitive.”  
+6. **No validation** – built the wrong thing correctly.  
 
-## Offline exercise (30 min)
+
+## Offline exercise (30 min)
 
 Pick any app you use daily (banking, maps, chat). Write:
 
-1. A **2–4 sentence vision** for a “next version” of that app  
-2. One **needs statement**: `As <stakeholder>, we need …, so that …`  
-3. One **use case name** + actor + goal (one sentence each)  
-4. One **EARS requirement** that supports that use case  
-5. One **design** choice that is *not* a requirement  
+1. **Vision** – 2–4 sentences describing the next‑version goal.  
+2. **Need** – One stakeholder statement: `As <stakeholder>, we need …, so that …`.  
+3. **Use case** – Name, actor, and goal (one sentence each).  
+4. **EARS requirement** – One shall‑statement supporting the use case.  
+5. **Design choice** – One concrete implementation decision *not* phrased as a requirement.
 
-Bring to Thursday if unsure.
+Bring the worksheet to Thursday; you may submit electronically if you’re unsure.
+
 
 ## Next
 
