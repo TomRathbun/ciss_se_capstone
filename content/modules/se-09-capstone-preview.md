@@ -43,6 +43,17 @@ Exact feed definitions, scoring, and deliverables will be published when this ph
 
 Do not grade radar SA work until this module is expanded with a formal problem statement and rubric.
 
+## Further reading (prepare for multi-feed SA)
+
+| Topic | Source |
+|-------|--------|
+| Situational awareness (foundational paper) | Endsley, “Toward a Theory of Situation Awareness in Dynamic Systems” — search author + title (academic libraries / open PDFs) |
+| Multi-sensor fusion (intro) | [SEBoK](https://sebokwiki.org/) + survey articles on “sensor fusion architecture” |
+| Track / air picture concepts (open) | Public radar / ATC primers — e.g. [FAA — Surveillance](https://www.faa.gov/air_traffic/technology) (civil analogue, not military doctrine) |
+| Interfaces for feeds | Course **Interfaces & ICDs** + [SEBoK search — interface management](https://sebokwiki.org/wiki/Special:Search?search=interface+management) |
+| OV-1 / ops context | Course **UAE Military Context** OV-1 and radar catalogue (open-source vocabulary) |
+| Architecture views | [C4 model](https://c4model.com/) for software-heavy SA sketches |
+
 ## Next
 
 When this phase opens: problem statement, feeds, and rubric. Until then, complete remaining SE and **military ops** modules on schedule.

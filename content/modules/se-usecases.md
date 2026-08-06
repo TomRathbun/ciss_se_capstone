@@ -121,6 +121,16 @@ Take **one** needs statement from A1 or the AFAD example.
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| Use cases / scenarios in SE | [SEBoK search — use case / scenario](https://sebokwiki.org/wiki/Special:Search?search=use+case) |
+| Classic use-case craft | Cockburn, *Writing Effective Use Cases* — search “Cockburn use case goal levels” for free primers |
+| Operational / mission analysis | [SEBoK — Business or Mission Analysis](https://sebokwiki.org/wiki/Business_or_Mission_Analysis) |
+| From scenarios to requirements | [SEBoK — System Requirements Definition](https://sebokwiki.org/wiki/System_Requirements_Definition) |
+| UML use-case diagram overview | [UML Use Case Diagrams (OMG / community primers)](https://www.uml-diagrams.org/use-case-diagrams.html) |
+
 ## Next
 
 **Requirements & Acceptance Criteria** — write EARS shall-statements that make each use case succeed and fail safely, with Given/When/Then acceptance criteria.

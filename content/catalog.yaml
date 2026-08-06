@@ -93,7 +93,7 @@ modules:
     track: ops
     title: UAE Military Context (Open Source)
     duration_min: 90
-    summary: UAE Armed Forces branches, leadership roles, ranks, and public weapon/platform vocabulary — unclassified only.
+    summary: UAE Armed Forces branches, leadership, ranks, platforms, SHORAD/layered AD, and radar families (open source).
     offline: true
 
   - id: ops-00-conops-aoc

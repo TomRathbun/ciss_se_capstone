@@ -75,6 +75,18 @@ Peer feedback on Thursday is scored under A6 and improves the quality of your ar
 3. **Read** **What Is Systems Engineering?** before next Thursday.  
 4. **Note** assignment **A1** due Week 2 Thursday.
 
+## Further reading
+
+Optional background (free / public). Skim; do not let this replace Monday workshop work.
+
+| Topic | Source |
+|-------|--------|
+| What systems engineering is | [SEBoK — Systems Engineering Overview](https://sebokwiki.org/wiki/Systems_Engineering_\(glossary\)) |
+| Body of knowledge map | [Guide to the Systems Engineering Body of Knowledge (SEBoK)](https://sebokwiki.org/) |
+| NASA process overview | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) (PDF available from NASA) |
+| Professional society | [INCOSE](https://www.incose.org/) — student / community resources |
+| Course terms | In-app **[Glossary](/glossary)** |
+
 ## Next
 
 **What Is Systems Engineering?** — the derivation chain, why SE matters, and classic failure modes.

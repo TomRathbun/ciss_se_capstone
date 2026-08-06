@@ -322,6 +322,17 @@ Functional requirements **must** use EARS grammar. See Assignments.
 > **Reminder:** If you generate any wording with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must remain your own.
 
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| **EARS** (Easy Approach to Requirements Syntax) | Mavin et al., INCOSE — [EARS overview (INCOSE paper index / author materials)](https://www.researchgate.net/publication/224157532_Easy_Approach_to_Requirements_Syntax_EARS) · also search “Mavin EARS INCOSE” |
+| System requirements | [SEBoK — System Requirements Definition](https://sebokwiki.org/wiki/System_Requirements_Definition) |
+| Requirements management | [SEBoK — Requirements Management](https://sebokwiki.org/wiki/Requirements_Management) |
+| Acceptance / verification criteria | [SEBoK — System Verification](https://sebokwiki.org/wiki/System_Verification) |
+| NASA requirements practice | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) |
+| Given/When/Then (BDD style) | [Cucumber — Given When Then](https://cucumber.io/docs/gherkin/reference/) (syntax inspiration for ACs, not a mandate) |
+
 ## Next
 
 **Architecture views** — map each requirement to a design element (layers, allocation matrix, and decision records). This shows where requirements live in the system architecture.

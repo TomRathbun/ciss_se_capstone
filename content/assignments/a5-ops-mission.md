@@ -12,6 +12,8 @@ Build an **unclassified** mission card for one mission type:
 
 Use the template from **ops-01-ato-planning**. Add the execution annex from **ops-02-ato-execution**. Justify platforms with public knowledge (**ops-03** / Tactical Library).
 
+**Mission-type visuals:** see the illustrated cards in *ATO Planning* (`/static/images/mission-types/`) for CAP, strike, training, ISR/tanker, lift, and CSAR — pick one type and plan to that picture.
+
 ## Deliverables
 
 1. Completed **mission card** (planning section — all template fields)  

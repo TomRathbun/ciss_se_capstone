@@ -86,6 +86,16 @@ SE --> LS : success
 
 > **Reminder:** If any wording is generated with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying analysis must be yours.
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| Case study learning | [SEBoK — Case Studies](https://sebokwiki.org/wiki/Case_Studies) (if available in current SEBoK; else search SEBoK “examples”) |
+| Living documentation / continuous SE | [SEBoK — Model-Based Systems Engineering](https://sebokwiki.org/wiki/Model-Based_Systems_Engineering) (direction of travel; this course stays lightweight) |
+| Walk the cascade again | Course modules: vision → needs → use cases → EARS → architecture → behavior → ICD → RTM |
+| Related SE practice | [INCOSE](https://www.incose.org/) webinars / student resources |
+| Professional reflection | Your A6 bullets should cite **which artifact** (FR, state, ICD) you would steal for radar SA |
+
 ## Next
 
 **Ops track** (schedule may place this after or before case study): start with **UAE Military Context**, then **CONOPS & AOC** — map SE habits onto air operations concepts used on the program.

@@ -85,6 +85,17 @@ graph LR
 
 *Alt text: Four-view C4-style stack — external actors into Presentation → Application services → Domain → Persistence.*
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| **C4 model** (context → containers → components → code) | [c4model.com](https://c4model.com/) |
+| Architecture definition | [SEBoK — System Architecture Design Definition](https://sebokwiki.org/wiki/System_Architecture_Design_Definition) |
+| Architecture concepts | [SEBoK search — system architecture](https://sebokwiki.org/wiki/Special:Search?search=system+architecture) |
+| Design decisions / trade studies | [SEBoK — Decision Management](https://sebokwiki.org/wiki/Decision_Management) |
+| Allocation of requirements | [SEBoK — System Requirements Definition](https://sebokwiki.org/wiki/System_Requirements_Definition) |
+| Software architecture primer | [Microsoft — Software Architecture Guide](https://learn.microsoft.com/en-us/azure/architecture/guide/) (cloud-biased but clear patterns) |
+
 ## Next
 
 **Behavior — States & Sequences** — model states and sequences (runtime view) for time-dependent rules, showing how the architecture you just built is exercised.

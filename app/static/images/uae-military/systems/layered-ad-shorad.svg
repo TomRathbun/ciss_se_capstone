@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#0f172a"/>
+  <text x="480" y="40" text-anchor="middle" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="22" font-weight="700">Layered ground-based air defence (open-source concept)</text>
+  <text x="480" y="68" text-anchor="middle" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="13">Training diagram — not a classified architecture or basing map</text>
+  <!-- layers -->
+  <rect x="80" y="100" width="720" height="70" rx="10" fill="#1e3a5f" stroke="#38bdf8"/>
+  <text x="100" y="130" fill="#7dd3fc" font-family="Segoe UI,Arial" font-size="14" font-weight="600">1 · Upper-tier BMD</text>
+  <text x="100" y="152" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="16">THAAD (US) — high-altitude / ballistic threats</text>
+
+  <rect x="80" y="180" width="720" height="70" rx="10" fill="#1e3a4a" stroke="#34d399"/>
+  <text x="100" y="210" fill="#6ee7b7" font-family="Segoe UI,Arial" font-size="14" font-weight="600">2 · Long / medium SAM</text>
+  <text x="100" y="232" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="16">Patriot PAC-2 / PAC-3 (US) · medium/long atmospheric layer</text>
+
+  <rect x="80" y="260" width="720" height="70" rx="10" fill="#1e3340" stroke="#a78bfa"/>
+  <text x="100" y="290" fill="#c4b5fd" font-family="Segoe UI,Arial" font-size="14" font-weight="600">3 · Medium SAM (multi-origin open press)</text>
+  <text x="100" y="312" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="16">KM-SAM / Cheongung-class themes (ROK) · Barak-class themes (open press)</text>
+
+  <rect x="80" y="340" width="720" height="70" rx="10" fill="#3b1f1f" stroke="#fb923c"/>
+  <text x="100" y="370" fill="#fdba74" font-family="Segoe UI,Arial" font-size="14" font-weight="600">4 · SHORAD / point defence</text>
+  <text x="100" y="392" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="16">Pantsir-S1 (RU) — missiles + guns · low altitude, drones, cruise, aircraft</text>
+
+  <rect x="80" y="420" width="720" height="70" rx="10" fill="#2a1f14" stroke="#fbbf24"/>
+  <text x="100" y="450" fill="#fcd34d" font-family="Segoe UI,Arial" font-size="14" font-weight="600">5 · VSHORAD / C-UAS</text>
+  <text x="100" y="472" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="16">MANPADS (e.g. Mistral, RBS 70 themes) · domestic C-UAS (e.g. SkyKnight open press)</text>
+
+  <text x="830" y="130" fill="#64748b" font-family="Segoe UI,Arial" font-size="12" writing-mode="tb">HIGH</text>
+  <text x="830" y="470" fill="#64748b" font-family="Segoe UI,Arial" font-size="12" writing-mode="tb">LOW</text>
+  <line x1="820" y1="100" x2="820" y2="490" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>

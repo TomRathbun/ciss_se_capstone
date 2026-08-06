@@ -77,6 +77,17 @@ Use the template above, fill in at least the first six fields, and note any **in
 
 > **Reminder:** If any part of an ICD (field descriptions, success criteria, etc.) is generated with AI assistance, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying decisions must remain yours.
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| Interface management | [SEBoK search — interface management](https://sebokwiki.org/wiki/Special:Search?search=interface+management) |
+| System integration | [SEBoK search — system integration](https://sebokwiki.org/wiki/Special:Search?search=system+integration) |
+| ICD practice (accessible overview) | Search “Interface Control Document best practices” + [NASA SE Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) interface sections |
+| API design as ICD analogue | [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines) (software-facing, good contract thinking) |
+| Data contracts / schemas | [JSON Schema](https://json-schema.org/) (optional technical deep dive) |
+| Change control | [SEBoK — Configuration Management](https://sebokwiki.org/wiki/Configuration_Management) |
+
 ## Next
 
 **Verification, Validation & Traceability** — verify that each external interface meets the success criteria you defined here, and that every requirement links to a concrete test.

@@ -83,6 +83,17 @@ Model the states for a library book:
 
 > **Reminder:** If you generate any diagram labels or wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying logic must be yours.
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| State machines (UML) | [UML State Machine Diagrams](https://www.uml-diagrams.org/state-machine-diagrams.html) |
+| Sequence diagrams (UML) | [UML Sequence Diagrams](https://www.uml-diagrams.org/sequence-diagrams.html) |
+| Behavior modeling in SE | [SEBoK search — models / behavior](https://sebokwiki.org/wiki/Special:Search?search=system+model) |
+| PlantUML (tooling) | [PlantUML](https://plantuml.com/) — state & sequence docs |
+| SysML overview (deeper than this course) | [OMG SysML](https://www.omgsysml.org/) |
+| Assurance / safety thinking | [SEBoK search — system assurance](https://sebokwiki.org/wiki/Special:Search?search=system+assurance) |
+
 ## Next
 
 **Interfaces & ICDs** — define message formats, protocols, and versioning for external connections (e.g. ETAS ↔ TEMPO, UI ↔ service).

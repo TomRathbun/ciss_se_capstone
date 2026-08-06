@@ -34,17 +34,86 @@ This module = **planning**. Next ops module = **execution**.
 
 ## Mission types (conceptual)
 
-Interns should know these categories exist (local names may vary):
-
-| Type | Intent (plain language) |
-|------|-------------------------|
-| Training / continuation | Build and keep aircrew proficiency |
-| Air defense / CAP | Protect airspace or assets |
-| Strike / interdiction | Engage designated targets (real-world or exercise) |
-| Support / ISR / tanker | Enable others (sensors, fuel, C2) |
-| Transport / lift | Move people or cargo |
+Interns should know these categories exist (local names may vary). Each card below is a **training visualization** — open desert / sea concepts, no classified tactics. Use them when you fill a mission card: *what assets, fuel, timing, and support would this picture need?*
 
 You do **not** need classified tactics — you need the *planning vocabulary*.
+
+### 1. Training / continuation
+
+![Training mission — twin-seat trainer and chase aircraft over a desert range with practice pods](/static/images/mission-types/01-training.jpg)
+
+| | |
+|--|--|
+| **Intent** | Build and keep aircrew proficiency |
+| **Picture cue** | Practice pods, range markings, instructor chase plane |
+| **Planning focus** | Safety, airspace deconfliction, training objectives, recovery time, debrief quality |
+| **Typical support** | Range control, weather, spare aircraft |
+
+### 2. Air defense / CAP (often with tanker)
+
+![CAP air defense — fighters on station with tanker refueling over desert coastline](/static/images/mission-types/02-cap-air-defense.jpg)
+
+| | |
+|--|--|
+| **Intent** | Protect airspace or high-value assets; hold a station for a window of time |
+| **Picture cue** | Fighters in a CAP orbit; tanker extends on-station time |
+| **Planning focus** | On-station timing, fuel/tanker plan, handover between stacks, ID procedures, C2 ownership |
+| **Related mission** | **Tanker / AR** is often planned *with* CAP so loiter is realistic |
+
+### 3. Strike / interdiction (exercise or conceptual)
+
+![Strike interdiction concept — aircraft releasing a guided munition toward a bridge target](/static/images/mission-types/03-strike-interdiction.jpg)
+
+| | |
+|--|--|
+| **Intent** | Engage designated targets (exercise or conceptual) — e.g. deny a route / bridge |
+| **Picture cue** | Weapon release, time-on-target, target effect (training illustration only) |
+| **Planning focus** | Objective clarity, stores concept, TOT, support (tanker/EW/SEAD themes), ROE language at intern level |
+| **Integrity** | No real target coordinates; no classified weaponeering |
+
+### 4. Support — ISR / tanker (enablers)
+
+![Support mission — ISR aircraft with sensor pod enabling a tanker-refueling fighter package](/static/images/mission-types/04-support-isr-tanker.jpg)
+
+| | |
+|--|--|
+| **Intent** | Enable others: sensors (ISR), fuel (tanker), C2 connectivity |
+| **Picture cue** | Sensor pod + boom refueling = combat air stays effective longer |
+| **Planning focus** | Who you enable, orbit/track, fuel offload plan, data/voice products to C2 |
+| **Related missions** | Feeds **CAP**, **strike**, and **CSAR** packages |
+
+### 5. Transport / lift
+
+![Transport lift — large airlifter and utility helicopters at a desert airfield](/static/images/mission-types/05-transport-lift.jpg)
+
+| | |
+|--|--|
+| **Intent** | Move people or cargo |
+| **Picture cue** | Strategic airlifter + rotary lift on the ramp |
+| **Planning focus** | Payload, airfield suitability, timing windows, ground support, force protection themes |
+| **Note** | Often joint with land units — still needs airspace and C2 clarity |
+
+### 6. Combat search and rescue (CSAR) — related support mission
+
+![CSAR concept — rescue helicopter and survivor in raft with covering aircraft](/static/images/mission-types/06-csar.jpg)
+
+| | |
+|--|--|
+| **Intent** | Recover isolated personnel (training concept) |
+| **Picture cue** | Helicopter, survivor/raft, covering aircraft |
+| **Planning focus** | Location/time windows, cover package, tanker/CSAR helo fuel, comms, medical handoff, risk |
+| **Related missions** | Often needs **CAP/escort** and **tanker** — plan the package, not a single jet |
+
+### Quick map — mission type → planning factors that dominate
+
+| Mission type | Factors that usually “make or break” the plan |
+|--------------|-----------------------------------------------|
+| Training | Safety, range airspace, training goals, debrief |
+| CAP / air defense | On-station fuel, tanker, handover, ID/C2 |
+| Strike | Objective, TOT, stores, support stack |
+| ISR / tanker | Orbit, product to C2, offload schedule |
+| Transport / lift | Payload, airfield, timing, ground interface |
+| CSAR | Locate/protect/recover chain, cover + fuel + medical |
 
 ## Planning factors checklist
 
@@ -98,7 +167,11 @@ Risks / contingencies:
 Success criteria:
 ```
 
+**Tip:** When you draft A5, pick the mission type image that matches your card and re-read that type’s *planning focus* row.
+
 ### Sample mini-mission card — Air Defense CAP (training)
+
+*Visual reference: CAP image above (fighters + tanker).*
 
 | Field | Example (fictitious) |
 |-------|----------------------|

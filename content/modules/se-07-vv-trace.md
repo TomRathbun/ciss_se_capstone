@@ -76,6 +76,17 @@ Candidates who **cannot** say how they would prove a requirement rarely pass sel
 
 > **Reminder:** If any text in the RTM or V&V plan is generated with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying logic must be yours.
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| Verification | [SEBoK — System Verification](https://sebokwiki.org/wiki/System_Verification) · [Verification (glossary)](https://sebokwiki.org/wiki/Verification_(glossary)) |
+| Validation | [SEBoK — System Validation](https://sebokwiki.org/wiki/System_Validation) · [Validation (glossary)](https://sebokwiki.org/wiki/Validation_(glossary)) |
+| Traceability | [SEBoK — Requirements Management](https://sebokwiki.org/wiki/Requirements_Management) (includes bidirectional traceability) |
+| V&V in NASA practice | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) — verification & validation chapters |
+| Test & evaluation framing (US DoD educational) | [DAU](https://www.dau.edu/) — search “Test and Evaluation” guides |
+| Requirements → test | [SEBoK — System Requirements Definition](https://sebokwiki.org/wiki/System_Requirements_Definition) |
+
 ## Next
 
 **Case Study — SDC Time Tracker (ETAS)** — walk the living system end-to-end, then move into **military ops** modules that map SE artifacts to operational concepts.

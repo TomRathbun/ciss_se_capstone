@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='240' height='100' viewBox='0 0 240 100'>
+  <rect width='100%' height='100%' rx='8' fill='#1a2332' stroke='#3d4f66'/>
+  <g transform='translate(20,20) scale(1.2)'><path d='M12 2l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.8 6.1 20.2l1.2-6.6L2.4 9l6.7-.9L12 2z' fill='#c9a227' stroke='#8a7018' stroke-width='0.5'/></g><g transform='translate(60,20) scale(1.2)'><path d='M12 2l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.8 6.1 20.2l1.2-6.6L2.4 9l6.7-.9L12 2z' fill='#c9a227' stroke='#8a7018' stroke-width='0.5'/></g><g transform='translate(100,20) scale(1.2)'><path d='M12 2l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.8 6.1 20.2l1.2-6.6L2.4 9l6.7-.9L12 2z' fill='#c9a227' stroke='#8a7018' stroke-width='0.5'/></g><g transform='translate(140,20) scale(1.2)'><path d='M12 2l2.9 6.1 6.7.9-4.9 4.6 1.2 6.6L12 17.8 6.1 20.2l1.2-6.6L2.4 9l6.7-.9L12 2z' fill='#c9a227' stroke='#8a7018' stroke-width='0.5'/></g>
+  <text x='120' y='90' text-anchor='middle' fill='#e8eef7' font-family='Segoe UI,Arial,sans-serif' font-size='11'>GEN / Fariq Awwal</text>
+</svg>

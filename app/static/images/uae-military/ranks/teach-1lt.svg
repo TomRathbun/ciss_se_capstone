@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='100' height='90' viewBox='0 0 100 90'>
+  <rect width='100%' height='100%' rx='8' fill='#1a2332' stroke='#3d4f66'/>
+  <rect x='25' y='25' width='50' height='8' rx='2' fill='#c9a227'/><rect x='25' y='39' width='50' height='8' rx='2' fill='#c9a227'/>
+  <text x='50' y='82' text-anchor='middle' fill='#e8eef7' font-family='Segoe UI,Arial,sans-serif' font-size='10'>1LT / Mulazim Awwal</text>
+</svg>

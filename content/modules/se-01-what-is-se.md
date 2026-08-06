@@ -145,6 +145,20 @@ Bring the worksheet to Thursday; you may submit electronically if you’re unsur
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
+## Later link (ops track)
+
+When you reach **UAE Military Context**, study the training **OV-1** (layered AD, radars, weapons, C2/comms). That picture is the operational “shared view” that vision, needs, and ICDs hang from — same cascade, richer domain.
+
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| SE definition & value | [SEBoK — Systems Engineering](https://sebokwiki.org/wiki/Systems_Engineering) |
+| Lifecycle context | [SEBoK — Life Cycle Models](https://sebokwiki.org/wiki/Life_Cycle_Models) |
+| NASA fundamentals | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) |
+| Practical guide (industry) | [MITRE Systems Engineering Guide](https://www.mitre.org/publications/systems-engineering-guide) |
+| Failure modes / risk thinking | [SEBoK — Risk Management](https://sebokwiki.org/wiki/Risk_Management) |
+
 ## Next
 
 **Vision, Stakeholders & Needs** — how to write a vision statement, list stakeholders, and derive needs in the course grammar.

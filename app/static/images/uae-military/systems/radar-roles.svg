@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+  <rect width="960" height="560" fill="#0f172a"/>
+  <text x="480" y="36" text-anchor="middle" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="20" font-weight="700">Radar roles in air &amp; missile defence (open-source concept)</text>
+  <text x="480" y="58" text-anchor="middle" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="12">Training diagram — not a basing map or classified architecture</text>
+
+  <rect x="40" y="90" width="280" height="200" rx="12" fill="#1e293b" stroke="#38bdf8"/>
+  <text x="180" y="120" text-anchor="middle" fill="#7dd3fc" font-family="Segoe UI,Arial" font-size="15" font-weight="600">Early warning / volume search</text>
+  <text x="55" y="150" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Long-range air surveillance</text>
+  <text x="55" y="172" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• Ground Master GM400/403 family</text>
+  <text x="55" y="192" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• Wide-area air picture for COP</text>
+  <text x="55" y="220" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="12">Feeds: tracks → C2 / COP</text>
+  <text x="55" y="250" fill="#64748b" font-family="Segoe UI,Arial" font-size="11">SE: external sensor ICD</text>
+
+  <rect x="340" y="90" width="280" height="200" rx="12" fill="#1e293b" stroke="#a78bfa"/>
+  <text x="480" y="120" text-anchor="middle" fill="#c4b5fd" font-family="Segoe UI,Arial" font-size="15" font-weight="600">Missile defence fire-control</text>
+  <text x="355" y="150" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">BMD / upper-tier engagement</text>
+  <text x="355" y="172" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• AN/TPY-2 (THAAD sensor)</text>
+  <text x="355" y="192" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• Patriot engagement radars</text>
+  <text x="355" y="220" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="12">Feeds: discriminate → engage</text>
+  <text x="355" y="250" fill="#64748b" font-family="Segoe UI,Arial" font-size="11">SE: tight fire-control loop</text>
+
+  <rect x="640" y="90" width="280" height="200" rx="12" fill="#1e293b" stroke="#fb923c"/>
+  <text x="780" y="120" text-anchor="middle" fill="#fdba74" font-family="Segoe UI,Arial" font-size="15" font-weight="600">SHORAD / tactical search</text>
+  <text x="655" y="150" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Low altitude / UAV / C-RAM</text>
+  <text x="655" y="172" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• Pantsir organic radar/EO</text>
+  <text x="655" y="192" fill="#cbd5e1" font-family="Segoe UI,Arial" font-size="12">• Giraffe-class family themes</text>
+  <text x="655" y="220" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="12">Feeds: local tracks → SHORAD</text>
+  <text x="655" y="250" fill="#64748b" font-family="Segoe UI,Arial" font-size="11">SE: high update rate ICD</text>
+
+  <rect x="40" y="320" width="880" height="200" rx="12" fill="#172033" stroke="#34d399"/>
+  <text x="480" y="350" text-anchor="middle" fill="#6ee7b7" font-family="Segoe UI,Arial" font-size="15" font-weight="600">Also in the open-source radar vocabulary</text>
+  <text x="60" y="385" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Airborne / fighter AESA (F-16 Block 60, Mirage, Rafale fire-control radars) — platform organic sensors</text>
+  <text x="60" y="412" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Naval surveillance (Sea Giraffe family open lists; shipboard 3D air/surface search)</text>
+  <text x="60" y="439" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Ground Master / long-range 3D AESA — volume search for national air picture</text>
+  <text x="60" y="466" fill="#e2e8f0" font-family="Segoe UI,Arial" font-size="13">Weapon-system fire-control radars (Patriot, HAWK legacy, KM-SAM themes) — engagement quality tracks</text>
+  <text x="60" y="493" fill="#94a3b8" font-family="Segoe UI,Arial" font-size="12">All radars are potential COP feeds and ICD parties — never invent locations or classified performance numbers</text>
+</svg>

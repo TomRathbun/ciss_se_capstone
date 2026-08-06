@@ -35,7 +35,8 @@ Give interns a **shared public vocabulary** for platforms and systems that appea
 | Maritime patrol | P-3 Orion heritage | Maritime SA / patrol concepts when the mission set includes sea |
 | Rotary | Black Hawk, CH-53K | Troop / heavy lift — usually support or joint vignette, not classic ATO fighter CAP |
 | Munitions / strike | JASSM, LRASM, Hellfire, Javelin | Standoff vs direct-attack **families** at high level; never invent real target data |
-| Missile defense | PAC-3, THAAD, Aegis | Layered defense → different C2 and COP pictures than pure air CAP |
+| Missile defense / long SAM | PAC-3, THAAD, Aegis | Upper/mid-tier BMD and SAM → different C2 and COP pictures than pure air CAP |
+| **SHORAD** / point defence | Pantsir-S1, Crotale/Shahine-class, Mistral/RBS 70 themes | Short-range air defence (aircraft, cruise, UAVs) — see **UAE Military Context** layered AD diagram |
 | Space / C2 | GPS III, SBIRS, C2BMC | Timing, warning, battle management — **enablers** for every ATO (time sync, warning, C2 glue) |
 
 ## Exercise (30 min) — one-page brief

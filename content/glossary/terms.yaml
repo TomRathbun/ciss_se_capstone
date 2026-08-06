@@ -111,3 +111,34 @@ terms:
     definition: UAE defence and advanced technology group (public industry stakeholder); appears in open sources as a national defence-industry cluster.
   - term: F-16E/F Block 60 (Desert Falcon)
     definition: Advanced F-16 variant publicly associated with UAEAF; use for unclassified mission-card vocabulary only.
+  - term: Patriot (MIM-104)
+    definition: U.S. surface-to-air / missile-defense family; open sources report UAE PAC-2/PAC-3 employment themes for training vocabulary only.
+  - term: THAAD
+    definition: Terminal High Altitude Area Defense — U.S. upper-tier BMD; open sources report UAE as an early export customer.
+  - term: SHORAD
+    definition: Short-Range Air Defence — point/low-altitude defence against aircraft, helicopters, cruise missiles, rockets, and UAVs; sits below long-range SAMs and BMD in a layered architecture.
+  - term: Pantsir-S1
+    definition: Russian SHORAD family (missile + gun concept); open sources identify the UAE as a launch customer — training vocabulary only, no classified employment data.
+  - term: Layered air defence
+    definition: Multiple AD tiers (e.g. THAAD, Patriot, medium SAM, SHORAD, C-UAS) that must exchange tracks and cues — a system-of-systems problem for SE interfaces and CONOPS.
+  - term: AN/TPY-2
+    definition: U.S. X-band transportable radar that serves as the primary sensor for THAAD; open sources associate it with UAE THAAD batteries — training vocabulary only.
+  - term: Ground Master (GM400 / GM403)
+    definition: Thales long-range 3D AESA air-surveillance radar family; GM-403-class systems appear in open UAE air-picture discussions.
+  - term: Giraffe / Sea Giraffe
+    definition: Saab multi-mission 3D radar family (land and naval variants); open lists associate Sea Giraffe variants with UAE naval inventories.
+  - term: Volume-search radar
+    definition: Wide-area air surveillance radar that builds the broad air picture (COP feed); distinct from fire-control radars that support engagement.
+  - term: Fire-control radar
+    definition: Engagement-quality sensor tied to a weapon system (e.g. Patriot, THAAD/TPY-2 modes, SHORAD organic radar) — different ICD rates and consumers than volume search.
+  - term: OV-1
+    definition: >
+      High-level operational concept graphic (DoDAF-style) showing missions, major players,
+      sensors, effectors, and information flows in one picture — used before detailed
+      requirements; the course training OV-1 ties UAE open-source AD/radar vocabulary to SE.
+  - term: K9 Thunder
+    definition: South Korean 155 mm self-propelled howitzer family; appears in open regional cooperation/production reporting — training vocabulary only.
+  - term: Leclerc
+    definition: French main battle tank widely reported in open UAE Army equipment lists.
+  - term: Naqib
+    definition: UAE officer rank approximately equivalent to Captain (company grade — bars, not stars, in the course teaching model).

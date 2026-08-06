@@ -76,7 +76,7 @@ An AOC does not sit alone. Typical information and force elements around it:
 
 | Domain | Examples (training level) |
 |--------|---------------------------|
-| Sensors | Radar |
+| Sensors | Radar (volume search, fire-control, SHORAD organic — see **UAE Military Context**) |
 | Tactical data | Link 16 |
 | EW | Electronic warfare feeds / awareness |
 | Intelligence | Intel products supporting ID and intent |

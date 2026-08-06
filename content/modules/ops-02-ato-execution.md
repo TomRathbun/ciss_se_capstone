@@ -49,7 +49,11 @@ Same habit as software state charts: name **legal** transitions and **illegal** 
 
 ## Execution by mission flavor
 
+*Visual vocabulary for each type lives in **ATO Planning** (`/static/images/mission-types/`). Re-open the matching picture when you write your execution annex.*
+
 ### Training mission
+
+![Training](/static/images/mission-types/01-training.jpg)
 
 - Safety and learning objectives dominate  
 - Debrief quality matters as much as “completing the profile”  
@@ -57,15 +61,35 @@ Same habit as software state charts: name **legal** transitions and **illegal** 
 
 ### Air defense / CAP-style
 
+![CAP](/static/images/mission-types/02-cap-air-defense.jpg)
+
 - On-station timing and coverage matter  
+- Tanker slip or abort changes the whole station plan  
 - Handover between CAP stacks / shifts  
-- Rules of engagement (conceptual) and ID procedures matter more than strike weaponeering  
+- ID procedures and C2 ownership matter more than weaponeering  
 
 ### Strike / attack (exercise or conceptual)
+
+![Strike](/static/images/mission-types/03-strike-interdiction.jpg)
 
 - Time-on-target discipline  
 - Coordination with support (tankers, EW, SEAD concepts at high level)  
 - Battle damage / effects reporting (exercise metrics)  
+
+### Support (ISR / tanker) and CSAR
+
+![Support ISR/tanker](/static/images/mission-types/04-support-isr-tanker.jpg)
+
+![CSAR](/static/images/mission-types/06-csar.jpg)
+
+- Enablers fail quietly until the shooter runs out of gas or SA  
+- CSAR: locate → protect → recover under time pressure; cover package is part of execution  
+
+### Transport / lift
+
+![Transport](/static/images/mission-types/05-transport-lift.jpg)
+
+- Airfield status, payload changes, and ground interface drive aborts more than “enemy fighters” in peacetime training  
 
 You are not learning weaponeering math here — you are learning **what planners and C2 watch for**.
 

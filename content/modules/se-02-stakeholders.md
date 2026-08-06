@@ -251,6 +251,16 @@ All artifacts will be graded for traceability, completeness, and professionalism
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
 
+## Further reading
+
+| Topic | Source |
+|-------|--------|
+| Stakeholders | [SEBoK — Stakeholder Needs Definition](https://sebokwiki.org/wiki/Stakeholder_Needs_Definition) |
+| Operational concepts | [SEBoK — Business or Mission Analysis](https://sebokwiki.org/wiki/Business_or_Mission_Analysis) |
+| Context / boundary | [SEBoK — System Context (search on SEBoK)](https://sebokwiki.org/wiki/Special:Search?search=system+context) |
+| Product / program vision (product craft) | [SVPG — Product Vision & Principles](https://www.svpg.com/product-vision-and-principles/) (readable product-lens complement) |
+| NASA stakeholder practice | [NASA SE Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) — stakeholder / requirements chapters |
+
 ## Next
 
 **Use Cases from Needs** — turn each need into actor goals, main success scenarios, and extensions (where IF/THEN requirements are born).
