@@ -77,6 +77,24 @@ Use the template above, fill in at least the first six fields, and note any **in
 
 > **Reminder:** If any part of an ICD (field descriptions, success criteria, etc.) is generated with AI assistance, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying decisions must remain yours.
 
+## Tools for these artifacts
+
+**Goal:** a one-page contract others can version — not an OpenAPI novel unless the interface is an API.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| ICD narrative | Markdown / Word using the template above | Controlled ICD in CM / wiki |
+| Tabular field list | Excel or markdown table | Same + schema registry |
+| API-shaped interfaces | OpenAPI/Swagger *when useful* | API gateways + ICD still required |
+| Schema checks (optional) | JSON Schema; Python/bash validators | CI pipeline checks |
+
+| Topic | Link |
+|-------|------|
+| JSON Schema | [json-schema.org](https://json-schema.org/) |
+| OpenAPI | [openapis.org](https://www.openapis.org/) |
+| REST API guidelines (contract thinking) | [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines) |
+| Interface management (SEBoK) | [SEBoK search — interface](https://sebokwiki.org/wiki/Special:Search?search=interface+management) |
+
 ## Further reading
 
 | Topic | Source |
