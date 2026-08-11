@@ -85,6 +85,24 @@ graph LR
 
 *Alt text: Four-view C4-style stack — external actors into Presentation → Application services → Domain → Persistence.*
 
+## Tools for these artifacts
+
+**Goal:** allocation table + one clear structural view + decision notes — not a full MBSE model.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| Container / layer diagram | Mermaid, draw.io, C4-PlantUML | Rhapsody, Cameo, Capella |
+| Allocation matrix (FR → element) | Excel or markdown table | Req tool links + model elements |
+| Design decision record | Markdown ADR-style note | Wiki + CM baseline |
+
+| Topic | Link |
+|-------|------|
+| **C4 model** | [c4model.com](https://c4model.com/) |
+| C4 + PlantUML | [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML) |
+| Mermaid | [Mermaid docs](https://mermaid.js.org/) |
+| Architecture (SEBoK) | [System Architecture Design Definition](https://sebokwiki.org/wiki/System_Architecture_Design_Definition) |
+| Lightweight ADRs | Search “Architecture Decision Records” (Quinn / Nygard style) |
+
 ## Further reading
 
 | Topic | Source |
