@@ -111,6 +111,28 @@
     border-radius: 0 0.5rem 0.5rem 0;
 }
 .prose-course strong { color: #f8fafc; }
+
+/* Module body links — always visible as links (tables + further reading) */
+.prose-course a {
+    color: #93c5fd;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    font-weight: 500;
+}
+.prose-course a:hover {
+    color: #bfdbfe;
+    text-decoration-thickness: 2px;
+}
+.prose-course a:visited {
+    color: #a5b4fc;
+}
+.prose-course a[href^="http"]::after {
+    content: " ↗";
+    font-size: 0.75em;
+    opacity: 0.7;
+}
+
 .prose-course .mermaid-render {
     margin: 1.25rem 0;
     padding: 1rem;
