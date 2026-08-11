@@ -5,6 +5,9 @@
 - Write **shall** requirements with stable IDs  
 - Use **EARS grammar** patterns so requirements are clear and consistent  
 - **See** the EARS keywords (**WHEN** / **WHILE** / **IF** / **THEN** / **WHERE** / **shall**) at a glance  
+- Recognize **requirement levels**: stakeholder → system → subsystem  
+- Expect the **count of requirements to expand** as you decompose downward  
+- Keep **traceability between levels** (parent ↔ child)  
 - Derive FRs from **use cases** (which come from needs and vision)  
 - Separate **functional** and **non-functional** requirements  
 - Handle unknown numbers with **TBD** / **TBR** without writing fake precision  
@@ -39,6 +42,86 @@ Do **not** paste a need or vision paragraph as a requirement. The FR is **alloca
 
 **Habit:** Every FR lists its parent use case (`UC-…` via **allocated_to**) and, when known, the need/vision chain (**traces_to** / **derives_from**).
 
+## Requirements levels (stakeholder → system → subsystem)
+
+EARS tells you *how to word* a shall. **Levels** tell you *whose problem* the shall is solving and *which product element* is obligated.
+
+```text
+Stakeholder requirements  (customer / user intent — often loose)
+        │  refined / decomposed  (trace parent → children)
+        ▼
+System requirements       ("The <System> shall …")
+        │  refined / decomposed  (trace parent → children)
+        ▼
+Subsystem / component requirements  ("The <Subsystem> shall …")
+        │
+        ▼
+(further allocation to design, interfaces, tests)
+```
+
+| Level | Who typically writes it | What it sounds like | Naming habit |
+|-------|-------------------------|---------------------|--------------|
+| **Stakeholder requirements** | Customer, ops, user reps (sometimes a contractor writing *for* them) | Capability, outcome, constraint in stakeholder language — often **not** tight EARS | May say “the system shall support operators…” or even “users need…” |
+| **System requirements** | SE / contractor after analysis | Testable **shall** on the **whole system** | Subject is the **system name** (e.g. *The ETAS*, *The SA system*) |
+| **Subsystem requirements** | SE + subsystem owners | Testable **shall** on a **piece** of the system | Subject is the **subsystem / component name** (e.g. *The time_state service*, *The export module*, *The track correlator*) |
+
+### Stakeholder requirements — expect looseness
+
+Customers usually produce **stakeholder requirements** (sometimes called user requirements, operational requirements, or “customer shalls”). Unless a disciplined contractor wrote them, they are often:
+
+- Outcome-oriented but **vague** (“timely,” “user-friendly,” “secure enough”)  
+- Mixed with needs, wishes, and design preferences  
+- Missing exception paths and measurable thresholds  
+
+**Your job as SE is not to mock the customer** — it is to **refine** stakeholder intent into system (then subsystem) requirements that *can* be verified, while **tracing** every child back to a parent stakeholder requirement (or an explicit derived need).
+
+### System vs subsystem — the subject of the sentence
+
+- **System requirement:** the **system** is the actor of **shall**.  
+  - **WHEN** an authorized user exports a quarter, **the ETAS** **shall** include a Discrepancy Tracker sheet.  
+- **Subsystem requirement:** a **named part** is the actor of **shall**.  
+  - **WHEN** an authorized user exports a quarter, **the FOSC export module** **shall** write a Discrepancy Tracker sheet into the package workbook.  
+
+If the subject is wrong, allocation and test ownership will be wrong.
+
+### Decomposition expands the count
+
+**One** stakeholder requirement usually becomes **several** system requirements; **one** system requirement usually becomes **several** subsystem requirements (and interface requirements).
+
+```text
+1 stakeholder req  →  N system reqs  →  M subsystem reqs   (N, M ≥ 1; often M ≫ N)
+```
+
+**Example (teaching sketch)**
+
+| Level | ID | Statement (condensed) |
+|-------|-----|------------------------|
+| Stakeholder | StR-EXP-01 | Program staff can produce an auditable quarterly attendance package without rebuilding spreadsheets by hand. |
+| System | FR-EXP-01 | **WHEN** an authorized user exports a quarter, **the ETAS** **shall** generate a workbook with weekly sheets and a Discrepancy Tracker. |
+| System | FR-EXP-02 | **IF** TEMPO data for the quarter is incomplete, **THEN** **the ETAS** **shall** still export and flag missing weeks. |
+| Subsystem | FR-EXP-01-A | **WHEN** export is requested, **the FOSC export module** **shall** assemble weekly timekeeping sheets. |
+| Subsystem | FR-EXP-01-B | **WHEN** export is requested, **the FOSC export module** **shall** write the Discrepancy Tracker sheet. |
+| Subsystem | FR-EXP-02-A | **IF** a week has no TEMPO import, **THEN** **the FOSC export module** **shall** mark that week’s variance as unavailable. |
+
+Count went **1 → 2 → 3+**. That expansion is normal. What is *not* normal is children with **no parent** (gold plating) or parents with **no children** when the architecture already has real pieces that must behave.
+
+### Traceability between levels is mandatory
+
+| Link | Meaning |
+|------|---------|
+| Stakeholder req → system req | System shalls that **implement** the stakeholder intent |
+| System req → subsystem req | Subsystem shalls that **implement** the system shall |
+| Any req → test / AC | Evidence that the shall is met |
+
+**Rules**
+
+1. Every system/subsystem FR has a **parent** (stakeholder or system req, or an explicit derived justification).  
+2. Every parent that remains in scope has **enough children** to cover it (or an explicit “satisfied by design constraint X”).  
+3. IDs should make parentage obvious when possible (`FR-EXP-01` → `FR-EXP-01-A`).  
+4. Changing a parent without reviewing children is a baseline error.  
+
+In this course, A2 focuses mainly on **system-level** EARS FRs for ETAS-style scope. Know the level model so you do not confuse a stakeholder wish with a subsystem design constraint.
+
 ## Shall language
 
 Mandatory behavior uses **shall** (not should / might / try to).
@@ -69,7 +152,7 @@ It is a small set of sentence patterns that force you to name **when** a require
 | Piece | Meaning |
 |-------|---------|
 | **Precondition / trigger** | Event, state, or unwanted condition (optional for ubiquitous) |
-| **System name** | Usually “The <system>” (e.g. The ETAS, The SA display) |
+| **System name** | Usually “The <system>” (e.g. The ETAS, The SA display) — at subsystem level, use the **subsystem** name |
 | **shall** | Mandatory |
 | **response** | Observable system behavior (not design code) |
 
@@ -159,13 +242,14 @@ Real requirements often **stack** keywords. That is allowed — and dangerous if
 
 ### EARS quality rules
 
-1. **Name the system** consistently (`The ETAS`, `The SA system`).  
+1. **Name the system** (or subsystem) consistently — subject must match the **level**.  
 2. **One primary response** per requirement (split compound “and also…” if tests diverge).  
 3. **Triggers and states are testable** — avoid vague “when appropriate”.  
 4. **Response is observable** — UI message, stored record, exported field, rejected action.  
 5. **No design smuggling** — “shall use React” is design unless the customer constrained the how.  
 6. **Prefer IF/THEN for rejects** — illegal paths are first-class requirements.  
 7. **Bold the EARS keywords** in drafts so peers can scan structure quickly.  
+8. **Trace to parent level** — system FR → stakeholder (or need/UC); subsystem FR → system FR.  
 
 ### EARS pattern cheat sheet
 
@@ -266,6 +350,7 @@ Use stable IDs for traceability:
 
 - `FR-CI-02` — functional, check-in family  
 - `NFR-SEC-01` — non-functional, security  
+- Optional child pattern: `FR-EXP-01-A` for a subsystem FR under `FR-EXP-01`  
 
 IDs never change meaning mid-course without a baseline note. If content must change, note the revision (e.g. `FR-CI-02` rev 2, or a change log line) so reviewers know the baseline.
 
@@ -378,16 +463,18 @@ Open the ETAS app → **Systems Engineering** page (linked from course Home; pat
 
 *Work in 20-minute blocks with a 5-minute stretch break to keep focus.*
 
-1. **5 FRs in EARS** — at least one of each pattern (**WHEN**, **WHILE**, **IF**/**THEN**, **WHERE**, ubiquitous); bold the keywords.  
+1. **5 FRs in EARS** — at least one of each pattern (**WHEN**, **WHILE**, **IF**/**THEN**, **WHERE**, ubiquitous); bold the keywords; use the **system** name as subject (system level).  
 2. **2 NFRs** with measurable criteria or **TBD**/**TBR**.  
 3. **3 ACs** in Given/When/Then, each linked to an FR ID.  
 4. A mini **definition library** (≥ 5 terms used in your FRs).  
 5. A **TBD/TBR register** if any placeholder appears.  
+6. **Optional stretch:** take one system FR and write **two** subsystem children with parent ID links.  
 
 Self-score:
 
 - Every FR matches an EARS skeleton from the cheat sheet.  
 - Keywords are easy to scan (**WHEN** / **WHILE** / **IF** / **THEN** / **WHERE** / **shall**).  
+- Subject of each shall matches the **level** (system vs subsystem).  
 - Every AC references the exact FR ID it validates.  
 - For each AC: cover test + no-extra test (see **Alignment checks** above).  
 - No AC is the only place a threshold or reject rule appears.  
@@ -396,7 +483,7 @@ Self-score:
 ## Assignment A2
 
 **Requirements Pack** — major graded item (weight 25%).  
-Functional requirements **must** use EARS grammar. Include a short **definition library**. Use **TBD**/**TBR** only with a register entry. See Assignments.
+Functional requirements **must** use EARS grammar at **system level** unless the assignment asks otherwise. Include a short **definition library**. Use **TBD**/**TBR** only with a register entry. See Assignments.
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must remain your own.
 
@@ -407,6 +494,7 @@ Functional requirements **must** use EARS grammar. Include a short **definition 
 | Artifact | Simplest clear tools | Program / enterprise class |
 |----------|----------------------|----------------------------|
 | FR list (EARS + IDs) | Markdown table or Excel | DOORS, Jama, Polarion, Azure DevOps Boards |
+| Level + parent links | Columns: Level, Parent ID | Hierarchical req modules / folders |
 | Acceptance criteria | Same file; Given/When/Then rows linked by FR ID | Test tools (Xray, TestRail, …) linked to FRs |
 | Definition library | Table in same pack or linked glossary | Shared glossary object in req DB |
 | TBD/TBR register | Excel / markdown table | Risk or action register linked to FRs |
