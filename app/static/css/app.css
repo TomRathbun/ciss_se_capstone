@@ -112,6 +112,16 @@
 }
 .prose-course strong { color: #f8fafc; }
 
+/* Stakeholder / emphasis underline (not a link) */
+.prose-course u {
+    color: #fde68a;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: #fbbf24;
+    font-weight: 700;
+}
+
 /* Module body links — always visible as links (tables + further reading) */
 .prose-course a {
     color: #93c5fd;
