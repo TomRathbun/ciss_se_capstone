@@ -44,6 +44,38 @@ Typed links (same names used on program artifact graphs):
 
 **Design / architecture comes later.** We allocate requirements to design elements only after the problem is clear. Starting with a solution is the habit this course breaks.
 
+## Where diagrams fit (structural + behavioral)
+
+Once requirements exist, the chain continues into architecture and behavior. Do **not** draw these in the first weeks.
+
+```text
+VISION → NEEDS → USE CASES → REQUIREMENTS (EARS)
+   │        │         │              │
+   │        │         │              │ allocated_to
+   │        │         │              ▼
+   │        │         │         ARCHITECTURE / STRUCTURE
+   │        │         │         (context, containers, components)
+   │        │         │              │
+   │        │         │              │ exercised by
+   │        │         │              ▼
+   │        │         │         BEHAVIOR
+   │        │         │         (state machines + sequence diagrams)
+   │        │         │              │
+   │        │         │              ▼
+   │        │         │         INTERFACES / ICDs  →  V&V / Trace
+```
+
+| Diagram type | Kind | Module | Role in the chain |
+|--------------|------|--------|-------------------|
+| **Context diagram** | Structural | se-02 (Stakeholders) + later architecture | System boundary and external actors/systems |
+| **Container / layer view** (C4-style) | Structural | **se-05 Architecture** | Major pieces and responsibilities; FRs are **allocated_to** these elements |
+| **Component view** | Structural | **se-05 Architecture** | Finer-grained allocation of FRs to modules/services |
+| **State machine** | Behavioral | **se-06 Behavior** | *When* and legal/illegal transitions; must stay consistent with governing FRs |
+| **Sequence diagram** | Behavioral | **se-06 Behavior** | *Order* of interactions for a use-case scenario; every message justified by a requirement or interface |
+| **Interface / ICD view** | Structural + behavioral | **se-07 Interfaces** | Message contracts between the pieces defined in architecture |
+
+**Teaching rule:** Early weeks stay on the left side of the chain (Vision → Requirements). Structural diagrams appear in Architecture; behavioral diagrams appear in Behavior. Both must remain traceable to the requirements they implement.
+
 ## Overview activities (first Monday)
 
 These short exercises make the chain concrete and expose the “design-first” trap early.
