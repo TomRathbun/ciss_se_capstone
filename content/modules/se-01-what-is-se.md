@@ -98,7 +98,7 @@ flowchart LR
 Optional display math (KaTeX) when you need formal models later:
 
 $$
-R_{\mathrm{trace}} = \frac{\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\#\{\mathrm{FR}\}}
+R_{\mathrm{trace}} = \frac{\\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\\#\{\mathrm{FR}\}}
 $$
 
 *R_trace* is the proportion of functional requirements that are traceable to a use case **and** an acceptance test — a simple coverage habit for later RTMs.
