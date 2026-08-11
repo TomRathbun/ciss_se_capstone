@@ -8,8 +8,9 @@ You will:
 
 1. Learn core **systems engineering** skills used on real programs.
 2. Practice the derivation chain used on real efforts:  
-   **Vision → Needs → Use cases → Requirements (EARS) → Design**  
-   with typed links: **derives_from**, **traces_to**, **allocated_to** (not a vague “refine”)
+   **Vision → Needs → Use cases → Requirements (EARS)**  
+   with typed links: **derives_from**, **traces_to**, **allocated_to** (not a vague “refine”).  
+   *We deliberately stop before Design in the first weeks* — jumping to design is the most common intern mistake. Architecture and allocation come later.
 3. Learn enough **UAE military context** and **air operations** language (ranks, public systems, CONOPS/AOC, ATO planning/execution) to work around planning products.
 4. Practice on a **living case study** — **SDC Time Tracker (ETAS)**, an electronic time-and-attendance system for FOSC support staff that already has requirements, states, sequences, and export interfaces.
 5. Produce graded artifacts. Scores and professionalism determine selection.
@@ -20,9 +21,55 @@ By the end of the early SE weeks you will be able to:
 
 - Write a **vision** and derive **needs** in the course grammar  
 - Turn needs into **use cases**, then into **testable EARS requirements** with acceptance criteria  
-- Allocate requirements to design, model **states and sequences**, and describe **interfaces**  
+- Later: allocate requirements to design elements, model **states and sequences**, and describe **interfaces**  
 - Build a small **traceability matrix** and state how you would **verify** each requirement  
 - Show **operational sense** and **professionalism** in workshop and Thursday sessions  
+
+## The early derivation chain (memorize this)
+
+```text
+VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS (EARS)
+   │          │           │              │
+ shared    who/why     how people     what the system
+ picture   benefit     use it         shall do
+```
+
+Typed links (same names used on program artifact graphs):
+
+| Relationship   | From → To              | Meaning |
+|----------------|------------------------|---------|
+| **derives_from** | Need → Vision         | Stakeholder need is justified by the vision |
+| **traces_to**    | Need → Use case       | The need is realized by one or more goal-oriented interactions |
+| **allocated_to** | Use case → Requirement | The use case is specified by one or more shall-statements |
+
+**Design / architecture comes later.** We allocate requirements to design elements only after the problem is clear. Starting with a solution is the habit this course breaks.
+
+## Overview activities (first Monday)
+
+These short exercises make the chain concrete and expose the “design-first” trap early.
+
+### 1. Design-First Trap (12–15 min) — recommended opener
+
+1. Facilitator gives a vague problem (example: “We need a better way for FOSC staff to track time and leave”).
+2. Pairs have **3 minutes** to sketch a *solution* (UI, features, architecture — whatever they want).
+3. Quick share of “cool features.”
+4. Reveal: almost no one asked who the stakeholders are, what success looks like, or what is out of scope.
+5. Show the course chain and say: “This is exactly the habit we are going to break.”
+
+### 2. Traceability Relay (optional, 12–15 min)
+
+Four sequential roles (whiteboard or sticky notes):
+
+1. **Vision writer** — 2–3 sentences.
+2. **Need writer** — must **derives_from** the vision (`As <stakeholder>, we need … so that …`).
+3. **Use-case writer** — must **traces_to** the need (actor + goal).
+4. **Requirement writer** — must be **allocated_to** the use case (one EARS shall-statement).
+
+At the end the group judges whether the final requirement still supports the original vision. Instant demonstration of why the links matter.
+
+### 3. Failure-Mode Spotting (optional, 8–10 min)
+
+Quick card-sort or bingo with classic SE failure modes (no shared vision, gold plating, untestable “shall,” interface surprise, etc.). Teams mark which modes appear in a short story. Reinforces the language used throughout the course.
 
 ## Rhythm (typical week)
 
@@ -89,4 +136,4 @@ Optional background (free / public). Skim; do not let this replace Monday worksh
 
 ## Next
 
-**What Is Systems Engineering?** — the derivation chain, why SE matters, and classic failure modes.
+**What Is Systems Engineering?** — the full derivation chain (including later allocation to design), why SE matters, and classic failure modes.
