@@ -5,8 +5,9 @@
 After this module you can:
 
 - Explain SE in one paragraph to a non-engineer  
-- Follow the course derivation chain: **Vision → Needs → Use cases → Requirements → Design**  
-- Trace each requirement back to a vision, need, and use case (traceability).
+- Follow the **early** derivation chain: **Vision → Needs → Use cases → Requirements (EARS)**  
+- Know that **Design / architecture / behavior** come **later** (allocation after the problem is clear)  
+- Trace each requirement back to a vision, need, and use case (traceability)  
 - Separate those layers without mixing them  
 - Name why projects fail without SE discipline  
 
@@ -20,20 +21,47 @@ It is *not* only drawing diagrams. Diagrams are tools. The product of SE is **de
 
 In practice, strong teams get **everyone on the same perspective** before writing shall-statements. This course uses a cascade that works well on real programs (including prior CISS-style SE efforts).
 
-Layers are not connected by a vague “refine” link. Use the **same relationship names** you will see on program artifact graphs:
+Layers are not connected by a vague “refine” link. Use the **same relationship names** you will see on program artifact graphs.
+
+### Early cascade (first weeks — stop here)
 
 ```text
-(GLOBAL) VISION  →  SYSTEM / PHASE VISION  →  NEED  →  USE CASE  →  REQUIREMENT  →  DESIGN
-                         derives_from           derives_from   traces_to   allocated_to   allocated_to
+VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS (EARS)
+   │          │           │              │
+ shared    who/why     how people     what the system
+ picture   benefit     use it         shall do
 ```
 
-| Relationship | From → To | Meaning |
-|--------------|-----------|---------|
-| **derives_from** | System/phase vision → global (or parent) vision | Specialized vision is grounded in the broader program picture |
-| **derives_from** | Need → vision | Stakeholder need is justified by the vision (or a vision principle) |
-| **traces_to** | Need → use case | The need is realized by one or more goal-oriented interactions |
-| **allocated_to** | Use case → requirement | The use case is specified by one or more shall-statements (EARS) |
-| **allocated_to** | Requirement → design | The FR is allocated to a design element (service, module, ICD, …) |
+| Relationship   | From → To                | Meaning |
+|----------------|--------------------------|---------|
+| **derives_from** | Need → Vision           | Stakeholder need is justified by the vision |
+| **traces_to**    | Need → Use case         | The need is realized by one or more goal-oriented interactions |
+| **allocated_to** | Use case → Requirement  | The use case is specified by one or more shall-statements (EARS) |
+
+**Do not jump to Design yet.** Starting with a solution is the most common intern mistake. Architecture, behavior models, and interfaces come after requirements are clear.
+
+### Full cascade (later modules)
+
+Once requirements exist, continue:
+
+```text
+REQUIREMENTS (EARS)
+        │ allocated_to
+        ▼
+ARCHITECTURE / STRUCTURE
+(context, containers, components)
+        │ exercised by
+        ▼
+BEHAVIOR
+(state machines + sequence diagrams)
+        │
+        ▼
+INTERFACES / ICDs  →  V&V / Trace
+```
+
+| Relationship   | From → To                    | Meaning |
+|----------------|------------------------------|---------|
+| **allocated_to** | Requirement → Design element | The FR is allocated to a service, module, ICD, etc. |
 
 One parent can fan out: one vision → many needs; one need → many use cases; one use case → many FRs.
 
@@ -49,10 +77,10 @@ Program tools often show **IDs on every node** and the link type on the edge —
 ### Course cascade (compact)
 
 ```text
-VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS  →  DESIGN / IMPLEMENTATION
-   │          │           │              │                    │
- shared    who/why     how people     what the system      how we build it
- picture   benefit     use it         shall do (EARS)
+VISION  →  NEEDS  →  USE CASES  →  REQUIREMENTS  →  (later) DESIGN / ARCHITECTURE / BEHAVIOR
+   │          │           │              │                         │
+ shared    who/why     how people     what the system         how we structure
+ picture   benefit     use it         shall do (EARS)         and exercise it
 ```
 
 ```mermaid
@@ -61,15 +89,15 @@ flowchart LR
     V -->|derives_from| N[Need]
     N -->|traces_to| U[Use case]
     U -->|allocated_to| R[Requirement EARS]
-    R -->|allocated_to| D[Design]
+    R -->|allocated_to| D[Design / Architecture]
 ```
 
-*Alt text: Artifact chain with link types derives_from (visions and need), traces_to (need to use case), allocated_to (use case to requirement to design).*
+*Alt text: Artifact chain with link types derives_from (visions and need), traces_to (need to use case), allocated_to (use case to requirement to design). Design is a later step.*
 
 Optional display math (KaTeX) when you need formal models later:
 
 $$
-R_{\mathrm{trace}} = \frac{\\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\\#\{\mathrm{FR}\}}
+R_{\mathrm{trace}} = \frac{\#\{\mathrm{FR\ with\ UC\ and\ test}\}}{\#\{\mathrm{FR}\}}
 $$
 
 *R_trace* is the proportion of functional requirements that are traceable to a use case **and** an acceptance test — a simple coverage habit for later RTMs.
@@ -80,7 +108,9 @@ $$
 | **Needs** | Who needs what, so that what benefit? | `As <stakeholder>, we need …, so that …` — need **derives_from** vision | .md, .txt |
 | **Use cases** | How does a stakeholder achieve value with the system? | Named use case: actor, goal, main flow, extensions — need **traces_to** use case | .md, .xlsx |
 | **Requirements** | What shall the system do in each situation? | EARS + shall, IDs, acceptance criteria — use case **allocated_to** requirement | .md, .reqs |
-| **Design** | How will we implement it? | Architecture, modules, algorithms, UI — requirement **allocated_to** design | .md, .drawio, .py |
+| **Design** (later) | How will we structure and implement it? | Architecture, modules, algorithms, UI — requirement **allocated_to** design | .md, .drawio, .py |
+| **Behavior** (later) | When and in what order? | State machines, sequence diagrams | PlantUML, draw.io |
+| **Interfaces** (later) | What contracts exist at boundaries? | Lightweight ICD | .md, schema |
 
 **Common intern mistake:** jumping straight to design or to shall-language without a shared vision and named stakeholders — missing **derives_from** / **traces_to** links entirely.
 
@@ -103,7 +133,7 @@ Every need **derives_from** a vision (or principle). Each need **traces_to** one
 | Need | As FOSC admins, we need TEMPO-aware export … so that packages are defensible |
 | Use case | Manager exports quarterly FOSC package |
 | Requirement | WHEN an authorized user exports a quarter, the ETAS shall include a Discrepancy Tracker sheet |
-| Design | `fosc_export.build_fosc_quarterly_workbook` |
+| Design *(later)* | `fosc_export.build_fosc_quarterly_workbook` |
 
 ### Larger example (mission C2 — teaching style)
 
@@ -130,7 +160,6 @@ SE gives a shared language so software, ops, and leadership do not talk past eac
 6. **No validation** – built the wrong thing correctly.  
 7. **AC papers over a bad FR** – thresholds live only in acceptance criteria; customer later enforces *their* reading of the contractual shall.  
 
-
 ## Offline exercise (30 min)
 
 Pick any app you use daily (banking, maps, chat). Write:
@@ -139,7 +168,7 @@ Pick any app you use daily (banking, maps, chat). Write:
 2. **Need** – One stakeholder statement: `As <stakeholder>, we need …, so that …`.  
 3. **Use case** – Name, actor, and goal (one sentence each).  
 4. **EARS requirement** – One shall‑statement supporting the use case.  
-5. **Design choice** – One concrete implementation decision *not* phrased as a requirement.
+5. **Design choice** – One concrete implementation decision *not* phrased as a requirement (label it clearly as design, not requirement).
 
 Bring the worksheet to Thursday; you may submit electronically if you’re unsure.
 
