@@ -13,7 +13,7 @@ You will:
    *We deliberately stop before Design in the first weeks* — jumping to design is the most common intern mistake. Architecture and allocation come later.
 3. Learn enough **UAE military context** and **air operations** language (ranks, public systems, CONOPS/AOC, ATO planning/execution) to work around planning products.
 4. Practice on a **living case study** — **SDC Time Tracker (ETAS)**, an electronic time-and-attendance system for FOSC support staff that already has requirements, states, sequences, and export interfaces.
-5. Produce graded artifacts. Scores and professionalism determine selection.
+5. Produce graded **artifacts**. Scores and professionalism determine selection.
 
 ## Learning objectives
 
@@ -24,6 +24,7 @@ By the end of the early SE weeks you will be able to:
 - Later: allocate requirements to design elements, model **states and sequences**, and describe **interfaces**  
 - Build a small **traceability matrix** and state how you would **verify** each requirement  
 - Show **operational sense** and **professionalism** in workshop and Thursday sessions  
+- Choose a **simple tool** that produces a clear, reviewable artifact (not an ambitious tool stack)
 
 ## The early derivation chain (memorize this)
 
@@ -121,6 +122,7 @@ We use a **rubric to differentiate performance levels** — so strong candidates
 - **Traceability** (requirement → design idea → test)
 - **Operational sense** (missions are not video games)
 - **Professionalism** (attendance, integrity, coachability)
+- **Clear artifacts** (a peer can review them without you in the room)
 
 **Approximate weighting** (see **Assignments** and **Selection Criteria** for full detail):
 
@@ -131,11 +133,36 @@ We use a **rubric to differentiate performance levels** — so strong candidates
 
 Peer feedback on Thursday is scored under A6 and improves the quality of your artifacts.
 
-## Tools
+## Tools — SEs create artifacts
+
+**Systems engineers are paid for artifacts and decisions under evidence**, not for tool loyalty. A requirement pack, a context diagram, a state chart, an ICD, and an RTM are the product. Tools are how you leave that evidence so others can review, test, and maintain it.
+
+### Course stance (memorize)
+
+1. **Artifact first** — know what good looks like (vision, need, UC, EARS, state, ICD, RTM).  
+2. **Simplest clear tool** — prefer the easiest medium that a peer can read without special software. Ambition is in the *thinking*, not in the tool stack.  
+3. **Polyglot** — real programs mix markdown, Excel, wikis, Jira, DOORS-class databases, MBSE tools, scripts, and LLMs. You will switch.  
+4. **LLMs are tools** — allowed for wording help; **cite** them; ideas and structure must be yours.
+
+### Tool classes (illustrative — not a shopping list)
+
+| Kind of work | Example tools | Typical artifacts |
+|--------------|---------------|-------------------|
+| Write & structure | Markdown, Word, Confluence / wikis | Vision, needs, ICD text, decision records |
+| Tables & traces | Excel / Sheets; enterprise: DOORS, Jama, Polarion | RTM, allocation matrix, req lists |
+| Diagrams | Mermaid, PlantUML, draw.io, Visio | Context, C4-style containers, states, sequences |
+| MBSE / system model | Rhapsody, Cameo, Capella *(class of tool)* | Model-based architecture & behavior (later careers) |
+| Work tracking | Jira, Azure DevOps, GitHub Issues | Tasks, reviews — not a substitute for SE artifacts |
+| Scripting / data | Python, bash | Export checks, data shaping, repeatable reports |
+| AI assist | LLMs (ChatGPT, Grok, Copilot, …) | Draft wording only — cite; verify yourself |
+
+**In this course:** markdown + tables + Mermaid/PlantUML + Excel-style RTMs are enough. We name enterprise tools so you recognize them on a program — we do **not** require licenses.
+
+Each later module adds a short **Tools for these artifacts** note with links. Course site tools:
 
 - **Website** — modules, schedule, assignments, submissions  
 - **Case study** — SDC Time Tracker → **Systems Engineering** page (linked from Home)  
-- **Glossary** — top navigation: **Glossary** (`/glossary`) for SE and ops terms  
+- **Glossary** — top navigation: **Glossary** (`/glossary`)  
 - **Offline reading** — longer modules between Monday and Thursday  
 
 ## Ground rules
@@ -164,6 +191,8 @@ Optional background (free / public). Skim; do not let this replace Monday worksh
 | Body of knowledge map | [Guide to the Systems Engineering Body of Knowledge (SEBoK)](https://sebokwiki.org/) |
 | NASA process overview | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) (PDF available from NASA) |
 | Professional society | [INCOSE](https://www.incose.org/) — student / community resources |
+| Markdown (artifact writing) | [CommonMark](https://commonmark.org/) / [GitHub Flavored Markdown](https://docs.github.com/en/get-started/writing-on-github) |
+| Mermaid diagrams | [Mermaid docs](https://mermaid.js.org/) |
 | Course terms | In-app **[Glossary](/glossary)** |
 
 ## Next
