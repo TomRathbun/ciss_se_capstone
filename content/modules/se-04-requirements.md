@@ -58,7 +58,7 @@ It is a small set of sentence patterns that force you to name **when** a require
 | Piece | Meaning |
 |-------|---------|
 | **Precondition / trigger** | Event, state, or unwanted condition (optional for ubiquitous) |
-| **System name** | Usually “The &lt;system&gt;” (e.g. The ETAS, The SA display) |
+| **System name** | Usually “The <system>” (e.g. The ETAS, The SA display) |
 | **shall** | Mandatory |
 | **response** | Observable system behavior (not design code) |
 
@@ -321,6 +321,25 @@ Functional requirements **must** use EARS grammar. See Assignments.
 
 > **Reminder:** If you generate any wording with an AI tool, add an in‑text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must remain your own.
 
+## Tools for these artifacts
+
+**Goal:** a reviewable FR/AC pack with stable IDs — not a DOORS project for interns.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| FR list (EARS + IDs) | Markdown table or Excel | DOORS, Jama, Polarion, Azure DevOps Boards |
+| Acceptance criteria | Same file; Given/When/Then rows linked by FR ID | Test tools (Xray, TestRail, …) linked to FRs |
+| Parent UC / need links | Extra columns (`UC-…`, `Need-…`) | Live trace links in req DB |
+| Pattern tags | Column or footnote `[WHEN]`, `[IF/THEN]` | Attributes in req tool |
+
+Excel is excellent for sorting by pattern and checking coverage. Markdown is excellent for review comments. Use either; keep IDs stable.
+
+| Topic | Link |
+|-------|------|
+| EARS (Mavin et al.) | Search “Mavin EARS INCOSE” · [ResearchGate EARS paper](https://www.researchgate.net/publication/224157532_Easy_Approach_to_Requirements_Syntax_EARS) |
+| System requirements (SEBoK) | [System Requirements Definition](https://sebokwiki.org/wiki/System_Requirements_Definition) |
+| Given/When/Then (syntax inspiration) | [Cucumber — Gherkin](https://cucumber.io/docs/gherkin/reference/) |
+| Req management (SEBoK) | [Requirements Management](https://sebokwiki.org/wiki/Requirements_Management) |
 
 ## Further reading
 
