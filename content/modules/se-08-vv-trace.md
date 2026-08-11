@@ -76,6 +76,25 @@ Candidates who **cannot** say how they would prove a requirement rarely pass sel
 
 > **Reminder:** If any text in the RTM or V&V plan is generated with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying logic must be yours.
 
+## Tools for these artifacts
+
+**Goal:** an RTM a tester can use Monday morning — Excel is enough.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| RTM | **Excel / Sheets** (filterable columns) | DOORS / Jama / Polarion trace views |
+| V&V plan | Markdown / Word (~½ page) | Test management tools (Jira/Xray, Azure Test Plans, …) |
+| Evidence links | Paths, test IDs, ticket keys | CM + CI reports |
+
+Optional: Python/bash only if it *reduces* errors when building a large RTM — never required for A4.
+
+| Topic | Link |
+|-------|------|
+| Verification (SEBoK) | [System Verification](https://sebokwiki.org/wiki/System_Verification) |
+| Validation (SEBoK) | [System Validation](https://sebokwiki.org/wiki/System_Validation) |
+| Traceability | [Requirements Management](https://sebokwiki.org/wiki/Requirements_Management) |
+| NASA V&V chapters | [NASA SE Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) |
+
 ## Further reading
 
 | Topic | Source |
