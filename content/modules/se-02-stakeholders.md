@@ -105,16 +105,18 @@ Include **two principles**. Peer: can they restate your vision without the paper
 
 A **stakeholder** is anyone who cares about the system’s success or failure. Name the **role** (not a person’s given name) — that role becomes the **As …** slot in every need.
 
+*Style: stakeholder roles are **bold and underlined** so they stand out from body text.*
+
 | **Stakeholder** (role) | Primary concern / goal | Cares about |
 |------------------------|------------------------|-------------|
-| **Employee** | Quick, accurate time capture | Fast punch, leave balance, fair rules |
-| **Manager** | Oversight of staff time | Approvals, declared vs submitted time |
-| **Program / FOSC admin** | Contract compliance & auditability | Excel package, TEMPO shortfalls |
-| **IT / security** | Data protection and traceability | PIN safety, audit trail |
-| **Mission operator** (C2 example) | Situational awareness and decision support | SA quality, trust in AI aids, override |
-| **Systems engineer** | Traceability, testability | Architecture consistency, verification |
+| <u>**Employee**</u> | Quick, accurate time capture | Fast punch, leave balance, fair rules |
+| <u>**Manager**</u> | Oversight of staff time | Approvals, declared vs submitted time |
+| <u>**Program / FOSC admin**</u> | Contract compliance & auditability | Excel package, TEMPO shortfalls |
+| <u>**IT / security**</u> | Data protection and traceability | PIN safety, audit trail |
+| <u>**Mission operator**</u> (C2 example) | Situational awareness and decision support | SA quality, trust in AI aids, override |
+| <u>**Systems engineer**</u> | Traceability, testability | Architecture consistency, verification |
 
-**Tip:** Vision usually names or implies primary stakeholders; list them explicitly next. The bold role names above are the same wording you put after **As** in a need.
+**Tip:** Vision usually names or implies primary stakeholders; list them explicitly next. The **bold + underlined** role names above are the same wording you put after **As** in a need.
 
 ---
 
@@ -122,20 +124,20 @@ A **stakeholder** is anyone who cares about the system’s success or failure. N
 
 **Required form** — three fixed phrases (grammar) + three filled slots:
 
-> **As** ***<stakeholder>***,  
+> **As** <u>***<stakeholder>***</u>,  
 > **we need** *<the need>*,  
 > **so that** *<benefit>*.
 
 | Part | Style in this course | What goes here |
 |------|----------------------|----------------|
 | **As** | **Grammar** (always these words) | — |
-| ***<stakeholder>*** | **Bold role name** | Role, unit, or organization (from the stakeholder table) |
+| <u>***<stakeholder>***</u> | **Bold + underline** role name | Role, unit, or organization (from the stakeholder table) |
 | **we need** | **Grammar** (always these words) | — |
 | *<the need>* | Capability text | Outcome in **ops language** — not a design choice (e.g. not “use ONNX”) |
 | **so that** | **Grammar** (always these words) | — |
 | *<benefit>* | Value text | Mission or business value for that stakeholder |
 
-*Memorize the three bold grammar anchors: **As** · **we need** · **so that**.*
+*Memorize the three bold grammar anchors: **As** · **we need** · **so that**. Stakeholder names are always **bold and underlined**.*
 
 ### Needs **derives_from** the vision
 
@@ -150,19 +152,19 @@ On multi-level visions, a system/phase vision may itself **derives_from** a glob
 
 #### From AIC2-style vision → needs (examples)
 
-> **As** **UAE AFAD Mission Operators**,  
+> **As** <u>**UAE AFAD Mission Operators**</u>,  
 > **we need** AI tools that combine smart learning with proven rules for better tracking, identification, threat prediction, and engagement calculations,  
 > **so that** we can handle dense threat environments and asymmetric threats.
 
 *(Supports: hybrid algorithms + decision superiority in crowded airspace.)*
 
-> **As** **mission commanders**,  
+> **As** <u>**mission commanders**</u>,  
 > **we need** graduated autonomy with operator approval on high-stakes actions,  
 > **so that** we gain speed without surrendering accountability.
 
 *(Supports: levels of autonomy / human-in-the-loop principle.)*
 
-> **As** **system integrators**,  
+> **As** <u>**system integrators**</u>,  
 > **we need** modular, open interfaces for sensors, effectors, and third-party AI models,  
 > **so that** we can upgrade components without redesigning the entire C2 enterprise.
 
@@ -170,18 +172,18 @@ On multi-level visions, a system/phase vision may itself **derives_from** a glob
 
 #### From ETAS vision → needs
 
-> **As** **FOSC program administrators**,  
+> **As** <u>**FOSC program administrators**</u>,  
 > **we need** electronic attendance with TEMPO-aware export under contract schedule rules,  
 > **so that** we can produce auditable weekly and quarterly packages without manual rework.
 
-> **As** **SDC employees**,  
+> **As** <u>**SDC employees**</u>,  
 > **we need** a fast PIN-based check-in and clear progress toward the daily target,  
 > **so that** we spend time on the mission instead of fighting the timesheet.
 
 ### Quality checklist (needs)
 
 - [ ] Uses the three grammar anchors: **As** / **we need** / **so that**  
-- [ ] **Stakeholder** is a real role/unit (bold name matches the stakeholder table)  
+- [ ] **Stakeholder** is a real role/unit (**bold + underlined**; matches the stakeholder table)  
 - [ ] **derives_from** a vision phrase or principle (write the parent ID or one-line link)  
 - [ ] Need is not a design (“use ONNX”) — that may be a principle or later requirement  
 - [ ] Benefit is recognizable to that stakeholder  
@@ -192,7 +194,7 @@ On multi-level visions, a system/phase vision may itself **derives_from** a glob
 | Artifact | Answers |
 |----------|---------|
 | Vision | What future are we building (shared picture + principles)? |
-| Need | **As** *who*, **we need** *what capability*, **so that** *what benefit*? |
+| Need | **As** <u>*who*</u>, **we need** *what capability*, **so that** *what benefit*? |
 | Use case | How do they interact with the system to get value? |
 | Requirement | What shall the system do (testable)? |
 
@@ -223,7 +225,7 @@ Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides wha
 ## Monday workshop (full set)
 
 1. Half-page **vision** (+ 2 principles)  
-2. Stakeholder table (≥ 4) — **bold the role names**  
+2. Stakeholder table (≥ 4) — **bold + underline** the role names  
 3. **≥ 2 needs** in grammar (**As** / **we need** / **so that**), each linked to a vision line  
 4. Context sketch + 3 in / 3 out of scope  
 
@@ -231,8 +233,8 @@ Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides wha
 
 Submit a single document that includes:
 1. A half‑page vision (including at least **two** key principles).  
-2. A stakeholder table with **≥ 4** rows (**bold** each stakeholder role).  
-3. **≥ 2** needs statements in the required grammar (**As** ***stakeholder***, **we need** …, **so that** …), each linked to a specific vision line.  
+2. A stakeholder table with **≥ 4** rows (**bold + underline** each stakeholder role).  
+3. **≥ 2** needs statements in the required grammar (**As** <u>***stakeholder***</u>, **we need** …, **so that** …), each linked to a specific vision line.  
 4. A context diagram (ASCII or Mermaid) plus a list of **≥ 3** in‑scope and **≥ 3** out‑of‑scope items.
 
 All artifacts will be graded for traceability, completeness, and professionalism per the selection‑criteria rubric.
