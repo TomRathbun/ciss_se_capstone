@@ -13,7 +13,7 @@ modules:
     track: se
     title: Welcome & How This Course Works
     duration_min: 45
-    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, tools, overview activities, and where diagrams fit.
+    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, SE tool literacy (artifacts first, simplest clear tool), overview activities, and where diagrams fit.
     offline: false
 
   - id: se-01-what-is-se
@@ -21,7 +21,7 @@ modules:
     track: se
     title: What Is Systems Engineering?
     duration_min: 90
-    summary: Vision → needs → use cases → requirements → design with derives_from / traces_to / allocated_to links; why SE matters.
+    summary: Vision → needs → use cases → requirements → design with derives_from / traces_to / allocated_to links; why SE matters; aerospace history cases.
     offline: true
 
   - id: se-02-stakeholders
