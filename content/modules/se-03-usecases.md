@@ -121,6 +121,26 @@ Take **one** needs statement from A1 or the AFAD example.
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
+## Tools for these artifacts
+
+**Goal:** readable UC briefs and a trace table — not a UML suite on day one.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| Use-case brief | Markdown template (fields above) | DOORS/Jama *text objects*; wiki pages |
+| UC index / catalog | Markdown table or Excel | Req DB hierarchy |
+| Optional UC diagram | Mermaid or draw.io *after* the text brief | Rhapsody / Cameo use-case diagrams |
+| Trace rows (need → UC) | Markdown / Excel table | Live links in req tools |
+
+Write the **text brief first**. A bubble diagram without main success + extensions is incomplete.
+
+| Topic | Link |
+|-------|------|
+| UML use-case overview | [uml-diagrams.org — use case](https://www.uml-diagrams.org/use-case-diagrams.html) |
+| Mermaid | [Mermaid docs](https://mermaid.js.org/) |
+| Cockburn-style goal levels | Search “Cockburn use case goal levels” |
+| SEBoK scenarios | [SEBoK search — use case](https://sebokwiki.org/wiki/Special:Search?search=use+case) |
+
 ## Further reading
 
 | Topic | Source |
