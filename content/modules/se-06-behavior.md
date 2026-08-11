@@ -63,7 +63,7 @@ Good for:
 
 ## Assignment A3
 
-Deliver **one state chart** and **one sequence diagram** (any valid tool — PlantUML, draw.io, Visio).
+Deliver **one state chart** and **one sequence diagram** (any valid tool — PlantUML, draw.io, Visio, Mermaid).
 
 - **Annotate** each diagram with the supporting requirement ID(s) (e.g. `FR-CI-02`).  
 - Use a **trace column** in the caption or a legend on the diagram.  
@@ -82,6 +82,24 @@ Model the states for a library book:
 **Peer review** — swap diagrams with a neighbor and verify that each illegal event is explicitly shown as a reject path.
 
 > **Reminder:** If you generate any diagram labels or wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying logic must be yours.
+
+## Tools for these artifacts
+
+**Goal:** one state chart and one sequence a tester can check against FRs — not a complete SysML model.
+
+| Artifact | Simplest clear tools | Program / enterprise class |
+|----------|----------------------|----------------------------|
+| State machine | PlantUML, Mermaid `stateDiagram`, draw.io | Rhapsody / Cameo state machines |
+| Sequence diagram | PlantUML, Mermaid `sequenceDiagram`, draw.io | Same MBSE tools |
+| FR annotation on diagram | Caption / legend text | Model hyperlinks to req IDs |
+
+| Topic | Link |
+|-------|------|
+| PlantUML | [plantuml.com](https://plantuml.com/) |
+| Mermaid state | [State diagrams](https://mermaid.js.org/syntax/stateDiagram.html) |
+| Mermaid sequence | [Sequence diagrams](https://mermaid.js.org/syntax/sequenceDiagram.html) |
+| UML state machines | [uml-diagrams.org — state](https://www.uml-diagrams.org/state-machine-diagrams.html) |
+| UML sequence | [uml-diagrams.org — sequence](https://www.uml-diagrams.org/sequence-diagrams.html) |
 
 ## Further reading
 
