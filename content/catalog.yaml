@@ -13,7 +13,7 @@ modules:
     track: se
     title: Welcome & How This Course Works
     duration_min: 45
-    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, tools, and professional expectations.
+    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, tools, overview activities, and where diagrams fit.
     offline: false
 
   - id: se-01-what-is-se
@@ -32,7 +32,7 @@ modules:
     summary: Vision statement for shared perspective; stakeholders; needs grammar (As… we need… so that…); context & scope.
     offline: true
 
-  - id: se-usecases
+  - id: se-03-usecases
     order: 4
     track: se
     title: Use Cases from Needs
@@ -40,7 +40,7 @@ modules:
     summary: Derive use cases from needs; actors, main success scenario, extensions; bridge to EARS requirements.
     offline: true
 
-  - id: se-03-requirements
+  - id: se-04-requirements
     order: 5
     track: se
     title: Requirements & Acceptance Criteria
@@ -48,7 +48,7 @@ modules:
     summary: Shall language, EARS grammar, IDs, NFRs, ACs that prove FRs without papering over vague shalls.
     offline: true
 
-  - id: se-04-architecture
+  - id: se-05-architecture
     order: 6
     track: se
     title: Architecture Views
@@ -56,7 +56,7 @@ modules:
     summary: Logical layers, allocation of requirements to components, design decisions with rationale.
     offline: true
 
-  - id: se-05-behavior
+  - id: se-06-behavior
     order: 7
     track: se
     title: Behavior — States & Sequences
@@ -64,7 +64,7 @@ modules:
     summary: State machines and sequence diagrams for dynamic behavior; illegal transitions.
     offline: true
 
-  - id: se-06-interfaces
+  - id: se-07-interfaces
     order: 8
     track: se
     title: Interfaces & ICDs
@@ -72,7 +72,7 @@ modules:
     summary: External interfaces, data contracts, error behavior; lightweight ICD thinking.
     offline: true
 
-  - id: se-07-vv-trace
+  - id: se-08-vv-trace
     order: 9
     track: se
     title: Verification, Validation & Traceability
@@ -80,7 +80,7 @@ modules:
     summary: Verify vs validate; requirement → design → test; building a trace matrix.
     offline: true
 
-  - id: se-08-case-etas
+  - id: se-09-case-etas
     order: 10
     track: se
     title: Case Study — SDC Time Tracker (ETAS)
@@ -128,7 +128,7 @@ modules:
     summary: Public platform/weapon vocabulary for mission cards; integrity rules; one-page brief; self-check.
     offline: true
 
-  - id: se-09-capstone-preview
+  - id: se-10-capstone-preview
     order: 16
     track: se
     title: Capstone Preview — Radar Situational Awareness
@@ -158,7 +158,7 @@ assignments:
   - id: a2-requirements
     order: 2
     title: Requirements Pack (EARS + acceptance)
-    module_id: se-03-requirements
+    module_id: se-04-requirements
     due_session: "Week 4 Thursday"
     weight: 25
     summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
@@ -179,7 +179,7 @@ assignments:
   - id: a3-behavior
     order: 3
     title: State Chart + Sequence
-    module_id: se-05-behavior
+    module_id: se-06-behavior
     due_session: "Week 4 Thursday"
     weight: 20
     summary: One state machine and one sequence for a chosen feature (ETAS punch or leave OK).
@@ -197,7 +197,7 @@ assignments:
   - id: a4-trace-vv
     order: 4
     title: Traceability & V&V Plan
-    module_id: se-07-vv-trace
+    module_id: se-08-vv-trace
     due_session: "Week 5 Thursday"
     weight: 20
     summary: RTM for your FRs + verification method per FR; short validation approach.
