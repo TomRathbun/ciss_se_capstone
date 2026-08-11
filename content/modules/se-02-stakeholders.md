@@ -134,9 +134,9 @@ so that <benefit>.
 
 | Slot | What goes here |
 |------|----------------|
-| **As &lt;stakeholder&gt;** | Role, unit, or organization |
-| **we need &lt;the need&gt;** | Capability / outcome in ops language |
-| **so that &lt;benefit&gt;** | Mission or business value |
+| **As <stakeholder>** | Role, unit, or organization |
+| **we need <the need>** | Capability / outcome in ops language |
+| **so that <benefit>** | Mission or business value |
 
 ### Needs **derives_from** the vision
 
@@ -250,6 +250,25 @@ All artifacts will be graded for traceability, completeness, and professionalism
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must still be yours.
 
+## Tools for these artifacts
+
+**Goal:** clear vision, needs table, and context diagram a peer can review — not a fancy document system.
+
+| Artifact | Simplest clear tools (this course) | Program / enterprise class |
+|----------|------------------------------------|----------------------------|
+| Vision + principles | Markdown / Word / Confluence-style wiki page | Same + controlled baseline in CM |
+| Stakeholder table | Markdown table or Excel | Wiki + optional stakeholder register |
+| Needs statements | Markdown list with parent vision link | DOORS / Jama / Polarion *class* of req DB |
+| Context diagram | **Mermaid** in markdown, draw.io, whiteboard photo | Visio, Capella/Cameo context view |
+
+Prefer one short markdown file for A1 over three polished slide decks.
+
+| Topic | Link |
+|-------|------|
+| Markdown | [GitHub Flavored Markdown](https://docs.github.com/en/get-started/writing-on-github) |
+| Mermaid flowchart | [Mermaid flowchart syntax](https://mermaid.js.org/syntax/flowchart.html) |
+| draw.io (diagrams.net) | [https://app.diagrams.net/](https://app.diagrams.net/) |
+| Stakeholder needs (SEBoK) | [Stakeholder Needs Definition](https://sebokwiki.org/wiki/Stakeholder_Needs_Definition) |
 
 ## Further reading
 
