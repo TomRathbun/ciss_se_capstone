@@ -16,7 +16,7 @@ After this module you can:
 
 **Systems engineering** is the discipline of making sure we understand the real-world problem, capture what the system must do (and not do), design a solution that can be built and tested, integrate the pieces, and prove we met the need — across hardware, software, people, and process.
 
-It is *not* only drawing diagrams. Diagrams are tools. The product of SE is **decisions under evidence**.
+It is *not* only drawing diagrams. Diagrams are tools. The product of SE is **decisions under evidence** — recorded as **artifacts** (vision, needs, use cases, requirements, architecture views, behavior models, ICDs, RTMs). Use the **simplest clear tool** that makes each artifact reviewable; see **Welcome → Tools** for the course stance and tool classes (markdown, Excel, Mermaid, wikis, DOORS-class databases, MBSE tools, LLMs, …).
 
 ## The course derivation chain (memorize this)
 
@@ -210,6 +210,7 @@ When you reach **UAE Military Context**, study the training **OV-1** (layered AD
 | Practical guide (industry) | [MITRE Systems Engineering Guide](https://www.mitre.org/publications/systems-engineering-guide) |
 | Failure modes / risk thinking | [SEBoK — Risk Management](https://sebokwiki.org/wiki/Risk_Management) |
 | Aerospace cases (this module) | Links in the **SE in aerospace history** table above |
+| Tools / artifacts (course stance) | **Welcome** module — Tools section |
 
 ## Next
 
