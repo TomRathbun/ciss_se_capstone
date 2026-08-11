@@ -35,9 +35,11 @@ Goal: <what success looks like for the actor>
 Precondition: <state before start>
 Main success scenario: <numbered steps>
 Extensions / alternate paths: <failures, rejects, exceptions>
-Related need(s): <As … we need …>
+Related need(s): As <stakeholder>, we need …, so that …
 Vision link: <optional short pointer>
 ```
+
+*Related need(s) use the same course grammar as module 02: **As** / **we need** / **so that**, with the stakeholder **bold and underlined**.*
 
 ### Naming tips
 
@@ -49,14 +51,11 @@ Vision link: <optional short pointer>
 
 ## Derive use cases from a need
 
-**Need example:**
+**Need example** (grammar anchors + stakeholder style from se-02):
 
-```text
-As UAE AFAD Mission Operators,
-we need AI tools that combine smart learning with proven rules for better tracking,
-identification, threat prediction, and engagement calculations,
-so that we can handle dense threat environments and asymmetric threats.
-```
+> **As** <u>**UAE AFAD Mission Operators**</u>,  
+> **we need** AI tools that combine smart learning with proven rules for better tracking, identification, threat prediction, and engagement calculations,  
+> **so that** we can handle dense threat environments and asymmetric threats.
 
 **Candidate use cases (examples):**
 
@@ -69,13 +68,25 @@ so that we can handle dense threat environments and asymmetric threats.
 
 Each UC must still respect vision principles (e.g. human-in-the-loop on high-stakes act).
 
-**ETAS need → use cases:**
+**ETAS needs → use cases:**
 
-| Need fragment | Use cases |
-|---------------|-----------|
-| Employees check in fast | UC-CI-01 Check in for today; UC-CO-01 Check out |
-| Program TEMPO-aware export | UC-EX-01 Export weekly package; UC-EX-02 Export quarterly package |
-| Leave with balance | UC-LV-01 Request leave; UC-LV-02 Approve leave |
+> **As** <u>**SDC employees**</u>,  
+> **we need** a fast PIN-based check-in and clear progress toward the daily target,  
+> **so that** we spend time on the mission instead of fighting the timesheet.
+
+→ UC-CI-01 Check in for today; UC-CO-01 Check out
+
+> **As** <u>**FOSC program administrators**</u>,  
+> **we need** electronic attendance with TEMPO-aware export under contract schedule rules,  
+> **so that** we can produce auditable weekly and quarterly packages without manual rework.
+
+→ UC-EX-01 Export weekly package; UC-EX-02 Export quarterly package
+
+> **As** <u>**SDC employees**</u>,  
+> **we need** leave request and approval that respects remaining balance,  
+> **so that** time off is fair and auditable without spreadsheet rework.
+
+→ UC-LV-01 Request leave; UC-LV-02 Approve leave
 
 ## Main success vs extensions
 
@@ -100,14 +111,14 @@ Record the **link types**, not only the IDs:
 
 | Vision (parent) | Need **derives_from** | Use case **traces_to** | Later FR **allocated_to** |
 |-----------------|----------------------|------------------------|---------------------------|
-| Hybrid human–AI SA | Operators need better tracking… | UC-TRK-01 | FR-TRK-… |
-| Auditable FOSC export | Admins need TEMPO-aware package… | UC-EX-02 | FR-FOSC-…, FR-DISC-… |
+| Hybrid human–AI SA | **As** <u>**operators**</u>, **we need** better tracking… | UC-TRK-01 | FR-TRK-… |
+| Auditable FOSC export | **As** <u>**FOSC program administrators**</u>, **we need** TEMPO-aware package… | UC-EX-02 | FR-FOSC-…, FR-DISC-… |
 
 Leave the FR column blank until the requirements module — but keep the rows and the relationship names.
 
 ## Workshop (20 min)
 
-Take **one** needs statement from A1 or the AFAD example.
+Take **one** needs statement from A1 or the AFAD example (keep **As** / **we need** / **so that** and the underlined stakeholder).
 
 1. Write **3 use case names** with primary actor + goal  
 2. Fully draft **one** use case (main success + ≥ 2 extensions)  
