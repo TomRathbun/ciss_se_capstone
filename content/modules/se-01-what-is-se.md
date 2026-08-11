@@ -10,6 +10,7 @@ After this module you can:
 - Trace each requirement back to a vision, need, and use case (traceability)  
 - Separate those layers without mixing them  
 - Name why projects fail without SE discipline  
+- Map a famous aerospace (or related) failure to a missing SE artifact  
 
 ## The one-paragraph definition
 
@@ -160,6 +161,27 @@ SE gives a shared language so software, ops, and leadership do not talk past eac
 6. **No validation** – built the wrong thing correctly.  
 7. **AC papers over a bad FR** – thresholds live only in acceptance criteria; customer later enforces *their* reading of the contractual shall.  
 
+## SE in aerospace history (why the discipline exists)
+
+Modern systems engineering grew up in large aerospace and defense programs: many contractors, strict safety, and complex interfaces. The cases below are **public, open-source accounts**. Map each one to a course failure mode and to a missing artifact (need, UC extension, EARS IF/THEN, ICD, state machine, validation, go/no-go authority).
+
+| Case | What went wrong (public summary) | SE lesson for this course | Read / watch |
+|------|----------------------------------|---------------------------|--------------|
+| **Challenger (STS-51-L, 1986)** | O-ring seal failed in cold launch conditions; known temperature risk was not treated as a hard constraint | Environment as **NFR**; independent challenge of “acceptable risk”; **validation** against real conditions; clear launch authority | [Rogers Commission report (NASA)](https://history.nasa.gov/rogersrep/genindex.htm) · [NASA investigation film (YouTube)](https://www.youtube.com/watch?v=MKG4bvZGWag) · [Photo/TV analysis team report (YouTube)](https://www.youtube.com/watch?v=6JlSfB32sJo) |
+| **Ariane 5 Flight 501 (1996)** | Software reused from Ariane 4; horizontal velocity overflowed a 16-bit integer; both inertial systems failed | **Reuse** needs new **context** and **requirements**; exception paths as first-class FRs; system-level test of the flight-control chain | [ESA Inquiry Board summary](https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report) · [Inquiry report (PDF mirror)](https://zoo.cs.yale.edu/classes/cs422/2010/bib/lions96ariane5.pdf) |
+| **Mars Climate Orbiter (1999)** | Ground software provided thruster data in pound-seconds; navigation assumed newton-seconds | **ICD** with units and schemas; end-to-end **interface verification**; do not assume the other team “converted” | [NASA MCO Mishap Investigation Board Phase I (PDF)](https://www.dcs.gla.ac.uk/~johnson/Mars/MCO_MIB_Report.pdf) · [WIRED summary](https://www.wired.com/2010/11/1110mars-climate-observer-report/) |
+| **Columbia (STS-107, 2003)** | Foam strike damaged wing; culture treated debris as non-critical; on-orbit imaging not obtained | Anomalies must **trace** to mission-critical requirements; clear go/no-go **authority**; debris as a real hazard in the **hazard/need** picture | [Columbia Accident Investigation Board (CAIB)](https://www.nasa.gov/columbia/caib/) · [CAIB findings / foam clip context (YouTube)](https://www.youtube.com/watch?v=V7UWCBNRr4s) |
+| **Therac-25 (1985–87)** *(medical accelerator — classic software safety case)* | Race conditions + removed hardware interlocks → massive radiation overdoses | Safety interlocks as **FRs**, not optional design; **state machines** for illegal transitions; independent safety analysis | [Leveson & Turner, *IEEE Computer* (1993)](https://ieeexplore.ieee.org/document/274940) · search “Leveson Therac-25” for open PDF mirrors |
+| **Boeing 737 MAX / MCAS (2018–19)** | Single AoA sensor path; pilots under-informed; certification and training assumptions failed | **Stakeholders** include operators; **use cases** for sensor failure; human-in-the-loop as requirement, not assumption | [U.S. House T&I Committee final report (2020)](https://transportation.house.gov/committee-activity/boeing-737-max-investigation) · Seattle Times investigative series (search “Seattle Times 737 MAX”) |
+
+**One-line takeaway:** Aerospace did not invent SE after these accidents — it needed SE *because* these systems are too complex to succeed on heroics alone. Our chain (vision → needs → use cases → requirements → later architecture / behavior / ICDs / V&V) is the same discipline at classroom scale.
+
+### Facilitator notes (optional classroom use)
+
+- Pick **three** cases for a 15-minute discussion: Mars Climate Orbiter (interfaces), Ariane 5 (reuse + context), Challenger or Columbia (validation / authority).  
+- Ask: *Which row in our failure-mode list does this match?* and *Which artifact would have forced the issue into the open?*  
+- Videos are optional homework, not required viewing for graded work.
+
 ## Offline exercise (30 min)
 
 Pick any app you use daily (banking, maps, chat). Write:
@@ -187,6 +209,7 @@ When you reach **UAE Military Context**, study the training **OV-1** (layered AD
 | NASA fundamentals | [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) |
 | Practical guide (industry) | [MITRE Systems Engineering Guide](https://www.mitre.org/publications/systems-engineering-guide) |
 | Failure modes / risk thinking | [SEBoK — Risk Management](https://sebokwiki.org/wiki/Risk_Management) |
+| Aerospace cases (this module) | Links in the **SE in aerospace history** table above |
 
 ## Next
 
