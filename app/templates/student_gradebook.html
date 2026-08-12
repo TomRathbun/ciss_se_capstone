@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}{{ candidate.name }} — Gradebook — {{ app_name }}{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <a href="/instructor" class="text-sm text-primary-400 hover:text-primary-300">← Grading desk</a>
+    <div class="flex flex-wrap items-start justify-between gap-3 mt-3">
+        <div>
+            <h1 class="text-3xl font-bold">{{ candidate.name }}</h1>
+            <div class="flex flex-wrap items-center gap-2 mt-2">
+                <span class="badge badge-{{ primary_track }}">primary: {{ primary_track }}</span>
+                <span class="text-xs text-gray-600">{{ candidate.cohort }}</span>
+                {% if not candidate.is_active %}
+                <span class="text-xs text-amber-400 uppercase font-bold">inactive</span>
+                {% endif %}
+                {% if candidate.recommended %}
+                <span class="text-xs text-green-400 font-semibold">recommended</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-xs uppercase text-gray-500 tracking-wide">Overall (graded only)</p>
+            <p class="text-3xl font-extrabold font-mono">
+                {% if gradebook.overall.overall_pct is not none %}{{ gradebook.overall.overall_pct }}%{% else %}—{% endif %}
+            </p>
+            <p class="text-[11px] text-gray-600 mt-1">
+                weight used {{ gradebook.overall.weight_used | int }} · {{ gradebook.overall.detail | length }} assignment(s)
+            </p>
+        </div>
+    </div>
+</div>
+
+{% if saved or message %}
+<div class="mb-4 text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-xl p-3">
+    {% if message %}{{ message | replace('+', ' ') }}{% else %}Saved.{% endif %}
+</div>
+{% endif %}
+{% if error %}
+<div class="mb-4 text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-xl p-3">{{ error | replace('+', ' ') }}</div>
+{% endif %}
+
+{# Profile editor #}
+<details class="card p-5 mb-6 group">
+    <summary class="font-bold cursor-pointer list-none flex items-center justify-between">
+        <span>Student profile &amp; access</span>
+        <span class="text-xs text-gray-500 font-normal group-open:hidden">edit</span>
+    </summary>
+    <form method="post" action="/instructor/students/{{ candidate.id }}/update" class="mt-4 grid sm:grid-cols-2 gap-3">
+        <div>
+            <label class="text-xs text-gray-500">Name</label>
+            <input name="name" class="input-dark mt-1" value="{{ candidate.name }}" required>
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Email</label>
+            <input name="email" class="input-dark mt-1" value="{{ candidate.email or '' }}">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Primary track</label>
+            <select name="primary_track" class="input-dark mt-1">
+                {% for t in tracks %}
+                <option value="{{ t.id }}" {% if primary_track == t.id %}selected{% endif %}>{{ t.short }} — {{ t.title }}</option>
+                {% endfor %}
+            </select>
+            <p class="text-[11px] text-gray-600 mt-1">Home track only — does not block grading other tracks.</p>
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Cohort</label>
+            <input name="cohort" class="input-dark mt-1" value="{{ candidate.cohort or '' }}">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">New PIN (leave blank to keep)</label>
+            <input name="pin" class="input-dark mt-1" autocomplete="new-password" placeholder="••••">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Recommended for main project?</label>
+            <select name="recommended" class="input-dark mt-1">
+                <option value="no" {% if not candidate.recommended %}selected{% endif %}>Not yet / no</option>
+                <option value="yes" {% if candidate.recommended %}selected{% endif %}>Yes — strong select</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Active (login)?</label>
+            <select name="is_active" class="input-dark mt-1">
+                <option value="yes" {% if candidate.is_active %}selected{% endif %}>Active</option>
+                <option value="no" {% if not candidate.is_active %}selected{% endif %}>Inactive</option>
+            </select>
+        </div>
+        <div class="sm:col-span-2">
+            <label class="text-xs text-gray-500">Private instructor notes</label>
+            <textarea name="notes" rows="2" class="input-dark mt-1">{{ candidate.notes or '' }}</textarea>
+        </div>
+        <div class="sm:col-span-2 flex flex-wrap gap-2">
+            <button type="submit" class="btn-primary">Save profile</button>
+        </div>
+    </form>
+    <div class="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-4 items-end">
+        {% if candidate.is_active %}
+        <form method="post" action="/instructor/students/{{ candidate.id }}/deactivate"
+              onsubmit="return confirm('Deactivate this student?');">
+            <button type="submit" class="btn-ghost text-sm text-amber-300">Deactivate</button>
+        </form>
+        {% else %}
+        <form method="post" action="/instructor/students/{{ candidate.id }}/reactivate">
+            <button type="submit" class="btn-ghost text-sm text-green-300">Reactivate</button>
+        </form>
+        {% endif %}
+        <form method="post" action="/instructor/students/{{ candidate.id }}/delete" class="flex flex-wrap items-end gap-2"
+              onsubmit="return confirm('Permanently delete {{ candidate.name }} and all scores?');">
+            <div>
+                <label class="text-xs text-gray-500">Type DELETE to remove forever</label>
+                <input name="confirm" class="input-dark mt-1" placeholder="DELETE" autocomplete="off">
+            </div>
+            <button type="submit" class="btn-ghost text-sm text-red-300">Delete student</button>
+        </form>
+    </div>
+</details>
+
+{# Track filter #}
+<div class="flex flex-wrap gap-2 mb-6">
+    <a href="/instructor/students/{{ candidate.id }}"
+       class="badge {% if not track_filter %}badge-weight{% else %}opacity-60 hover:opacity-100{% endif %} no-underline">All tracks</a>
+    {% for t in tracks %}
+    <a href="/instructor/students/{{ candidate.id }}?track={{ t.id }}"
+       class="badge badge-{{ t.color }} no-underline {% if track_filter != t.id %}opacity-60 hover:opacity-100{% endif %}">
+        {{ t.short }}
+    </a>
+    {% endfor %}
+</div>
+
+{% for group in gradebook.tracks %}
+{% if not track_filter or track_filter == group.track %}
+<section class="card p-5 mb-6">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div class="flex items-center gap-2">
+            <span class="badge badge-{{ group.track_color }}">{{ group.track_short }}</span>
+            <h2 class="font-bold">{{ group.track_title }}</h2>
+            {% if group.track == primary_track %}
+            <span class="text-[10px] uppercase tracking-wide text-primary-400">primary</span>
+            {% endif %}
+        </div>
+        <div class="text-sm text-gray-400">
+            track score
+            <span class="font-mono text-gray-200">
+                {% if group.overall_pct is not none %}{{ group.overall_pct }}%{% else %}—{% endif %}
+            </span>
+            <span class="text-xs text-gray-600 ml-2">
+                {{ group.graded_count }} graded
+                {% if group.submitted_count %} · {{ group.submitted_count }} submitted{% endif %}
+            </span>
+        </div>
+    </div>
+
+    {% if group.assignments %}
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="text-left text-xs text-gray-500 uppercase">
+                    <th class="pb-2 pr-2">Assignment</th>
+                    <th class="pb-2 pr-2">W%</th>
+                    <th class="pb-2 pr-2">Status</th>
+                    <th class="pb-2 pr-2">Score</th>
+                    <th class="pb-2">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in group.assignments %}
+                <tr class="border-t border-white/5">
+                    <td class="py-2.5 pr-2">
+                        <p class="font-medium text-gray-200">{{ a.title }}</p>
+                        <p class="text-[11px] text-gray-600 font-mono">{{ a.id }}{% if a.due_session %} · {{ a.due_session }}{% endif %}</p>
+                    </td>
+                    <td class="py-2.5 pr-2 font-mono text-gray-400">{{ a.weight | int }}</td>
+                    <td class="py-2.5 pr-2">
+                        {% if a.status == 'graded' %}
+                        <span class="text-green-400 text-xs font-semibold">graded</span>
+                        {% elif a.status == 'submitted' %}
+                        <span class="text-amber-300 text-xs font-semibold">submitted</span>
+                        {% elif a.status == 'draft' %}
+                        <span class="text-gray-400 text-xs">draft</span>
+                        {% else %}
+                        <span class="text-gray-600 text-xs">open</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-2.5 pr-2 font-mono">
+                        {% if a.pct is not none %}
+                        {{ a.pct }}%
+                        <span class="text-[11px] text-gray-600">({{ a.earned }}/{{ a.maximum }})</span>
+                        {% else %}
+                        <span class="text-gray-600">—</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-2.5">
+                        <a class="text-xs text-primary-400 hover:underline"
+                           href="/instructor/grade/{{ candidate.id }}/{{ a.id }}">
+                            {% if a.status == 'graded' %}Edit{% else %}Score{% endif %}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-sm text-gray-500">No assignments in this track yet.</p>
+    {% endif %}
+</section>
+{% endif %}
+{% endfor %}
+{% endblock %}

@@ -27,6 +27,8 @@ class Candidate(Base):
     pin_hash = Column(String(255), nullable=False)
     role = Column(Enum(Role), default=Role.student, nullable=False)
     cohort = Column(String(80), default="2026-UAE")
+    # Home discipline track (se/sw/net/admin/mil). Does not block other-track work.
+    primary_track = Column(String(40), default="se")
     is_active = Column(Boolean, default=True)
     # Selection dimensions (rolling totals or notes)
     notes = Column(Text, default="")

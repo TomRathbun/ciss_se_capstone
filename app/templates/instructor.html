@@ -1,62 +1,144 @@
 {% extends "base.html" %}
-{% block title %}Instructor — {{ app_name }}{% endblock %}
+{% block title %}Grading — {{ app_name }}{% endblock %}
 {% block content %}
-<div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
     <div>
-        <h1 class="text-3xl font-bold mb-2">Instructor desk</h1>
-        <p class="text-gray-500 text-sm">Candidate ranking is instructor-only. Students do not see this board.</p>
+        <h1 class="text-3xl font-bold mb-2">Grading desk</h1>
+        <p class="text-gray-500 text-sm max-w-2xl">
+            Manage interns, set a primary track, and score <strong class="text-gray-300">any</strong> assignment
+            from any track. Only graded work counts toward weighted totals — nothing is required off-track.
+        </p>
     </div>
-    <a href="/instructor/content" class="btn-primary">
-        Content editor (Markdown + Mermaid)
-    </a>
+    <div class="flex flex-wrap gap-2">
+        <a href="/instructor/content" class="btn-ghost text-sm">Content editor</a>
+        {% if show_inactive %}
+        <a href="/instructor" class="btn-ghost text-sm">Hide inactive</a>
+        {% else %}
+        <a href="/instructor?inactive=1" class="btn-ghost text-sm">Show inactive</a>
+        {% endif %}
+    </div>
 </div>
 
-<div class="card p-5 mb-8 overflow-x-auto">
-    <h2 class="font-bold mb-4">Leaderboard / selection board</h2>
+{% if message %}
+<div class="mb-4 text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-xl p-3">{{ message | replace('+', ' ') }}</div>
+{% endif %}
+{% if error %}
+<div class="mb-4 text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-xl p-3">{{ error | replace('+', ' ') }}</div>
+{% endif %}
+
+{# Add student #}
+<div class="card p-5 mb-8">
+    <h2 class="font-bold mb-3">Add student</h2>
+    <form method="post" action="/instructor/add-student" class="grid sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+        <div class="lg:col-span-2">
+            <label class="text-xs text-gray-500">Name</label>
+            <input name="name" class="input-dark mt-1" required placeholder="Full name">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">PIN</label>
+            <input name="pin" class="input-dark mt-1" value="1234" autocomplete="off">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Primary track</label>
+            <select name="primary_track" class="input-dark mt-1">
+                {% for t in tracks %}
+                <option value="{{ t.id }}">{{ t.short }} — {{ t.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Cohort</label>
+            <input name="cohort" class="input-dark mt-1" value="2026-UAE">
+        </div>
+        <div>
+            <label class="text-xs text-gray-500">Email (optional)</label>
+            <input name="email" type="email" class="input-dark mt-1" placeholder="intern@…">
+        </div>
+        <button class="btn-primary lg:col-span-6 sm:col-span-2" type="submit">Add student → open gradebook</button>
+    </form>
+</div>
+
+{# Roster / leaderboard #}
+<div class="card p-5 overflow-x-auto">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <h2 class="font-bold">Students &amp; scores</h2>
+        <p class="text-xs text-gray-600">Click a name for the full multi-track gradebook</p>
+    </div>
+    {% if board %}
     <table class="w-full text-sm">
         <thead>
             <tr class="text-left text-xs text-gray-500 uppercase">
-                <th class="pb-2 pr-3">Candidate</th>
-                <th class="pb-2 pr-3">Score</th>
+                <th class="pb-2 pr-3">Student</th>
+                <th class="pb-2 pr-3">Primary</th>
+                <th class="pb-2 pr-3">Overall</th>
+                <th class="pb-2 pr-3">Graded</th>
+                <th class="pb-2 pr-3">By track</th>
                 <th class="pb-2 pr-3">Rec</th>
-                <th class="pb-2">Grade links</th>
+                <th class="pb-2">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for r in board %}
-            <tr class="border-t border-white/5">
-                <td class="py-3 pr-3 font-medium">{{ r.name }}</td>
-                <td class="py-3 pr-3 font-mono">{% if r.overall_pct is not none %}{{ r.overall_pct }}%{% else %}—{% endif %}</td>
-                <td class="py-3 pr-3">{% if r.recommended %}<span class="text-green-400">yes</span>{% else %}—{% endif %}</td>
+            <tr class="border-t border-white/5 {% if not r.is_active %}opacity-50{% endif %}">
+                <td class="py-3 pr-3">
+                    <a href="/instructor/students/{{ r.id }}" class="font-medium text-primary-400 hover:text-primary-300">
+                        {{ r.name }}
+                    </a>
+                    {% if not r.is_active %}
+                    <span class="text-[10px] uppercase text-amber-400 ml-1">inactive</span>
+                    {% endif %}
+                    {% if r.cohort %}
+                    <p class="text-[11px] text-gray-600 mt-0.5">{{ r.cohort }}</p>
+                    {% endif %}
+                </td>
+                <td class="py-3 pr-3">
+                    <span class="badge badge-{{ r.primary_track }}">{{ r.primary_track }}</span>
+                </td>
+                <td class="py-3 pr-3 font-mono">
+                    {% if r.overall_pct is not none %}{{ r.overall_pct }}%{% else %}—{% endif %}
+                </td>
+                <td class="py-3 pr-3 font-mono text-gray-400">{{ r.graded_count }}</td>
+                <td class="py-3 pr-3">
+                    <div class="flex flex-wrap gap-1">
+                        {% for tt in r.track_totals %}
+                        <span class="text-[10px] px-1.5 py-0.5 rounded border border-white/10 text-gray-400" title="{{ tt.track_title }}">
+                            {{ tt.track_short }}
+                            {% if tt.overall_pct is not none %}{{ tt.overall_pct }}%{% else %}—{% endif %}
+                        </span>
+                        {% else %}
+                        <span class="text-xs text-gray-600">—</span>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="py-3 pr-3">
+                    {% if r.recommended %}<span class="text-green-400">yes</span>{% else %}—{% endif %}
+                </td>
                 <td class="py-3">
                     <div class="flex flex-wrap gap-2">
-                        {% for a in assignments %}
-                        <a class="text-xs text-primary-400 hover:underline" href="/instructor/grade/{{ r.id }}/{{ a.id }}">{{ a.id }}</a>
-                        {% endfor %}
+                        <a class="text-xs text-primary-400 hover:underline" href="/instructor/students/{{ r.id }}">Gradebook</a>
+                        {% if r.is_active %}
+                        <form method="post" action="/instructor/students/{{ r.id }}/deactivate" class="inline"
+                              onsubmit="return confirm('Deactivate {{ r.name }}? They will not appear on login.');">
+                            <button type="submit" class="text-xs text-amber-400/90 hover:underline">Deactivate</button>
+                        </form>
+                        {% else %}
+                        <form method="post" action="/instructor/students/{{ r.id }}/reactivate" class="inline">
+                            <button type="submit" class="text-xs text-green-400 hover:underline">Reactivate</button>
+                        </form>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="text-sm text-gray-500">No students yet. Add one above.</p>
+    {% endif %}
 </div>
 
-<div class="card p-5">
-    <h2 class="font-bold mb-3">Add intern</h2>
-    <form method="post" action="/instructor/add-student" class="grid sm:grid-cols-4 gap-3 items-end">
-        <div>
-            <label class="text-xs text-gray-500">Name</label>
-            <input name="name" class="input-dark mt-1" required>
-        </div>
-        <div>
-            <label class="text-xs text-gray-500">PIN</label>
-            <input name="pin" class="input-dark mt-1" value="1234">
-        </div>
-        <div>
-            <label class="text-xs text-gray-500">Cohort</label>
-            <input name="cohort" class="input-dark mt-1" value="2026-UAE">
-        </div>
-        <button class="btn-primary" type="submit">Add</button>
-    </form>
-</div>
+<p class="text-xs text-gray-600 mt-6">
+    Weighted score uses only assignments that have grades. A SW primary student can still receive SE or ADMIN scores;
+    those count when present and are ignored when not graded.
+</p>
 {% endblock %}

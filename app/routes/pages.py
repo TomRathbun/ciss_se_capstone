@@ -47,7 +47,14 @@ from app.curriculum import (
 )
 from app.database import get_db
 from app.models import Candidate, Progress, Role, Score, Submission
-from app.services.scoring import candidate_totals, leaderboard, submission_status
+from app.services.scoring import (
+    candidate_gradebook,
+    candidate_totals,
+    candidate_track_totals,
+    clear_assignment_scores,
+    leaderboard,
+    submission_status,
+)
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
@@ -315,27 +322,204 @@ async def my_progress(request: Request, db: Session = Depends(get_db)):
     if user.role == Role.instructor:
         return RedirectResponse("/instructor", status_code=303)
     tot = candidate_totals(db, user.id)
+    track_totals = candidate_track_totals(db, user.id)
     progress = db.query(Progress).filter(Progress.candidate_id == user.id).all()
     done_ids = {p.module_id for p in progress if p.completed}
+    primary = normalize_track_id(getattr(user, "primary_track", None) or "se")
+    track_meta = next((t for t in list_tracks() if t["id"] == primary), None)
     return templates.TemplateResponse(
         "me.html",
-        _ctx(request, db, totals=tot, done_ids=done_ids, modules=list_modules()),
+        _ctx(
+            request,
+            db,
+            totals=tot,
+            track_totals=track_totals,
+            done_ids=done_ids,
+            modules=list_modules(),
+            primary_track=primary,
+            primary_track_meta=track_meta,
+        ),
     )
+
+
+def _require_instructor(request: Request, db: Session) -> Candidate | RedirectResponse:
+    user = get_current_user(request, db)
+    if not user or user.role != Role.instructor:
+        return RedirectResponse("/login", status_code=303)
+    return user
 
 
 @router.get("/instructor", response_class=HTMLResponse)
 async def instructor_home(request: Request, db: Session = Depends(get_db)):
-    user = get_current_user(request, db)
-    if not user or user.role != Role.instructor:
-        return RedirectResponse("/login", status_code=303)
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    show_inactive = request.query_params.get("inactive") == "1"
     return templates.TemplateResponse(
         "instructor.html",
         _ctx(
             request, db,
-            board=leaderboard(db),
-            assignments=list_assignments(),
-            editable=list_editable_files(),
+            board=leaderboard(db, include_inactive=show_inactive),
+            tracks=list_tracks(),
+            show_inactive=show_inactive,
+            message=request.query_params.get("msg"),
+            error=request.query_params.get("err"),
         ),
+    )
+
+
+@router.get("/instructor/students/{candidate_id}", response_class=HTMLResponse)
+async def instructor_student_gradebook(
+    candidate_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    """Per-student gradebook: score any track; ungraded work is optional."""
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
+    if not cand:
+        return RedirectResponse("/instructor?err=Student+not+found", status_code=303)
+    book = candidate_gradebook(db, cand.id)
+    track_filter = request.query_params.get("track")
+    if track_filter:
+        track_filter = normalize_track_id(track_filter)
+    return templates.TemplateResponse(
+        "student_gradebook.html",
+        _ctx(
+            request, db,
+            candidate=cand,
+            gradebook=book,
+            tracks=list_tracks(),
+            track_filter=track_filter,
+            primary_track=normalize_track_id(getattr(cand, "primary_track", None) or "se"),
+            message=request.query_params.get("msg"),
+            error=request.query_params.get("err"),
+            saved=request.query_params.get("saved") == "1",
+        ),
+    )
+
+
+@router.post("/instructor/students/{candidate_id}/update")
+async def instructor_student_update(
+    candidate_id: int,
+    request: Request,
+    name: str = Form(...),
+    email: str = Form(""),
+    cohort: str = Form("2026-UAE"),
+    primary_track: str = Form("se"),
+    pin: str = Form(""),
+    recommended: str = Form("no"),
+    notes: str = Form(""),
+    is_active: str = Form("yes"),
+    db: Session = Depends(get_db),
+):
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
+    if not cand:
+        return RedirectResponse("/instructor?err=Student+not+found", status_code=303)
+    cand.name = name.strip() or cand.name
+    cand.email = email.strip()
+    cand.cohort = cohort.strip() or "2026-UAE"
+    cand.primary_track = normalize_track_id(primary_track) or "se"
+    cand.recommended = recommended == "yes"
+    cand.notes = notes
+    cand.is_active = is_active == "yes"
+    if pin.strip():
+        cand.pin_hash = hash_pin(pin.strip())
+    db.commit()
+    return RedirectResponse(
+        f"/instructor/students/{candidate_id}?saved=1&msg=Student+updated",
+        status_code=303,
+    )
+
+
+@router.post("/instructor/students/{candidate_id}/deactivate")
+async def instructor_student_deactivate(
+    candidate_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
+    if not cand:
+        return RedirectResponse("/instructor?err=Student+not+found", status_code=303)
+    cand.is_active = False
+    db.commit()
+    return RedirectResponse(
+        f"/instructor?msg=Deactivated+{cand.name.replace(' ', '+')}",
+        status_code=303,
+    )
+
+
+@router.post("/instructor/students/{candidate_id}/reactivate")
+async def instructor_student_reactivate(
+    candidate_id: int,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
+    if not cand:
+        return RedirectResponse("/instructor?err=Student+not+found", status_code=303)
+    cand.is_active = True
+    db.commit()
+    return RedirectResponse(
+        f"/instructor/students/{candidate_id}?msg=Reactivated",
+        status_code=303,
+    )
+
+
+@router.post("/instructor/students/{candidate_id}/delete")
+async def instructor_student_delete(
+    candidate_id: int,
+    request: Request,
+    confirm: str = Form(""),
+    db: Session = Depends(get_db),
+):
+    """Hard-delete a student and their scores/submissions/progress."""
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
+    if not cand:
+        return RedirectResponse("/instructor?err=Student+not+found", status_code=303)
+    if confirm.strip().upper() != "DELETE":
+        return RedirectResponse(
+            f"/instructor/students/{candidate_id}?err=Type+DELETE+to+confirm+removal",
+            status_code=303,
+        )
+    name = cand.name
+    db.query(Score).filter(Score.candidate_id == candidate_id).delete()
+    db.query(Submission).filter(Submission.candidate_id == candidate_id).delete()
+    db.query(Progress).filter(Progress.candidate_id == candidate_id).delete()
+    db.delete(cand)
+    db.commit()
+    return RedirectResponse(
+        f"/instructor?msg=Removed+{name.replace(' ', '+')}",
+        status_code=303,
     )
 
 
@@ -479,11 +663,14 @@ async def grade_form(
     request: Request,
     db: Session = Depends(get_db),
 ):
-    user = get_current_user(request, db)
-    if not user or user.role != Role.instructor:
-        return RedirectResponse("/login", status_code=303)
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
     asg = get_assignment(assignment_id)
-    cand = db.query(Candidate).filter(Candidate.id == candidate_id).first()
+    cand = db.query(Candidate).filter(
+        Candidate.id == candidate_id,
+        Candidate.role == Role.student,
+    ).first()
     if not asg or not cand:
         return RedirectResponse("/instructor", status_code=303)
     sub = submission_status(db, candidate_id, assignment_id)
@@ -493,6 +680,15 @@ async def grade_form(
         .filter(Score.candidate_id == candidate_id, Score.assignment_id == assignment_id)
         .all()
     }
+    # Neighbor assignments (any track) for quick next/prev grading
+    all_asg = list_assignments()
+    ids = [a["id"] for a in all_asg]
+    try:
+        idx = ids.index(assignment_id)
+    except ValueError:
+        idx = -1
+    prev_asg = all_asg[idx - 1] if idx > 0 else None
+    next_asg = all_asg[idx + 1] if 0 <= idx < len(all_asg) - 1 else None
     return templates.TemplateResponse(
         "grade.html",
         _ctx(
@@ -501,7 +697,10 @@ async def grade_form(
             candidate=cand,
             submission=sub,
             existing=existing,
-            message=None,
+            prev_asg=prev_asg,
+            next_asg=next_asg,
+            message=request.query_params.get("msg"),
+            saved=request.query_params.get("saved") == "1",
         ),
     )
 
@@ -513,11 +712,26 @@ async def grade_submit(
     request: Request,
     db: Session = Depends(get_db),
 ):
-    user = get_current_user(request, db)
-    if not user or user.role != Role.instructor:
-        return RedirectResponse("/login", status_code=303)
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
     asg = get_assignment(assignment_id)
+    if not asg:
+        return RedirectResponse("/instructor", status_code=303)
     form = await request.form()
+    action = str(form.get("action") or "save")
+
+    if action == "clear":
+        clear_assignment_scores(db, candidate_id, assignment_id)
+        sub = submission_status(db, candidate_id, assignment_id)
+        if sub and sub.status == "graded":
+            sub.status = "submitted" if sub.submitted_at else "draft"
+        db.commit()
+        return RedirectResponse(
+            f"/instructor/grade/{candidate_id}/{assignment_id}?msg=Scores+cleared",
+            status_code=303,
+        )
+
     for dim in asg.get("rubric") or []:
         d = dim["dimension"]
         raw = form.get(f"points_{d}", "0")
@@ -561,6 +775,29 @@ async def grade_submit(
     if cand and notes is not None:
         cand.notes = str(notes)
     db.commit()
+
+    if action == "save_next":
+        all_ids = [a["id"] for a in list_assignments()]
+        try:
+            i = all_ids.index(assignment_id)
+            if i + 1 < len(all_ids):
+                return RedirectResponse(
+                    f"/instructor/grade/{candidate_id}/{all_ids[i + 1]}?saved=1",
+                    status_code=303,
+                )
+        except ValueError:
+            pass
+        return RedirectResponse(
+            f"/instructor/students/{candidate_id}?saved=1",
+            status_code=303,
+        )
+
+    if action == "save_return":
+        return RedirectResponse(
+            f"/instructor/students/{candidate_id}?saved=1&msg=Grade+saved",
+            status_code=303,
+        )
+
     return RedirectResponse(
         f"/instructor/grade/{candidate_id}/{assignment_id}?saved=1",
         status_code=303,
@@ -573,16 +810,27 @@ async def add_student(
     name: str = Form(...),
     pin: str = Form("1234"),
     cohort: str = Form("2026-UAE"),
+    email: str = Form(""),
+    primary_track: str = Form("se"),
     db: Session = Depends(get_db),
 ):
-    user = get_current_user(request, db)
-    if not user or user.role != Role.instructor:
-        return RedirectResponse("/login", status_code=303)
-    db.add(Candidate(
+    user = _require_instructor(request, db)
+    if isinstance(user, RedirectResponse):
+        return user
+    track = normalize_track_id(primary_track) or "se"
+    cand = Candidate(
         name=name.strip(),
+        email=email.strip(),
         pin_hash=hash_pin(pin.strip() or "1234"),
         role=Role.student,
         cohort=cohort.strip() or "2026-UAE",
-    ))
+        primary_track=track,
+        is_active=True,
+    )
+    db.add(cand)
     db.commit()
-    return RedirectResponse("/instructor", status_code=303)
+    db.refresh(cand)
+    return RedirectResponse(
+        f"/instructor/students/{cand.id}?msg=Student+added",
+        status_code=303,
+    )

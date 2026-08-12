@@ -18,6 +18,7 @@ def seed_users():
             role=Role.instructor,
             cohort="staff",
         ))
+        demo_tracks = ["se", "sw", "admin", "mil"]
         for i, name in enumerate([
             "Intern Alpha",
             "Intern Bravo",
@@ -30,6 +31,7 @@ def seed_users():
                 pin_hash=hash_pin(DEFAULT_STUDENT_PIN),
                 role=Role.student,
                 cohort="2026-UAE",
+                primary_track=demo_tracks[(i - 1) % len(demo_tracks)],
             ))
         db.commit()
         print("Seeded instructor + 4 demo interns")
