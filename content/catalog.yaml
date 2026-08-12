@@ -221,7 +221,7 @@ modules:
     track: sw
     title: PostgreSQL with Java (JDBC)
     duration_min: 120
-    summary: Connections, PreparedStatement, transactions, repository boundary, and safe lab setup.
+    summary: JDBC, PreparedStatement, transactions; connection pools (HikariCP); JBoss datasources in standalone.xml and JNDI; trade-offs.
     offline: true
 
   - id: sw-05-java-amqp
@@ -229,7 +229,7 @@ modules:
     track: sw
     title: AMQP Messaging with Java (ActiveMQ)
     duration_min: 120
-    summary: JMS publish/consume with ActiveMQ, queues/topics, ack modes, and message contracts as ICDs.
+    summary: JMS publish/consume; ConnectionFactory and pooling; JBoss resource adapters / JNDI factories; ack modes; ICD-style payloads; trade-offs.
     offline: true
 
   - id: sw-06-java-daemons
