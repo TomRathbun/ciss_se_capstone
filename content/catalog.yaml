@@ -213,7 +213,7 @@ modules:
     track: sw
     title: VS Code for Java Development
     duration_min: 90
-    summary: JDK + Extension Pack, open Maven projects, run/debug, navigation, and Java hygiene in the editor.
+    summary: Recommended Java extensions; Java versions (LTS, OpenJDK vs Oracle, JDK/JRE, licenses); Java 8 baseline + upgrade path; Spring/Spring Boot note; Maven projects, run/debug, navigation.
     offline: true
 
   - id: sw-04-java-postgresql
