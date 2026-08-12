@@ -43,7 +43,7 @@
     </nav>
 
     <div class="flex items-center gap-2 mt-1 mb-2">
-        <span class="badge {% if module.track == 'ops' %}badge-ops{% else %}badge-se{% endif %}">{{ module.track }}</span>
+        <a href="/modules?track={{ module.track }}" class="badge badge-{{ module.track_color }} no-underline">{{ module.track_short }}</a>
         <span class="text-xs text-gray-600">~{{ module.duration_min }} min</span>
         {% if completed %}<span class="badge badge-weight">completed</span>{% endif %}
     </div>

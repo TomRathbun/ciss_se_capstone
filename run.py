@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="CISS SE Capstone Course")
+    parser = argparse.ArgumentParser(description="CISS Capstone Course")
     parser.add_argument("--host", default="0.0.0.0", help="Bind address (default 0.0.0.0)")
     parser.add_argument("--port", type=int, default=8890)
     parser.add_argument(
@@ -30,7 +30,7 @@ def main() -> None:
 
     # 0.0.0.0 is not a usable browser host — print clickable local URLs
     print()
-    print("  CISS SE Capstone")
+    print("  CISS Capstone")
     print(f"  Local:   http://127.0.0.1:{args.port}")
     print(f"  Local:   http://localhost:{args.port}")
     if args.host in ("0.0.0.0", "::"):

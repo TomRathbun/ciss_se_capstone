@@ -2,20 +2,75 @@
 {% block title %}Modules — {{ app_name }}{% endblock %}
 {% block content %}
 <h1 class="text-3xl font-bold mb-2">Modules</h1>
-<p class="text-gray-500 text-sm mb-8">Lecture material and offline reading. Mark complete after you finish.</p>
-<div class="space-y-3">
-    {% for m in modules %}
-    <a href="/modules/{{ m.id }}" class="card p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
-        <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-                <span class="badge {% if m.track == 'ops' %}badge-ops{% else %}badge-se{% endif %}">{{ m.track }}</span>
-                {% if m.offline %}<span class="text-[10px] text-gray-600">offline-friendly</span>{% endif %}
-            </div>
-            <p class="font-semibold text-white">{{ loop.index }}. {{ m.title }}</p>
-            <p class="text-sm text-gray-500 mt-1">{{ m.summary }}</p>
-        </div>
-        <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
+<p class="text-gray-500 text-sm mb-6">Lecture material and offline reading, grouped by discipline track. Mark complete after you finish.</p>
+
+{# Track filter chips #}
+<div class="flex flex-wrap gap-2 mb-8">
+    <a href="/modules"
+       class="badge {% if not track_filter %}badge-weight{% else %}badge-se opacity-70 hover:opacity-100{% endif %} no-underline">
+        All
+    </a>
+    {% for t in tracks %}
+    <a href="/modules?track={{ t.id }}"
+       class="badge badge-{{ t.color }} no-underline {% if track_filter != t.id %}opacity-70 hover:opacity-100{% endif %}">
+        {{ t.short }}
+        <span class="opacity-70 ml-1">{{ t.module_count }}</span>
     </a>
     {% endfor %}
 </div>
+
+{% if track_filter %}
+    {# Flat list for one track #}
+    <div class="space-y-3">
+        {% for m in modules %}
+        <a href="/modules/{{ m.id }}" class="card p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
+            <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="badge badge-{{ m.track_color }}">{{ m.track_short }}</span>
+                    {% if m.offline %}<span class="text-[10px] text-gray-600">offline-friendly</span>{% endif %}
+                </div>
+                <p class="font-semibold text-white">{{ loop.index }}. {{ m.title }}</p>
+                <p class="text-sm text-gray-500 mt-1">{{ m.summary }}</p>
+            </div>
+            <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
+        </a>
+        {% else %}
+        <p class="text-gray-500 text-sm">No modules in this track yet.</p>
+        {% endfor %}
+    </div>
+{% else %}
+    {# Grouped by track #}
+    <div class="space-y-10">
+        {% for t in tracks_with_modules %}
+        <section id="track-{{ t.id }}">
+            <div class="flex flex-wrap items-end justify-between gap-2 mb-3">
+                <div>
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
+                        {{ t.title }}
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-1">{{ t.summary }}</p>
+                </div>
+                <a href="/modules?track={{ t.id }}" class="text-xs text-primary-400">Filter this track →</a>
+            </div>
+            {% if t.status == 'scaffolding' and t.module_count <= 1 %}
+            <p class="text-xs text-amber-500/80 mb-3">Scaffolding — overview module present; more content forthcoming.</p>
+            {% endif %}
+            <div class="space-y-2">
+                {% for m in t.modules %}
+                <a href="/modules/{{ m.id }}" class="card p-4 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
+                    <div class="flex-1">
+                        <p class="font-semibold text-white text-sm">{{ loop.index }}. {{ m.title }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
+                    </div>
+                    <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
+                </a>
+                {% else %}
+                <p class="text-sm text-gray-600">No modules registered yet.</p>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+{% endif %}
 {% endblock %}

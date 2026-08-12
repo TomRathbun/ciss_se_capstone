@@ -2,7 +2,7 @@
 
 ## Why you are here
 
-This is not a passive lecture series. **CISS SE Capstone** is how we train interns *and* decide who is ready to join the main engineering project.
+This is not a passive lecture series. **CISS Capstone** is how we train interns *and* decide who is ready to join the main engineering project.
 
 You will:
 

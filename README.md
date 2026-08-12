@@ -1,4 +1,4 @@
-# CISS SE Capstone
+# CISS Capstone
 
 **Systems Engineering · Military Operations · Intern Selection**
 
@@ -103,7 +103,7 @@ Overall % = weighted average of assignments that have grades. Instructor **recom
 
 | App | Default port |
 |-----|----------------|
-| CISS SE Capstone | **8890** |
+| CISS Capstone | **8890** |
 | SDC Time Tracker (case study) | **8888** |
 
 ## Roadmap

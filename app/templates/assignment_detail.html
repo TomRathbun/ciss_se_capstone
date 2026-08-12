@@ -3,6 +3,9 @@
 {% block content %}
 <a href="/assignments" class="text-sm text-primary-400">← Assignments</a>
 <div class="flex flex-wrap items-center gap-2 mt-3 mb-2">
+    {% if assignment.track_short %}
+    <a href="/assignments?track={{ assignment.track }}" class="badge badge-{{ assignment.track_color }} no-underline">{{ assignment.track_short }}</a>
+    {% endif %}
     <span class="badge badge-weight">weight {{ assignment.weight }}%</span>
     <span class="text-xs text-gray-600">Due {{ assignment.due_session }}</span>
 </div>

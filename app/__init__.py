@@ -1,1 +1,1 @@
-"""CISS SE Capstone Course application package."""
+"""CISS Capstone Course application package."""

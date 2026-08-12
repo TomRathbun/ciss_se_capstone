@@ -2,12 +2,31 @@
 {% block title %}Assignments — {{ app_name }}{% endblock %}
 {% block content %}
 <h1 class="text-3xl font-bold mb-2">Assignments</h1>
-<p class="text-gray-500 text-sm mb-8">Graded work used for selection ranking. Read rubrics carefully.</p>
+<p class="text-gray-500 text-sm mb-6">Graded work used for selection ranking. Each assignment belongs to a discipline track. Read rubrics carefully.</p>
+
+<div class="flex flex-wrap gap-2 mb-8">
+    <a href="/assignments"
+       class="badge {% if not track_filter %}badge-weight{% else %}badge-se opacity-70 hover:opacity-100{% endif %} no-underline">
+        All
+    </a>
+    {% for t in tracks %}
+    <a href="/assignments?track={{ t.id }}"
+       class="badge badge-{{ t.color }} no-underline {% if track_filter != t.id %}opacity-70 hover:opacity-100{% endif %}">
+        {{ t.short }}
+        <span class="opacity-70 ml-1">{{ t.assignment_count }}</span>
+    </a>
+    {% endfor %}
+</div>
+
+{% if track_filter %}
 <div class="space-y-3">
     {% for a in assignments %}
     <a href="/assignments/{{ a.id }}" class="card p-5 block hover:border-primary-500/25">
         <div class="flex flex-wrap items-center justify-between gap-2">
-            <p class="font-semibold text-white">{{ a.title }}</p>
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="badge badge-{{ a.track_color }}">{{ a.track_short }}</span>
+                <p class="font-semibold text-white">{{ a.title }}</p>
+            </div>
             <div class="flex items-center gap-2">
                 <span class="badge badge-weight">{{ a.weight }}%</span>
                 {% if statuses.get(a.id) %}
@@ -18,6 +37,41 @@
         <p class="text-sm text-gray-500 mt-1">{{ a.summary }}</p>
         <p class="text-xs text-gray-600 mt-2">Due: {{ a.due_session }}</p>
     </a>
+    {% else %}
+    <p class="text-gray-500 text-sm">No assignments in this track yet.</p>
     {% endfor %}
 </div>
+{% else %}
+<div class="space-y-10">
+    {% for t in tracks_with_assignments %}
+    <section>
+        <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+            <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
+            {{ t.title }}
+        </h2>
+        {% if t.assignments %}
+        <div class="space-y-2">
+            {% for a in t.assignments %}
+            <a href="/assignments/{{ a.id }}" class="card p-4 block hover:border-primary-500/25">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <p class="font-semibold text-white text-sm">{{ a.title }}</p>
+                    <div class="flex items-center gap-2">
+                        <span class="badge badge-weight">{{ a.weight }}%</span>
+                        {% if statuses.get(a.id) %}
+                        <span class="text-xs text-gray-500">{{ statuses[a.id] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">{{ a.summary }}</p>
+                <p class="text-xs text-gray-600 mt-2">Due: {{ a.due_session }}</p>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-sm text-gray-600">No graded assignments in this track yet.</p>
+        {% endif %}
+    </section>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

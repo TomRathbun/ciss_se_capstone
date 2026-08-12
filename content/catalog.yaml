@@ -1,11 +1,58 @@
-# CISS SE Capstone — curriculum catalog
+# CISS Capstone — multi-track curriculum catalog
+# Tracks group modules and assignments. Authors add content under content/modules/
+# and content/assignments/, then register ids here with track + order.
+
 course:
-  title: CISS SE Capstone
-  subtitle: Systems Engineering & Military Operations for Intern Selection
+  title: CISS Capstone
+  subtitle: Multi-track intern pathway — SE · Software · Networking · SysAdmin · Military
   purpose: >
     Prepare and assess interns for selection onto the main CISS engineering project.
-    Candidates who demonstrate clear thinking, testable requirements, and operational
-    awareness advance; scoring distinguishes top performers.
+    Each discipline track (systems engineering, software development, networking,
+    system administration/integration, and military operations) can grow its own
+    modules and graded assignments. Scores distinguish top performers.
+
+# Canonical tracks. Module/assignment `track` field must match an id below
+# (legacy catalog value `ops` is accepted as an alias for `mil`).
+tracks:
+  - id: se
+    order: 1
+    short: SE
+    title: Systems Engineering
+    summary: Vision → needs → use cases → requirements → design, V&V, and living case study.
+    color: se
+    status: active
+
+  - id: sw
+    order: 2
+    short: SW
+    title: Software Development
+    summary: Git; Jira/Bitbucket/Nexus→GitLab workflow; Jenkins CI/CD; Java, PostgreSQL, ActiveMQ, daemons, JavaFX.
+    color: sw
+    status: active
+
+  - id: net
+    order: 3
+    short: NET
+    title: Networking
+    summary: Networks, protocols, and connectivity that systems and missions depend on.
+    color: net
+    status: scaffolding
+
+  - id: admin
+    order: 4
+    short: ADMIN
+    title: System Administration & Integration
+    summary: RHEL/Linux, bash, package managers (yum/npm/pip/uv/Maven), TLS certs, and integration ops.
+    color: admin
+    status: active
+
+  - id: mil
+    order: 5
+    short: MIL
+    title: Military Operations
+    summary: UAE military context, CONOPS/AOC, ATO planning & execution, platforms.
+    color: mil
+    status: active
 
 modules:
   - id: se-00-welcome
@@ -90,7 +137,7 @@ modules:
 
   - id: ops-uae-military
     order: 11
-    track: ops
+    track: mil
     title: UAE Military Context (Open Source)
     duration_min: 90
     summary: UAE Armed Forces branches, leadership, ranks, platforms, SHORAD/layered AD, and radar families (open source).
@@ -98,7 +145,7 @@ modules:
 
   - id: ops-00-conops-aoc
     order: 12
-    track: ops
+    track: mil
     title: Military Ops — CONOPS & Air Operations Center
     duration_min: 120
     summary: CONOPS & AOC with glossary, detect-to-assess workflow, VCS/Link16, roles, self-check, and SE-linked scenario. SME lecture.
@@ -106,7 +153,7 @@ modules:
 
   - id: ops-01-ato-planning
     order: 13
-    track: ops
+    track: mil
     title: Military Ops — Air Tasking Order (Planning)
     duration_min: 150
     summary: ATO planning vs execution; planning factors; sample mission card; self-check; starts A5.
@@ -114,7 +161,7 @@ modules:
 
   - id: ops-02-ato-execution
     order: 14
-    track: ops
+    track: mil
     title: Military Ops — ATO Execution
     duration_min: 150
     summary: Execution steps, change drivers, state-chart parallel, annex/AAR templates, self-check.
@@ -122,7 +169,7 @@ modules:
 
   - id: ops-03-weapons-context
     order: 15
-    track: ops
+    track: mil
     title: Weapons & Platforms Context (Lockheed Heritage)
     duration_min: 90
     summary: Public platform/weapon vocabulary for mission cards; integrity rules; one-page brief; self-check.
@@ -136,9 +183,133 @@ modules:
     summary: Coming next — multi-feed SA problem framing (placeholder until project kickoff).
     offline: false
 
+  # --- Software Development ---
+  - id: sw-00-welcome
+    order: 20
+    track: sw
+    title: Software Development — Track Overview
+    duration_min: 45
+    summary: Program tooling map (Jira DR, Bitbucket, Nexus) and path through Git, Java, data, ActiveMQ, daemons, JavaFX.
+    offline: false
+
+  - id: sw-01-git
+    order: 21
+    track: sw
+    title: Working with Git
+    duration_min: 90
+    summary: Daily Git loop, DR-### branch names, commits, recovery commands, team history habits.
+    offline: true
+
+  - id: sw-02-bitbucket-jira
+    order: 22
+    track: sw
+    title: Team Workflow — Jira, Bitbucket, Nexus → GitLab
+    duration_min: 90
+    summary: Program DR/Bitbucket/PR/Nexus workflow; translate and practice the same habits on CISS GitLab MRs.
+    offline: false
+
+  - id: sw-03-vscode-java
+    order: 23
+    track: sw
+    title: VS Code for Java Development
+    duration_min: 90
+    summary: JDK + Extension Pack, open Maven projects, run/debug, navigation, and Java hygiene in the editor.
+    offline: true
+
+  - id: sw-04-java-postgresql
+    order: 24
+    track: sw
+    title: PostgreSQL with Java (JDBC)
+    duration_min: 120
+    summary: Connections, PreparedStatement, transactions, repository boundary, and safe lab setup.
+    offline: true
+
+  - id: sw-05-java-amqp
+    order: 25
+    track: sw
+    title: AMQP Messaging with Java (ActiveMQ)
+    duration_min: 120
+    summary: JMS publish/consume with ActiveMQ, queues/topics, ack modes, and message contracts as ICDs.
+    offline: true
+
+  - id: sw-06-java-daemons
+    order: 26
+    track: sw
+    title: Java Daemons and Background Services
+    duration_min: 120
+    summary: Long-running workers, lifecycle/shutdown hooks, hosting ActiveMQ consumers and scheduled jobs.
+    offline: true
+
+  - id: sw-07-javafx-gui
+    order: 27
+    track: sw
+    title: JavaFX for Desktop GUIs
+    duration_min: 120
+    summary: Stages/scenes/layouts, controls and events, FXML option, UI-thread safety, thin UI over services.
+    offline: true
+
+  - id: sw-08-jenkins-cicd
+    order: 28
+    track: sw
+    title: CI/CD and Jenkins
+    duration_min: 120
+    summary: CI/CD concepts; Jenkins jobs/pipelines; build-test-publish to Nexus; mapping to GitLab CI for CISS labs.
+    offline: false
+
+  # --- Networking (scaffolding) ---
+  - id: net-00-welcome
+    order: 30
+    track: net
+    title: Networking — Track Overview
+    duration_min: 45
+    summary: How the networking track fits the capstone; connectivity, protocols, and mission relevance.
+    offline: false
+
+  # --- System Administration & Integration ---
+  - id: admin-00-welcome
+    order: 40
+    track: admin
+    title: System Administration & Integration — Track Overview
+    duration_min: 45
+    summary: Admin track path — RHEL, bash, packages, TLS; bridge from software builds to running systems.
+    offline: false
+
+  - id: admin-01-rhel7-linux
+    order: 41
+    track: admin
+    title: RHEL 7 and Essential Linux Commands
+    duration_min: 120
+    summary: Filesystem, processes, users, network discovery, systemctl/journalctl, SELinux/firewall awareness.
+    offline: true
+
+  - id: admin-02-bash
+    order: 42
+    track: admin
+    title: Bash Programming for Admins
+    duration_min: 120
+    summary: Scripts, quoting, args, conditionals, loops, set -euo pipefail, safe admin patterns.
+    offline: true
+
+  - id: admin-03-package-management
+    order: 43
+    track: admin
+    title: Package Management Systems
+    duration_min: 120
+    summary: yum/rpm, npm, pip and uv, Maven/Java, and Nexus as org package hub.
+    offline: true
+
+  - id: admin-04-tls-certs
+    order: 44
+    track: admin
+    title: TLS Certificate Management
+    duration_min: 120
+    summary: Certs, keys, CSRs, chains, OpenSSL inspect/verify, trust stores, common TLS failures.
+    offline: true
+
 assignments:
   - id: a1-context
     order: 1
+    track: se
     title: Vision, Context & Stakeholders
     module_id: se-02-stakeholders
     due_session: "Week 2 Thursday"
@@ -157,6 +328,7 @@ assignments:
 
   - id: a2-requirements
     order: 2
+    track: se
     title: Requirements Pack (EARS + acceptance)
     module_id: se-04-requirements
     due_session: "Week 4 Thursday"
@@ -178,6 +350,7 @@ assignments:
 
   - id: a3-behavior
     order: 3
+    track: se
     title: State Chart + Sequence
     module_id: se-06-behavior
     due_session: "Week 4 Thursday"
@@ -196,6 +369,7 @@ assignments:
 
   - id: a4-trace-vv
     order: 4
+    track: se
     title: Traceability & V&V Plan
     module_id: se-08-vv-trace
     due_session: "Week 5 Thursday"
@@ -214,6 +388,7 @@ assignments:
 
   - id: a5-ops-mission
     order: 5
+    track: mil
     title: Mini Mission Card (Planning + Execution notes)
     module_id: ops-01-ato-planning
     due_session: "Week 6 Thursday"
@@ -232,6 +407,7 @@ assignments:
 
   - id: a6-professional
     order: 6
+    track: se
     title: Professionalism & Participation
     module_id: se-00-welcome
     due_session: "Ongoing"

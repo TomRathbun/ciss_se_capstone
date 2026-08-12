@@ -276,7 +276,7 @@ Trace to NFRs: authentication, authorized voice/data paths, audit of critical ac
 People + Procedures + Technology + Communications = Mission Success
 ```
 
-## Tie-back to CISS SE Capstone
+## Tie-back to CISS Capstone
 
 | SE layer | What to take from this CONOPS |
 |----------|-------------------------------|

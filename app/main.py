@@ -1,4 +1,4 @@
-"""CISS SE Capstone Course — FastAPI entry."""
+"""CISS Capstone Course — FastAPI entry."""
 
 from pathlib import Path
 

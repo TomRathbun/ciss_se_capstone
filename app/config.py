@@ -11,8 +11,8 @@ SECRET_KEY = os.environ.get("CISS_SE_SECRET", "ciss-se-capstone-dev-key-change-m
 SESSION_COOKIE = "ciss_se_session"
 SESSION_MAX_AGE = 12 * 60 * 60  # 12 hours
 
-APP_NAME = "CISS SE Capstone"
-APP_TAGLINE = "Systems Engineering · Military Operations · Candidate Assessment"
+APP_NAME = "CISS Capstone"
+APP_TAGLINE = "SE · Software · Networking · SysAdmin · Military · Candidate Assessment"
 APP_VERSION = "0.1.0"
 
 # Link to the living ETAS case study (time tracker SE page)

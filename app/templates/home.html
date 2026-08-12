@@ -8,11 +8,12 @@
     </h1>
     <p class="text-gray-400 max-w-2xl leading-relaxed">{{ app_tagline }}</p>
     <p class="text-gray-500 text-sm mt-3 max-w-2xl">
-        Monday deep sessions · Thursday Q&amp;A and grading · SE craft + air operations literacy ·
+        Monday deep sessions · Thursday Q&amp;A and grading · Five discipline tracks ·
         Scores distinguish who advances to the main project.
     </p>
     <div class="flex flex-wrap gap-3 mt-6">
-        <a href="/modules" class="btn-primary">Start modules</a>
+        <a href="/modules" class="btn-primary">Browse modules</a>
+        <a href="/assignments" class="btn-ghost">Assignments</a>
         <a href="/tutorial" class="btn-ghost">Markdown &amp; diagram tutorial</a>
         <a href="/selection" class="btn-ghost">Selection criteria</a>
         <a href="{{ case_study_url }}" target="_blank" class="btn-ghost">Open ETAS case study ↗</a>
@@ -26,64 +27,94 @@
         <p class="text-sm text-gray-300">Train interns and <strong class="text-white">rank candidates</strong> for the main CISS engineering project using rubric-based scores.</p>
     </div>
     <div class="card p-5">
-        <p class="text-xs text-amber-400 font-bold tracking-wide uppercase mb-2">Two tracks</p>
-        <p class="text-sm text-gray-300"><strong class="text-white">Systems engineering</strong> fundamentals, then <strong class="text-white">military air ops</strong> (ATO planning &amp; execution).</p>
+        <p class="text-xs text-amber-400 font-bold tracking-wide uppercase mb-2">Five tracks</p>
+        <p class="text-sm text-gray-300"><strong class="text-white">SE</strong>, <strong class="text-white">Software</strong>, <strong class="text-white">Networking</strong>, <strong class="text-white">SysAdmin</strong>, and <strong class="text-white">Military</strong> — each with its own modules and assignments.</p>
     </div>
     <div class="card p-5">
         <p class="text-xs text-sky-400 font-bold tracking-wide uppercase mb-2">Later phase</p>
-        <p class="text-sm text-gray-300">Radar situational awareness capstone — framed after SE + ops foundation (placeholder module ready).</p>
+        <p class="text-sm text-gray-300">Radar situational awareness capstone — framed after foundations (placeholder module in the SE track).</p>
     </div>
 </div>
 
-<div class="grid lg:grid-cols-2 gap-8">
-    <section>
-        <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
-            <span class="badge badge-se">SE</span> Systems engineering modules
-        </h2>
-        <div class="space-y-2">
-            {% for m in modules_se %}
-            <a href="/modules/{{ m.id }}" class="card p-4 block hover:border-primary-500/30 transition-colors">
-                <div class="flex justify-between gap-3">
-                    <div>
-                        <p class="font-semibold text-white text-sm">{{ m.title }}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
-                    </div>
-                    <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </section>
-    <section>
-        <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
-            <span class="badge badge-ops">OPS</span> Military operations modules
-        </h2>
-        <div class="space-y-2">
-            {% for m in modules_ops %}
-            <a href="/modules/{{ m.id }}" class="card p-4 block hover:border-amber-500/30 transition-colors">
-                <div class="flex justify-between gap-3">
-                    <div>
-                        <p class="font-semibold text-white text-sm">{{ m.title }}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
-                    </div>
-                    <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
+<section class="mb-12">
+    <h2 class="text-xl font-bold mb-4">Tracks</h2>
+    <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {% for t in tracks %}
+        <a href="/modules?track={{ t.id }}" class="card p-5 block hover:border-white/20 transition-colors h-full">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
+                {% if t.status == 'scaffolding' %}
+                <span class="text-[10px] uppercase tracking-wide text-gray-600">scaffolding</span>
+                {% endif %}
+            </div>
+            <p class="font-semibold text-white">{{ t.title }}</p>
+            <p class="text-xs text-gray-500 mt-2 leading-relaxed">{{ t.summary }}</p>
+            <p class="text-[11px] text-gray-600 mt-3">
+                {{ t.module_count }} module{{ 's' if t.module_count != 1 else '' }}
+                · {{ t.assignment_count }} assignment{{ 's' if t.assignment_count != 1 else '' }}
+            </p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
 
-        <h2 class="text-lg font-bold mt-8 mb-3">Upcoming graded work</h2>
-        <div class="space-y-2">
-            {% for a in assignments %}
-            <a href="/assignments/{{ a.id }}" class="card p-4 block hover:border-white/10">
-                <div class="flex justify-between">
-                    <p class="text-sm font-semibold">{{ a.title }}</p>
-                    <span class="badge badge-weight">{{ a.weight }}%</span>
-                </div>
-                <p class="text-xs text-gray-500 mt-1">Due: {{ a.due_session }}</p>
-            </a>
-            {% endfor %}
+<section class="mb-12">
+    <div class="flex items-center justify-between gap-3 mb-4">
+        <h2 class="text-xl font-bold">Modules by track</h2>
+        <a href="/modules" class="text-sm text-primary-400 hover:text-primary-300">All modules →</a>
+    </div>
+    <div class="space-y-8">
+        {% for t in tracks %}
+        <div>
+            <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
+                <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
+                <span class="text-gray-300">{{ t.title }}</span>
+            </h3>
+            {% if t.modules %}
+            <div class="grid md:grid-cols-2 gap-2">
+                {% for m in t.modules[:6] %}
+                <a href="/modules/{{ m.id }}" class="card p-4 block hover:border-white/15 transition-colors">
+                    <div class="flex justify-between gap-3">
+                        <div>
+                            <p class="font-semibold text-white text-sm">{{ m.title }}</p>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-2">{{ m.summary }}</p>
+                        </div>
+                        <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% if t.modules|length > 6 %}
+            <a href="/modules?track={{ t.id }}" class="inline-block mt-2 text-xs text-primary-400">View all {{ t.modules|length }} in this track →</a>
+            {% endif %}
+            {% else %}
+            <p class="text-sm text-gray-600">No modules yet — check back as this track is authored.</p>
+            {% endif %}
         </div>
-    </section>
-</div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <div class="flex items-center justify-between gap-3 mb-4">
+        <h2 class="text-xl font-bold">Upcoming graded work</h2>
+        <a href="/assignments" class="text-sm text-primary-400 hover:text-primary-300">All assignments →</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-2">
+        {% for a in assignments %}
+        <a href="/assignments/{{ a.id }}" class="card p-4 block hover:border-white/10">
+            <div class="flex justify-between items-start gap-2">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="badge badge-{{ a.track_color }}">{{ a.track_short }}</span>
+                    </div>
+                    <p class="text-sm font-semibold">{{ a.title }}</p>
+                    <p class="text-xs text-gray-500 mt-1">Due: {{ a.due_session }}</p>
+                </div>
+                <span class="badge badge-weight">{{ a.weight }}%</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

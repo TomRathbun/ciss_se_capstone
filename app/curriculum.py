@@ -149,15 +149,115 @@ def write_editable(kind: str, content_id: str, body: str) -> bool:
     return True
 
 
+# Legacy catalog used track: ops for military modules.
+TRACK_ALIASES = {"ops": "mil"}
+
+# Fallback if catalog has no tracks block.
+_DEFAULT_TRACKS: list[dict] = [
+    {"id": "se", "order": 1, "short": "SE", "title": "Systems Engineering", "summary": "", "color": "se", "status": "active"},
+    {"id": "sw", "order": 2, "short": "SW", "title": "Software Development", "summary": "", "color": "sw", "status": "scaffolding"},
+    {"id": "net", "order": 3, "short": "NET", "title": "Networking", "summary": "", "color": "net", "status": "scaffolding"},
+    {"id": "admin", "order": 4, "short": "ADMIN", "title": "System Administration & Integration", "summary": "", "color": "admin", "status": "scaffolding"},
+    {"id": "mil", "order": 5, "short": "MIL", "title": "Military Operations", "summary": "", "color": "mil", "status": "active"},
+]
+
+
 def load_catalog() -> dict:
     data = _read_yaml(CONTENT_DIR / "catalog.yaml") or {}
     return data
 
 
-def list_modules() -> list[dict]:
+def normalize_track_id(track: str | None) -> str:
+    """Map legacy aliases (e.g. ops → mil) to canonical track ids."""
+    t = (track or "se").strip().lower()
+    return TRACK_ALIASES.get(t, t)
+
+
+def _raw_tracks() -> list[dict]:
+    """Tracks from catalog (or defaults), no module counts — safe for enrichment."""
     catalog = load_catalog()
-    modules = catalog.get("modules") or []
-    return sorted(modules, key=lambda m: m.get("order", 99))
+    tracks = catalog.get("tracks") or list(_DEFAULT_TRACKS)
+    out: list[dict] = []
+    for t in tracks:
+        row = dict(t)
+        row["id"] = normalize_track_id(row.get("id"))
+        row["color"] = row.get("color") or row["id"]
+        row["short"] = row.get("short") or row["id"].upper()
+        out.append(row)
+    return sorted(out, key=lambda t: t.get("order", 99))
+
+
+def _track_map() -> dict[str, dict]:
+    return {t["id"]: t for t in _raw_tracks()}
+
+
+def list_tracks() -> list[dict]:
+    """Tracks in catalog order, enriched with module/assignment counts."""
+    catalog = load_catalog()
+    raw_modules = catalog.get("modules") or []
+    raw_assignments = catalog.get("assignments") or []
+    out: list[dict] = []
+    for t in _raw_tracks():
+        tid = t["id"]
+        row = dict(t)
+        row["module_count"] = sum(
+            1 for m in raw_modules if normalize_track_id(m.get("track")) == tid
+        )
+        row["assignment_count"] = sum(
+            1
+            for a in raw_assignments
+            if normalize_track_id(
+                a.get("track")
+                or next(
+                    (
+                        m.get("track")
+                        for m in raw_modules
+                        if m.get("id") == a.get("module_id")
+                    ),
+                    "se",
+                )
+            )
+            == tid
+        )
+        out.append(row)
+    return out
+
+
+def get_track(track_id: str) -> dict | None:
+    tid = normalize_track_id(track_id)
+    return _track_map().get(tid)
+
+
+def _enrich_module(m: dict) -> dict:
+    row = dict(m)
+    row["track"] = normalize_track_id(row.get("track"))
+    track_meta = _track_map().get(row["track"]) or {}
+    row["track_title"] = track_meta.get("title") or row["track"]
+    row["track_short"] = track_meta.get("short") or row["track"].upper()
+    row["track_color"] = track_meta.get("color") or row["track"]
+    row["track_status"] = track_meta.get("status") or "active"
+    return row
+
+
+def list_modules(track: str | None = None) -> list[dict]:
+    catalog = load_catalog()
+    modules = [_enrich_module(m) for m in (catalog.get("modules") or [])]
+    modules = sorted(modules, key=lambda m: m.get("order", 99))
+    if track:
+        tid = normalize_track_id(track)
+        modules = [m for m in modules if m.get("track") == tid]
+    return modules
+
+
+def modules_by_track() -> list[dict]:
+    """Tracks with nested modules list (for home / modules index)."""
+    all_mods = list_modules()
+    result: list[dict] = []
+    for t in list_tracks():
+        row = dict(t)
+        row["modules"] = [m for m in all_mods if m.get("track") == t["id"]]
+        result.append(row)
+    return result
 
 
 def get_module(module_id: str) -> dict | None:
@@ -172,9 +272,20 @@ def get_module(module_id: str) -> dict | None:
     return None
 
 
-def module_neighbors(module_id: str) -> tuple[dict | None, dict | None, int, int]:
-    """Return (prev, next, index_1based, total) in catalog order."""
+def module_neighbors(
+    module_id: str, *, within_track: bool = True
+) -> tuple[dict | None, dict | None, int, int]:
+    """Return (prev, next, index_1based, total).
+
+    By default navigates within the same track so multi-track catalogs
+    do not jump from SE into military mid-sequence.
+    """
     modules = list_modules()
+    current = next((m for m in modules if m.get("id") == module_id), None)
+    if not current:
+        return None, None, 0, 0
+    if within_track:
+        modules = [m for m in modules if m.get("track") == current.get("track")]
     total = len(modules)
     for i, m in enumerate(modules):
         if m.get("id") == module_id:
@@ -184,10 +295,48 @@ def module_neighbors(module_id: str) -> tuple[dict | None, dict | None, int, int
     return None, None, 0, total
 
 
-def list_assignments() -> list[dict]:
+def _enrich_assignment(a: dict, *, module_track_by_id: dict[str, str] | None = None) -> dict:
+    row = dict(a)
+    track = row.get("track")
+    if not track and row.get("module_id"):
+        if module_track_by_id is None:
+            module_track_by_id = {
+                m.get("id"): m.get("track") for m in list_modules()
+            }
+        track = module_track_by_id.get(row["module_id"])
+    row["track"] = normalize_track_id(track)
+    track_meta = _track_map().get(row["track"]) or {}
+    row["track_title"] = track_meta.get("title") or row["track"]
+    row["track_short"] = track_meta.get("short") or row["track"].upper()
+    row["track_color"] = track_meta.get("color") or row["track"]
+    return row
+
+
+def list_assignments(track: str | None = None) -> list[dict]:
     catalog = load_catalog()
-    items = catalog.get("assignments") or []
-    return sorted(items, key=lambda a: a.get("order", 99))
+    module_track_by_id = {
+        m.get("id"): normalize_track_id(m.get("track"))
+        for m in (catalog.get("modules") or [])
+    }
+    items = [
+        _enrich_assignment(a, module_track_by_id=module_track_by_id)
+        for a in (catalog.get("assignments") or [])
+    ]
+    items = sorted(items, key=lambda a: a.get("order", 99))
+    if track:
+        tid = normalize_track_id(track)
+        items = [a for a in items if a.get("track") == tid]
+    return items
+
+
+def assignments_by_track() -> list[dict]:
+    all_asg = list_assignments()
+    result: list[dict] = []
+    for t in list_tracks():
+        row = dict(t)
+        row["assignments"] = [a for a in all_asg if a.get("track") == t["id"]]
+        result.append(row)
+    return result
 
 
 def get_assignment(assignment_id: str) -> dict | None:

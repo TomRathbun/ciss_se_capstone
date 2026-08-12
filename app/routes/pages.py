@@ -29,15 +29,19 @@ from app.config import (
     UPLOAD_URL_PREFIX,
 )
 from app.curriculum import (
+    assignments_by_track,
     get_assignment,
     get_module,
     list_assignments,
     list_editable_files,
     list_modules,
+    list_tracks,
     load_glossary,
     load_schedule,
     load_selection_criteria,
     module_neighbors,
+    modules_by_track,
+    normalize_track_id,
     read_editable,
     write_editable,
 )
@@ -66,16 +70,12 @@ def _ctx(request: Request, db: Session, **extra):
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request, db: Session = Depends(get_db)):
-    modules = list_modules()
-    se = [m for m in modules if m.get("track") == "se"]
-    ops = [m for m in modules if m.get("track") == "ops"]
     return templates.TemplateResponse(
         "home.html",
         _ctx(
             request, db,
-            modules_se=se,
-            modules_ops=ops,
-            assignments=list_assignments()[:4],
+            tracks=modules_by_track(),
+            assignments=list_assignments()[:6],
             schedule=load_schedule(),
             selection=load_selection_criteria(),
         ),
@@ -133,9 +133,19 @@ async def logout():
 
 @router.get("/modules", response_class=HTMLResponse)
 async def modules_index(request: Request, db: Session = Depends(get_db)):
+    track = request.query_params.get("track")
+    if track:
+        track = normalize_track_id(track)
     return templates.TemplateResponse(
         "modules.html",
-        _ctx(request, db, modules=list_modules()),
+        _ctx(
+            request,
+            db,
+            tracks=list_tracks(),
+            track_filter=track,
+            modules=list_modules(track=track) if track else list_modules(),
+            tracks_with_modules=modules_by_track(),
+        ),
     )
 
 
@@ -190,7 +200,10 @@ async def module_complete(module_id: str, request: Request, db: Session = Depend
 @router.get("/assignments", response_class=HTMLResponse)
 async def assignments_index(request: Request, db: Session = Depends(get_db)):
     user = get_current_user(request, db)
-    items = list_assignments()
+    track = request.query_params.get("track")
+    if track:
+        track = normalize_track_id(track)
+    items = list_assignments(track=track) if track else list_assignments()
     statuses = {}
     if user and user.role == Role.student:
         for a in items:
@@ -198,7 +211,15 @@ async def assignments_index(request: Request, db: Session = Depends(get_db)):
             statuses[a["id"]] = sub.status if sub else "not_started"
     return templates.TemplateResponse(
         "assignments.html",
-        _ctx(request, db, assignments=items, statuses=statuses),
+        _ctx(
+            request,
+            db,
+            assignments=items,
+            statuses=statuses,
+            tracks=list_tracks(),
+            track_filter=track,
+            tracks_with_assignments=assignments_by_track(),
+        ),
     )
 
 

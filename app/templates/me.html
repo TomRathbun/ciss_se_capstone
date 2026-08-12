@@ -29,9 +29,12 @@
 <h2 class="font-bold mb-3">Modules completed</h2>
 <div class="grid sm:grid-cols-2 gap-2">
     {% for m in modules %}
-    <div class="card p-3 text-sm flex justify-between">
-        <span class="text-gray-300">{{ m.title }}</span>
-        <span class="{% if m.id in done_ids %}text-green-400{% else %}text-gray-600{% endif %}">
+    <div class="card p-3 text-sm flex justify-between gap-2 items-center">
+        <span class="text-gray-300 flex items-center gap-2 min-w-0">
+            <span class="badge badge-{{ m.track_color }} shrink-0">{{ m.track_short }}</span>
+            <span class="truncate">{{ m.title }}</span>
+        </span>
+        <span class="{% if m.id in done_ids %}text-green-400{% else %}text-gray-600{% endif %} shrink-0">
             {% if m.id in done_ids %}✓{% else %}○{% endif %}
         </span>
     </div>
