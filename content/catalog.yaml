@@ -108,15 +108,15 @@ modules:
     track: se
     title: Behavior — States & Sequences
     duration_min: 150
-    summary: State syntax (trigger/guard/activity); EARS→state mapping; hierarchical states; sequence diagrams; multiple worked examples.
+    summary: State vs status; state syntax (trigger/guard/activity); EARS→state mapping; hierarchical states; sequence diagrams.
     offline: true
 
   - id: se-07-interfaces
     order: 8
     track: se
     title: Interfaces & ICDs
-    duration_min: 90
-    summary: External interfaces, data contracts, error behavior; lightweight ICD thinking.
+    duration_min: 120
+    summary: Messaging ICDs (content, Tx/Rx, rates; ASTERIX Cat062) vs API ICDs (REST ops, params, errors); file ICDs; partial examples.
     offline: true
 
   - id: se-11-mbse-frameworks
@@ -388,7 +388,7 @@ assignments:
     title: Requirements Pack (EARS + acceptance)
     module_id: se-04-requirements
     due_session: "Week 4 Thursday"
-    weight: 25
+    weight: 20
     summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
     rubric:
       - dimension: testability
@@ -461,13 +461,51 @@ assignments:
         max_points: 5
         description: Chart, flat table, and EARS readable
 
-  - id: a4-trace-vv
+  - id: a7-icd-messaging-api
     order: 6
+    track: se
+    title: Messaging ICD + API ICD (partial)
+    module_id: se-07-interfaces
+    due_session: "Week 5 Thursday"
+    weight: 5
+    summary: Partial messaging ICD (content, Tx/Rx, rates) and partial REST API ICD (ops, params, errors).
+    rubric:
+      - dimension: messaging_completeness
+        max_points: 10
+        description: Content + Tx/Rx + rates present and coherent
+      - dimension: api_completeness
+        max_points: 10
+        description: Operations + detailed op + errors present
+      - dimension: communication
+        max_points: 5
+        description: Tables readable; version/owner clear
+
+  - id: a7c-asterix-cat21-research
+    order: 7
+    track: se
+    title: Research — ASTERIX Cat 021 ICD summary
+    module_id: se-07-interfaces
+    due_session: "Week 6 Thursday"
+    weight: 5
+    summary: Locate public EUROCONTROL Cat 021 materials; summarize purpose, items, edition; mini ICD tables.
+    rubric:
+      - dimension: source_quality
+        max_points: 10
+        description: Correct public docs; edition and URL cited
+      - dimension: understanding
+        max_points: 10
+        description: Purpose, Cat 021 vs 062, edition importance clear
+      - dimension: communication
+        max_points: 5
+        description: Summary and tables usable by a peer
+
+  - id: a4-trace-vv
+    order: 8
     track: se
     title: Traceability & V&V Plan
     module_id: se-08-vv-trace
     due_session: "Week 5 Thursday"
-    weight: 20
+    weight: 15
     summary: RTM for your FRs + verification method per FR; short validation approach.
     rubric:
       - dimension: traceability
@@ -481,7 +519,7 @@ assignments:
         description: Table usable by an independent tester
 
   - id: a5-ops-mission
-    order: 7
+    order: 9
     track: mil
     title: Mini Mission Card (Planning + Execution notes)
     module_id: ops-01-ato-planning
@@ -500,7 +538,7 @@ assignments:
         description: Clear for a peer to brief from in ~2 minutes
 
   - id: a6-professional
-    order: 8
+    order: 10
     track: se
     title: Professionalism & Participation
     module_id: se-00-welcome
