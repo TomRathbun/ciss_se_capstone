@@ -55,7 +55,7 @@ VISION → NEEDS → USE CASES → REQUIREMENTS (EARS)
    │        │         │              │ allocated_to
    │        │         │              ▼
    │        │         │         ARCHITECTURE / STRUCTURE
-   │        │         │         (context, containers, components)
+   │        │         │         (context, containers, components, deployment)
    │        │         │              │
    │        │         │              │ exercised by
    │        │         │              ▼
@@ -63,17 +63,26 @@ VISION → NEEDS → USE CASES → REQUIREMENTS (EARS)
    │        │         │         (state machines + sequence diagrams)
    │        │         │              │
    │        │         │              ▼
-   │        │         │         INTERFACES / ICDs  →  V&V / Trace
+   │        │         │         INTERFACES / ICDs
+   │        │         │              │
+   │        │         │              ▼
+   │        │         │         MBSE / FRAMEWORK LITERACY (optional depth)
+   │        │         │              │
+   │        │         │              ▼
+   │        │         │         V&V / Trace
 ```
 
 | Diagram type | Kind | Module | Role in the chain |
 |--------------|------|--------|-------------------|
-| **Context diagram** | Structural | se-02 (Stakeholders) + later architecture | System boundary and external actors/systems |
+| **Context diagram** | Structural | se-02 (Stakeholders) + **se-05 Architecture** | System boundary and external actors/systems |
 | **Container / layer view** (C4-style) | Structural | **se-05 Architecture** | Major pieces and responsibilities; FRs are **allocated_to** these elements |
 | **Component view** | Structural | **se-05 Architecture** | Finer-grained allocation of FRs to modules/services |
+| **Deployment view** | Structural | **se-05 Architecture** | VMs/processes/network placement (lab standard) |
+| **Package / data sketch** | Structural | **se-05 Architecture** | Code ownership and information structure |
 | **State machine** | Behavioral | **se-06 Behavior** | *When* and legal/illegal transitions; must stay consistent with governing FRs |
-| **Sequence diagram** | Behavioral | **se-06 Behavior** | *Order* of interactions for a use-case scenario; every message justified by a requirement or interface |
+| **Sequence diagram** | Behavioral | **se-06 Behavior** | *Order* of interactions for a use-case scenario |
 | **Interface / ICD view** | Structural + behavioral | **se-07 Interfaces** | Message contracts between the pieces defined in architecture |
+| **Framework / MBSE map** | Literacy | **se-11 MBSE & frameworks** | How course artifacts relate to UML/SysML/DoDAF-style products |
 
 **Teaching rule:** Early weeks stay on the left side of the chain (Vision → Requirements). Structural diagrams appear in Architecture; behavioral diagrams appear in Behavior. Both must remain traceable to the requirements they implement.
 
@@ -150,8 +159,8 @@ Peer feedback on Thursday is scored under A6 and improves the quality of your ar
 |--------------|---------------|-------------------|
 | Write & structure | Markdown, Word, Confluence / wikis | Vision, needs, ICD text, decision records |
 | Tables & traces | Excel / Sheets; enterprise: DOORS, Jama, Polarion | RTM, allocation matrix, req lists |
-| Diagrams | Mermaid, PlantUML, draw.io, Visio | Context, C4-style containers, states, sequences |
-| MBSE / system model | Rhapsody, Cameo, Capella *(class of tool)* | Model-based architecture & behavior (later careers) |
+| Diagrams | Mermaid, PlantUML, draw.io, Visio | Context, C4-style containers, deployment, states, sequences |
+| MBSE / system model | Rhapsody, Cameo, Capella *(class of tool)* | Model-based architecture & behavior (see **se-11**) |
 | Work tracking | Jira, Azure DevOps, GitHub Issues | Tasks, reviews — not a substitute for SE artifacts |
 | Scripting / data | Python, bash | Export checks, data shaping, repeatable reports |
 | AI assist | LLMs (ChatGPT, Grok, Copilot, …) | Draft wording only — cite; verify yourself |
