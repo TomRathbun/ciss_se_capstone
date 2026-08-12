@@ -108,4 +108,6 @@ Use the template above, fill in at least the first six fields, and note any **in
 
 ## Next
 
-**Verification, Validation & Traceability** — verify that each external interface meets the success criteria you defined here, and that every requirement links to a concrete test.
+**Architecture Frameworks & MBSE Literacy** (recommended after structure, behavior, and ICDs) — how UML/SysML and DoDAF-style products relate to the artifacts you already produce.
+
+Then **Verification, Validation & Traceability** — prove interfaces and requirements with tests and an RTM.
