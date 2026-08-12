@@ -40,7 +40,7 @@ Prefer **PreparedStatement** always for user or external input.
 
 ## Prerequisites
 
-- PostgreSQL running locally or in lab (Docker example below)  
+- **PostgreSQL on a lab VM** (or a host/IP the instructor assigns) — course standard is **VMs, not Docker**  
 - JDK (lab may still target **Java 8** on operational stacks; learning installs often use 17+)  
 - Maven dependency:
 
@@ -52,18 +52,41 @@ Prefer **PreparedStatement** always for user or external input.
 </dependency>
 ```
 
-### Docker quick lab DB
+### Lab database (VM)
+
+Use the **Postgres service on your assigned VM** (or shared lab DB VM). From the guest or your workstation:
 
 ```bash
-docker run --name ciss-pg -e POSTGRES_PASSWORD=ciss -e POSTGRES_DB=cisslab -p 5432:5432 -d postgres:16
+# On the DB VM (examples — names vary by lab image)
+sudo systemctl status postgresql
+# or: sudo systemctl status postgresql-16
+
+psql --version
+sudo -u postgres psql -c "\l"
 ```
 
-Connection URL:
+Record from the lab sheet:
+
+| Item | Example |
+|------|---------|
+| Host / IP | `pg-lab-01.example.local` or VM IP |
+| Port | `5432` |
+| Database | `cisslab` |
+| User / password | instructor-provided (env vars, not Git) |
+
+Connection URL shape:
 
 ```text
-jdbc:postgresql://localhost:5432/cisslab
-user: postgres
-password: ciss
+jdbc:postgresql://<host>:5432/cisslab
+```
+
+If your Java process runs **on the same VM** as Postgres, `localhost` is fine. If it runs on another VM or your laptop, use the **DB VM hostname or IP** and ensure firewall/`pg_hba.conf` allow the path (coordinate with admin track — do not open networks casually).
+
+```bash
+# Reachability check from the client host
+ping -c 2 <db-host>
+ss -lntp | grep 5432          # on the DB VM: is Postgres listening?
+psql "host=<db-host> port=5432 dbname=cisslab user=<user>" -c 'SELECT 1'
 ```
 
 ## Connection essentials (DriverManager)
@@ -161,7 +184,7 @@ On **JBoss EAP** or **WildFly**, the preferred production pattern is often a **c
 
 ### Where it lives
 
-Typical file: `standalone/configuration/standalone.xml` (or `standalone-full.xml`, domain profiles, etc.).
+Typical file: `standalone/configuration/standalone.xml` (or `standalone-full.xml`, domain profiles, etc.) **on the app-server VM**.
 
 Illustrative fragment (names and drivers vary by program):
 
@@ -299,11 +322,10 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
 ### Select
 
 ```java
-String sql = """
-    SELECT id, badge_code, full_name
-    FROM employee
-    WHERE badge_code = ?
-    """;
+String sql =
+    "SELECT id, badge_code, full_name " +
+    "FROM employee " +
+    "WHERE badge_code = ?";
 try (PreparedStatement ps = conn.prepareStatement(sql)) {
     ps.setString(1, badge);
     try (ResultSet rs = ps.executeQuery()) {
@@ -358,19 +380,19 @@ Inject or pass a `DataSource` into the repository — not a single long-lived `C
 
 | Symptom | Checks |
 |---------|--------|
-| `Connection refused` | Postgres up? Port 5432? Docker running? |
-| `FATAL: password authentication failed` | User/password env or standalone security block |
-| `relation "employee" does not exist` | Migrations / SQL not applied |
-| `SSL error` | URL sslmode for cloud DBs |
+| `Connection refused` | Postgres up on the **VM**? `systemctl status`? Port 5432 listening? Firewall between client VM and DB VM? |
+| `FATAL: password authentication failed` | User/password env or standalone security block; `pg_hba.conf` |
+| `relation "employee" does not exist` | Migrations / SQL not applied on that database |
+| `SSL error` | URL sslmode for TLS-required environments |
 | `NameNotFoundException` on lookup | Wrong JNDI name; datasource not deployed; wrong server profile |
 | `Timeout waiting for connection` | Pool exhausted — leak (connection not closed) or undersized pool |
 | `FATAL: too many connections` | Sum of pools > `max_connections` |
 
 ## Drill (45 min)
 
-1. Start Postgres (Docker or local).  
-2. Apply the schema SQL.  
-3. Java program: insert one employee; query by badge; print result (`DriverManager`).  
+1. Confirm Postgres on the **lab VM** (`systemctl status`, `psql`).  
+2. Apply the schema SQL (instructor DB or your lab database).  
+3. Java program: insert one employee; query by badge; print result (`DriverManager`). Use the real host/IP in `CISS_JDBC_URL` if not local.  
 4. Refactor to **HikariCP** `DataSource`; confirm behavior unchanged.  
 5. Attempt a duplicate `badge_code`; handle `SQLException` cleanly.  
 6. Write 5 bullets: when you would use JBoss `java:jboss/datasources/…` instead of Hikari in-process.  
