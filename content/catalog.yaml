@@ -555,3 +555,385 @@ assignments:
       - dimension: integrity
         max_points: 5
         description: Own work; cites sources
+
+  # --- Software Development (weights sum to 100% within track) ---
+  - id: sw-a00-track-plan
+    order: 20
+    track: sw
+    title: Software Track Plan & Tooling Map
+    module_id: sw-00-welcome
+    due_session: "After SW welcome"
+    weight: 5
+    summary: Track plan, program vs CISS tooling map, SE links, integrity habits.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + tooling table + SE links + integrity
+      - dimension: accuracy
+        max_points: 10
+        description: Correct program vs lab mapping
+      - dimension: communication
+        max_points: 5
+        description: Clear enough for a peer to follow
+
+  - id: sw-a01-git-practice
+    order: 21
+    track: sw
+    title: Git Daily Loop Lab
+    module_id: sw-01-git
+    due_session: "After sw-01-git"
+    weight: 10
+    summary: Branch, commit, push, and safe recovery with command evidence.
+    rubric:
+      - dimension: process
+        max_points: 15
+        description: Full daily loop with evidence
+      - dimension: recovery
+        max_points: 10
+        description: Safe recovery demonstrated
+      - dimension: communication
+        max_points: 5
+        description: Log and messages readable
+
+  - id: sw-a02-workflow-mr
+    order: 22
+    track: sw
+    title: Ticket → Branch → MR Workflow
+    module_id: sw-02-bitbucket-jira
+    due_session: "After sw-02-bitbucket-jira"
+    weight: 10
+    summary: DR-style ticket, branch, GitLab MR, review checklist, Nexus note.
+    rubric:
+      - dimension: workflow_fidelity
+        max_points: 15
+        description: Ticket → branch → MR chain intact
+      - dimension: review_quality
+        max_points: 10
+        description: Checklist would catch real defects
+      - dimension: communication
+        max_points: 5
+        description: MR usable by a peer reviewer
+
+  - id: sw-a03-java-env
+    order: 23
+    track: sw
+    title: Java Tooling & Mini Project
+    module_id: sw-03-vscode-java
+    due_session: "After sw-03-vscode-java"
+    weight: 10
+    summary: JDK/Maven/VS Code environment sheet, runnable Maven app, debug evidence.
+    rubric:
+      - dimension: environment
+        max_points: 10
+        description: Reproducible tooling notes
+      - dimension: runnable
+        max_points: 15
+        description: Project runs; debug shown
+      - dimension: communication
+        max_points: 5
+        description: README clear
+
+  - id: sw-a04-jdbc
+    order: 24
+    track: sw
+    title: JDBC Repository Slice
+    module_id: sw-04-java-postgresql
+    due_session: "After sw-04-java-postgresql"
+    weight: 15
+    summary: Schema + PreparedStatement CRUD, transaction commit/rollback, secret handling.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: CRUD + transaction behavior works
+      - dimension: safety
+        max_points: 10
+        description: PreparedStatement + secret handling
+      - dimension: communication
+        max_points: 5
+        description: Schema and notes clear
+
+  - id: sw-a05-amqp
+    order: 25
+    track: sw
+    title: ActiveMQ Publish / Consume Lab
+    module_id: sw-05-java-amqp
+    due_session: "After sw-05-java-amqp"
+    weight: 15
+    summary: ICD-style payload, producer/consumer, ack mode, failure mode, runbook.
+    rubric:
+      - dimension: messaging
+        max_points: 15
+        description: Produce + consume works end-to-end
+      - dimension: interface_thinking
+        max_points: 10
+        description: ICD-style payload + ack note
+      - dimension: communication
+        max_points: 5
+        description: Runbook peer-usable
+
+  - id: sw-a06-daemon
+    order: 26
+    track: sw
+    title: Java Daemon / Worker
+    module_id: sw-06-java-daemons
+    due_session: "After sw-06-java-daemons"
+    weight: 10
+    summary: Long-running process with work loop, graceful shutdown, lifecycle diagram.
+    rubric:
+      - dimension: lifecycle
+        max_points: 15
+        description: Start/run/stop correct
+      - dimension: robustness
+        max_points: 10
+        description: Graceful shutdown + sane loop
+      - dimension: communication
+        max_points: 5
+        description: Diagram + ops notes clear
+
+  - id: sw-a07-javafx
+    order: 27
+    track: sw
+    title: JavaFX Mini Console
+    module_id: sw-07-javafx-gui
+    due_session: "After sw-07-javafx-gui"
+    weight: 10
+    summary: Thin JavaFX UI over a simple service idea; UI-thread note; use-case link.
+    rubric:
+      - dimension: ui_structure
+        max_points: 15
+        description: Working JavaFX UI with real controls
+      - dimension: se_alignment
+        max_points: 10
+        description: Thin UI; use-case / FR thinking
+      - dimension: communication
+        max_points: 5
+        description: Screenshot + run notes
+
+  - id: sw-a08-cicd
+    order: 28
+    track: sw
+    title: CI Pipeline for Your Lab Project
+    module_id: sw-08-jenkins-cicd
+    due_session: "After sw-08-jenkins-cicd"
+    weight: 15
+    summary: GitLab CI or Jenkins pipeline; break/fix; artifact/Nexus story; SE verification note.
+    rubric:
+      - dimension: automation
+        max_points: 15
+        description: Working multi-stage pipeline
+      - dimension: diagnosis
+        max_points: 10
+        description: Break/fix with log evidence
+      - dimension: communication
+        max_points: 5
+        description: Artifact + SE note clear
+
+  # --- System Administration & Integration (weights sum to 100% within track) ---
+  - id: admin-a00-track-plan
+    order: 40
+    track: admin
+    title: Admin Track Plan & Ops Map
+    module_id: admin-00-welcome
+    due_session: "After admin welcome"
+    weight: 5
+    summary: Track plan, SW runtime ↔ admin module map, SE links, safety rules.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + map + SE links + safety
+      - dimension: accuracy
+        max_points: 10
+        description: Correct module ↔ runtime links
+      - dimension: communication
+        max_points: 5
+        description: Clear for a peer
+
+  - id: admin-a01-linux-lab
+    order: 41
+    track: admin
+    title: RHEL/Linux Discovery Lab
+    module_id: admin-01-rhel7-linux
+    due_session: "After admin-01-rhel7-linux"
+    weight: 10
+    summary: Host identity, ps/ss/systemctl/journalctl evidence pack, safety risks.
+    rubric:
+      - dimension: discovery
+        max_points: 15
+        description: Broad, correct evidence pack
+      - dimension: safety
+        max_points: 10
+        description: Non-destructive; good redaction
+      - dimension: communication
+        max_points: 5
+        description: Labeled, reproducible
+
+  - id: admin-a02-bash-script
+    order: 42
+    track: admin
+    title: Safe Admin Bash Script
+    module_id: admin-02-bash
+    due_session: "After admin-02-bash"
+    weight: 15
+    summary: Practical admin script with safe defaults, sample run, failure path.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Script works; failure path clear
+      - dimension: safety
+        max_points: 10
+        description: Quoting, set flags, no foot-guns
+      - dimension: communication
+        max_points: 5
+        description: Help text and notes usable
+
+  - id: admin-a03-packages
+    order: 43
+    track: admin
+    title: Package & Artifact Hygiene
+    module_id: admin-03-package-management
+    due_session: "After admin-03-package-management"
+    weight: 10
+    summary: yum/rpm evidence, language ecosystems, Nexus role, change mini-plan.
+    rubric:
+      - dimension: coverage
+        max_points: 15
+        description: OS + language + Nexus thinking
+      - dimension: change_control
+        max_points: 10
+        description: Plan with verify/rollback
+      - dimension: communication
+        max_points: 5
+        description: Clear anti-pattern list
+
+  - id: admin-a04-tls
+    order: 44
+    track: admin
+    title: TLS Certificate Inspection Lab
+    module_id: admin-04-tls-certs
+    due_session: "After admin-04-tls-certs"
+    weight: 10
+    summary: OpenSSL cert report, chain check, failure scenarios, ops impact.
+    rubric:
+      - dimension: inspection
+        max_points: 15
+        description: Correct OpenSSL evidence
+      - dimension: diagnosis
+        max_points: 10
+        description: Failure scenarios accurate
+      - dimension: communication
+        max_points: 5
+        description: Ticket-ready notes
+
+  - id: admin-a05-idm
+    order: 45
+    track: admin
+    title: Identity Lookup & Access Notes
+    module_id: admin-05-idm-ad-ipa
+    due_session: "After admin-05-idm-ad-ipa"
+    weight: 10
+    summary: AD/IPA environment note, lookups, access model, login incident story.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Real lookups or honest constraints
+      - dimension: troubleshooting
+        max_points: 10
+        description: Structured incident story
+      - dimension: communication
+        max_points: 5
+        description: Clear access model
+
+  - id: admin-a06-nfs
+    order: 46
+    track: admin
+    title: NFS Export / Mount Worksheet
+    module_id: admin-06-nfs
+    due_session: "After admin-06-nfs"
+    weight: 10
+    summary: Share design, export/mount, UID risk, failure matrix.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Coherent export/mount design
+      - dimension: ops_checks
+        max_points: 10
+        description: Verification + failure matrix
+      - dimension: communication
+        max_points: 5
+        description: Ticket-ready worksheet
+
+  - id: admin-a07-vsphere
+    order: 47
+    track: admin
+    title: vSphere Vocabulary & VM Lifecycle Brief
+    module_id: admin-07-vsphere-vsan-vdi
+    due_session: "After admin-07-vsphere-vsan-vdi"
+    weight: 5
+    summary: Stack vocabulary, lifecycle risks, escalation evidence list.
+    rubric:
+      - dimension: vocabulary
+        max_points: 10
+        description: Accurate definitions
+      - dimension: operational_judgment
+        max_points: 10
+        description: Lifecycle risks + evidence list
+      - dimension: communication
+        max_points: 5
+        description: Brief is scannable
+
+  - id: admin-a08-postgres
+    order: 48
+    track: admin
+    title: PostgreSQL Operator Checks
+    module_id: admin-08-postgres-admin
+    due_session: "After admin-08-postgres-admin"
+    weight: 10
+    summary: Health SQL, role design, vacuum/backup awareness, JDBC handoff URL shape.
+    rubric:
+      - dimension: checks
+        max_points: 15
+        description: Useful health evidence
+      - dimension: privilege_design
+        max_points: 10
+        description: Sensible roles/grants
+      - dimension: communication
+        max_points: 5
+        description: SW-handoff ready
+
+  - id: admin-a09-troubleshoot
+    order: 49
+    track: admin
+    title: Structured Troubleshooting Case
+    module_id: admin-09-troubleshooting
+    due_session: "After admin-09-troubleshooting"
+    weight: 10
+    summary: Symptom→hypothesis→test case with core tool evidence and prevention.
+    rubric:
+      - dimension: method
+        max_points: 15
+        description: Structured, hypothesis-driven
+      - dimension: tooling
+        max_points: 10
+        description: Right tools, good excerpts
+      - dimension: communication
+        max_points: 5
+        description: Handoff-quality pack
+
+  - id: admin-a10-tickets
+    order: 50
+    track: admin
+    title: Ticket, Runbook & Resolution Pack
+    module_id: admin-10-documentation-tickets
+    due_session: "After admin-10-documentation-tickets"
+    weight: 5
+    summary: Incident + request + change examples, executable runbook, resolution notes.
+    rubric:
+      - dimension: ticket_quality
+        max_points: 10
+        description: Actionable incident + correct types
+      - dimension: runbook
+        max_points: 10
+        description: Executable steps
+      - dimension: communication
+        max_points: 5
+        description: Clear resolution/follow-ups
