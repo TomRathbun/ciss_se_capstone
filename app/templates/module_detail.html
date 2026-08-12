@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block title %}{{ module.title }} — {{ app_name }}{% endblock %}
 {% block content %}
-<div class="mb-6">
+<div class="mb-6 teach-chrome">
     <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
         <a href="/modules" class="text-sm text-primary-400 hover:text-primary-300">← All modules</a>
-        {% if module_index and module_total %}
-        <span class="text-xs text-gray-600 font-mono">Module {{ module_index }} of {{ module_total }}</span>
-        {% endif %}
+        <div class="flex items-center gap-2">
+            {% if module_index and module_total %}
+            <span class="text-xs text-gray-600 font-mono">Module {{ module_index }} of {{ module_total }}</span>
+            {% endif %}
+            <button type="button" id="teach-mode-enter" class="btn-ghost teach-enter-btn"
+                aria-pressed="false" title="Present this module: highlight sections and draw on content">
+                Teach mode
+            </button>
+            <button type="button" id="demo-mode-enter" class="btn-ghost demo-enter-btn"
+                aria-pressed="false" title="Demo mode: selecting text copies it for pasting into a terminal">
+                Demo mode
+            </button>
+        </div>
     </div>
 
     {# Top prev / next #}
@@ -51,10 +61,11 @@
     <p class="text-gray-500 mt-2">{{ module.summary }}</p>
 </div>
 
-<article class="card p-6 md:p-8 prose-course">
+<article id="module-article" class="card p-6 md:p-8 prose-course">
     {{ module.body_html | safe }}
 </article>
 
+<div class="teach-chrome">
 {% if user and user.role.value == 'student' and not completed %}
 <form method="post" action="/modules/{{ module.id }}/complete" class="mt-6">
     <button class="btn-primary" type="submit">Mark module complete</button>
@@ -88,6 +99,7 @@
     </a>
 </p>
 {% endif %}
+</div>
 {% endblock %}
 
 {% block head %}
@@ -99,4 +111,6 @@
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="/static/js/content_view.js"></script>
+<script src="/static/js/teach_mode.js"></script>
+<script src="/static/js/demo_mode.js"></script>
 {% endblock %}
