@@ -388,7 +388,7 @@ assignments:
     title: Requirements Pack (EARS + acceptance)
     module_id: se-04-requirements
     due_session: "Week 4 Thursday"
-    weight: 20
+    weight: 25
     summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
     rubric:
       - dimension: testability
