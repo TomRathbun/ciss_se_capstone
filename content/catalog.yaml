@@ -18,7 +18,7 @@ tracks:
     order: 1
     short: SE
     title: Systems Engineering
-    summary: Vision → needs → use cases → requirements → design, V&V, and living case study.
+    summary: Vision → needs → use cases → requirements → architecture diagrams → behavior → ICDs → MBSE/framework literacy → V&V.
     color: se
     status: active
 
@@ -99,8 +99,8 @@ modules:
     order: 6
     track: se
     title: Architecture Views
-    duration_min: 90
-    summary: Logical layers, allocation of requirements to components, design decisions with rationale.
+    duration_min: 120
+    summary: Diagram catalog (context, container, component, deployment, package, data); FR allocation; design decisions; brief MBSE/framework awareness.
     offline: true
 
   - id: se-06-behavior
@@ -119,8 +119,16 @@ modules:
     summary: External interfaces, data contracts, error behavior; lightweight ICD thinking.
     offline: true
 
-  - id: se-08-vv-trace
+  - id: se-11-mbse-frameworks
     order: 9
+    track: se
+    title: Architecture Frameworks & MBSE Literacy
+    duration_min: 90
+    summary: MBSE vs documents; UML vs SysML; DoDAF/MODAF/NAF/UAF; map course artifacts to OV/SV-style products.
+    offline: true
+
+  - id: se-08-vv-trace
+    order: 10
     track: se
     title: Verification, Validation & Traceability
     duration_min: 90
@@ -128,7 +136,7 @@ modules:
     offline: true
 
   - id: se-09-case-etas
-    order: 10
+    order: 11
     track: se
     title: Case Study — SDC Time Tracker (ETAS)
     duration_min: 120
@@ -136,7 +144,7 @@ modules:
     offline: false
 
   - id: ops-uae-military
-    order: 11
+    order: 12
     track: mil
     title: UAE Military Context (Open Source)
     duration_min: 90
@@ -144,7 +152,7 @@ modules:
     offline: true
 
   - id: ops-00-conops-aoc
-    order: 12
+    order: 13
     track: mil
     title: Military Ops — CONOPS & Air Operations Center
     duration_min: 120
@@ -152,7 +160,7 @@ modules:
     offline: true
 
   - id: ops-01-ato-planning
-    order: 13
+    order: 14
     track: mil
     title: Military Ops — Air Tasking Order (Planning)
     duration_min: 150
@@ -160,7 +168,7 @@ modules:
     offline: true
 
   - id: ops-02-ato-execution
-    order: 14
+    order: 15
     track: mil
     title: Military Ops — ATO Execution
     duration_min: 150
@@ -168,7 +176,7 @@ modules:
     offline: true
 
   - id: ops-03-weapons-context
-    order: 15
+    order: 16
     track: mil
     title: Weapons & Platforms Context (Lockheed Heritage)
     duration_min: 90
@@ -176,7 +184,7 @@ modules:
     offline: true
 
   - id: se-10-capstone-preview
-    order: 16
+    order: 17
     track: se
     title: Capstone Preview — Radar Situational Awareness
     duration_min: 60
