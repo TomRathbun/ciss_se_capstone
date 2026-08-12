@@ -14,6 +14,18 @@ A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Ti
 | Select interns | Weighted assignments + instructor leaderboard (private) |
 | Later | Radar situational awareness capstone (placeholder module) |
 
+## Lab environment (important)
+
+**Course and program labs use virtual machines (VMs)** — typically RHEL-compatible guests under **vSphere / ESXi** — not Docker containers as the default runtime.
+
+| Expect | Do not assume |
+|--------|----------------|
+| Postgres, ActiveMQ, JBoss, app hosts as **VMs or services on VMs** | `docker run …` as the primary lab path |
+| Hostnames, IPs, and credentials from the instructor / runbook | Localhost-only single-machine demos unless told otherwise |
+| `systemctl`, packages, firewall, and IDM on the guest OS | Container-only networking mental models |
+
+Docker may appear in external reading; for CISS work, prefer the **assigned VM** and document connection details (host, port, user) in your notes.
+
 ## Rhythm
 
 - **Monday** — 3–4h introduce topic + workshop  

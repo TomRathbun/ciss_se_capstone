@@ -1,7 +1,8 @@
 # System Administration & Integration — Track Overview
 
 > **Track status:** active path — Linux/RHEL through identity, storage, virtualization, data, and ops process.  
-> Integration skills bridge **Software** builds to running systems (and support **Military** / SE labs).
+> Integration skills bridge **Software** builds to running systems (and support **Military** / SE labs).  
+> **Lab standard:** work is done on **VMs** (vSphere / ESXi guests), not Docker containers.
 
 ## Learning outcomes
 
@@ -18,7 +19,7 @@ Programs fail when software “works on my laptop” but not in the **integrated
 
 | Theme | What “good” looks like |
 |-------|------------------------|
-| **Host literacy** | RHEL 7 commands, processes, logs, services |
+| **Host literacy** | RHEL 7 commands, processes, logs, services **on VMs** |
 | **Automation** | Small, safe bash scripts |
 | **Dependencies** | yum, npm, pip/uv, Maven — and Nexus |
 | **Trust** | TLS certs, chains, expiry, trust stores |
@@ -50,20 +51,24 @@ Register more modules in `content/catalog.yaml` with `track: admin`.
 
 | Item | Typical |
 |------|---------|
-| OS | **RHEL 7** or compatible clone (note RHEL 8/9 differences when relevant) |
+| **Compute** | **Virtual machines** under vSphere/ESXi (not Docker as the course default) |
+| OS | **RHEL 7** or compatible clone on the guest (note RHEL 8/9 differences when relevant) |
 | Shell | **bash** |
 | Privilege | User account + limited `sudo` |
 | Artifacts | **Nexus** when configured (same as SW track) |
 | Identity | Lab may use FreeIPA, AD, or local accounts — follow instructor |
-| Virtualization | Read-only or supervised access to vSphere when available |
+| Services | Postgres, ActiveMQ, JBoss, etc. installed **on VMs** or reached by host/IP from the lab sheet |
+| Virtualization access | Read-only or supervised access to vSphere when available |
 | Git | **GitLab** for CISS labs; program uses Bitbucket + Jira DRs |
+
+If an external tutorial shows `docker run`, translate it to: **service on the assigned VM**, `systemctl status …`, and the correct hostname/port.
 
 ## Relationship to other tracks
 
 | Track | Overlap with admin / integration |
 |-------|----------------------------------|
 | **Systems Engineering** | V&V evidence, environments as system boundary |
-| **Software** | Deploy jars/workers; Jenkins; ActiveMQ; Postgres JDBC |
+| **Software** | Deploy jars/workers on VMs; Jenkins; ActiveMQ; Postgres |
 | **Networking** | Ports, DNS, firewall, TLS on the wire, NFS |
 | **Military** | Training systems and C2-adjacent labs must stay usable |
 
