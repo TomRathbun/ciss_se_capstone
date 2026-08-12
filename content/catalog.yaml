@@ -42,7 +42,7 @@ tracks:
     order: 4
     short: ADMIN
     title: System Administration & Integration
-    summary: RHEL/Linux, bash, package managers (yum/npm/pip/uv/Maven), TLS certs, and integration ops.
+    summary: RHEL/Linux, bash, packages, TLS; IDM (AD/IPA); NFS; vSphere/vSAN/VDI; Postgres admin; troubleshooting; tickets/docs.
     color: admin
     status: active
 
@@ -271,7 +271,7 @@ modules:
     track: admin
     title: System Administration & Integration — Track Overview
     duration_min: 45
-    summary: Admin track path — RHEL, bash, packages, TLS; bridge from software builds to running systems.
+    summary: Admin track path — RHEL, bash, packages, TLS, IDM, NFS, vSphere, Postgres, troubleshooting, tickets; bridge from software builds to running systems.
     offline: false
 
   - id: admin-01-rhel7-linux
@@ -304,6 +304,54 @@ modules:
     title: TLS Certificate Management
     duration_min: 120
     summary: Certs, keys, CSRs, chains, OpenSSL inspect/verify, trust stores, common TLS failures.
+    offline: true
+
+  - id: admin-05-idm-ad-ipa
+    order: 45
+    track: admin
+    title: Identity Management — Active Directory and FreeIPA
+    duration_min: 120
+    summary: Central identity; AD vs FreeIPA; SSSD/realm; Kerberos; groups, HBAC, sudo; login troubleshooting.
+    offline: true
+
+  - id: admin-06-nfs
+    order: 46
+    track: admin
+    title: NFS Setup and Configuration
+    duration_min: 120
+    summary: Exports and mounts; NFSv3/v4; UID mapping; firewall; Kerberos-aware shares; showmount/exportfs.
+    offline: true
+
+  - id: admin-07-vsphere-vsan-vdi
+    order: 47
+    track: admin
+    title: vSphere, vSAN, VDI, and ESXi
+    duration_min: 120
+    summary: ESXi/vCenter vocabulary; VM lifecycle; datastores and vSAN; port groups; VDI awareness; snapshot discipline.
+    offline: true
+
+  - id: admin-08-postgres-admin
+    order: 48
+    track: admin
+    title: PostgreSQL Database Management for Admins
+    duration_min: 120
+    summary: Roles and databases; admin SQL (activity, size, locks); grants; vacuum; backup/restore awareness.
+    offline: true
+
+  - id: admin-09-troubleshooting
+    order: 49
+    track: admin
+    title: Troubleshooting Methodology and Essential Tools
+    duration_min: 120
+    summary: Symptom→hypothesis→test method; deep dive on grep, tail, less, journalctl, ps aux, ss; evidence packs.
+    offline: true
+
+  - id: admin-10-documentation-tickets
+    order: 50
+    track: admin
+    title: Documentation Procedures and Trouble Tickets
+    duration_min: 90
+    summary: Ticket anatomy; incident vs change vs request; runbooks; evidence standards; resolution notes.
     offline: true
 
 assignments:
