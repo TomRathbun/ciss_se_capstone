@@ -107,8 +107,8 @@ modules:
     order: 7
     track: se
     title: Behavior — States & Sequences
-    duration_min: 120
-    summary: State machines and sequence diagrams for dynamic behavior; illegal transitions.
+    duration_min: 150
+    summary: State syntax (trigger/guard/activity); EARS→state mapping; hierarchical states; sequence diagrams; multiple worked examples.
     offline: true
 
   - id: se-07-interfaces
@@ -388,7 +388,7 @@ assignments:
     title: Requirements Pack (EARS + acceptance)
     module_id: se-04-requirements
     due_session: "Week 4 Thursday"
-    weight: 25
+    weight: 20
     summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
     rubric:
       - dimension: testability
@@ -407,24 +407,62 @@ assignments:
   - id: a3-behavior
     order: 3
     track: se
-    title: State Chart + Sequence
+    title: State Chart + Sequence (your feature)
     module_id: se-06-behavior
     due_session: "Week 4 Thursday"
-    weight: 20
-    summary: One state machine and one sequence for a chosen feature (ETAS punch or leave OK).
+    weight: 10
+    summary: One state machine and one sequence for a chosen feature; FR mapping; reject paths.
     rubric:
       - dimension: correctness
         max_points: 15
         description: Legal/illegal transitions and messages make sense
       - dimension: consistency
         max_points: 10
-        description: Aligns with stated requirements
+        description: Aligns with stated requirements; chart and sequence agree
       - dimension: communication
         max_points: 5
         description: Labels readable; legend if needed
 
-  - id: a4-trace-vv
+  - id: a3b-ears-state-map
     order: 4
+    track: se
+    title: EARS Pack → Flat State Chart
+    module_id: se-06-behavior
+    due_session: "Week 4 Thursday"
+    weight: 5
+    summary: Map a fixed printer-queue EARS pack to a flat state chart with FR mapping table.
+    rubric:
+      - dimension: coverage
+        max_points: 10
+        description: Every FR in mapping table and on chart
+      - dimension: correctness
+        max_points: 10
+        description: Triggers/guards match EARS; reject paths present
+      - dimension: communication
+        max_points: 5
+        description: Readable diagram and table
+
+  - id: a3c-hierarchical-state
+    order: 5
+    track: se
+    title: Hierarchical State Chart from Description
+    module_id: se-06-behavior
+    due_session: "Week 5 Thursday"
+    weight: 5
+    summary: Composite Powered radio session; flat transition list; write four EARS that the chart satisfies.
+    rubric:
+      - dimension: hierarchy
+        max_points: 10
+        description: Composite used correctly; initial substate; power_off behavior
+      - dimension: completeness
+        max_points: 10
+        description: Idle/receive/transmit rules and reject path present
+      - dimension: communication
+        max_points: 5
+        description: Chart, flat table, and EARS readable
+
+  - id: a4-trace-vv
+    order: 6
     track: se
     title: Traceability & V&V Plan
     module_id: se-08-vv-trace
@@ -443,7 +481,7 @@ assignments:
         description: Table usable by an independent tester
 
   - id: a5-ops-mission
-    order: 5
+    order: 7
     track: mil
     title: Mini Mission Card (Planning + Execution notes)
     module_id: ops-01-ato-planning
@@ -462,7 +500,7 @@ assignments:
         description: Clear for a peer to brief from in ~2 minutes
 
   - id: a6-professional
-    order: 6
+    order: 8
     track: se
     title: Professionalism & Participation
     module_id: se-00-welcome
