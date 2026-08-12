@@ -4,6 +4,7 @@
 
 After this module you can:
 
+- Distinguish a **state** (behavioral mode) from a **status** (label / attribute)  
 - Build a **state machine** using states, triggers, guards, and activities  
 - Map **EARS requirements** to transitions (and back)  
 - Model **hierarchical (composite) states** without losing illegal-path clarity  
@@ -22,11 +23,72 @@ Requirements say *what*. Behavior models show *when*, *under what conditions*, a
 
 ---
 
+## State vs status (do not mix these up)
+
+Students and developers often use **state** and **status** as synonyms. In this course they are **not** the same idea.
+
+| | **State** (behavior model) | **Status** (data / UI label) |
+|--|----------------------------|-----------------------------|
+| **What it is** | A **mode** of an entity in a **state machine** | A **field value**, badge, or display string |
+| **Controls behavior?** | **Yes** — which events are legal, which transitions fire | **Not by itself** — unless your design *makes* that field the machine’s mode |
+| **How it changes** | Only via defined **transitions** (trigger + guard + activity) | Can be set by many code paths, imports, or operators |
+| **Diagram** | Node on a **state chart** | Column in a table, enum in a DB, chip on a screen |
+| **Example** | `CheckedIn`, `Pending`, `Printing` | `"OK"`, `"Late"`, `priority=High`, HTTP `200` |
+
+### Quick tests
+
+Ask of a candidate word:
+
+1. **Does being “in” this value change which events are allowed?**  
+   - Yes → treat it as a **state** (or a substate).  
+   - No → it is probably a **status** (or another attribute).
+2. **Is there a fixed set of legal moves from this value to others?**  
+   - Yes → state machine.  
+   - No → status / flag / report field.
+3. **Would an illegal move be a real bug (not just a wrong label)?**  
+   - Yes → state.  
+   - No → status.
+
+### Same word, different roles (common trap)
+
+English reuses words. **You** decide the role in the model.
+
+| Phrase people say | Better modeling |
+|-------------------|-----------------|
+| “Ticket status = Open” | If only Open→InProgress→Closed is legal, model **states**. The DB column may still be named `status`. |
+| “Employee status = Active” | Often an **HR attribute** (active/inactive), not a punch state machine. Punch modes are separate (`CheckedIn` / `CheckedOut`). |
+| “Printer status = Online” | Could be a **state** (Online/Offline/Faulted) *if* offline forbids print jobs — or a health **status** if the queue still accepts jobs. |
+| “Job status = Complete” | Usually a **state** in a job lifecycle machine. |
+| “HTTP status 403” | Protocol **code**, not a UML state of your domain entity. |
+
+**Rule of thumb:**  
+- **State** = lives on the state chart; drives legal behavior.  
+- **Status** = lives in data or UI; describes or reports.  
+
+When a UI “status” *is* the authoritative mode of the entity, say so explicitly: “DB column `status` implements the state machine below.” Then the chart is still the behavior authority — the column is the storage of the current state.
+
+### ETAS example
+
+| Concept | Kind | Why |
+|---------|------|-----|
+| `CheckedIn` / `CheckedOut` | **States** | Check-out is illegal unless checked in; transitions are required |
+| `leave_balance_days` | Attribute (not a state) | Number; does not define a mode by itself |
+| “Export package status: ready” | Often **status** | Report on a batch; may not need a full machine unless you define one |
+| Leave request `Pending` → `Approved` | **States** | Approve/reject only make sense from Pending |
+
+### What to put on assignments
+
+- State charts: **only behavioral modes** (and composite groups of modes).  
+- Do **not** invent a state for every UI label or every enum value in a spreadsheet.  
+- If you store current mode in a field called `status`, still draw a **state** chart and map FRs to **transitions**, not to “set status string.”
+
+---
+
 ## State machine vocabulary (learn these terms)
 
 | Term | Meaning | Notation (UML / common) |
 |------|---------|-------------------------|
-| **State** | A lasting condition that matters to behavior | Rounded rectangle / node name |
+| **State** | A lasting **behavioral mode** that matters to what is legal next | Rounded rectangle / node name |
 | **Initial state** | Where the machine starts | Filled black circle → |
 | **Final state** | Terminal (if used) | Bullseye |
 | **Transition** | Allowed move from current → next state | Arrow |
@@ -130,7 +192,7 @@ stateDiagram-v2
 
 **Method (use on every assignment):**
 
-1. List candidate **states** (nouns/modes in the FRs).  
+1. List candidate **states** (behavioral modes in the FRs — not every UI “status” label).  
 2. For each FR, underline **trigger**, **guard/condition**, **shall action**.  
 3. Draw the transition; put the **FR ID** on the arrow or in a mapping table.  
 4. For each state, list events that must be **rejected** — add explicit paths.  
@@ -333,7 +395,8 @@ sequenceDiagram
 2. Every critical FR appears on a transition, guard, or entry/exit activity.  
 3. Illegal events are explicit (reject path or documented “no effect”).  
 4. Hierarchical charts still need a **flat mapping table** FR → element for graders.  
-5. Activities that change data should name the effect (`/ record_in`), not hide side effects in state names only.
+5. Activities that change data should name the effect (`/ record_in`), not hide side effects in state names only.  
+6. Chart nodes are **states** (behavioral modes), not arbitrary **status** labels.
 
 ---
 
@@ -351,6 +414,7 @@ Tools: Mermaid, PlantUML, draw.io, Visio, or SysML tool export. Annotate **FR ID
 
 ## In-class drills (not graded)
 
+**Drill 0 (5 min)** — For each of: `CheckedIn`, `priority=High`, `HTTP 500`, `Pending`, `battery=37%` — state or status? Why?  
 **Drill 1 (10 min)** — Library book FRs → chart (gallery #3). Peer-check rejects.  
 **Drill 2 (10 min)** — Rewrite leave request with entry/exit activities.  
 **Drill 3 (15 min)** — Flatten the hierarchical ETAS OnDuty chart; count arrows saved by composite.
