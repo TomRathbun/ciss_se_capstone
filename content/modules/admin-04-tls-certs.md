@@ -192,4 +192,4 @@ head -1 server.crt
 
 ## Next
 
-Return to **System Administration & Integration — Track Overview**, or continue Software track services (Postgres, ActiveMQ) using TLS-aware configs when the lab enables them.
+**Identity Management — Active Directory and FreeIPA** — central accounts, Kerberos, SSSD, and access policy.
