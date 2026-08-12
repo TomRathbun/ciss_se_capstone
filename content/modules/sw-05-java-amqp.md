@@ -32,7 +32,7 @@ This course uses **Apache ActiveMQ** (Classic) as the broker — matching the pr
 ```text
 Publisher  →  Destination (Queue or Topic)  →  Consumer
                  ▲
-            ActiveMQ broker
+            ActiveMQ broker (lab VM)
 ```
 
 | Piece | Role |
@@ -60,19 +60,39 @@ ConnectionFactory
 Producer   Consumer
 ```
 
-## Lab broker (Docker)
+## Lab broker (VM)
+
+Course labs use **VMs, not Docker**. ActiveMQ runs as a service on an assigned guest (or shared broker VM).
 
 ```bash
-docker run --name ciss-activemq -p 61616:61616 -p 8161:8161 -d apache/activemq-classic:5.18.3
-# Web console often at http://localhost:8161  (default lab user/pass per image docs — lab only)
+# On the broker VM — service name varies by install
+sudo systemctl status activemq
+# or check the lab runbook for the exact unit name / install path
+
+ss -lntp | grep 61616
 ```
 
 | Port | Typical use |
 |------|-------------|
 | **61616** | OpenWire (Java client default) |
-| **8161** | Web console |
+| **8161** | Web console (if enabled) |
 
-Confirm exact image/tag and credentials with your lab notes if the default image differs.
+From the lab sheet, record:
+
+| Item | Example |
+|------|---------|
+| Broker host / IP | `amq-lab-01.example.local` |
+| OpenWire URL | `tcp://amq-lab-01.example.local:61616` |
+| Console | `http://amq-lab-01.example.local:8161` |
+| User / password | instructor-provided |
+
+Use `localhost` in the URL **only** when your client runs on the **same VM** as the broker. Otherwise use the broker VM hostname/IP and confirm firewall rules with the admin track.
+
+```bash
+# From the client host
+ping -c 2 <broker-host>
+# Optional: open console in a browser if allowed on the lab network
+```
 
 ## Maven dependencies
 
@@ -119,10 +139,10 @@ try (Connection connection = factory.createConnection()) {
 }
 ```
 
-Prefer env vars:
+Prefer env vars (set host to the **broker VM** when needed):
 
 ```text
-CISS_AMQP_BROKER_URL=tcp://localhost:61616
+CISS_AMQP_BROKER_URL=tcp://amq-lab-01.example.local:61616
 CISS_AMQP_USER=...
 CISS_AMQP_PASSWORD=...
 CISS_AMQP_QUEUE=ciss.demo.events
@@ -144,7 +164,8 @@ JMS rule of thumb: a **Session** is generally **not thread-safe** — do not sha
 
 ```java
 ActiveMQConnectionFactory raw =
-    new ActiveMQConnectionFactory("tcp://localhost:61616");
+    new ActiveMQConnectionFactory(System.getenv().getOrDefault(
+        "CISS_AMQP_BROKER_URL", "tcp://localhost:61616"));
 
 PooledConnectionFactory pooled = new PooledConnectionFactory();
 pooled.setConnectionFactory(raw);
@@ -170,7 +191,7 @@ For long-running **consumers**, it is often clearer to hold **one dedicated conn
 
 ## JBoss / WildFly: connection factories in server config
 
-On **JBoss EAP / WildFly**, JMS resources are often defined in the **messaging** subsystem (embedded Artemis on newer EAP, or a **resource adapter** to external ActiveMQ Classic — program-dependent). The idea is the same as datasources: **name it once in server config**, look it up from the app.
+On **JBoss EAP / WildFly** (typically on an **app-server VM**), JMS resources are often defined in the **messaging** subsystem (embedded Artemis on newer EAP, or a **resource adapter** to external ActiveMQ Classic — program-dependent). The idea is the same as datasources: **name it once in server config**, look it up from the app.
 
 ### What you will see in `standalone.xml` (illustrative)
 
@@ -183,7 +204,7 @@ On **JBoss EAP / WildFly**, JMS resources are often defined in the **messaging**
                     connectors="in-vm"/>
 ```
 
-**B. Resource adapter to an external ActiveMQ broker (common when the broker is off-box):**
+**B. Resource adapter to an external ActiveMQ broker (common when the broker is on another VM):**
 
 ```xml
 <!-- Conceptual resource-adapter snippet — follow your program’s exact module -->
@@ -283,7 +304,7 @@ Prefer **idempotent consumers** and clear failure handling before introducing XA
 
 **Practical guidance**
 
-1. **Course drills:** plain `ActiveMQConnectionFactory` + one connection.  
+1. **Course drills:** plain `ActiveMQConnectionFactory` + one connection to the **lab broker VM**.  
 2. **Standalone worker (daemons module):** dedicated connection(s) or a small pooled CF; reconnect policy documented.  
 3. **War/EAR on JBoss:** look up `java:/…ConnectionFactory` (and destinations) defined in standalone (or the program’s resource adapter).  
 4. Align with the **Postgres** module: same “app pool vs container resource” story — do not double-pool blindly.
@@ -380,9 +401,9 @@ Use **queues** for work distribution; **topics** for fan-out notifications.
 
 ## Drill (45 min)
 
-1. Start ActiveMQ.  
-2. Publish 3 JSON `TextMessage`s to `ciss.demo.events` using a standalone `ActiveMQConnectionFactory`.  
-3. Consume and print them; confirm queue depth drops in the console.  
+1. Confirm ActiveMQ on the **lab VM** (`systemctl status`, port `61616`).  
+2. Publish 3 JSON `TextMessage`s to `ciss.demo.events` using a standalone `ActiveMQConnectionFactory` pointed at that host.  
+3. Consume and print them; confirm queue depth drops in the console if available.  
 4. Stop consumer, publish more, restart consumer — confirm drain.  
 5. Sketch where a JBoss `java:/CissActiveMQConnectionFactory` would replace `new ActiveMQConnectionFactory`.  
 6. Write 5 bullets on pool vs dedicated long-lived connection for a consumer daemon.  
