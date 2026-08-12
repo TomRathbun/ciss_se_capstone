@@ -9,6 +9,8 @@ After this module you can:
 - Sketch messaging ICD pieces: **message content**, **Tx/Rx matrix** (transmit / receive / process / drop), **rate table**  
 - Sketch API ICD pieces: **operations**, **parameters**, **returns**, **error codes**  
 - Recognize **ASTERIX** (e.g. Cat 062) as a real surveillance messaging standard  
+- Describe how **primes and subcontractors** use ICDs under contract  
+- Evaluate whether “the subcontractor shall implement the ICD” is a sufficient requirement  
 - Spot when a layout or field change is an **interface change**  
 
 ## Interfaces are contracts
@@ -212,12 +214,97 @@ Owner:
 
 ---
 
+## ICDs between prime contractor and subcontractors
+
+On real programs the **technical** interface (messages, APIs, files) sits inside a **contractual** interface between organizations.
+
+```text
+Customer / end user
+        │
+     Prime contractor  ──owns system SOW, architecture, often the master ICD set──
+        │
+        ├── Sub A (e.g. radar / sensor)
+        ├── Sub B (e.g. C2 display / tracker)
+        └── Sub C (e.g. data link / gateway)
+```
+
+### Who does what?
+
+| Role | Typical ICD responsibilities |
+|------|------------------------------|
+| **Prime** | Defines or co-defines **external** and **inter-segment** interfaces; baselines ICD **edition**; chairs interface control working group (ICWG); decides who is producer vs consumer; plans **integration and test** across subs |
+| **Subcontractor** | Implements **their side** of each allocated ICD (encode/decode, rates, error behavior); raises change requests when the ICD is wrong or incomplete; provides evidence for interface verification |
+| **Both** | Configuration-manage the ICD (version, approval, distribution); do not “quietly” change field meanings |
+
+The ICD is often an **attachment or referenced document** in the subcontract statement of work (SOW). Payment and acceptance may depend on passing **interface tests** against that baseline.
+
+### Why primes use ICDs with subs
+
+1. **Partition the system** — each sub can build in parallel against a shared contract.  
+2. **Make integration testable** — “does Sub B process Cat 062 item X as edition 1.21?” is a concrete check.  
+3. **Control change** — a sub cannot rename a field without an ICD change that the prime (and often the other sub) accepts.  
+4. **Allocate responsibility** — Tx/Rx matrices show who is on the hook when a message never appears.
+
+### “The subcontractor shall implement the ICD” — is that a good requirement?
+
+You will see shall-statements like:
+
+> The Contractor shall implement ICD-SA-062 edition 1.2.
+
+**That pattern is common. It is only partly good.**
+
+| What it does well | What it leaves vague |
+|-------------------|----------------------|
+| Points to a **named, versioned** authority | Which **roles** on the interface (Tx only? Rx+process?) |
+| Supports contractual baseline control | Which **messages / operations** are in scope for *this* sub |
+| Short and easy to put in a SOW | **Success criteria** for acceptance (test cases, environments) |
+| | Behavior on **optional** fields, unknown FSPEC bits, rate limits |
+| | **Which side** of a bilateral ICD (producer vs consumer profile) |
+
+A single “shall implement the ICD” is like “shall implement the standard” — necessary as a **pointer**, weak as the **only** requirement.
+
+**Better pattern (course recommendation):**
+
+1. **Reference** the ICD by document ID + **edition** (configuration baseline).  
+2. **Allocate** the sub’s role: e.g. “shall **transmit** system track messages per ICD-… §3 as **originator**” or “shall **receive and process** … per Tx/Rx matrix row Display.”  
+3. **Constrain** the profile if the ICD is large: required message set, optional items, maximum rate.  
+4. **Tie to V&V**: “Compliance shall be demonstrated by interface test procedure ITP-… against the baselined ICD.”  
+5. Keep detailed field encoding **in the ICD**, not duplicated (and drifted) as dozens of shalls in the SOW — unless the customer demands shall-level redundancy.
+
+| Weak | Stronger |
+|------|----------|
+| The Sub shall implement the ICD. | The Sub shall **originate** messages M1–M4 on interface IF-TRACK in accordance with **ICD-TRACK ed. 2.1**, at rates in Table 4, and shall pass **ITP-TRACK-01**. |
+| The Sub shall comply with ASTERIX. | The Sub shall encode **Cat 062** system tracks per **EUROCONTROL-SPEC-0149-9 edition [x]** for items listed in Appendix A of the subcontract. |
+
+**EARS-shaped examples:**
+
+```text
+WHEN the tracker publishes a live system track, the Sub’s gateway shall transmit a Cat 062 record
+that conforms to ICD-TRACK edition 2.1 for all mandatory data items listed in Table 3.
+
+IF the Sub receives a message type not listed in the Tx/Rx matrix as Process, the Sub shall drop
+the message and shall increment the discarded-message counter (NFR / ops requirement as allocated).
+```
+
+So: **yes, require implementation of a named ICD edition** — but **pair it** with role, scope, and verification. Bare “shall implement the ICD” alone is a red flag in a requirements review, not because ICDs are wrong, but because the shall does not say *what success looks like* for that contractor.
+
+### Change control across organizational boundaries
+
+| Event | Practice |
+|-------|----------|
+| Sub needs a new optional field | ICD change request → prime ICWG → new edition → other subs notified |
+| Prime updates ICD mid-contract | Formal revision; assess impact on each sub’s SOW and tests |
+| Two subs disagree on meaning | ICD is the adjudicator; if silent, prime must amend the ICD — do not leave “verbal agreements” |
+
+---
+
 ## Workshop (15 min)
 
 1. Pick **messaging** or **API**.  
 2. Fill the cover sheet.  
 3. Add **one** content table (message fields **or** one REST operation with errors).  
-4. If messaging: add a **3-row Tx/Rx** matrix. If API: add **four error codes**.
+4. If messaging: add a **3-row Tx/Rx** matrix. If API: add **four error codes**.  
+5. **Bonus:** rewrite “Sub shall implement this ICD” into one stronger shall (role + edition + verify idea).
 
 Share in a 2-minute read-out.
 
@@ -239,6 +326,7 @@ Share in a 2-minute read-out.
 | ICD narrative + tables | Markdown, Word, Excel | Controlled CM / wiki |
 | REST contract | OpenAPI + short ICD cover | API gateway + ICD |
 | Messaging field lists | Tables from official ASTERIX PDF | System-specific ICD + edition |
+| Subcontract allocation | SOW + ICD reference + ITP | Prime PLM / contract CM |
 
 | Topic | Link |
 |-------|------|
@@ -255,6 +343,7 @@ Share in a 2-minute read-out.
 | Interface management | [SEBoK — interface](https://sebokwiki.org/wiki/Special:Search?search=interface+management) |
 | NASA SE Handbook | Interface / integration sections |
 | Change control | [SEBoK — Configuration Management](https://sebokwiki.org/wiki/Configuration_Management) |
+| Requirements vs design/ICD | Course **Requirements** module — keep encoding detail in the ICD where possible |
 
 ## Integrity
 
