@@ -142,3 +142,87 @@ terms:
     definition: French main battle tank widely reported in open UAE Army equipment lists.
   - term: Naqib
     definition: UAE officer rank approximately equivalent to Captain (company grade — bars, not stars, in the course teaching model).
+  - term: LAN
+    definition: Local Area Network — hosts and switches at one site or campus, typically one family of VLANs/subnets.
+  - term: WAN
+    definition: Wide Area Network — links that connect sites (leased Ethernet, MPLS, or Internet VPN).
+  - term: Default gateway
+    definition: First-hop router a host uses for any destination that is not on-link (not inside the host's own prefix).
+  - term: DHCP
+    definition: Dynamic Host Configuration Protocol — typically assigns IP, mask, default gateway, and DNS servers to a host for a lease period.
+  - term: DNS
+    definition: Domain Name System — maps names to addresses (and back). Application URLs fail independently of ping if DNS is wrong.
+  - term: NAT
+    definition: Network Address Translation — rewrite of packet addresses, often PAT (many private hosts, one WAN address). NAT is not by itself a permit/deny firewall.
+  - term: Junos
+    definition: Juniper network OS used on EX switches, SRX firewalls, and MX/PE routers — hierarchical configuration with a candidate database and commit/rollback.
+  - term: Junos commit model
+    definition: Edits go to a candidate configuration and become forwarding state only after commit; commit check, commit confirmed, rollback, and rescue are the safety tools.
+  - term: Routing Engine (RE)
+    definition: Control-plane processor on a Juniper box that runs Junos daemons, the CLI, and the active/candidate configuration.
+  - term: Packet Forwarding Engine (PFE)
+    definition: Forwarding-plane hardware/software that switches or flows packets according to tables programmed by the RE.
+  - term: EX Series
+    definition: Juniper Ethernet switches used in this course (older EX2200/3200/4200/4500/8200). EX4200 commonly stacks as a Virtual Chassis.
+  - term: Virtual Chassis (EX)
+    definition: Two or more EX switches operating as one logical switch (classic on EX4200 via VCP) with member IDs appearing as FPC numbers in interface names.
+  - term: SRX Series
+    definition: Juniper zone-based stateful firewalls (older branch SRX100–650; mid/high SRX1400–5800). Primary firewall and IPsec platform in the NET track.
+  - term: ScreenOS
+    definition: Legacy operating system on SSG/ISG firewalls (get/set CLI). Awareness only in this course — do not mix with Junos.
+  - term: Security zone (SRX)
+    definition: Trust boundary grouping interfaces; transit traffic is allowed only by from-zone/to-zone security policies. Every transit IFL belongs to one zone.
+  - term: host-inbound-traffic
+    definition: SRX knob that permits traffic destined to the firewall itself (SSH, ping, IKE, OSPF, BGP) on a zone — distinct from transit security policies.
+  - term: Flow session (SRX)
+    definition: Stateful entry created by the first permitted packet on an SRX; return traffic follows the session. Inspected with show security flow session.
+  - term: VLAN
+    definition: Layer-2 broadcast domain identified by an 802.1Q tag (1–4094). Same VLAN can ARP; different VLANs require a router or L3 interface.
+  - term: Access port
+    definition: Switch port in a single VLAN that carries untagged frames for an end station.
+  - term: Trunk port
+    definition: Switch port that carries multiple VLANs, usually with 802.1Q tags.
+  - term: OSPF
+    definition: Open Shortest Path First — link-state interior gateway protocol used as the lab IGP (typically a single backbone area 0).
+  - term: Route preference (Junos)
+    definition: Junos administrative distance — lower value wins when the same prefix is learned from more than one source (static often 5, OSPF internal 10, BGP 170).
+  - term: BGP
+    definition: Border Gateway Protocol — path-vector protocol that advertises reachability between autonomous systems (eBGP) and carries VPN routes inside an AS (iBGP). Not spelled “BGB.”
+  - term: eBGP
+    definition: BGP session between different AS numbers, typically on a direct point-to-point link between site edge and core.
+  - term: iBGP
+    definition: BGP session inside one AS, often between PE loopbacks, used to carry inet-vpn routes; next-hop-self is commonly required on the edge.
+  - term: Junos routing policy
+    definition: policy-statement import/export used instead of IOS route-maps to accept, reject, or modify routes on Junos (including BGP advertisements).
+  - term: MPLS
+    definition: Multiprotocol Label Switching — core forwarding by short labels along a label-switched path (LSP). Provides VPN and traffic-engineering tunnels; it is not encryption.
+  - term: LSP
+    definition: Label-switched path — the MPLS tunnel from ingress PE to egress PE, signaled with LDP or RSVP-TE.
+  - term: LDP
+    definition: Label Distribution Protocol — automatically distributes MPLS labels for IGP prefixes (typically PE loopbacks).
+  - term: RSVP-TE
+    definition: Resource Reservation Protocol with traffic engineering — signals named/explicit MPLS LSPs and can reserve bandwidth.
+  - term: L3VPN
+    definition: MPLS Layer-3 VPN (RFC 4364) using per-customer VRFs, route distinguishers, route targets, and iBGP inet-vpn unicast between PEs.
+  - term: Route distinguisher (RD)
+    definition: Value (e.g. 65000:10) that makes VPN prefixes unique in BGP. It does not select who imports the route.
+  - term: Route target (RT)
+    definition: BGP extended community (vrf-target) that controls which VRFs import and export which VPN routes.
+  - term: Routing instance (VRF)
+    definition: Junos isolated routing table; instance-type vrf is the L3VPN customer table bound to CE interfaces.
+  - term: inet.3
+    definition: Junos table of MPLS tunnels (often LDP/RSVP to PE loopbacks) that BGP uses to resolve VPN next hops.
+  - term: IPsec
+    definition: Suite that authenticates peers (IKE) and encrypts/integrity-protects packets (usually ESP). On SRX, prefer route-based VPNs bound to st0.
+  - term: Route-based VPN (st0)
+    definition: Juniper IPsec style where a secure-tunnel interface (st0) is the next hop; routing — not a single interesting-traffic ACL — selects what is encrypted.
+  - term: Proxy-ID
+    definition: IPsec Phase-2 traffic selector (local/remote subnets). Must match exactly when one peer is policy-based; common interop failure.
+  - term: Encryptor (dedicated)
+    definition: Inline bump-in-the-wire crypto appliance (HAIPE/TACLANE-class concept) sitting between red site traffic and the black WAN. Lab treatment is red/black cabling and alarms — not key-fill practice.
+  - term: Red / black
+    definition: Unclassified training model — red is site cleartext; black is ciphertext/WAN. Do not bridge the two; dedicated encryptors and IPsec sit on the boundary.
+  - term: Chassis cluster (SRX)
+    definition: Two SRX nodes acting as one logical firewall with a control link, fabric link, RG0 (RE), RG1+ (data), and reth redundant Ethernet interfaces.
+  - term: reth
+    definition: Redundant Ethernet interface on an SRX chassis cluster; configuration belongs on the reth unit, not only on one node’s child port.

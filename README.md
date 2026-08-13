@@ -87,8 +87,8 @@ Edit Markdown and YAML; restart not always required for content (read on each re
 
 ## App features
 
-- **Modules** — SE track + OPS track, mark complete  
-- **Assignments A1–A6** — weighted; student draft/submit  
+- **Modules** — SE, Software, Networking (Juniper), SysAdmin, Military; mark complete  
+- **Assignments** — per-track weighted briefs; student draft/submit  
 - **Instructor desk** — leaderboard, per-dimension grading, recommend flag, add interns  
 - **Content editor** (instructor) — dual-pane Markdown with live **Mermaid**, **PlantUML**, **KaTeX**, and **image upload** (paste or button); saves to `content/modules|assignments/*.md`  
 - **Syntax tutorial** — `/tutorial` examples for Markdown, Mermaid, PlantUML, KaTeX, images  
@@ -122,6 +122,7 @@ Overall % = weighted average of assignments that have grades. Instructor **recom
 
 - [x] Scaffold + SE modules + ATO modules  
 - [x] Grading / leaderboard  
+- [x] Networking track — older Juniper (EX / SRX / MPLS / IPsec)  
 - [ ] Richer ATO exercises / red-team injects  
 - [ ] Full radar SA capstone pack  
 - [ ] Export gradebook CSV  

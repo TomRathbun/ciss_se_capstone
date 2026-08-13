@@ -156,7 +156,7 @@ TRACK_ALIASES = {"ops": "mil"}
 _DEFAULT_TRACKS: list[dict] = [
     {"id": "se", "order": 1, "short": "SE", "title": "Systems Engineering", "summary": "", "color": "se", "status": "active"},
     {"id": "sw", "order": 2, "short": "SW", "title": "Software Development", "summary": "", "color": "sw", "status": "scaffolding"},
-    {"id": "net", "order": 3, "short": "NET", "title": "Networking", "summary": "", "color": "net", "status": "scaffolding"},
+    {"id": "net", "order": 3, "short": "NET", "title": "Networking", "summary": "", "color": "net", "status": "active"},
     {"id": "admin", "order": 4, "short": "ADMIN", "title": "System Administration & Integration", "summary": "", "color": "admin", "status": "scaffolding"},
     {"id": "mil", "order": 5, "short": "MIL", "title": "Military Operations", "summary": "", "color": "mil", "status": "active"},
 ]

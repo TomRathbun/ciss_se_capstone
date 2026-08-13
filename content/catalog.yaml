@@ -34,9 +34,9 @@ tracks:
     order: 3
     short: NET
     title: Networking
-    summary: Networks, protocols, and connectivity that systems and missions depend on.
+    summary: General networking, then older Juniper (Junos) ops — EX, SRX, IPsec/encryptors, OSPF/BGP, MPLS, change control.
     color: net
-    status: scaffolding
+    status: active
 
   - id: admin
     order: 4
@@ -264,14 +264,102 @@ modules:
     summary: CI/CD concepts; Jenkins jobs/pipelines; build-test-publish to Nexus; mapping to GitLab CI for CISS labs.
     offline: false
 
-  # --- Networking (scaffolding) ---
+  # --- Networking (older Juniper / Junos intern path) ---
   - id: net-00-welcome
     order: 30
     track: net
     title: Networking — Track Overview
     duration_min: 45
-    summary: How the networking track fits the capstone; connectivity, protocols, and mission relevance.
+    summary: General networking then Juniper intern path on older EX/SRX/PE; shared fabric; commit discipline; links to SE, admin, and military.
     offline: false
+
+  - id: net-01-general
+    order: 31
+    track: net
+    title: General Networking
+    duration_min: 120
+    summary: Vendor-neutral LAN/WAN, device roles, layers, DHCP/DNS, default gateway, NAT, common ports, test order.
+    offline: true
+
+  - id: net-01-foundations
+    order: 32
+    track: net
+    title: Network Foundations
+    duration_min: 120
+    summary: OSI/TCP-IP, IPv4/CIDR, Ethernet/VLAN/ARP, TCP vs UDP, ping and traceroute as tests.
+    offline: true
+
+  - id: net-02-junos-cli
+    order: 33
+    track: net
+    title: Junos CLI and the Commit Model
+    duration_min: 120
+    summary: RE vs PFE; candidate vs active; set/display set; commit check/confirmed/rollback; older EX/SRX interface names.
+    offline: true
+
+  - id: net-03-switching
+    order: 34
+    track: net
+    title: EX Switching — VLANs, Trunks, and Virtual Chassis
+    duration_min: 120
+    summary: Access vs trunk on older EX (port-mode vs ELS); RSTP; EX4200 Virtual Chassis; handoff to the SRX.
+    offline: true
+
+  - id: net-04-srx-firewall
+    order: 35
+    track: net
+    title: SRX Firewalls — Zones, Policies, and NAT
+    duration_min: 150
+    summary: Older SRX families; zones; host-inbound-traffic; first-match policy; source NAT; flow sessions.
+    offline: true
+
+  - id: net-05-igp-ospf
+    order: 36
+    track: net
+    title: Interior Routing — Static Routes and OSPF
+    duration_min: 120
+    summary: show route and preference; statics; OSPF area 0, neighbors, lo0; IGP as a gate for BGP/MPLS.
+    offline: true
+
+  - id: net-06-bgp
+    order: 37
+    track: net
+    title: BGP — External and Internal
+    duration_min: 150
+    summary: eBGP vs iBGP; neighbor states; Junos policy-statement export; local-pref, AS-path, next-hop-self.
+    offline: true
+
+  - id: net-07-mpls
+    order: 38
+    track: net
+    title: MPLS Tunnels — LDP, RSVP-TE, and L3VPN
+    duration_min: 150
+    summary: LSPs as tunnels; LDP vs RSVP-TE; inet.3; VRF/RD/RT; branch SRX as CE not PE.
+    offline: true
+
+  - id: net-08-encryptors
+    order: 39
+    track: net
+    title: Encryptors and IPsec
+    duration_min: 120
+    summary: Route-based st0 IPsec on older SRX; proxy-IDs; red/black discipline; dedicated inline encryptor awareness.
+    offline: true
+
+  - id: net-09-ha-change
+    order: 40
+    track: net
+    title: HA and Change Control
+    duration_min: 90
+    summary: commit confirmed, rescue, rollback; SRX chassis cluster vocabulary; EX VC split; change tickets.
+    offline: true
+
+  - id: net-10-troubleshoot
+    order: 41
+    track: net
+    title: Network Troubleshooting on Junos
+    duration_min: 120
+    summary: Layered method; Junos show/monitor evidence packs; avoid traceoptions and blast-radius clears on old boxes.
+    offline: true
 
   # --- System Administration & Integration ---
   - id: admin-00-welcome
@@ -937,3 +1025,232 @@ assignments:
       - dimension: communication
         max_points: 5
         description: Clear resolution/follow-ups
+
+  # --- Networking (weights sum to 100% within track) ---
+  - id: net-a00-track-plan
+    order: 30
+    track: net
+    title: Networking Track Plan & Fabric Map
+    module_id: net-00-welcome
+    due_session: "After net welcome"
+    weight: 5
+    summary: Track plan, Site-A/B fabric map, addressing, SE links, safety rules.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + fabric + addressing + SE + safety
+      - dimension: accuracy
+        max_points: 10
+        description: Correct roles/platforms; honest lab vs worksheet
+      - dimension: communication
+        max_points: 5
+        description: Peer could use the map on Monday
+
+  - id: net-a01-general
+    order: 31
+    track: net
+    title: General Networking Brief
+    module_id: net-01-general
+    due_session: "After net-01-general"
+    weight: 10
+    summary: Vendor-neutral roles, layers, DHCP/DNS, ports, test order, NAT vs firewall.
+    rubric:
+      - dimension: literacy
+        max_points: 15
+        description: Roles, layers, DHCP/DNS/gateway, NAT vs firewall
+      - dimension: method
+        max_points: 10
+        description: Sensible test order; ports accurate
+      - dimension: communication
+        max_points: 5
+        description: Tables a non-author intern can use
+
+  - id: net-a01-addressing
+    order: 32
+    track: net
+    title: Addressing & Path Worksheet
+    module_id: net-01-foundations
+    due_session: "After net-01-foundations"
+    weight: 5
+    summary: IPv4 math, ARP vs route, Site-A→Site-B path sketch, ping vs HTTPS.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Subnet math and ARP/on-link reasoning
+      - dimension: path_clarity
+        max_points: 10
+        description: Sketch a peer can brief
+      - dimension: communication
+        max_points: 5
+        description: Tables readable; units labeled
+
+  - id: net-a02-junos-cli
+    order: 33
+    track: net
+    title: Junos CLI & Commit Lab
+    module_id: net-02-junos-cli
+    due_session: "After net-02-junos-cli"
+    weight: 10
+    summary: Version/interfaces evidence; candidate vs active; safe description change or discard.
+    rubric:
+      - dimension: process
+        max_points: 15
+        description: Modes, compare, commit/rollback understood
+      - dimension: safety
+        max_points: 10
+        description: Exclusive/confirmed/rescue thinking; no blast radius
+      - dimension: communication
+        max_points: 5
+        description: Labeled excerpts a peer can repeat
+
+  - id: net-a03-switching
+    order: 34
+    track: net
+    title: EX VLAN / Trunk Worksheet
+    module_id: net-03-switching
+    due_session: "After net-03-switching"
+    weight: 10
+    summary: Access/trunk table, ELS vs port-mode, LLDP, new VLAN-10 port sets, gateway handoff.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Coherent access/trunk/VLAN/handoff
+      - dimension: evidence
+        max_points: 10
+        description: Real show output or honest worksheet + source
+      - dimension: communication
+        max_points: 5
+        description: Table + sets a peer could apply
+
+  - id: net-a04-srx-zones
+    order: 35
+    track: net
+    title: SRX Zones, Policy & NAT Pack
+    module_id: net-04-srx-firewall
+    due_session: "After net-04-srx-firewall"
+    weight: 10
+    summary: Zone table, host-inbound, least-privilege policies, NAT note, session evidence.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Zones, host-inbound, first-match policy, NAT story
+      - dimension: security_judgment
+        max_points: 10
+        description: Least privilege; no lab-breaking permit-all
+      - dimension: communication
+        max_points: 5
+        description: Tables + sets ticket-ready
+
+  - id: net-a05-ospf
+    order: 36
+    track: net
+    title: OSPF Neighbor Lab
+    module_id: net-05-igp-ospf
+    due_session: "After net-05-igp-ospf"
+    weight: 10
+    summary: show route/neighbor, lo0-passive design, loopback ping, IGP fault table.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Neighbor + route evidence correctly read
+      - dimension: design
+        max_points: 10
+        description: Valid Junos OSPF shape including SRX inbound if needed
+      - dimension: communication
+        max_points: 5
+        description: Fault table usable on a night shift
+
+  - id: net-a06-bgp
+    order: 37
+    track: net
+    title: BGP Neighbor & Policy Lab
+    module_id: net-06-bgp
+    due_session: "After net-06-bgp"
+    weight: 10
+    summary: eBGP/iBGP map, neighbor states, tight export policy, next-hop-self note.
+    rubric:
+      - dimension: protocol
+        max_points: 15
+        description: States, eBGP/iBGP, attributes used correctly
+      - dimension: policy
+        max_points: 10
+        description: Tight export; Junos policy shape
+      - dimension: communication
+        max_points: 5
+        description: Summary a peer can peer-review
+
+  - id: net-a07-mpls
+    order: 38
+    track: net
+    title: MPLS Tunnel & L3VPN Worksheet
+    module_id: net-07-mpls
+    due_session: "After net-07-mpls"
+    weight: 10
+    summary: LSP/LDP/RSVP evidence, inet.3, VRF RD/RT design, CE vs PE honesty.
+    rubric:
+      - dimension: concepts
+        max_points: 15
+        description: LSP, LDP/RSVP, VRF, RD/RT, inet.3
+      - dimension: design
+        max_points: 10
+        description: Coherent PE set list / chain
+      - dimension: communication
+        max_points: 5
+        description: Worksheet a second intern could implement
+
+  - id: net-a08-encryptors
+    order: 39
+    track: net
+    title: IPsec / Encryptor Pack
+    module_id: net-08-encryptors
+    due_session: "After net-08-encryptors"
+    weight: 10
+    summary: Red/black diagram, IKE/IPsec proposals, st0 design, dedicated-encryptor checks.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Matching proposals, st0, zones, routes, policies
+      - dimension: ops_discipline
+        max_points: 10
+        description: Red/black, redaction, dedicated-box restraint
+      - dimension: communication
+        max_points: 5
+        description: Diagram + matrix + sets
+
+  - id: net-a09-change-ha
+    order: 40
+    track: net
+    title: Change Plan & HA Vocabulary
+    module_id: net-09-ha-change
+    due_session: "After net-09-ha-change"
+    weight: 5
+    summary: commit confirmed change plan; chassis cluster / VC vocabulary; what not to touch.
+    rubric:
+      - dimension: change_control
+        max_points: 10
+        description: Baseline, confirmed commit, verify, backout
+      - dimension: operational_judgment
+        max_points: 10
+        description: HA vocabulary; what not to touch
+      - dimension: communication
+        max_points: 5
+        description: Plan a peer could run
+
+  - id: net-a10-troubleshoot
+    order: 41
+    track: net
+    title: Layered Junos Troubleshooting Case
+    module_id: net-10-troubleshoot
+    due_session: "After net-10-troubleshoot"
+    weight: 5
+    summary: Symptom→hypothesis case with Junos evidence across two or more layers.
+    rubric:
+      - dimension: method
+        max_points: 15
+        description: Ordered layers; hypothesis-driven
+      - dimension: tooling
+        max_points: 10
+        description: Right Junos shows; useful excerpts
+      - dimension: communication
+        max_points: 5
+        description: Handoff-quality pack

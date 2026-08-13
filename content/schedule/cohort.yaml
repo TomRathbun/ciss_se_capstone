@@ -1,5 +1,9 @@
 # Default cohort rhythm: Monday deep session, Thursday Q&A / grade
 # Instructor can skip lecture weeks and insert ops-only or project weeks.
+#
+# The Monday/Thursday list below is the SE + military spine.
+# Software, Networking, and SysAdmin interns follow their own module order
+# in parallel (NET: net-00-welcome … net-10-troubleshoot on older Juniper).
 
 cohort_id: 2026-UAE-interns
 timezone: Asia/Dubai
