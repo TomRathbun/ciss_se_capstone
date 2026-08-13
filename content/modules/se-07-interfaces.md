@@ -310,12 +310,11 @@ Share in a 2-minute read-out.
 
 ---
 
-## Graded work
+## Thursday assignment
 
-| ID | Focus |
-|----|--------|
-| **A7** | Write a **partial messaging ICD** *and* a **partial REST API ICD** (lab-scale) |
-| **A7c** | **Research:** locate public **ASTERIX Cat 021** materials; summarize as an ICD reader |
+**A7 — Messaging ICD + API ICD (partial)** is the take-home. Assigned Monday. Due Thursday.
+
+Optional stretch (not separately graded): **A7c** (`a7c-asterix-cat21-research.md`) — public EUROCONTROL Cat 021 reader brief.
 
 ---
 

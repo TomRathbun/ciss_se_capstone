@@ -1,138 +1,220 @@
 # Default cohort rhythm: Monday deep session, Thursday Q&A / grade
 # Instructor can skip lecture weeks and insert ops-only or project weeks.
 #
-# The Monday/Thursday list below is the SE + military spine.
-# Software, Networking, and SysAdmin interns follow their own module order
+# One SE module per Monday (Week 1 pairs welcome + what-is-SE).
+# Thursday is the check for that week's take-home.
+# Software, Networking, and SysAdmin tracks run their own module order
 # in parallel (NET: net-00-welcome … net-10-troubleshoot on older Juniper).
 
 cohort_id: 2026-UAE-interns
 timezone: Asia/Dubai
 pattern: >
-  Typical week: Monday 3–4h introduce topic + workshop.
-  Thursday shorter: questions, peer review, grading, feedback.
-  Not every Monday is a new SE lecture — some weeks are military ops or catch-up.
+  Typical week: Monday 3–4h introduce one SE module + workshop.
+  Thursday shorter: questions, peer review, grading of that week's assignment.
+  Military ops weeks sit after the SE spine (V&V), then the ETAS walk and SA preview.
 
 sessions:
   - id: w1-mon
     week: 1
     day: Monday
-    title: Kickoff — Welcome, selection criteria, SE overview
+    title: Kickoff — Welcome, selection, what SE is
     modules: [se-00-welcome, se-01-what-is-se]
     type: lecture_workshop
+    assignment_assigned: [se-a00-track-plan, se-a01-se-literacy]
 
   - id: w1-thu
     week: 1
     day: Thursday
-    title: Q&A — glossary, expectations, tool setup
-    modules: [se-00-welcome]
+    title: Q&A — SE-A00 + SE-A01 due
+    modules: [se-00-welcome, se-01-what-is-se]
     type: qa_grade
+    assignment_due: [se-a00-track-plan, se-a01-se-literacy]
 
   - id: w2-mon
     week: 2
     day: Monday
-    title: Stakeholders & context (+ start A1)
+    title: Vision, stakeholders & needs
     modules: [se-02-stakeholders]
     type: lecture_workshop
+    assignment_assigned: [a1-context]
 
   - id: w2-thu
     week: 2
     day: Thursday
-    title: A1 due review / grade
+    title: A1 due — vision / needs / context
     modules: [se-02-stakeholders]
     type: qa_grade
-    assignment_due: a1-context
+    assignment_due: [a1-context]
 
   - id: w3-mon
     week: 3
     day: Monday
-    title: Requirements & acceptance criteria
-    modules: [se-03-requirements]
+    title: Use cases from needs
+    modules: [se-03-usecases]
     type: lecture_workshop
+    assignment_assigned: [se-a03-usecases]
 
   - id: w3-thu
     week: 3
     day: Thursday
-    title: A2 coaching / partial review
-    modules: [se-03-requirements]
+    title: SE-A03 due — use-case briefs
+    modules: [se-03-usecases]
     type: qa_grade
+    assignment_due: [se-a03-usecases]
 
   - id: w4-mon
     week: 4
     day: Monday
-    title: Architecture + behavior models
-    modules: [se-04-architecture, se-05-behavior]
+    title: Requirements & acceptance criteria
+    modules: [se-04-requirements]
     type: lecture_workshop
+    assignment_assigned: [a2-requirements]
 
   - id: w4-thu
     week: 4
     day: Thursday
-    title: A2 due · A3 progress
-    modules: [se-03-requirements, se-05-behavior]
+    title: A2 draft coaching (4 FRs + 2 ACs minimum)
+    modules: [se-04-requirements]
     type: qa_grade
-    assignment_due: a2-requirements
 
   - id: w5-mon
     week: 5
     day: Monday
-    title: Interfaces, V&V, traceability
-    modules: [se-06-interfaces, se-07-vv-trace]
+    title: Architecture views & allocation
+    modules: [se-05-architecture]
     type: lecture_workshop
+    assignment_assigned: [se-a05-architecture]
 
   - id: w5-thu
     week: 5
     day: Thursday
-    title: A3 due · A4 coaching
-    modules: [se-05-behavior]
+    title: A2 final + SE-A05 due
+    modules: [se-04-requirements, se-05-architecture]
     type: qa_grade
-    assignment_due: a3-behavior
+    assignment_due: [a2-requirements, se-a05-architecture]
 
   - id: w6-mon
     week: 6
     day: Monday
-    title: Military ops — UAE context, CONOPS/AOC, ATO planning
-    modules: [ops-uae-military, ops-00-conops-aoc, ops-01-ato-planning]
-    type: lecture_ops
+    title: Behavior — states & sequences
+    modules: [se-06-behavior]
+    type: lecture_workshop
+    assignment_assigned: [a3-behavior]
 
   - id: w6-thu
     week: 6
     day: Thursday
-    title: A4 due · mission card progress
-    modules: [se-07-vv-trace]
+    title: A3 due — state + sequence
+    modules: [se-06-behavior]
     type: qa_grade
-    assignment_due: a4-trace-vv
+    assignment_due: [a3-behavior]
 
   - id: w7-mon
     week: 7
     day: Monday
-    title: Military ops — ATO execution & public platforms
-    modules: [ops-02-ato-execution, ops-03-weapons-context]
-    type: lecture_ops
+    title: Interfaces & ICDs
+    modules: [se-07-interfaces]
+    type: lecture_workshop
+    assignment_assigned: [a7-icd-messaging-api]
 
   - id: w7-thu
     week: 7
     day: Thursday
-    title: A5 due · selection mid-check
-    modules: [ops-01-ato-planning]
+    title: A7 due — messaging + API ICD
+    modules: [se-07-interfaces]
     type: qa_grade
-    assignment_due: a5-ops-mission
+    assignment_due: [a7-icd-messaging-api]
 
   - id: w8-mon
     week: 8
     day: Monday
-    title: Living case study — SDC Time Tracker SE walkthrough
-    modules: [se-08-case-etas]
-    type: case_study
+    title: Architecture frameworks & MBSE literacy
+    modules: [se-11-mbse-frameworks]
+    type: lecture_workshop
+    assignment_assigned: [se-a11-mbse-literacy]
 
   - id: w8-thu
     week: 8
     day: Thursday
-    title: Portfolio review · recommendation prep
-    modules: [se-09-capstone-preview]
+    title: SE-A11 due — literacy brief
+    modules: [se-11-mbse-frameworks]
+    type: qa_grade
+    assignment_due: [se-a11-mbse-literacy]
+
+  - id: w9-mon
+    week: 9
+    day: Monday
+    title: Verification, validation & traceability
+    modules: [se-08-vv-trace]
+    type: lecture_workshop
+    assignment_assigned: [a4-trace-vv]
+
+  - id: w9-thu
+    week: 9
+    day: Thursday
+    title: A4 due — RTM + V&V plan
+    modules: [se-08-vv-trace]
+    type: qa_grade
+    assignment_due: [a4-trace-vv]
+
+  - id: w10-mon
+    week: 10
+    day: Monday
+    title: Military ops — UAE context, CONOPS/AOC
+    modules: [ops-uae-military, ops-00-conops-aoc]
+    type: lecture_ops
+    assignment_assigned: [a5-ops-mission]
+
+  - id: w10-thu
+    week: 10
+    day: Thursday
+    title: A5 coaching — mission-card draft
+    modules: [ops-00-conops-aoc]
     type: qa_grade
 
+  - id: w11-mon
+    week: 11
+    day: Monday
+    title: Military ops — ATO planning, execution, platforms
+    modules: [ops-01-ato-planning, ops-02-ato-execution, ops-03-weapons-context]
+    type: lecture_ops
+
+  - id: w11-thu
+    week: 11
+    day: Thursday
+    title: A5 due — mission card + execution annex
+    modules: [ops-01-ato-planning]
+    type: qa_grade
+    assignment_due: [a5-ops-mission]
+
+  - id: w12-mon
+    week: 12
+    day: Monday
+    title: Living case study — SDC Time Tracker (ETAS)
+    modules: [se-09-case-etas]
+    type: case_study
+    assignment_assigned: [se-a09-etas-walk]
+
+  - id: w12-thu
+    week: 12
+    day: Thursday
+    title: SE-A09 due — artifact hunt
+    modules: [se-09-case-etas]
+    type: qa_grade
+    assignment_due: [se-a09-etas-walk]
+
   - id: later
-    week: 9
-    day: TBD
-    title: Radar Situational Awareness capstone kickoff (next phase)
-    modules: [se-09-capstone-preview]
+    week: 13
+    day: Monday
+    title: Capstone preview — radar SA framing
+    modules: [se-10-capstone-preview]
     type: project
+    assignment_assigned: [se-a10-sa-framing]
+
+  - id: later-thu
+    week: 13
+    day: Thursday
+    title: SE-A10 due — SA framing pack
+    modules: [se-10-capstone-preview]
+    type: qa_grade
+    assignment_due: [se-a10-sa-framing]

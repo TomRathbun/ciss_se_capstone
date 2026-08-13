@@ -229,7 +229,9 @@ Vision may **mention** enterprise themes (Combat Cloud, MOSA); scope decides wha
 3. **≥ 2 needs** in grammar (**As** / **we need** / **so that**), each linked to a vision line  
 4. Context sketch + 3 in / 3 out of scope  
 
-**Assignment A1 – Vision, Context & Stakeholders**
+**Assignment A1 – Vision, Context & Stakeholders**
+
+Assigned this Monday. Due Thursday. Continue the **same system** through later SE take-homes.
 
 Submit a single document that includes:
 1. A half‑page vision (including at least **two** key principles).  

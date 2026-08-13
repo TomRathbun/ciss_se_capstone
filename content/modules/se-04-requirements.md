@@ -482,7 +482,9 @@ Self-score:
 
 ## Assignment A2
 
-**Requirements Pack** — major graded item (weight 25%).  
+**Requirements Pack** — heaviest SE take-home (**16%**).  
+Assigned Monday of this week. **Draft** (4 FRs + 2 ACs) due this Thursday for coaching. **Final** due Thursday of the architecture week (Week 5), same day as **SE-A05**.
+
 Functional requirements **must** use EARS grammar at **system level** unless the assignment asks otherwise. Include a short **definition library**. Use **TBD**/**TBR** only with a register entry. See Assignments.
 
 > **Reminder:** If you generate any wording with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying idea and structure must remain your own.

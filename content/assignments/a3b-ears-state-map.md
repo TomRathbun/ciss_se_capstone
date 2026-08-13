@@ -1,10 +1,12 @@
-# A3b — EARS Pack → Flat State Chart
+# Workshop A3b — EARS Pack → Flat State Chart
 
-**Weight:** 5% · **Due:** Week 4 Thursday · **Module:** se-06 Behavior
+**Not separately graded.** Monday workshop for **se-06**. The Thursday take-home for this module is **A3**.
+
+Use the **fixed** printer-queue pack below — do not rewrite the shalls.
 
 ## Prompt
 
-You are given a **fixed set of EARS requirements** (do not rewrite the shalls to make modeling easier). Produce a **flat** (non-hierarchical) state machine that implements them, and a mapping table.
+You are given a **fixed set of EARS requirements**. Produce a **flat** (non-hierarchical) state machine that implements them, and a mapping table.
 
 ### Requirement pack (use exactly these IDs)
 
@@ -38,12 +40,6 @@ You are given a **fixed set of EARS requirements** (do not rewrite the shalls to
 
 | Dimension | Max | Description |
 |-----------|-----|-------------|
-| coverage | 10 | Every FR appears in the mapping table and on the chart |
-| correctness | 10 | Triggers/guards match EARS; rejects present |
-| communication | 5 | Readable diagram + table |
-
-## Notes
-
-- **Flat only** — no composite states (save hierarchy for A3c).  
-- Mermaid / PlantUML / draw.io / SysML export all accepted.  
-- Do not drop FR-PQ-02 or FR-PQ-08 “to simplify.”
+| coverage | 10 | Every FR in mapping table and on chart |
+| correctness | 10 | Triggers/guards match EARS; reject paths present |
+| communication | 5 | Readable diagram and table |

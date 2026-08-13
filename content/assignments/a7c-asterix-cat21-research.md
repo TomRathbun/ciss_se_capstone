@@ -1,6 +1,6 @@
-# A7c — Research: ASTERIX Category 021 ICD summary
+# Stretch A7c — Research: ASTERIX Category 021 ICD summary
 
-**Weight:** 5% · **Due:** Week 6 Thursday · **Module:** se-07 Interfaces
+**Not separately graded.** Optional stretch after **A7** (se-07). Thursday grade for the ICD week is **A7** only.
 
 ## Prompt
 

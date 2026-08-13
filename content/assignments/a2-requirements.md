@@ -1,10 +1,13 @@
-# A2 — Requirements Pack
+# A2 — Requirements Pack (EARS + acceptance)
 
-**Weight:** 25% · **Due:** Week 4 Thursday (draft feedback Week 3)
+**Weight:** 16% · **Due:** Week 5 Thursday (draft coaching Week 4 Thursday) · **Module:** se-04 Requirements  
+**Cadence:** Assigned Monday of the requirements week. Bring a **draft** (at least 4 FRs + 2 ACs) to Thursday coaching. Finish Monday–Wednesday of the **architecture** week. Final due that Thursday.
+
+This is the heaviest SE artifact. You get **two** Thursday touchpoints, not three evenings.
 
 ## Prompt
 
-Write a requirements baseline for a system scope you define (ETAS subset or other — state the scope).
+Write a **system-level** requirements baseline for the system you started in A1 / SE-A03 (ETAS subset or other — state the scope).
 
 **Functional requirements must use EARS grammar** (see module *Requirements & Acceptance Criteria*).
 
@@ -12,11 +15,13 @@ Write a requirements baseline for a system scope you define (ETAS subset or othe
 
 1. Scope statement (½ page max)  
 2. **8–12 functional requirements** with IDs (`FR-…`) in **EARS form** (`WHEN` / `WHILE` / `IF…THEN` / `WHERE` / ubiquitous)  
-3. For each FR, note the **EARS pattern** used (e.g. `[WHEN]`, `[IF/THEN]`)  
+3. For each FR, note the **EARS pattern** and the parent **UC-ID** (`allocated_to`)  
 4. **≥ 3 NFRs** with IDs (`NFR-…`) and measurable criteria  
 5. **≥ 5 acceptance criteria** in Given/When/Then, each tracing to an FR ID  
-6. List of explicitly **out-of-scope** items  
-7. **Coverage check:** at least one FR of each: event-driven (WHEN), state-driven (WHILE), unwanted (IF/THEN)  
+6. **Definition library** — terms a tester would otherwise guess  
+7. **TBD/TBR register** if any placeholder number appears  
+8. List of explicitly **out-of-scope** items  
+9. **Coverage check:** at least one FR of each: event-driven (WHEN), state-driven (WHILE), unwanted (IF/THEN)  
 
 ## Quality bar
 

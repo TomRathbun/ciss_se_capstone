@@ -400,13 +400,16 @@ sequenceDiagram
 
 ---
 
-## Graded work (this module)
+## Thursday assignment
+
+**A3 — State Chart + Sequence (your feature)** is the take-home. Assigned Monday. Due Thursday.
+
+Monday workshop (not separately graded — do in class):
 
 | ID | Focus |
 |----|--------|
-| **A3** | Your feature: **one state chart + one sequence** + FR map |
-| **A3b** | Given **EARS set** → **flat** state chart + mapping table |
-| **A3c** | Given **system description** → **hierarchical** state chart + mapping table |
+| **A3b** (`a3b-ears-state-map.md`) | Fixed printer-queue EARS pack → **flat** state chart |
+| **A3c** (`a3c-hierarchical-state.md`) | Radio session description → **hierarchical** chart |
 
 Tools: Mermaid, PlantUML, draw.io, Visio, or SysML tool export. Annotate **FR IDs**.
 

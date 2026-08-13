@@ -182,7 +182,13 @@ Modern systems engineering grew up in large aerospace and defense programs: many
 - Ask: *Which row in our failure-mode list does this match?* and *Which artifact would have forced the issue into the open?*  
 - Videos are optional homework, not required viewing for graded work.
 
-## Offline exercise (30 min)
+## Thursday assignment
+
+**SE-A01 — What Is SE? Failure-Mode Brief** (see Assignments). Assigned this Monday with Welcome. Due Thursday.
+
+The offline exercise below is the same shape as SE-A01 parts 1–2. Do not submit two different stories — use the assignment brief.
+
+## Offline exercise (30 min)
 
 Pick any app you use daily (banking, maps, chat). Write:
 

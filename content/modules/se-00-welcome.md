@@ -133,12 +133,14 @@ We use a **rubric to differentiate performance levels** — so strong candidates
 - **Professionalism** (attendance, integrity, coachability)
 - **Clear artifacts** (a peer can review them without you in the room)
 
-**Approximate weighting** (see **Assignments** and **Selection Criteria** for full detail):
+**Approximate weighting** (SE track — see **Assignments** for the live catalog):
 
 | Area | Share | Notes |
 |------|-------|--------|
-| Graded artifacts (A1–A5) | ~90% | Vision/needs, requirements pack, behavior, RTM/V&V, ops mission card |
-| Professionalism (A6) | ~10% | Attendance, Thursday engagement, peer feedback quality, integrity |
+| Thursday take-homes (one per module) | ~93% | SE-A00 through SE-A10 + A1–A4, A7 |
+| Professionalism (A6) | 7% | Attendance, Thursday engagement, peer feedback, integrity |
+
+**Cadence:** each SE module is taught **Monday**. The matching assignment is worked **Monday–Wednesday** and checked **Thursday**. Requirements (A2) is the exception — draft Thursday of the requirements week, final Thursday of the architecture week.
 
 Peer feedback on Thursday is scored under A6 and improves the quality of your artifacts.
 
@@ -187,8 +189,13 @@ Each later module adds a short **Tools for these artifacts** note with links. Co
 
 1. **Log in** and open **Selection Criteria**.  
 2. Open the **Glossary** (nav bar → Glossary) and skim key terms.  
-3. **Read** **What Is Systems Engineering?** before next Thursday.  
-4. **Note** assignment **A1** due Week 2 Thursday.
+3. **This week:** **SE-A00** (track plan) and **SE-A01** (failure-mode brief) — assigned Monday, due Thursday.  
+4. **Read** **What Is Systems Engineering?** before Thursday.  
+5. **Note** **A1** (vision / stakeholders / needs) starts Week 2 Monday.
+
+## Thursday assignment (Week 1)
+
+**SE-A00 — SE Track Plan & Artifact Map** (this module) and **SE-A01** (next module). Both are short briefs. Do not start writing shall-statements yet.
 
 ## Further reading
 

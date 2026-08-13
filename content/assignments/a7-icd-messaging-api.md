@@ -1,10 +1,13 @@
 # A7 — Messaging ICD + API ICD (partial)
 
-**Weight:** 5% · **Due:** Week 5 Thursday · **Module:** se-07 Interfaces
+**Weight:** 8% · **Due:** Week 7 Thursday · **Module:** se-07 Interfaces  
+**Cadence:** Assigned Monday after the ICD lecture. Work Monday–Wednesday. Due Thursday.
+
+Optional stretch (not separately graded): public **ASTERIX Cat 021** reader brief — `a7c-asterix-cat21-research.md`. Use it if you finish A7 early.
 
 ## Prompt
 
-Produce **two** partial ICDs for a small **lab situational-awareness** context (unclassified, invented data is fine).
+Produce **two** partial ICDs for a small **lab situational-awareness** context (unclassified, invented data is fine). Prefer the system from A1–A2 if it has a real external exchange; otherwise use the lab SA example.
 
 ### Part A — Messaging ICD (radar-style)
 

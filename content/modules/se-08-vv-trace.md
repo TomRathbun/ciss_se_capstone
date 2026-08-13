@@ -64,11 +64,13 @@ graph LR
 
 ## Assignment A4
 
-Produce a **traceability matrix (RTM)** that includes **all functional requirements** from Assignment A2 (IDs, design elements, verification method, and status).
+**Traceability & V&V Plan** — Thursday take-home for this module (**10%**).
 
-Also submit a **short V&V plan** (~½ page) that outlines verification methods per requirement and at least one validation activity for the overall system.
+Assigned Monday. Due Thursday. Bring a draft RTM (≥ 4 rows) if you want coaching.
 
-See **Assignments** for weight and rubric.
+Produce a **traceability matrix (RTM)** that includes **all functional requirements** from Assignment A2 (IDs, design elements, verification method, and status), plus a short V&V plan.
+
+See **Assignments** for the full brief and rubric.
 
 ## Selection signal
 
@@ -108,4 +110,4 @@ Optional: Python/bash only if it *reduces* errors when building a large RTM — 
 
 ## Next
 
-**Case Study — SDC Time Tracker (ETAS)** — walk the living system end-to-end, then move into **military ops** modules that map SE artifacts to operational concepts.
+**Military ops weeks** (UAE context → CONOPS/AOC → ATO), then **Case Study — SDC Time Tracker (ETAS)** — walk the living system, then **Capstone Preview** (SE-A10). Follow the **Schedule**.

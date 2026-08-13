@@ -6,11 +6,11 @@ Connect classroom SE to a **running system** used for FOSC-related timekeeping �
 
 ## Learning outcomes reinforced
 
-The activities below reinforce the SE track through Interfaces & V&V:
+The activities below reinforce the **full SE chain** (vision through ICD and V&V), not only interfaces:
 
 - Traceability from **vision → need → use case → requirement → design → verification → validation**  
 - Practice **stakeholder identification**, **requirement analysis**, **state-machine** and **sequence** modeling, and **interface control**  
-- Demonstrate **professionalism (A6)** through a short reflection exercise  
+- Demonstrate **SE-A09** hunt quality (and A6 professionalism) through a short reflection exercise  
 
 ## Before class
 
@@ -71,18 +71,18 @@ SE --> LS : success
 ### 6. Reflection (15 min)
 
 - Each intern writes **5 bullet points** answering: “What SE practice would I steal for a radar SA project?”  
-- Submit to the **A6 Professionalism** notes (or hand a printed sheet to the instructor).  
+- Submit as part of **SE-A09** (steal-for-SA bullets). Engagement still informs **A6**.  
 
 **What strong reflections show:** relevance to a future SA system, specificity (not slogans), SE terminology, and a link to a concrete artifact you just saw (FR, state, sequence, or ICD).
 
-## Deliverable (in-class)
+## Thursday assignment
 
-- 5-bullet reflection (submitted under **A6**).
+**SE-A09 — ETAS Case Study Artifact Hunt** (see Assignments). Monday is the live walkthrough. Finish the hunt Monday–Wednesday. Due Thursday.
 
 ## Instructor notes
 
 - Demo first, slides second. If the network drops, fall back to prepared screenshots in the course `ETAS-screenshots` folder (or course drive).  
-- Score engagement under the **A6 Professionalism** rubric (participation, depth of analysis, clarity of reflection, timeliness).  
+- Score the hunt under **SE-A09**. Score presence / questions under **A6**.  
 
 > **Reminder:** If any wording is generated with an AI tool, add an in-text citation (e.g., *Generated with ChatGPT, 2026*). The underlying analysis must be yours.
 
@@ -98,4 +98,6 @@ SE --> LS : success
 
 ## Next
 
-**Ops track** (schedule may place this after or before case study): start with **UAE Military Context**, then **CONOPS & AOC** — map SE habits onto air operations concepts used on the program.
+**Capstone Preview — Radar Situational Awareness** — apply the chain to a two-feed unclassified picture (**SE-A10**).
+
+Ops weeks may sit before or after this case study; follow the **Schedule**.

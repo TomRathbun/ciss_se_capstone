@@ -98,18 +98,25 @@ Edit Markdown and YAML; restart not always required for content (read on each re
 
 ## Scoring (discrimination)
 
-Assignment weights (from catalog):
+Assignment weights (SE track, from catalog — one Thursday take-home per module):
 
-| ID | Focus | Weight |
-|----|--------|--------|
-| A1 | Context & stakeholders | 10% |
-| A2 | Requirements + ACs | 25% |
-| A3 | State + sequence | 20% |
-| A4 | RTM + V&V | 20% |
-| A5 | Mission card (ops) | 15% |
-| A6 | Professionalism | 10% |
+| ID | Module | Focus | Weight |
+|----|--------|--------|--------|
+| SE-A00 | se-00 | Track plan & artifact map | 3% |
+| SE-A01 | se-01 | SE literacy / failure-mode brief | 5% |
+| A1 | se-02 | Vision, context & stakeholders | 10% |
+| SE-A03 | se-03 | Use cases from needs | 8% |
+| A2 | se-04 | Requirements + ACs (two-week) | 16% |
+| SE-A05 | se-05 | Architecture views & allocation | 8% |
+| A3 | se-06 | State + sequence | 10% |
+| A7 | se-07 | Messaging + API ICD | 8% |
+| SE-A11 | se-11 | MBSE / frameworks literacy | 5% |
+| A4 | se-08 | RTM + V&V | 10% |
+| SE-A09 | se-09 | ETAS artifact hunt | 5% |
+| SE-A10 | se-10 | Radar SA framing pack | 5% |
+| A6 | se-00 | Professionalism (ongoing) | 7% |
 
-Overall % = weighted average of assignments that have grades. Instructor **recommended** flag is separate judgment for main-project select.
+Military ops mission card (**A5**, 15% of the MIL track) is separate. Overall % = weighted average of assignments that have grades. Instructor **recommended** flag is separate judgment for main-project select.
 
 ## Ports
 

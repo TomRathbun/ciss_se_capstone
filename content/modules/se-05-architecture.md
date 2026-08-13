@@ -277,6 +277,12 @@ Using ETAS or a tiny system of your choice:
 
 Share in a short stand-up: which view was hardest and why.
 
+## Thursday assignment
+
+**SE-A05 — Architecture Views & Allocation** (see Assignments). Assigned this Monday. Due Thursday.
+
+Same Thursday as **A2 final**. Keep views **coarse** — context, one structure view, VM deployment, five FR allocations, one decision. Do not rebuild A2.
+
 ---
 
 ## Tools for these artifacts

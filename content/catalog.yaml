@@ -187,8 +187,8 @@ modules:
     order: 17
     track: se
     title: Capstone Preview — Radar Situational Awareness
-    duration_min: 60
-    summary: Coming next — multi-feed SA problem framing (placeholder until project kickoff).
+    duration_min: 90
+    summary: Frame a two-feed unclassified SA problem with the full SE chain; SE-A10 starter pack (not a placeholder teaser).
     offline: false
 
   # --- Software Development ---
@@ -451,8 +451,48 @@ modules:
     offline: true
 
 assignments:
-  - id: a1-context
+  # SE take-homes: one per module, Monday assign / Thursday check. Weights sum to 100%.
+  # A3b / A3c / A7c remain as in-class workshop briefs under content/assignments/ (not separately weighted).
+  - id: se-a00-track-plan
     order: 1
+    track: se
+    title: SE Track Plan & Artifact Map
+    module_id: se-00-welcome
+    due_session: "Week 1 Thursday"
+    weight: 3
+    summary: Personal plan, artifact/tool map, design-first trap, integrity habits.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + map + trap story + integrity
+      - dimension: accuracy
+        max_points: 10
+        description: Correct chain order and module mapping
+      - dimension: communication
+        max_points: 5
+        description: Peer could follow your plan
+
+  - id: se-a01-se-literacy
+    order: 2
+    track: se
+    title: What Is SE? Failure-Mode Brief
+    module_id: se-01-what-is-se
+    due_session: "Week 1 Thursday"
+    weight: 5
+    summary: SE definition, daily-app chain walk, public failure mapped to a missing artifact.
+    rubric:
+      - dimension: literacy
+        max_points: 10
+        description: Accurate SE definition and chain
+      - dimension: case_analysis
+        max_points: 10
+        description: Failure mapped to a real missing artifact
+      - dimension: communication
+        max_points: 5
+        description: Tables a peer can grade in 5 minutes
+
+  - id: a1-context
+    order: 3
     track: se
     title: Vision, Context & Stakeholders
     module_id: se-02-stakeholders
@@ -470,13 +510,32 @@ assignments:
         max_points: 5
         description: Readable by a non-author engineer; shared perspective is clear
 
+  - id: se-a03-usecases
+    order: 4
+    track: se
+    title: Use Cases from Needs
+    module_id: se-03-usecases
+    due_session: "Week 3 Thursday"
+    weight: 8
+    summary: UC index, two full briefs with extensions, rejected UC, trace table.
+    rubric:
+      - dimension: derivation
+        max_points: 15
+        description: UCs clearly traces_to named needs; vision check present
+      - dimension: completeness
+        max_points: 10
+        description: Index + 2 full briefs + reject + trace table
+      - dimension: communication
+        max_points: 5
+        description: A peer could write EARS from your extensions
+
   - id: a2-requirements
-    order: 2
+    order: 5
     track: se
     title: Requirements Pack (EARS + acceptance)
     module_id: se-04-requirements
-    due_session: "Week 4 Thursday"
-    weight: 20
+    due_session: "Week 5 Thursday"
+    weight: 16
     summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
     rubric:
       - dimension: testability
@@ -492,12 +551,31 @@ assignments:
         max_points: 5
         description: Clear IDs, pattern tags, and structure
 
+  - id: se-a05-architecture
+    order: 6
+    track: se
+    title: Architecture Views & Allocation
+    module_id: se-05-architecture
+    due_session: "Week 5 Thursday"
+    weight: 8
+    summary: Context, structure, deployment (VMs); FR allocation; one design decision.
+    rubric:
+      - dimension: views
+        max_points: 15
+        description: Distinct context + structure + deployment
+      - dimension: allocation
+        max_points: 10
+        description: FRs mapped to real elements; decision recorded
+      - dimension: communication
+        max_points: 5
+        description: Peer can brief the structure in 3 minutes
+
   - id: a3-behavior
-    order: 3
+    order: 7
     track: se
     title: State Chart + Sequence (your feature)
     module_id: se-06-behavior
-    due_session: "Week 4 Thursday"
+    due_session: "Week 6 Thursday"
     weight: 10
     summary: One state machine and one sequence for a chosen feature; FR mapping; reject paths.
     rubric:
@@ -511,51 +589,13 @@ assignments:
         max_points: 5
         description: Labels readable; legend if needed
 
-  - id: a3b-ears-state-map
-    order: 4
-    track: se
-    title: EARS Pack → Flat State Chart
-    module_id: se-06-behavior
-    due_session: "Week 4 Thursday"
-    weight: 5
-    summary: Map a fixed printer-queue EARS pack to a flat state chart with FR mapping table.
-    rubric:
-      - dimension: coverage
-        max_points: 10
-        description: Every FR in mapping table and on chart
-      - dimension: correctness
-        max_points: 10
-        description: Triggers/guards match EARS; reject paths present
-      - dimension: communication
-        max_points: 5
-        description: Readable diagram and table
-
-  - id: a3c-hierarchical-state
-    order: 5
-    track: se
-    title: Hierarchical State Chart from Description
-    module_id: se-06-behavior
-    due_session: "Week 5 Thursday"
-    weight: 5
-    summary: Composite Powered radio session; flat transition list; write four EARS that the chart satisfies.
-    rubric:
-      - dimension: hierarchy
-        max_points: 10
-        description: Composite used correctly; initial substate; power_off behavior
-      - dimension: completeness
-        max_points: 10
-        description: Idle/receive/transmit rules and reject path present
-      - dimension: communication
-        max_points: 5
-        description: Chart, flat table, and EARS readable
-
   - id: a7-icd-messaging-api
-    order: 6
+    order: 8
     track: se
     title: Messaging ICD + API ICD (partial)
     module_id: se-07-interfaces
-    due_session: "Week 5 Thursday"
-    weight: 5
+    due_session: "Week 7 Thursday"
+    weight: 8
     summary: Partial messaging ICD (content, Tx/Rx, rates) and partial REST API ICD (ops, params, errors).
     rubric:
       - dimension: messaging_completeness
@@ -568,32 +608,32 @@ assignments:
         max_points: 5
         description: Tables readable; version/owner clear
 
-  - id: a7c-asterix-cat21-research
-    order: 7
+  - id: se-a11-mbse-literacy
+    order: 9
     track: se
-    title: Research — ASTERIX Cat 021 ICD summary
-    module_id: se-07-interfaces
-    due_session: "Week 6 Thursday"
+    title: Frameworks & MBSE Literacy Brief
+    module_id: se-11-mbse-frameworks
+    due_session: "Week 8 Thursday"
     weight: 5
-    summary: Locate public EUROCONTROL Cat 021 materials; summarize purpose, items, edition; mini ICD tables.
+    summary: MBSE vs documents; UML vs SysML; map your artifacts to OV/SV-style products.
     rubric:
-      - dimension: source_quality
+      - dimension: literacy
         max_points: 10
-        description: Correct public docs; edition and URL cited
-      - dimension: understanding
+        description: MBSE / UML / SysML / framework idea is correct
+      - dimension: mapping
         max_points: 10
-        description: Purpose, Cat 021 vs 062, edition importance clear
-      - dimension: communication
+        description: Your real artifacts mapped, not generic slogans
+      - dimension: integrity
         max_points: 5
-        description: Summary and tables usable by a peer
+        description: Honest claim vs non-claim
 
   - id: a4-trace-vv
-    order: 8
+    order: 10
     track: se
     title: Traceability & V&V Plan
     module_id: se-08-vv-trace
-    due_session: "Week 5 Thursday"
-    weight: 15
+    due_session: "Week 9 Thursday"
+    weight: 10
     summary: RTM for your FRs + verification method per FR; short validation approach.
     rubric:
       - dimension: traceability
@@ -606,12 +646,69 @@ assignments:
         max_points: 5
         description: Table usable by an independent tester
 
+  - id: se-a09-etas-walk
+    order: 11
+    track: se
+    title: ETAS Case Study Artifact Hunt
+    module_id: se-09-case-etas
+    due_session: "Week 12 Thursday"
+    weight: 5
+    summary: Hunt live ETAS artifacts; BEOD boundary test; steal-for-SA reflection.
+    rubric:
+      - dimension: hunt
+        max_points: 10
+        description: Real artifacts located and quoted
+      - dimension: analysis
+        max_points: 10
+        description: Boundary + AC alignment thinking
+      - dimension: transfer
+        max_points: 5
+        description: SA steal-list is specific
+
+  - id: se-a10-sa-framing
+    order: 12
+    track: se
+    title: Radar SA Framing Pack
+    module_id: se-10-capstone-preview
+    due_session: "Week 13 Thursday"
+    weight: 5
+    summary: Unclassified SA starter pack — vision through mini RTM for two-feed picture.
+    rubric:
+      - dimension: chain_completeness
+        max_points: 15
+        description: Vision through RTM present and linked
+      - dimension: testability
+        max_points: 10
+        description: EARS + ACs + verify method are objective
+      - dimension: communication
+        max_points: 5
+        description: Unclassified; peer could continue the pack
+
+  - id: a6-professional
+    order: 13
+    track: se
+    title: Professionalism & Participation
+    module_id: se-00-welcome
+    due_session: "Ongoing"
+    weight: 7
+    summary: Attendance, questions on Thursday, peer review quality, integrity.
+    rubric:
+      - dimension: engagement
+        max_points: 10
+        description: Shows up prepared; constructive questions
+      - dimension: collaboration
+        max_points: 5
+        description: Helps peers without doing their work
+      - dimension: integrity
+        max_points: 5
+        description: Own work; cites sources
+
   - id: a5-ops-mission
-    order: 9
+    order: 17
     track: mil
     title: Mini Mission Card (Planning + Execution notes)
     module_id: ops-01-ato-planning
-    due_session: "Week 6 Thursday"
+    due_session: "Week 11 Thursday"
     weight: 15
     summary: Unclassified mission card + execution annex + public platform justification (A5).
     rubric:
@@ -624,25 +721,6 @@ assignments:
       - dimension: communication
         max_points: 5
         description: Clear for a peer to brief from in ~2 minutes
-
-  - id: a6-professional
-    order: 10
-    track: se
-    title: Professionalism & Participation
-    module_id: se-00-welcome
-    due_session: "Ongoing"
-    weight: 10
-    summary: Attendance, questions on Thursday, peer review quality, integrity.
-    rubric:
-      - dimension: engagement
-        max_points: 10
-        description: Shows up prepared; constructive questions
-      - dimension: collaboration
-        max_points: 5
-        description: Helps peers without doing their work
-      - dimension: integrity
-        max_points: 5
-        description: Own work; cites sources
 
   # --- Software Development (weights sum to 100% within track) ---
   - id: sw-a00-track-plan

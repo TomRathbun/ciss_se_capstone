@@ -30,6 +30,7 @@ from app.config import (
 )
 from app.curriculum import (
     assignments_by_track,
+    assignments_for_module,
     get_assignment,
     get_module,
     list_assignments,
@@ -181,6 +182,7 @@ async def module_detail(module_id: str, request: Request, db: Session = Depends(
             next_module=next_m,
             module_index=index,
             module_total=total,
+            related_assignments=assignments_for_module(module_id),
         ),
     )
 

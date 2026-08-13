@@ -1,6 +1,7 @@
 # A5 — Mini Mission Card
 
-**Weight:** 15% · **Due:** Week 7 Thursday
+**Weight:** 15% · **Due:** Week 11 Thursday · **Module:** ops-01 ATO Planning  
+**Cadence:** Started Monday of the first military week (Week 10). Coaching Thursday Week 10. Final due Thursday Week 11 after execution / platforms.
 
 ## Prompt
 

@@ -73,6 +73,12 @@ Vision / needs / UCs / FRs  ──traces──►  Model elements
 
 You do **not** need to draw BDD/IBD in this course. Know that “SysML block” ≈ structured system element with ports/interfaces — cousin to your component boxes.
 
+## Thursday assignment
+
+**SE-A11 — Frameworks & MBSE Literacy Brief** (see Assignments). Assigned this Monday. Due Thursday.
+
+Literacy, not Cameo certification. Map **your** artifacts — do not invent DoDAF product codes you cannot explain.
+
 ---
 
 ## Architecture frameworks (DoDAF, MODAF, NAF, UAF)

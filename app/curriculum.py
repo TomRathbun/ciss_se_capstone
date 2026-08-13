@@ -351,6 +351,11 @@ def get_assignment(assignment_id: str) -> dict | None:
     return None
 
 
+def assignments_for_module(module_id: str) -> list[dict]:
+    """Catalog assignments attached to a module, in catalog order."""
+    return [a for a in list_assignments() if a.get("module_id") == module_id]
+
+
 def load_schedule() -> dict:
     return _read_yaml(CONTENT_DIR / "schedule" / "cohort.yaml") or {"sessions": []}
 

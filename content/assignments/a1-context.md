@@ -1,6 +1,7 @@
 # A1 — Vision, Context & Stakeholders
 
-**Weight:** 10% · **Due:** Week 2 Thursday
+**Weight:** 10% · **Due:** Week 2 Thursday · **Module:** se-02 Vision, Stakeholders & Needs  
+**Cadence:** Assigned Monday after the stakeholders lecture. Work Monday–Wednesday. Due Thursday review / grade.
 
 ## Prompt
 
@@ -9,10 +10,12 @@ Produce a short SE starter pack for **either**:
 - SDC Time Tracker (ETAS), or  
 - A simple system you know well (must still be a “system” with users + external world)
 
+Use the **same system** for A1 → SE-A03 → A2 → later architecture / behavior / ICD / RTM work.
+
 ## Course cascade (this assignment covers the first layers)
 
 ```text
-VISION  →  NEEDS  →  (use cases & requirements come in later assignments)
+VISION  →  NEEDS  →  (use cases in SE-A03; requirements in A2)
 ```
 
 ## Vision (required)
@@ -23,7 +26,7 @@ Write a **short vision statement** (½–1 page max) that creates a shared persp
 - Who it serves  
 - **≥ 2 guiding principles**  
 
-You may model structure on the AIC2-style classroom example in the *Vision, Stakeholders & Needs* module (hybrid human–AI, modularity, etc.) — but the content must match **your** chosen system.
+You may model structure on the AIC2-style classroom example in the *Vision, Stakeholders & Needs* module — but the content must match **your** chosen system.
 
 ## Needs grammar (required)
 
@@ -33,15 +36,6 @@ we need <the need>,
 so that <benefit>.
 ```
 
-Example (mission ops style — illustration only):
-
-```text
-As UAE AFAD Mission Operators,
-we need AI tools that combine smart learning with proven rules for better tracking,
-identification, threat prediction, and engagement calculations,
-so that we can handle dense threat environments and asymmetric threats.
-```
-
 Each need must include a **one-line link** to the vision (which sentence or principle it supports).
 
 ## Deliverables
@@ -49,8 +43,8 @@ Each need must include a **one-line link** to the vision (which sentence or prin
 1. **Vision statement** + ≥ 2 principles  
 2. **Primary needs statement** — course grammar  
 3. **≥ 1 supporting needs statement** — different stakeholder  
-4. **Stakeholder table** — ≥ 4 stakeholders with concerns  
-5. **Context diagram** — text sketch or description of boxes/arrows  
+4. **Stakeholder table** — ≥ 4 stakeholders with concerns (role names, not given names)  
+5. **Context diagram** — Mermaid, draw.io, or labeled text sketch  
 6. **In-scope / out-of-scope** — ≥ 3 each  
 7. **Assumptions** — ≥ 2  
 

@@ -11,9 +11,14 @@
             <p class="font-semibold">Week {{ s.week }} · {{ s.day }} — {{ s.title }}</p>
             <span class="badge badge-se">{{ s.type }}</span>
         </div>
+        {% if s.get('modules') %}
         <p class="text-xs text-gray-500">Modules: {{ s.modules | join(', ') }}</p>
+        {% endif %}
+        {% if s.get('assignment_assigned') %}
+        <p class="text-xs text-sky-400/90 mt-2">Assigned: {{ s.assignment_assigned | join(', ') if s.assignment_assigned is iterable and s.assignment_assigned is not string else s.assignment_assigned }}</p>
+        {% endif %}
         {% if s.get('assignment_due') %}
-        <p class="text-xs text-amber-400/90 mt-2">Assignment due: {{ s.assignment_due }}</p>
+        <p class="text-xs text-amber-400/90 mt-2">Due Thursday: {{ s.assignment_due | join(', ') if s.assignment_due is iterable and s.assignment_due is not string else s.assignment_due }}</p>
         {% endif %}
     </div>
     {% endfor %}

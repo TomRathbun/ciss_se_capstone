@@ -157,6 +157,14 @@ Take **one** needs statement from A1 (or the AFAD example). Keep the parent **vi
 3. Fully draft **one** use case (main success + ≥ 2 extensions)  
 4. Mark which extensions will need IF/THEN requirements  
 
+Share in a short stand-up: which extension will be the hardest IF/THEN.
+
+## Thursday assignment
+
+**SE-A03 — Use Cases from Needs** (see Assignments). Assigned this Monday. Due Thursday.
+
+Continue **your A1 system**. If A1 is unfinished, use the ETAS or AIC2 teaching examples and say so at the top.
+
 ## What use cases are not
 
 - Not UI wireframes (those are design)  

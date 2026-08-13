@@ -1,6 +1,6 @@
-# A3c — System Description → Hierarchical State Chart
+# Workshop A3c — System Description → Hierarchical State Chart
 
-**Weight:** 5% · **Due:** Week 5 Thursday · **Module:** se-06 Behavior
+**Not separately graded.** Monday workshop (or stretch) for **se-06**. The Thursday take-home is **A3**.
 
 ## Prompt
 
