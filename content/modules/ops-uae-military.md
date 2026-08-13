@@ -8,6 +8,7 @@
 > - **Rank boards** below include Wikimedia Commons UAE Army insignia where downloadable under **CC BY-SA 4.0** (see attribution footer).  
 > - **Teaching charts** (bars/stars) are simplified classroom schematics — **not** official UAE insignia.  
 > - **Equipment photos** are open-source / public-domain examples of *system families* (often U.S. DoD or Commons), **not** photos of UAE-marked aircraft or secret basing.  
+> - **OV-1 pictorial** is a course-created training illustration of public system families in a fictional theater — **not** a real deployment or basing map.  
 > - **Leadership:** we do **not** redistribute portraits of living leaders without a clear free license on hand. Use the **official cabinet / MoD** links for current photos.
 
 ## Learning outcomes
@@ -324,16 +325,24 @@ Use this training OV-1 as a **shared picture** for:
 - **Interfaces** (track feeds, Link 16, VCS)  
 - **Allocation** of later FRs to sensors, effectors, and C2  
 
-![OV-1 style operational concept — layered AD, radars, weapons, C2 and communications (training)](/static/images/uae-military/systems/ov1-uae-ad-sa.svg)
+![OV-1 operational concept — C2 enterprise with public weapon and sensor families (training)](/static/images/uae-military/systems/ov1-uae-ad-sa.jpg)
 
-*Unclassified open-source vocabulary only. Bubbles = sensors/platforms; boxes = weapon layers; dashed lines = voice/data/track flows.*
+*Unclassified open-source vocabulary only. Pictorial OV-1 of a **fictional** theater: combat air, volume-search and BMD radars, AOC / C2 hub, THAAD → Patriot → Pantsir → C-UAS, naval cueing. Not a basing map, not unit markings, not classified ranges.*
+
+<details>
+<summary>Schematic companion (same nodes as boxes and ovals)</summary>
+
+![OV-1 schematic — labeled architecture sketch of the same C2 enterprise](/static/images/uae-military/systems/ov1-uae-ad-sa.svg)
+
+*Bubbles = sensors/platforms; boxes = weapon layers; dashed lines = voice/data/track flows.*
+</details>
 
 ### How to read the OV-1
 
 | Zone | What you see | SE habit |
 |------|--------------|----------|
 | **Air / space** | Combat air, support aviation, UAS, threat concept | Stakeholders + use cases (CAP, escort, ISR, swarm defence) |
-| **Sensors · radars** | GM403, AN/TPY-2, Patriot FC, Giraffe, Pantsir EO/radar, Sea Giraffe | Each bubble is a candidate **ICD** party and COP feed |
+| **Sensors · radars** | GM403, AN/TPY-2, Patriot FC, Giraffe, Pantsir EO/radar, Sea Giraffe | Each radar / platform is a candidate **ICD** party and COP feed |
 | **C2 · COP · comms** | AOC hub, VCS voice, Link 16 / data nets | Sequence diagrams & IF/THEN for failover |
 | **Effectors · layers** | THAAD → Patriot → medium SAM → Pantsir SHORAD → VSHORAD/C-UAS (+ land context) | Requirements **allocated_to** design elements by layer |
 
@@ -357,7 +366,7 @@ DESIGN   Ingest service · COP display · ICD to radar feed · VCS procedure lin
 
 1. Circle **three radars** and name one consumer each (COP, THAAD, Pantsir, …).  
 2. Draw one **extra** interface you would add to the picture (e.g. weather, higher HQ).  
-3. Write **one EARS FR** that only makes sense because two bubbles must talk.  
+3. Write **one EARS FR** that only makes sense because two platforms / sensors must talk.  
 
 ---
 
@@ -412,6 +421,8 @@ Typed links from the SE track: need **derives_from** vision; need **traces_to** 
 | UAE rank PNGs (`02lt` … `fm`) | Wikimedia Commons — **CC BY-SA 4.0** (see file pages under *Military rank insignia of United Arabic Emirates Army*) |
 | Teaching bars/stars SVGs + rank chart poster | Course-created educational schematics |
 | Equipment suite poster | Course-created educational illustration |
+| OV-1 pictorial (`ov1-uae-ad-sa.jpg`) | Course-created training illustration of public system families in a **fictional** theater — not a basing map |
+| OV-1 schematic (`ov1-uae-ad-sa.svg`) | Course-created labeled architecture sketch (same nodes) |
 | F-16, C-17, TB2 photos | Wikimedia Commons / public open files (verify license on reuse outside class) |
 
 ---
