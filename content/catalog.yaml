@@ -18,7 +18,7 @@ tracks:
     order: 1
     short: SE
     title: Systems Engineering
-    summary: Vision → needs → use cases → requirements → architecture diagrams → behavior → ICDs → MBSE/framework literacy → V&V.
+    summary: Vision → needs → use cases → requirements → architecture → behavior → ICDs → V&V → PRSAS implementation.
     color: se
     status: active
 
@@ -26,7 +26,7 @@ tracks:
     order: 2
     short: SW
     title: Software Development
-    summary: Git and workflow; Python→Java bridge; then Java (JDBC, ActiveMQ, daemons, JavaFX) and Jenkins — Java is the hiring bar.
+    summary: Git and workflow; Python→Java bridge; Java (JDBC, ActiveMQ, daemons, JavaFX) and Jenkins; PRSAS simulator, daemon, and SA client.
     color: sw
     status: active
 
@@ -34,7 +34,7 @@ tracks:
     order: 3
     short: NET
     title: Networking
-    summary: General networking, then older Juniper (Junos) ops — EX, SRX, IPsec/encryptors, OSPF/BGP, MPLS, change control.
+    summary: General networking, then older Juniper (EX, SRX, IPsec, OSPF/BGP, MPLS); PRSAS three-site fabric and tunnels.
     color: net
     status: active
 
@@ -42,7 +42,7 @@ tracks:
     order: 4
     short: ADMIN
     title: System Administration & Integration
-    summary: RHEL/Linux, bash, packages, TLS; IDM (AD/IPA); NFS; vSphere/vSAN/VDI; Postgres admin; troubleshooting; tickets/docs.
+    summary: RHEL/Linux, bash, packages, TLS, IDM, NFS, vSphere, Postgres, tickets; PRSAS VM, IPA/CA, harden/Ansible.
     color: admin
     status: active
 
@@ -50,7 +50,7 @@ tracks:
     order: 5
     short: MIL
     title: Military Operations
-    summary: UAE military context, CONOPS/AOC, ATO planning & execution, platforms.
+    summary: UAE military context, CONOPS/AOC, ATO planning & execution, platforms; PRSAS operator picture.
     color: mil
     status: active
 
@@ -457,6 +457,143 @@ modules:
     duration_min: 90
     summary: Ticket anatomy; incident vs change vs request; runbooks; evidence standards; resolution notes.
     offline: true
+
+  # --- PRSAS implementation (UC-CISS_PROJECT-001) — scored in phase: capstone ---
+  - id: se-12-prsas-overview
+    order: 18
+    track: se
+    phase: capstone
+    title: PRSAS Implementation — Shared Kickoff
+    duration_min: 90
+    summary: UC-CISS_PROJECT-001 three-site picture; role map; frozen topics, ports, and CISS-TEACH-1 payload. All tracks attend.
+    offline: false
+
+  - id: se-13-prsas-conops
+    order: 19
+    track: se
+    phase: capstone
+    title: PRSAS CONOPS
+    duration_min: 120
+    summary: Operational concept for the lab air picture — stakeholders, mission threads, unwanted paths, in/out of scope.
+    offline: true
+
+  - id: se-14-prsas-mbse-schema
+    order: 20
+    track: se
+    phase: capstone
+    title: PRSAS MBSE Artifacts & Track Schema
+    duration_min: 150
+    summary: Sequence, hybrid track lifecycle, logical components, FR allocation, PostgreSQL schema with Mode 3/A key.
+    offline: true
+
+  - id: se-15-prsas-virt-lessons
+    order: 21
+    track: se
+    phase: capstone
+    title: PRSAS Virtualization Study & Lessons-Learned
+    duration_min: 120
+    summary: VM baseline vs two-component container PoC; measured comparison; close-out report and migration verdict.
+    offline: false
+
+  - id: sw-09-prsas-simulator
+    order: 51
+    track: sw
+    phase: capstone
+    title: PRSAS — Radar Message Simulator
+    duration_min: 150
+    summary: Java ASTERIX-like Cat 062 publisher (CISS-TEACH-1) on sim-a/sim-b; scenarios, throttle, TLS JMS to radar.input.
+    offline: true
+
+  - id: sw-10-prsas-daemon
+    order: 52
+    track: sw
+    phase: capstone
+    title: PRSAS — Track Processing Daemon
+    duration_min: 180
+    summary: systemd Java worker — correlate on Mode 3/A, coast/drop/conflict, JDBC persist, publish radar.output.
+    offline: true
+
+  - id: sw-11-prsas-client
+    order: 53
+    track: sw
+    phase: capstone
+    title: PRSAS — Situational Awareness Client
+    duration_min: 180
+    summary: Authenticated JavaFX or web+Java bridge; bulk load; live topic; map with Mode 3/A, vectors, trails, conflict.
+    offline: true
+
+  - id: sw-12-prsas-integrate
+    order: 54
+    track: sw
+    phase: capstone
+    title: PRSAS — Integration & Container PoC
+    duration_min: 150
+    summary: End-to-end test card across three stacks; containerize sim + daemon; numbers for the SE virt study.
+    offline: false
+
+  - id: net-11-prsas-topology
+    order: 55
+    track: net
+    phase: capstone
+    title: PRSAS — Three-Site Topology
+    duration_min: 120
+    summary: Remote A / Remote B / Central VLANs and addressing; EX/SRX placement; allow-list intent.
+    offline: true
+
+  - id: net-12-prsas-secure-path
+    order: 56
+    track: net
+    phase: capstone
+    title: PRSAS — Firewalls & Site-to-Site IPsec
+    duration_min: 150
+    summary: SRX zones and least-privilege policies; two route-based IPsec tunnels onto Central.
+    offline: true
+
+  - id: net-13-prsas-validate
+    order: 57
+    track: net
+    phase: capstone
+    title: PRSAS — Path Validation & Config Guide
+    duration_min: 120
+    summary: Layered proof that 61617 works; negative tests; replayable network configuration guide.
+    offline: true
+
+  - id: admin-11-prsas-provision
+    order: 58
+    track: admin
+    phase: capstone
+    title: PRSAS — VM Provisioning
+    duration_min: 120
+    summary: Golden image and guest inventory on the correct port groups; snapshot discipline.
+    offline: true
+
+  - id: admin-12-prsas-idm-certs
+    order: 59
+    track: admin
+    phase: capstone
+    title: PRSAS — Identity & Lab Certificates
+    duration_min: 150
+    summary: FreeIPA/OpenLDAP principals; lab CA; AMQ TLS certs and trust bundles.
+    offline: true
+
+  - id: admin-13-prsas-harden-automate
+    order: 60
+    track: admin
+    phase: capstone
+    title: PRSAS — Host Hardening & Deployment Automation
+    duration_min: 150
+    summary: firewalld + SELinux + auditd aligned to the allow-list; Ansible or PowerCLI rebuild.
+    offline: true
+
+  - id: ops-04-prsas-picture
+    order: 61
+    track: mil
+    phase: capstone
+    title: PRSAS — Air Picture for Operators
+    duration_min: 90
+    summary: Unclassified fused-picture literacy; watch script; supervisor conflict disposition; demo voice.
+    offline: true
+
 
 assignments:
   # SE take-homes: one per module, Monday assign / Thursday check. Weights sum to 100%.
@@ -1359,3 +1496,307 @@ assignments:
       - dimension: communication
         max_points: 5
         description: Handoff-quality pack
+
+
+  # --- PRSAS implementation assignments (phase: capstone).
+  # Weights sum to 100% *within each track's capstone phase*.
+  # Selection / intern leaderboard uses foundation assignments only.
+  - id: se-a12-prsas-overview
+    order: 60
+    track: se
+    phase: capstone
+    title: PRSAS Interface & Ownership Map
+    module_id: se-12-prsas-overview
+    due_session: "Week 14 Thursday"
+    weight: 10
+    summary: Frozen ports, topics, CISS-TEACH-1 payload, ownership, integration risks.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Use case, ownership, ports, payload, risks
+      - dimension: contract_clarity
+        max_points: 10
+        description: Another track could implement without you
+      - dimension: communication
+        max_points: 5
+        description: Tables first; unclassified
+
+  - id: se-a13-prsas-conops
+    order: 61
+    track: se
+    phase: capstone
+    title: PRSAS CONOPS
+    module_id: se-13-prsas-conops
+    due_session: "Week 15 Thursday"
+    weight: 25
+    summary: Operational concept — threads, unwanted paths, stakeholders, scope.
+    rubric:
+      - dimension: operational_clarity
+        max_points: 15
+        description: Thread + unwanted paths are usable
+      - dimension: scope_discipline
+        max_points: 10
+        description: In/out honest; no gold plate
+      - dimension: communication
+        max_points: 5
+        description: 4–6 pages, not a novella
+
+  - id: se-a14-prsas-mbse-schema
+    order: 62
+    track: se
+    phase: capstone
+    title: PRSAS MBSE Pack & Track Schema
+    module_id: se-14-prsas-mbse-schema
+    due_session: "Week 16 Thursday"
+    weight: 35
+    summary: Sequence, hybrid state, components, allocation, Postgres DDL.
+    rubric:
+      - dimension: model_quality
+        max_points: 15
+        description: Sequence + hybrid state + components coherent
+      - dimension: schema
+        max_points: 10
+        description: Implementable DDL; key and history exist
+      - dimension: allocation
+        max_points: 5
+        description: FRs land on real elements
+
+  - id: se-a15-prsas-virt-lessons
+    order: 63
+    track: se
+    phase: capstone
+    title: Virtualization Comparison & Lessons-Learned
+    module_id: se-15-prsas-virt-lessons
+    due_session: "Week 17 Thursday"
+    weight: 30
+    summary: VM vs container numbers; recommendations; migration verdict.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Fair, labelled measurements or honest gap
+      - dimension: judgment
+        max_points: 10
+        description: Recommendations a program lead could act on
+      - dimension: communication
+        max_points: 5
+        description: Report a hiring panel can skim
+
+  - id: sw-a09-prsas-simulator
+    order: 70
+    track: sw
+    phase: capstone
+    title: Radar Message Simulator
+    module_id: sw-09-prsas-simulator
+    due_session: "After sw-09-prsas-simulator"
+    weight: 25
+    summary: Java Cat 062-like publisher; four scenarios; TLS JMS to radar.input.
+    rubric:
+      - dimension: publisher
+        max_points: 15
+        description: Real publish path; two site identities
+      - dimension: scenarios
+        max_points: 10
+        description: Four scenarios; throttle/start-stop
+      - dimension: communication
+        max_points: 5
+        description: Runbook a peer can execute
+
+  - id: sw-a10-prsas-daemon
+    order: 71
+    track: sw
+    phase: capstone
+    title: Track Processing Daemon
+    module_id: sw-10-prsas-daemon
+    due_session: "After sw-10-prsas-daemon"
+    weight: 30
+    summary: Correlate, persist, publish; coast/conflict/drop; systemd worker.
+    rubric:
+      - dimension: lifecycle
+        max_points: 15
+        description: States implemented and tested
+      - dimension: persistence
+        max_points: 10
+        description: Schema used; history exists
+      - dimension: robustness
+        max_points: 5
+        description: Blip behaviour documented
+
+  - id: sw-a11-prsas-client
+    order: 72
+    track: sw
+    phase: capstone
+    title: Situational Awareness Client
+    module_id: sw-11-prsas-client
+    due_session: "After sw-11-prsas-client"
+    weight: 25
+    summary: Auth, bulk load, live map, conflict styling, reconnect.
+    rubric:
+      - dimension: picture
+        max_points: 15
+        description: Map + labels + conflict visible
+      - dimension: integration
+        max_points: 10
+        description: Bulk + live + auth story
+      - dimension: communication
+        max_points: 5
+        description: Screenshot + run notes
+
+  - id: sw-a12-prsas-integrate
+    order: 73
+    track: sw
+    phase: capstone
+    title: Integration & Container PoC
+    module_id: sw-12-prsas-integrate
+    due_session: "After sw-12-prsas-integrate"
+    weight: 20
+    summary: E2E test card; sim+daemon images; numbers for SE-A15.
+    rubric:
+      - dimension: e2e
+        max_points: 15
+        description: Honest card; conflict and recover attempted
+      - dimension: poc
+        max_points: 10
+        description: Two components containerized; numbers
+      - dimension: communication
+        max_points: 5
+        description: SE can paste your table
+
+  - id: net-a11-prsas-topology
+    order: 80
+    track: net
+    phase: capstone
+    title: PRSAS Topology & Addressing
+    module_id: net-11-prsas-topology
+    due_session: "After net-11-prsas-topology"
+    weight: 30
+    summary: Three-site diagram, VLANs, host IPs, deny-by-default allow-list.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Three sites, VLANs, overlays coherent
+      - dimension: security_intent
+        max_points: 10
+        description: Least privilege allow-list
+      - dimension: communication
+        max_points: 5
+        description: ADMIN-usable addressing
+
+  - id: net-a12-prsas-secure-path
+    order: 81
+    track: net
+    phase: capstone
+    title: PRSAS Firewalls & IPsec
+    module_id: net-12-prsas-secure-path
+    due_session: "After net-12-prsas-secure-path"
+    weight: 40
+    summary: Zones, policies, two route-based tunnels; PSK redacted.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Zones, policies, both tunnels
+      - dimension: ops_discipline
+        max_points: 10
+        description: Redaction, red/black, commit safety
+      - dimension: communication
+        max_points: 5
+        description: Sets a peer could commit-check
+
+  - id: net-a13-prsas-validate
+    order: 82
+    track: net
+    phase: capstone
+    title: Path Validation & Config Guide
+    module_id: net-13-prsas-validate
+    due_session: "After net-13-prsas-validate"
+    weight: 30
+    summary: Layered 61617 proof, negative tests, replayable config guide.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Layered, includes 61617
+      - dimension: guide
+        max_points: 10
+        description: Replayable; backout present
+      - dimension: communication
+        max_points: 5
+        description: SW handout is short and true
+
+  - id: admin-a11-prsas-provision
+    order: 90
+    track: admin
+    phase: capstone
+    title: PRSAS VM Provision Pack
+    module_id: admin-11-prsas-provision
+    due_session: "After admin-11-prsas-provision"
+    weight: 30
+    summary: Golden image, inventory, snapshots, correct port groups.
+    rubric:
+      - dimension: inventory
+        max_points: 15
+        description: Complete, placed on correct VLANs
+      - dimension: image_discipline
+        max_points: 10
+        description: Golden image + snapshots thought through
+      - dimension: communication
+        max_points: 5
+        description: SW can SSH from the table
+
+  - id: admin-a12-prsas-idm-certs
+    order: 91
+    track: admin
+    phase: capstone
+    title: PRSAS Identity & Certificates
+    module_id: admin-12-prsas-idm-certs
+    due_session: "After admin-12-prsas-idm-certs"
+    weight: 35
+    summary: IPA/LDAP principals, lab CA, AMQ TLS, no keys in Git.
+    rubric:
+      - dimension: identity
+        max_points: 15
+        description: Sensible principals and access
+      - dimension: tls
+        max_points: 10
+        description: Real inspect evidence; SAN thinking
+      - dimension: communication
+        max_points: 5
+        description: SW/NET can trust the bundle
+
+  - id: admin-a13-prsas-harden-automate
+    order: 92
+    track: admin
+    phase: capstone
+    title: Harden & Automate
+    module_id: admin-13-prsas-harden-automate
+    due_session: "After admin-13-prsas-harden-automate"
+    weight: 35
+    summary: firewalld, SELinux, auditd, Ansible/PowerCLI rebuild.
+    rubric:
+      - dimension: hardening
+        max_points: 15
+        description: Host firewall + SELinux + audit thought
+      - dimension: automation
+        max_points: 10
+        description: Idempotent, useful role
+      - dimension: communication
+        max_points: 5
+        description: Runbook SW-12 can follow
+
+  - id: mil-a04-prsas-picture
+    order: 100
+    track: mil
+    phase: capstone
+    title: Air Picture Annex & Watch Script
+    module_id: ops-04-prsas-picture
+    due_session: "After ops-04-prsas-picture"
+    weight: 100
+    summary: Unclassified picture annex, glossary, 10-minute watch script, demo voice.
+    rubric:
+      - dimension: operational_honesty
+        max_points: 15
+        description: Picture vs C2 over-claim is clear
+      - dimension: script
+        max_points: 10
+        description: Runnable in the demo
+      - dimension: communication
+        max_points: 5
+        description: Annex fits one page

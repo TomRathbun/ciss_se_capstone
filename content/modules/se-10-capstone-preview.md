@@ -156,4 +156,5 @@ Same course stance: markdown + tables + Mermaid. A feed ICD is a **table**, not 
 
 ## Next
 
-When the full capstone opens: feeds, scoring, and (optional) a thin UI. Until then, this pack plus remaining **military ops** work is the close of the SE spine.
+The **PRSAS implementation pack** is open: start with **se-12 Shared Kickoff** (all tracks), then your discipline modules (SE-13–15, SW-09–12, NET-11–13, ADMIN-11–13, MIL ops-04). Bring this SE-A10 pack — do not rewrite it from scratch.
+

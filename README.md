@@ -12,7 +12,7 @@ A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Ti
 | Teach military air ops literacy | ATO planning & execution modules |
 | Use a living case study | Links to SDC Time Tracker `/systems-engineering` |
 | Select interns | Weighted assignments + instructor leaderboard (private) |
-| Later | Radar situational awareness capstone (placeholder module) |
+| Later | Radar situational awareness capstone (**PRSAS** implementation pack) |
 
 ## Lab environment (important)
 
@@ -81,6 +81,7 @@ content/
   glossary/terms.yaml
   modules/*.md              # lecture / reading bodies
   assignments/*.md          # student-facing briefs
+  project/radar_sa_project.md  # UC-CISS_PROJECT-001 PRSAS (+ sister LLAP note)
 ```
 
 Edit Markdown and YAML; restart not always required for content (read on each request).
@@ -116,7 +117,7 @@ Assignment weights (SE track, from catalog — one Thursday take-home per module
 | SE-A10 | se-10 | Radar SA framing pack | 5% |
 | A6 | se-00 | Professionalism (ongoing) | 7% |
 
-Military ops mission card (**A5**, 15% of the MIL track) is separate. Overall % = weighted average of assignments that have grades. Instructor **recommended** flag is separate judgment for main-project select.
+Military ops mission card (**A5**, 15% of the MIL track) is separate. Overall % = weighted average of **foundation** assignments that have grades. **PRSAS / capstone** assignments (`phase: capstone` in the catalog) are scored on a separate 100%-per-track scale so they do not dilute intern-selection standings. Instructor **recommended** flag is separate judgment for main-project select.
 
 ## Ports
 
@@ -131,7 +132,7 @@ Military ops mission card (**A5**, 15% of the MIL track) is separate. Overall % 
 - [x] Grading / leaderboard  
 - [x] Networking track — older Juniper (EX / SRX / MPLS / IPsec)  
 - [ ] Richer ATO exercises / red-team injects  
-- [ ] Full radar SA capstone pack  
+- [x] Full radar SA capstone pack (PRSAS — modules + assignments per track)  
 - [ ] Export gradebook CSV  
 - [ ] Cohort multi-tenancy  
 
