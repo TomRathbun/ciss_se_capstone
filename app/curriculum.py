@@ -25,6 +25,12 @@ def _read_yaml(path: Path) -> Any:
         return yaml.safe_load(f)
 
 
+# catalog.yaml is parsed on almost every page. Re-reading it once per module /
+# assignment (via _track_map) froze the single worker after the catalog grew.
+_catalog_cache: dict | None = None
+_catalog_mtime: float | None = None
+
+
 def _unescape_code(code: str) -> str:
     return (
         code.replace("&lt;", "<")
@@ -163,7 +169,18 @@ _DEFAULT_TRACKS: list[dict] = [
 
 
 def load_catalog() -> dict:
-    data = _read_yaml(CONTENT_DIR / "catalog.yaml") or {}
+    """Load catalog.yaml, reusing the parse until the file's mtime changes."""
+    global _catalog_cache, _catalog_mtime
+    path = CONTENT_DIR / "catalog.yaml"
+    try:
+        mtime = path.stat().st_mtime
+    except OSError:
+        return {}
+    if _catalog_cache is not None and _catalog_mtime == mtime:
+        return _catalog_cache
+    data = _read_yaml(path) or {}
+    _catalog_cache = data
+    _catalog_mtime = mtime
     return data
 
 
@@ -228,10 +245,10 @@ def get_track(track_id: str) -> dict | None:
     return _track_map().get(tid)
 
 
-def _enrich_module(m: dict) -> dict:
+def _enrich_module(m: dict, track_map: dict[str, dict] | None = None) -> dict:
     row = dict(m)
     row["track"] = normalize_track_id(row.get("track"))
-    track_meta = _track_map().get(row["track"]) or {}
+    track_meta = (track_map if track_map is not None else _track_map()).get(row["track"]) or {}
     row["track_title"] = track_meta.get("title") or row["track"]
     row["track_short"] = track_meta.get("short") or row["track"].upper()
     row["track_color"] = track_meta.get("color") or row["track"]
@@ -241,7 +258,8 @@ def _enrich_module(m: dict) -> dict:
 
 def list_modules(track: str | None = None) -> list[dict]:
     catalog = load_catalog()
-    modules = [_enrich_module(m) for m in (catalog.get("modules") or [])]
+    track_map = _track_map()
+    modules = [_enrich_module(m, track_map) for m in (catalog.get("modules") or [])]
     modules = sorted(modules, key=lambda m: m.get("order", 99))
     if track:
         tid = normalize_track_id(track)
@@ -295,7 +313,12 @@ def module_neighbors(
     return None, None, 0, total
 
 
-def _enrich_assignment(a: dict, *, module_track_by_id: dict[str, str] | None = None) -> dict:
+def _enrich_assignment(
+    a: dict,
+    *,
+    module_track_by_id: dict[str, str] | None = None,
+    track_map: dict[str, dict] | None = None,
+) -> dict:
     row = dict(a)
     track = row.get("track")
     if not track and row.get("module_id"):
@@ -305,7 +328,7 @@ def _enrich_assignment(a: dict, *, module_track_by_id: dict[str, str] | None = N
             }
         track = module_track_by_id.get(row["module_id"])
     row["track"] = normalize_track_id(track)
-    track_meta = _track_map().get(row["track"]) or {}
+    track_meta = (track_map if track_map is not None else _track_map()).get(row["track"]) or {}
     row["track_title"] = track_meta.get("title") or row["track"]
     row["track_short"] = track_meta.get("short") or row["track"].upper()
     row["track_color"] = track_meta.get("color") or row["track"]
@@ -314,12 +337,15 @@ def _enrich_assignment(a: dict, *, module_track_by_id: dict[str, str] | None = N
 
 def list_assignments(track: str | None = None) -> list[dict]:
     catalog = load_catalog()
+    track_map = _track_map()
     module_track_by_id = {
         m.get("id"): normalize_track_id(m.get("track"))
         for m in (catalog.get("modules") or [])
     }
     items = [
-        _enrich_assignment(a, module_track_by_id=module_track_by_id)
+        _enrich_assignment(
+            a, module_track_by_id=module_track_by_id, track_map=track_map
+        )
         for a in (catalog.get("assignments") or [])
     ]
     items = sorted(items, key=lambda a: a.get("order", 99))

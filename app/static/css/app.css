@@ -69,6 +69,10 @@
 .prose-course p, .prose-course li { color: #cbd5e1; line-height: 1.65; font-size: 0.95rem; }
 .prose-course ul, .prose-course ol { margin: 0.75rem 0 0.75rem 1.25rem; }
 .prose-course li { margin: 0.35rem 0; }
+.prose-course {
+    max-width: 100%;
+    overflow-x: auto;
+}
 .prose-course table {
     width: 100%;
     border-collapse: collapse;
