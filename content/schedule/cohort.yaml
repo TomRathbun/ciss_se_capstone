@@ -218,3 +218,84 @@ sessions:
     modules: [se-10-capstone-preview]
     type: qa_grade
     assignment_due: [se-a10-sa-framing]
+
+  - id: w14-mon
+    week: 14
+    day: Monday
+    title: PRSAS kickoff — shared contracts (all tracks)
+    modules: [se-12-prsas-overview]
+    type: project
+    assignment_assigned: [se-a12-prsas-overview]
+
+  - id: w14-thu
+    week: 14
+    day: Thursday
+    title: SE-A12 due — interface & ownership map
+    modules: [se-12-prsas-overview]
+    type: qa_grade
+    assignment_due: [se-a12-prsas-overview]
+
+  - id: w15-mon
+    week: 15
+    day: Monday
+    title: PRSAS — CONOPS / simulator / topology / provision (parallel tracks)
+    modules: [se-13-prsas-conops, sw-09-prsas-simulator, net-11-prsas-topology, admin-11-prsas-provision, ops-04-prsas-picture]
+    type: project
+    assignment_assigned: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
+
+  - id: w15-thu
+    week: 15
+    day: Thursday
+    title: PRSAS week-15 artifacts due
+    modules: [se-13-prsas-conops]
+    type: qa_grade
+    assignment_due: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
+
+  - id: w16-mon
+    week: 16
+    day: Monday
+    title: PRSAS — schema & MBSE / daemon / IPsec / IDM-certs
+    modules: [se-14-prsas-mbse-schema, sw-10-prsas-daemon, net-12-prsas-secure-path, admin-12-prsas-idm-certs]
+    type: project
+    assignment_assigned: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
+
+  - id: w16-thu
+    week: 16
+    day: Thursday
+    title: PRSAS week-16 artifacts due
+    modules: [se-14-prsas-mbse-schema]
+    type: qa_grade
+    assignment_due: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
+
+  - id: w17-mon
+    week: 17
+    day: Monday
+    title: PRSAS — client, validate, harden; virt study opens
+    modules: [sw-11-prsas-client, net-13-prsas-validate, admin-13-prsas-harden-automate, se-15-prsas-virt-lessons]
+    type: project
+    assignment_assigned: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate, se-a15-prsas-virt-lessons]
+
+  - id: w17-thu
+    week: 17
+    day: Thursday
+    title: PRSAS week-17 artifacts due
+    modules: [sw-11-prsas-client]
+    type: qa_grade
+    assignment_due: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate]
+
+  - id: w18-mon
+    week: 18
+    day: Monday
+    title: PRSAS integration demo & lessons-learned
+    modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
+    type: project
+    assignment_assigned: [sw-a12-prsas-integrate]
+
+  - id: w18-thu
+    week: 18
+    day: Thursday
+    title: SW-A12 + SE-A15 due — close-out
+    modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
+    type: qa_grade
+    assignment_due: [sw-a12-prsas-integrate, se-a15-prsas-virt-lessons]
+

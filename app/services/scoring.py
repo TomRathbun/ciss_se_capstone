@@ -11,12 +11,29 @@ from app.curriculum import list_assignments, list_tracks, normalize_track_id
 from app.models import Candidate, Role, Score, Submission
 
 
+def assignment_phase(meta: dict) -> str:
+    """Foundation (selection) vs capstone (PRSAS implementation).
+
+    Missing ``phase`` is treated as foundation so existing catalog rows
+    keep intern-selection scoring unchanged.
+    """
+    raw = (meta.get("phase") or "foundation").strip().lower()
+    return raw if raw in {"foundation", "capstone"} else "foundation"
+
+
+def _phase_included(meta: dict, phase: str | None) -> bool:
+    if not phase or phase == "all":
+        return True
+    return assignment_phase(meta) == phase
+
+
 def assignment_weight_map() -> dict[str, float]:
     return {a["id"]: float(a.get("weight") or 0) for a in list_assignments()}
 
 
 def assignment_by_id() -> dict[str, dict]:
     return {a["id"]: a for a in list_assignments()}
+
 
 
 def _score_rows_by_assignment(db: Session, candidate_id: int) -> dict[str, list[Score]]:
@@ -39,11 +56,15 @@ def candidate_totals(
     candidate_id: int,
     *,
     track: str | None = None,
+    phase: str | None = "foundation",
 ) -> dict:
     """Weighted percent across assignments that have scores.
 
     Only graded assignments count. Other-track work is allowed and included
     when present. Optional ``track`` limits the total to one discipline.
+
+    ``phase`` defaults to ``foundation`` so PRSAS / main-project work does
+    not dilute intern-selection standings. Pass ``capstone`` or ``all``.
     """
     by_asg = _score_rows_by_assignment(db, candidate_id)
     weights = assignment_weight_map()
@@ -59,12 +80,15 @@ def candidate_totals(
         asg_track = normalize_track_id(meta.get("track") or "")
         if track_norm and asg_track != track_norm:
             continue
+        if not _phase_included(meta, phase):
+            continue
         earned, maximum, pct = _assignment_pct(rows)
         w = weights.get(asg_id, 0.0)
         detail.append({
             "assignment_id": asg_id,
             "title": meta.get("title") or asg_id,
             "track": asg_track,
+            "phase": assignment_phase(meta),
             "earned": earned,
             "maximum": maximum,
             "pct": round(pct, 1),
@@ -80,7 +104,9 @@ def candidate_totals(
         "overall_pct": overall,
         "weight_used": weight_used,
         "track": track_norm,
+        "phase": phase or "all",
     }
+
 
 
 def candidate_track_totals(db: Session, candidate_id: int) -> list[dict]:
@@ -141,6 +167,7 @@ def candidate_gradebook(db: Session, candidate_id: int) -> dict[str, Any]:
                 "id": aid,
                 "title": a.get("title") or aid,
                 "weight": float(a.get("weight") or 0),
+                "phase": assignment_phase(a),
                 "due_session": a.get("due_session") or "",
                 "module_id": a.get("module_id") or "",
                 "status": status,
@@ -151,6 +178,7 @@ def candidate_gradebook(db: Session, candidate_id: int) -> dict[str, Any]:
                 "has_submission_body": bool(sub and (sub.body or "").strip()),
             })
         track_tot = candidate_totals(db, candidate_id, track=tid)
+        cap_tot = candidate_totals(db, candidate_id, track=tid, phase="capstone")
         groups.append({
             "track": tid,
             "track_short": t.get("short") or tid.upper(),
@@ -159,17 +187,22 @@ def candidate_gradebook(db: Session, candidate_id: int) -> dict[str, Any]:
             "track_status": t.get("status") or "",
             "overall_pct": track_tot["overall_pct"],
             "weight_used": track_tot["weight_used"],
+            "capstone_pct": cap_tot["overall_pct"],
+            "capstone_weight_used": cap_tot["weight_used"],
             "assignments": items,
             "graded_count": sum(1 for i in items if i["status"] == "graded"),
             "submitted_count": sum(1 for i in items if i["status"] == "submitted"),
         })
 
     overall = candidate_totals(db, candidate_id)
+    capstone = candidate_totals(db, candidate_id, phase="capstone")
     return {
         "tracks": groups,
         "overall": overall,
+        "capstone": capstone,
         "track_meta": track_meta,
     }
+
 
 
 def clear_assignment_scores(db: Session, candidate_id: int, assignment_id: str) -> int:

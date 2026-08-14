@@ -234,3 +234,20 @@ terms:
     definition: Two SRX nodes acting as one logical firewall with a control link, fabric link, RG0 (RE), RG1+ (data), and reth redundant Ethernet interfaces.
   - term: reth
     definition: Redundant Ethernet interface on an SRX chassis cluster; configuration belongs on the reth unit, not only on one node’s child port.
+  - term: PRSAS
+    definition: Prototype Radar Situational Awareness System — CISS main-project lab that fuses two simulated ASTERIX-like Cat 062 feeds into a central authenticated air picture (UC-CISS_PROJECT-001).
+  - term: CISS-TEACH-1
+    definition: Versioned JSON teaching payload used on radar.input / radar.output. Carries Cat 062 *ideas* (Mode 3/A, WGS-84, time) without claiming official EUROCONTROL binary encoding.
+  - term: Mode 3/A
+    definition: Four-digit octal identity code (squawk) carried on a surveillance report. In PRSAS it is the primary track-correlation key; it is not a positive identification of a real aircraft.
+  - term: System track
+    definition: Correlated, persisted picture of one object after sensor reports are associated — as opposed to a raw plot. PRSAS stores these in PostgreSQL and publishes them on radar.output.
+  - term: Coast (track)
+    definition: Track state after missed update periods; the last kinematics are held and flagged stale until a plot returns or the drop timer expires.
+  - term: Dual-feed conflict
+    definition: Same Mode 3/A reported by two sources with positions (or velocity) beyond the correlation gate. PRSAS must raise CONFLICT and must not silently pick one feed.
+  - term: radar.input
+    definition: ActiveMQ topic where remote simulators publish CISS-TEACH-1 plots toward the central track daemon (TLS, typically port 61617).
+  - term: radar.output
+    definition: ActiveMQ topic where the track daemon publishes fused SYSTEM_TRACK updates for SA clients.
+

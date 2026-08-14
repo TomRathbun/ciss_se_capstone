@@ -18,13 +18,19 @@
             </div>
         </div>
         <div class="text-right">
-            <p class="text-xs uppercase text-gray-500 tracking-wide">Overall (graded only)</p>
+            <p class="text-xs uppercase text-gray-500 tracking-wide">Selection (foundation)</p>
             <p class="text-3xl font-extrabold font-mono">
                 {% if gradebook.overall.overall_pct is not none %}{{ gradebook.overall.overall_pct }}%{% else %}—{% endif %}
             </p>
             <p class="text-[11px] text-gray-600 mt-1">
                 weight used {{ gradebook.overall.weight_used | int }} · {{ gradebook.overall.detail | length }} assignment(s)
             </p>
+            {% if gradebook.capstone and gradebook.capstone.overall_pct is not none %}
+            <p class="text-[11px] text-amber-400/80 mt-1">
+                capstone {{ gradebook.capstone.overall_pct }}%
+                · weight {{ gradebook.capstone.weight_used | int }}
+            </p>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -145,6 +151,9 @@
             <span class="text-xs text-gray-600 ml-2">
                 {{ group.graded_count }} graded
                 {% if group.submitted_count %} · {{ group.submitted_count }} submitted{% endif %}
+                {% if group.capstone_pct is not none %}
+                · capstone <span class="font-mono text-amber-300/90">{{ group.capstone_pct }}%</span>
+                {% endif %}
             </span>
         </div>
     </div>
@@ -165,7 +174,11 @@
                 {% for a in group.assignments %}
                 <tr class="border-t border-white/5">
                     <td class="py-2.5 pr-2">
-                        <p class="font-medium text-gray-200">{{ a.title }}</p>
+                        <p class="font-medium text-gray-200">{{ a.title }}
+                            {% if a.phase == 'capstone' %}
+                            <span class="ml-1 text-[10px] uppercase tracking-wide text-amber-400/80">capstone</span>
+                            {% endif %}
+                        </p>
                         <p class="text-[11px] text-gray-600 font-mono">{{ a.id }}{% if a.due_session %} · {{ a.due_session }}{% endif %}</p>
                     </td>
                     <td class="py-2.5 pr-2 font-mono text-gray-400">{{ a.weight | int }}</td>
