@@ -26,7 +26,7 @@ tracks:
     order: 2
     short: SW
     title: Software Development
-    summary: Git; Jira/Bitbucket/Nexus→GitLab workflow; Jenkins CI/CD; Java, PostgreSQL, ActiveMQ, daemons, JavaFX.
+    summary: Git and workflow; Python→Java bridge; then Java (JDBC, ActiveMQ, daemons, JavaFX) and Jenkins — Java is the hiring bar.
     color: sw
     status: active
 
@@ -197,7 +197,7 @@ modules:
     track: sw
     title: Software Development — Track Overview
     duration_min: 45
-    summary: Program tooling map (Jira DR, Bitbucket, Nexus) and path through Git, Java, data, ActiveMQ, daemons, JavaFX.
+    summary: Program tooling map; Python is an on-ramp; Java is the contract language; path through Git, Java, data, ActiveMQ, daemons, JavaFX.
     offline: false
 
   - id: sw-01-git
@@ -216,8 +216,16 @@ modules:
     summary: Program DR/Bitbucket/PR/Nexus workflow; translate and practice the same habits on CISS GitLab MRs.
     offline: false
 
-  - id: sw-03-vscode-java
+  - id: sw-03-python-java
     order: 23
+    track: sw
+    title: From Python to Java
+    duration_min: 90
+    summary: Python as a translation aid only; types, equals, packages, Maven vs pip; hiring bar is Java for the contract.
+    offline: true
+
+  - id: sw-03-vscode-java
+    order: 24
     track: sw
     title: VS Code for Java Development
     duration_min: 90
@@ -225,7 +233,7 @@ modules:
     offline: true
 
   - id: sw-04-java-postgresql
-    order: 24
+    order: 25
     track: sw
     title: PostgreSQL with Java (JDBC)
     duration_min: 120
@@ -233,7 +241,7 @@ modules:
     offline: true
 
   - id: sw-05-java-amqp
-    order: 25
+    order: 26
     track: sw
     title: AMQP Messaging with Java (ActiveMQ)
     duration_min: 120
@@ -241,7 +249,7 @@ modules:
     offline: true
 
   - id: sw-06-java-daemons
-    order: 26
+    order: 27
     track: sw
     title: Java Daemons and Background Services
     duration_min: 120
@@ -249,7 +257,7 @@ modules:
     offline: true
 
   - id: sw-07-javafx-gui
-    order: 27
+    order: 28
     track: sw
     title: JavaFX for Desktop GUIs
     duration_min: 120
@@ -257,7 +265,7 @@ modules:
     offline: true
 
   - id: sw-08-jenkins-cicd
-    order: 28
+    order: 29
     track: sw
     title: CI/CD and Jenkins
     duration_min: 120
@@ -780,13 +788,32 @@ assignments:
         max_points: 5
         description: MR usable by a peer reviewer
 
-  - id: sw-a03-java-env
+  - id: sw-a03-python-java
     order: 23
+    track: sw
+    title: Python → Java Translation
+    module_id: sw-03-python-java
+    due_session: "After sw-03-python-java"
+    weight: 10
+    summary: Translate a given Python function to compiling Java; mapping table; hiring-bar note.
+    rubric:
+      - dimension: translation
+        max_points: 15
+        description: Correct Java; same behavior
+      - dimension: literacy
+        max_points: 10
+        description: Mapping table + ==/types understood
+      - dimension: communication
+        max_points: 5
+        description: Evidence + honest hiring-bar note
+
+  - id: sw-a03-java-env
+    order: 24
     track: sw
     title: Java Tooling & Mini Project
     module_id: sw-03-vscode-java
     due_session: "After sw-03-vscode-java"
-    weight: 10
+    weight: 5
     summary: JDK/Maven/VS Code environment sheet, runnable Maven app, debug evidence.
     rubric:
       - dimension: environment
@@ -800,12 +827,12 @@ assignments:
         description: README clear
 
   - id: sw-a04-jdbc
-    order: 24
+    order: 25
     track: sw
     title: JDBC Repository Slice
     module_id: sw-04-java-postgresql
     due_session: "After sw-04-java-postgresql"
-    weight: 15
+    weight: 10
     summary: Schema + PreparedStatement CRUD, transaction commit/rollback, secret handling.
     rubric:
       - dimension: correctness
@@ -819,7 +846,7 @@ assignments:
         description: Schema and notes clear
 
   - id: sw-a05-amqp
-    order: 25
+    order: 26
     track: sw
     title: ActiveMQ Publish / Consume Lab
     module_id: sw-05-java-amqp
@@ -838,7 +865,7 @@ assignments:
         description: Runbook peer-usable
 
   - id: sw-a06-daemon
-    order: 26
+    order: 27
     track: sw
     title: Java Daemon / Worker
     module_id: sw-06-java-daemons
@@ -857,7 +884,7 @@ assignments:
         description: Diagram + ops notes clear
 
   - id: sw-a07-javafx
-    order: 27
+    order: 28
     track: sw
     title: JavaFX Mini Console
     module_id: sw-07-javafx-gui
@@ -876,7 +903,7 @@ assignments:
         description: Screenshot + run notes
 
   - id: sw-a08-cicd
-    order: 28
+    order: 29
     track: sw
     title: CI Pipeline for Your Lab Project
     module_id: sw-08-jenkins-cicd

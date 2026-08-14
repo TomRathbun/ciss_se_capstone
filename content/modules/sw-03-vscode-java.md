@@ -24,6 +24,17 @@ VS Code is a lightweight editor with strong Java support via extensions. On this
 
 You may use IntelliJ later; skills transfer. For class demos, **VS Code**.
 
+### If you know Python
+
+| Python habit | Java / this module |
+|--------------|--------------------|
+| Open a folder with `main.py` | Open the folder that contains **`pom.xml`**, not a lone `.java` file |
+| `python app.py` | **Run** above `main`, or `mvn -q compile exec:java …` |
+| `pip` / `uv` install | Dependencies live in **`pom.xml`** (Maven) |
+| `.venv` | `target/` is build output — gitignore it; the JDK is `JAVA_HOME` |
+
+You already practiced the language mapping in **From Python to Java**. This module is the **editor + JDK**. Deliverable is a running Java `main`.
+
 ## Recommended Java-related extensions
 
 Install these so the whole cohort has the same baseline tooling:
@@ -240,4 +251,4 @@ build/
 
 ## Next
 
-**PostgreSQL with Java** — JDBC connectivity, queries, and safe parameter binding.
+**PostgreSQL with Java** — JDBC connectivity, queries, and safe parameter binding. If you know `psycopg`, read the Python box there, then write **PreparedStatement** Java.

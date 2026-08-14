@@ -48,6 +48,18 @@ Publisher  →  Destination (Queue or Topic)  →  Consumer
 
 JMS is the **Java API**; ActiveMQ is the **broker** implementing the wire protocol (OpenWire by default on `61616`).
 
+### If you know Python (`pika`, `stomp.py`, or Redis pub/sub)
+
+| Python picture | Java on this track |
+|----------------|--------------------|
+| `pika` + RabbitMQ AMQP 0-9-1 | **JMS** client + **ActiveMQ** (OpenWire on `61616`) — same *job*, different API/broker |
+| `channel.basic_publish` / `basic_consume` | `MessageProducer.send` / `MessageConsumer.receive` or listener |
+| ack / nack | `AUTO_ACKNOWLEDGE` vs `CLIENT_ACKNOWLEDGE` |
+| `json.dumps` body | `TextMessage` with JSON string — **same ICD fields** |
+| One script until Ctrl+C | Connection + Session lifecycle; daemons module for the long loop |
+
+Do not turn in a `pika` script for SW-A05. You may sketch the flow in Python on paper, then implement **JMS**.
+
 ```text
 ConnectionFactory
        │ createConnection()

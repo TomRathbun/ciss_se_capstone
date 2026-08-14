@@ -33,6 +33,28 @@ SE link: a daemon is a **runtime component** you allocate requirements to (`FR-�
 
 Both are valid. Prefer **external scheduler + short job** when possible; use an in-process daemon when you need continuous listeners (message consumers).
 
+### If you know Python
+
+```python
+# Familiar shape — not the lab deliverable
+import signal, time
+stop = False
+def handle(sig, frame):
+    global stop
+    stop = True
+signal.signal(signal.SIGINT, handle)
+while not stop:
+    time.sleep(1)
+```
+
+| Python | Java |
+|--------|------|
+| `signal.signal` / `try/finally` | `Runtime.addShutdownHook` + `CountDownLatch` |
+| `while True:` + `time.sleep` | Latch `await`, or a `ScheduledExecutorService` |
+| `systemd` `Type=simple` ExecStart=`python worker.py` | Same systemd idea; **ExecStart** is `java -jar` / `java -cp … Main` |
+
+The ops story is identical. The process you install on the VM is a **JVM**.
+
 ## Lifecycle pattern
 
 ```text

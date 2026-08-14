@@ -22,6 +22,17 @@ Some CISS tools are **operator / engineer desktops** (config, monitoring, traini
 
 SE link: screens implement **use cases**; labels and validation should still map to **EARS requirements** and acceptance criteria — the GUI is design, not a place to invent new business rules.
 
+### If you know Python (`tkinter`, PyQt, Streamlit)
+
+| Python | JavaFX |
+|--------|--------|
+| `Tk()` / `QMainWindow` | `Stage` + `Scene` |
+| `Button(..., command=fn)` | `button.setOnAction(e -> …)` |
+| Don’t block the UI thread | Same — **FX Application Thread**; slow JDBC/JMS goes on a background thread |
+| Streamlit / Flask UI | Fine for a personal demo; **not** the program desktop stack |
+
+Build the lab console in **JavaFX**. A Tk screenshot does not replace SW-A07.
+
 ## Concepts
 
 ```text

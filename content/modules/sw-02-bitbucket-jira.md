@@ -254,4 +254,4 @@ Offline fallback: write branch name, commit message, and full MR/PR body locally
 
 ## Next
 
-**VS Code for Java Development** — implement on `DR-###` branches; push to **GitLab** for CISS labs (same flow as Bitbucket at work). Later: **CI/CD and Jenkins** for automated build/test on those branches.
+**From Python to Java** — translate your mental model; then **VS Code for Java** on `DR-###` branches. Later: **CI/CD and Jenkins**.

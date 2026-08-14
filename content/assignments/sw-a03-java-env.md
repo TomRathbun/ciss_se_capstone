@@ -1,6 +1,6 @@
 # SW-A03 — Java Tooling & Mini Project
 
-**Weight:** 10% · **Due:** After sw-03-vscode-java · **Module:** sw-03-vscode-java
+**Weight:** 5% · **Due:** After sw-03-vscode-java · **Module:** sw-03-vscode-java
 
 ## Prompt
 

@@ -38,6 +38,18 @@ Java app  --JDBC-->  Driver  --TCP-->  PostgreSQL
 
 Prefer **PreparedStatement** always for user or external input.
 
+### If you know Python (`psycopg` / `psycopg2`)
+
+| Python | Java on this track |
+|--------|--------------------|
+| `psycopg.connect(...)` | `DriverManager.getConnection` or `DataSource.getConnection` |
+| `cur.execute("... %s ...", (badge,))` | `PreparedStatement` + `ps.setString(1, badge)` — **`?` placeholders**, not `%s` |
+| `conn.commit()` / context manager | `conn.commit()` / `rollback()`; **try-with-resources** closes the connection |
+| `f"SELECT … '{badge}'"` | Same crime: **SQL injection**. Forbidden in both languages. |
+| SQLAlchemy ORM | Not the lab default — raw JDBC first (like writing SQL in `psycopg`) |
+
+The SQL is the same. The ceremony (checked `SQLException`, pools, JNDI) is why Java looks longer. Submit **Java**.
+
 ## Prerequisites
 
 - **PostgreSQL on a lab VM** (or a host/IP the instructor assigns) — course standard is **VMs, not Docker**  

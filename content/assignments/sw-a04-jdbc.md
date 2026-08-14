@@ -1,6 +1,6 @@
 # SW-A04 — JDBC Repository Slice
 
-**Weight:** 15% · **Due:** After sw-04-java-postgresql · **Module:** sw-04-java-postgresql
+**Weight:** 10% · **Due:** After sw-04-java-postgresql · **Module:** sw-04-java-postgresql
 
 ## Prompt
 

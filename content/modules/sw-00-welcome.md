@@ -11,7 +11,8 @@ After this overview you can:
 
 - Explain how **software development** supports the CISS selection pathway  
 - Distinguish **program tools** (Jira / Bitbucket / Nexus) from **CISS lab tools** (GitLab) while keeping one workflow  
-- Navigate the **module path** (Git → team workflow → Java tooling → data/messaging → daemons → JavaFX → **CI/CD/Jenkins**)  
+- Navigate the **module path** (Git → team workflow → **Python→Java** → Java tooling → data/messaging → daemons → JavaFX → **CI/CD/Jenkins**)  
+- State the **hiring bar**: Python is a translation aid; **Java** is what the contract pays for  
 - Relate software craft to **systems engineering** artifacts (requirements, interfaces, V&V)  
 
 ## Why this track exists
@@ -27,6 +28,18 @@ CISS needs engineers who can **build and ship** software with discipline — not
 | **Teamwork** | Review culture, integrity (same professionalism bar as SE) |
 
 Software work still sits under the program’s SE cascade: vision → needs → use cases → requirements → **implementation** → verification.
+
+## Language: Python on-ramp, Java destination
+
+Many interns are fastest in **Python**. That is expected. This track still trains **Java programmers**, because hired work is JDBC, JMS/ActiveMQ, daemons, and JavaFX on VMs — not a new Python microservice.
+
+| You may | You may not (after the bridge module) |
+|---------|----------------------------------------|
+| Think the algorithm out in Python | Turn in Python as the lab implementation |
+| Keep a personal scratch notebook | Pretend `pip` is how program services deploy |
+| Use the **From Python to Java** tables | Skip Java types, Maven, and `.equals` |
+
+The bridge module sits **after Git/workflow** and **before** VS Code/Java labs. Graded Java starts there.
 
 ## Tooling map — program vs CISS lab
 
@@ -55,18 +68,20 @@ CISS LAB: DR-123 → branch DR-123 → push GitLab → pipeline (GitLab CI / Jen
 |-------|--------|-----------|
 | 1 | **Working with Git** | Daily loop; **DR-###** branch names |
 | 2 | **Team workflow (Jira/Bitbucket/Nexus → GitLab)** | Learn program flow; practice on GitLab MRs |
-| 3 | **VS Code for Java** | Run/debug Java projects |
-| 4 | **PostgreSQL with Java** | JDBC, pools, JBoss DS, safe SQL |
-| 5 | **AMQP with Java (ActiveMQ)** | Publish/consume JMS; factories / pooling |
-| 6 | **Java Daemons** | Long-running consumers and scheduled jobs |
-| 7 | **JavaFX for Desktop GUIs** | Operator/engineer desktop UIs |
-| 8 | **CI/CD and Jenkins** | Automated build/test/publish; map to GitLab CI |
+| 3 | **From Python to Java** | Translate mental models; hiring bar is Java |
+| 4 | **VS Code for Java** | Run/debug Java projects |
+| 5 | **PostgreSQL with Java** | JDBC, pools, JBoss DS, safe SQL |
+| 6 | **AMQP with Java (ActiveMQ)** | Publish/consume JMS; factories / pooling |
+| 7 | **Java Daemons** | Long-running consumers and scheduled jobs |
+| 8 | **JavaFX for Desktop GUIs** | Operator/engineer desktop UIs |
+| 9 | **CI/CD and Jenkins** | Automated build/test/publish; map to GitLab CI |
 
 ## Lab prerequisites (cumulative)
 
 | Module | Typical lab needs |
 |--------|-------------------|
 | Git / team workflow | Git; **GitLab** for CISS labs; know Jira+Bitbucket for program |
+| Python → Java | Comfort reading Python; willingness to type Java by hand |
 | Nexus | Program + lab `settings.xml` / URL from instructor when available |
 | VS Code + Java | JDK (see Java versions module), VS Code, Extension Pack for Java, Maven |
 | PostgreSQL | **Postgres on a lab VM** (or service endpoint the instructor provides) |

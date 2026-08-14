@@ -154,6 +154,14 @@ terms:
     definition: Domain Name System — maps names to addresses (and back). Application URLs fail independently of ping if DNS is wrong.
   - term: NAT
     definition: Network Address Translation — rewrite of packet addresses, often PAT (many private hosts, one WAN address). NAT is not by itself a permit/deny firewall.
+  - term: JVM
+    definition: Java Virtual Machine — runs compiled Java bytecode (.class / JAR). The program hiring bar is Java on the JVM, not Python on CPython.
+  - term: Maven
+    definition: Java build and dependency tool driven by pom.xml — the program counterpart of pip/uv + a lockfile, plus compile/test/package.
+  - term: JDBC
+    definition: Java Database Connectivity — standard Java API for SQL. Use PreparedStatement placeholders (?), not string-concatenated queries.
+  - term: JMS
+    definition: Java Message Service — Java API for queues/topics. This course uses it with Apache ActiveMQ (not a Python pika/RabbitMQ lab).
   - term: Junos
     definition: Juniper network OS used on EX switches, SRX firewalls, and MX/PE routers — hierarchical configuration with a candidate database and commit/rollback.
   - term: Junos commit model
