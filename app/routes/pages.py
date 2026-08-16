@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
@@ -37,6 +37,7 @@ from app.curriculum import (
     list_editable_files,
     list_modules,
     list_tracks,
+    modules_for_export,
     load_glossary,
     load_schedule,
     load_selection_criteria,
@@ -154,6 +155,102 @@ async def modules_index(request: Request, db: Session = Depends(get_db)):
             modules=list_modules(track=track) if track else list_modules(),
             tracks_with_modules=modules_by_track(),
         ),
+    )
+
+
+def _parse_export_ids(request: Request) -> tuple[list[str], str | None]:
+    """module_id checkboxes, ids=a,b query, optional track filter."""
+    q = request.query_params
+    form = getattr(request, "_export_form", None) or {}
+    raw: list[str] = []
+    if form.get("module_id"):
+        val = form.getlist("module_id") if hasattr(form, "getlist") else form.get("module_id")
+        if isinstance(val, list):
+            raw.extend(val)
+        elif val:
+            raw.append(val)
+    ids_q = q.get("ids") or form.get("ids")
+    if ids_q:
+        raw.extend(re.split(r"[\s,]+", str(ids_q)))
+    track = q.get("track") or form.get("track")
+    if track:
+        track = normalize_track_id(track)
+    seen: set[str] = set()
+    ids: list[str] = []
+    for item in raw:
+        mid = (item or "").strip()
+        if mid and mid not in seen:
+            seen.add(mid)
+            ids.append(mid)
+    return ids, track
+
+
+@router.get("/modules/export", response_class=HTMLResponse)
+async def modules_export_picker(request: Request, db: Session = Depends(get_db)):
+    track = request.query_params.get("track")
+    if track:
+        track = normalize_track_id(track)
+    ids, _ = _parse_export_ids(request)
+    return templates.TemplateResponse(
+        "modules_export.html",
+        _ctx(
+            request,
+            db,
+            tracks=list_tracks(),
+            track_filter=track,
+            tracks_with_modules=modules_by_track(),
+            selected_ids=set(ids),
+        ),
+    )
+
+
+@router.api_route("/modules/print", methods=["GET", "POST"], response_class=HTMLResponse)
+async def modules_print_pack(request: Request, db: Session = Depends(get_db)):
+    if request.method == "POST":
+        request._export_form = await request.form()
+    ids, track = _parse_export_ids(request)
+    modules = modules_for_export(ids or None, track=track if not ids else None)
+    if not modules:
+        return RedirectResponse("/modules/export", status_code=303)
+    if len(modules) == 1:
+        pack_title = modules[0].get("title") or "Module"
+    elif track:
+        t = next((x for x in list_tracks() if x["id"] == track), None)
+        pack_title = f"{(t or {}).get('title') or track} modules"
+    else:
+        pack_title = "Selected modules"
+    return templates.TemplateResponse(
+        "modules_print.html",
+        _ctx(
+            request,
+            db,
+            modules=modules,
+            pack_title=pack_title,
+            generated_on=datetime.utcnow().strftime("%Y-%m-%d"),
+        ),
+    )
+
+
+@router.api_route("/modules/export.pdf", methods=["GET", "POST"])
+async def modules_export_pdf(request: Request, db: Session = Depends(get_db)):
+    if request.method == "POST":
+        request._export_form = await request.form()
+    ids, track = _parse_export_ids(request)
+    modules = modules_for_export(ids or None, track=track if not ids else None)
+    if not modules:
+        return RedirectResponse("/modules/export", status_code=303)
+    from io import BytesIO
+
+    from app.services.module_pdf import build_modules_pdf, suggested_filename
+
+    buf = BytesIO()
+    build_modules_pdf(modules, buf)
+    buf.seek(0)
+    filename = suggested_filename(modules)
+    return StreamingResponse(
+        buf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 

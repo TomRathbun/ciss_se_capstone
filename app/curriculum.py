@@ -290,6 +290,23 @@ def get_module(module_id: str) -> dict | None:
     return None
 
 
+def modules_for_export(
+    ids: list[str] | None = None,
+    track: str | None = None,
+) -> list[dict]:
+    """Full module bodies in catalog order. Empty ids = all (optionally one track)."""
+    catalog_order = list_modules(track=track) if track else list_modules()
+    if ids:
+        wanted = {i for i in ids if i}
+        catalog_order = [m for m in catalog_order if m.get("id") in wanted]
+    out: list[dict] = []
+    for meta in catalog_order:
+        full = get_module(meta["id"])
+        if full:
+            out.append(full)
+    return out
+
+
 def module_neighbors(
     module_id: str, *, within_track: bool = True
 ) -> tuple[dict | None, dict | None, int, int]:

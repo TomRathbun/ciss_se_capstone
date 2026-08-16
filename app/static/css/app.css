@@ -638,3 +638,30 @@ body.demo-mode-active .demo-toolbar {
     flex-shrink: 0;
 }
 
+@media print {
+    .collage-bg,
+    .scanlines,
+    body > nav,
+    body > footer,
+    .teach-chrome,
+    .module-mode-dock,
+    .teach-toolbar,
+    .demo-toolbar {
+        display: none !important;
+    }
+    body {
+        background: #fff !important;
+        color: #0f172a !important;
+    }
+    main {
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .card {
+        background: #fff;
+        border: none;
+        backdrop-filter: none;
+    }
+}
+

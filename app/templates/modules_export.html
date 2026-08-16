@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Print / PDF — {{ app_name }}{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-start justify-between gap-3 mb-6">
+    <div>
+        <h1 class="text-3xl font-bold mb-2">Print modules to PDF</h1>
+        <p class="text-gray-500 text-sm max-w-2xl">
+            Choose all modules, one track, or a custom set. <strong class="text-gray-300">Download PDF</strong>
+            builds a file on the server. <strong class="text-gray-300">Preview &amp; print</strong> opens a
+            light pack you can Save as PDF from the browser (better for Mermaid figures).
+        </p>
+    </div>
+    <a href="/modules{% if track_filter %}?track={{ track_filter }}{% endif %}" class="text-sm text-primary-400">← Modules</a>
+</div>
+
+<form id="export-form" method="post" class="space-y-8">
+    {% if track_filter %}
+    <input type="hidden" name="track" value="{{ track_filter }}">
+    {% endif %}
+
+    <div class="card p-4 flex flex-wrap gap-2 items-center">
+        <button type="button" class="btn-ghost text-sm" data-select="all">Select all</button>
+        <button type="button" class="btn-ghost text-sm" data-select="none">Select none</button>
+        {% for t in tracks_with_modules %}
+        <button type="button" class="btn-ghost text-sm" data-select-track="{{ t.id }}">{{ t.short }} only</button>
+        {% endfor %}
+        <span id="export-count" class="text-xs text-gray-500 ml-auto"></span>
+    </div>
+
+    {% for t in tracks_with_modules %}
+    <section class="card p-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h2 class="text-lg font-bold flex items-center gap-2">
+                <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
+                {{ t.title }}
+            </h2>
+            <label class="text-xs text-gray-400 flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" data-track-toggle="{{ t.id }}" class="rounded">
+                Whole track
+            </label>
+        </div>
+        <div class="space-y-1">
+            {% for m in t.modules %}
+            <label class="flex items-start gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer">
+                <input type="checkbox" name="module_id" value="{{ m.id }}"
+                    data-track="{{ t.id }}"
+                    class="mt-1 module-export-cb"
+                    {% if (selected_ids and m.id in selected_ids) or (not selected_ids and (not track_filter or t.id == track_filter)) %}checked{% endif %}>
+                <span class="flex-1">
+                    <span class="text-sm text-white font-medium">{{ loop.index }}. {{ m.title }}</span>
+                    <span class="block text-xs text-gray-500">{{ m.summary }}</span>
+                </span>
+                <span class="text-[10px] text-gray-600 whitespace-nowrap">{{ m.duration_min }}m</span>
+            </label>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <div class="sticky bottom-4 card p-4 flex flex-wrap gap-3 items-center z-20">
+        <button type="submit" formaction="/modules/export.pdf" class="btn-primary">Download PDF</button>
+        <button type="submit" formaction="/modules/print" class="btn-ghost">Preview &amp; print</button>
+        <p class="text-xs text-gray-500">A full-catalog pack can take a minute. Browser print keeps diagrams.</p>
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const form = document.getElementById("export-form");
+  if (!form) return;
+  const boxes = () => Array.from(form.querySelectorAll("input.module-export-cb"));
+  const countEl = document.getElementById("export-count");
+
+  function refresh() {
+    const on = boxes().filter((b) => b.checked).length;
+    if (countEl) countEl.textContent = on + " selected";
+    form.querySelectorAll("[data-track-toggle]").forEach((tog) => {
+      const tid = tog.getAttribute("data-track-toggle");
+      const group = boxes().filter((b) => b.dataset.track === tid);
+      tog.checked = group.length > 0 && group.every((b) => b.checked);
+      tog.indeterminate = group.some((b) => b.checked) && !tog.checked;
+    });
+  }
+
+  form.addEventListener("click", (e) => {
+    const all = e.target.closest("[data-select]");
+    if (all) {
+      const mode = all.getAttribute("data-select");
+      boxes().forEach((b) => { b.checked = mode === "all"; });
+      refresh();
+      return;
+    }
+    const trackBtn = e.target.closest("[data-select-track]");
+    if (trackBtn) {
+      const tid = trackBtn.getAttribute("data-select-track");
+      boxes().forEach((b) => { b.checked = b.dataset.track === tid; });
+      refresh();
+    }
+  });
+
+  form.addEventListener("change", (e) => {
+    const tog = e.target.closest("[data-track-toggle]");
+    if (tog) {
+      const tid = tog.getAttribute("data-track-toggle");
+      boxes().filter((b) => b.dataset.track === tid).forEach((b) => { b.checked = tog.checked; });
+    }
+    refresh();
+  });
+
+  form.addEventListener("submit", (e) => {
+    if (!boxes().some((b) => b.checked)) {
+      e.preventDefault();
+      alert("Select at least one module.");
+    }
+  });
+
+  refresh();
+})();
+</script>
+{% endblock %}

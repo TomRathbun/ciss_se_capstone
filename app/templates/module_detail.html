@@ -8,6 +8,7 @@
             {% if module_index and module_total %}
             <span class="text-xs text-gray-600 font-mono">Module {{ module_index }} of {{ module_total }}</span>
             {% endif %}
+            <a href="/modules/print?ids={{ module.id }}" class="btn-ghost text-sm" title="Print this module or save as PDF">Print / PDF</a>
             <button type="button" id="teach-mode-enter" class="btn-ghost teach-enter-btn"
                 aria-pressed="false" title="Present this module: highlight sections and draw on content">
                 Teach mode

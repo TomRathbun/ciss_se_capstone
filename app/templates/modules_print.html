@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pack_title }} — {{ app_name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <style>
+        body.module-print-page {
+            background: #fff;
+            color: #0f172a;
+            font-family: Inter, system-ui, sans-serif;
+            margin: 0;
+        }
+        .print-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .print-toolbar a, .print-toolbar button {
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0.55rem;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .print-pack {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+        }
+        .print-cover { text-align: center; padding: 2rem 0 1rem; }
+        .print-cover h1 { font-size: 1.8rem; margin: 0 0 0.4rem; }
+        .print-module { break-before: page; padding-top: 0.5rem; }
+        .print-module:first-of-type { break-before: auto; }
+        .print-module h1 { font-size: 1.6rem; margin: 0 0 0.35rem; }
+        .print-meta { color: #475569; font-size: 0.85rem; margin-bottom: 1rem; }
+        .print-pack .prose-course h1,
+        .print-pack .prose-course h2,
+        .print-pack .prose-course h3 { color: #0f172a; }
+        .print-pack .prose-course h2 { border-bottom-color: #e2e8f0; }
+        .print-pack .prose-course h3 { color: #3730a3; }
+        .print-pack .prose-course p,
+        .print-pack .prose-course li,
+        .print-pack .prose-course td { color: #1e293b; }
+        .print-pack .prose-course th { color: #334155; border-bottom-color: #cbd5e1; }
+        .print-pack .prose-course td { border-bottom-color: #e2e8f0; }
+        .print-pack .prose-course pre {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+        .print-pack .prose-course code {
+            background: #eef2ff;
+            color: #312e81;
+        }
+        .print-pack .prose-course a { color: #1d4ed8; }
+        .print-toc { margin: 1.5rem 0 2rem; }
+        .print-toc li { margin: 0.25rem 0; }
+        @media print {
+            .print-toolbar { display: none !important; }
+            .print-pack { max-width: none; padding: 0; }
+            .print-module { break-before: page; }
+            a[href^="http"]::after { content: none !important; }
+        }
+    </style>
+</head>
+<body class="module-print-page">
+    <div class="print-toolbar">
+        <a href="/modules/export">← Change selection</a>
+        <button type="button" onclick="window.print()">Print / Save as PDF</button>
+        <form method="post" action="/modules/export.pdf" style="margin:0">
+            {% for m in modules %}
+            <input type="hidden" name="module_id" value="{{ m.id }}">
+            {% endfor %}
+            <button type="submit">Download PDF</button>
+        </form>
+        <span style="font-size:0.75rem;color:#94a3b8">{{ modules|length }} module{{ 's' if modules|length != 1 else '' }}</span>
+    </div>
+
+    <div class="print-pack">
+        <header class="print-cover">
+            <p style="letter-spacing:0.12em;text-transform:uppercase;font-size:0.7rem;color:#64748b">{{ app_name }}</p>
+            <h1>{{ pack_title }}</h1>
+            <p class="print-meta">{{ generated_on }} · Unclassified training · {{ modules|length }} module{{ 's' if modules|length != 1 else '' }}</p>
+        </header>
+
+        <nav class="print-toc" aria-label="Contents">
+            <h2>Contents</h2>
+            <ol>
+                {% for m in modules %}
+                <li><a href="#mod-{{ m.id }}">[{{ m.track_short }}] {{ m.title }}</a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+
+        {% for m in modules %}
+        <article class="print-module prose-course" id="mod-{{ m.id }}">
+            <p class="print-meta">{{ m.track_short }} · ~{{ m.duration_min }} min · {{ m.id }}</p>
+            <h1>{{ m.title }}</h1>
+            {% if m.summary %}<p class="print-meta">{{ m.summary }}</p>{% endif %}
+            {{ m.body_html | safe }}
+        </article>
+        {% endfor %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    <script src="/static/js/content_view.js"></script>
+</body>
+</html>

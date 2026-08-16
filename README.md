@@ -89,6 +89,7 @@ Edit Markdown and YAML; restart not always required for content (read on each re
 ## App features
 
 - **Modules** — SE, Software, Networking (Juniper), SysAdmin, Military; mark complete  
+- **Print / PDF** — `/modules/export` to pick all, a track, or some modules; download a PDF or browser print (better for Mermaid)  
 - **Assignments** — per-track weighted briefs; student draft/submit  
 - **Instructor desk** — leaderboard, per-dimension grading, recommend flag, add interns  
 - **Content editor** (instructor) — dual-pane Markdown with live **Mermaid**, **PlantUML**, **KaTeX**, and **image upload** (paste or button); saves to `content/modules|assignments/*.md`  
