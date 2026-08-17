@@ -5,6 +5,10 @@
     <div>
         <h1 class="text-3xl font-bold mb-2">Modules</h1>
         <p class="text-gray-500 text-sm">Lecture material and offline reading, grouped by discipline track. Mark complete after you finish.</p>
+        <div class="lm-banner mt-3 max-w-2xl" role="note">
+            <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+            <span class="lm-banner-notice">{{ proprietary_notice }}</span>
+        </div>
     </div>
     <a href="/modules/export{% if track_filter %}?track={{ track_filter }}{% endif %}"
        class="btn-ghost text-sm whitespace-nowrap">Print / PDF</a>

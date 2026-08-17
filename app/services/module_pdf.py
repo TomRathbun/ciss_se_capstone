@@ -31,7 +31,7 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-from app.config import APP_NAME, BASE_DIR
+from app.config import APP_NAME, BASE_DIR, PROPRIETARY_MARKING, PROPRIETARY_NOTICE
 
 _FONT_REG = False
 _FONT = "Helvetica"
@@ -94,6 +94,17 @@ def _styles() -> dict:
             textColor=mute,
             alignment=TA_CENTER,
             spaceAfter=8,
+        ),
+        "proprietary": ParagraphStyle(
+            "proprietary",
+            parent=base["Normal"],
+            fontName=_FONT_BOLD,
+            fontSize=11,
+            leading=14,
+            textColor=colors.HexColor("#7c2d12"),
+            alignment=TA_CENTER,
+            spaceBefore=6,
+            spaceAfter=4,
         ),
         "h1": ParagraphStyle(
             "mh1",
@@ -212,10 +223,10 @@ def _styles() -> dict:
         "footer": ParagraphStyle(
             "mfooter",
             parent=base["Normal"],
-            fontName=_FONT,
+            fontName=_FONT_BOLD,
             fontSize=8,
-            textColor=mute,
-            alignment=TA_LEFT,
+            textColor=colors.HexColor("#7c2d12"),
+            alignment=TA_CENTER,
         ),
     }
     return styles
@@ -535,16 +546,24 @@ def _image_flowable(src: str, alt: str, styles: dict, width: float):
 def _header_footer(canvas, doc, subtitle: str):
     canvas.saveState()
     w, h = letter
-    canvas.setStrokeColor(colors.HexColor("#c7d2fe"))
-    canvas.setLineWidth(0.6)
-    canvas.line(0.7 * inch, h - 0.5 * inch, w - 0.7 * inch, h - 0.5 * inch)
-    canvas.setFont(_FONT, 8)
+    mark = PROPRIETARY_MARKING
+    canvas.setStrokeColor(colors.HexColor("#b45309"))
+    canvas.setLineWidth(0.7)
+    canvas.line(0.7 * inch, h - 0.52 * inch, w - 0.7 * inch, h - 0.52 * inch)
+    canvas.setFillColor(colors.HexColor("#7c2d12"))
+    canvas.setFont(_FONT_BOLD, 8)
+    canvas.drawCentredString(w / 2.0, h - 0.40 * inch, mark)
+    canvas.setFont(_FONT, 7)
     canvas.setFillColor(colors.HexColor("#64748b"))
-    canvas.drawString(0.7 * inch, h - 0.42 * inch, APP_NAME)
-    canvas.drawRightString(w - 0.7 * inch, h - 0.42 * inch, "Unclassified training")
-    canvas.line(0.7 * inch, 0.5 * inch, w - 0.7 * inch, 0.5 * inch)
-    canvas.drawString(0.7 * inch, 0.35 * inch, (subtitle or "")[:80])
-    canvas.drawRightString(w - 0.7 * inch, 0.35 * inch, f"Page {doc.page}")
+    canvas.drawString(0.7 * inch, h - 0.40 * inch, APP_NAME)
+    canvas.line(0.7 * inch, 0.52 * inch, w - 0.7 * inch, 0.52 * inch)
+    canvas.setFillColor(colors.HexColor("#7c2d12"))
+    canvas.setFont(_FONT_BOLD, 8)
+    canvas.drawCentredString(w / 2.0, 0.34 * inch, mark)
+    canvas.setFillColor(colors.HexColor("#64748b"))
+    canvas.setFont(_FONT, 7)
+    canvas.drawString(0.7 * inch, 0.34 * inch, (subtitle or "")[:28])
+    canvas.drawRightString(w - 0.7 * inch, 0.34 * inch, f"Page {doc.page}")
     canvas.restoreState()
 
 
@@ -563,11 +582,11 @@ def build_modules_pdf(modules: list[dict], outfile) -> None:
         pagesize=letter,
         leftMargin=0.7 * inch,
         rightMargin=0.7 * inch,
-        topMargin=0.7 * inch,
-        bottomMargin=0.7 * inch,
+        topMargin=0.85 * inch,
+        bottomMargin=0.85 * inch,
         title=f"{APP_NAME} — {subtitle}",
         author=APP_NAME,
-        subject="Course module export",
+        subject=f"{PROPRIETARY_MARKING} — Course module export",
     )
 
     story: list = []
@@ -576,10 +595,8 @@ def build_modules_pdf(modules: list[dict], outfile) -> None:
     story.append(Paragraph("Module pack", styles["cover_sub"]))
     story.append(Paragraph(html.escape(date.today().isoformat()), styles["cover_sub"]))
     story.append(Spacer(1, 16))
-    story.append(Paragraph(
-        "Unclassified intern training. Do not add classified or production data.",
-        styles["cover_sub"],
-    ))
+    story.append(Paragraph(html.escape(PROPRIETARY_MARKING), styles["proprietary"]))
+    story.append(Paragraph(html.escape(PROPRIETARY_NOTICE), styles["cover_sub"]))
     story.append(Spacer(1, 20))
     story.append(Paragraph("Contents", styles["h2"]))
     for i, title in enumerate(titles, start=1):
