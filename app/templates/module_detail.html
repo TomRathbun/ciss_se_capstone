@@ -63,7 +63,14 @@
 </div>
 
 <article id="module-article" class="card p-6 md:p-8 prose-course">
+    <div class="lm-banner" role="note">
+        <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+        <span class="lm-banner-notice">{{ proprietary_notice }}</span>
+    </div>
     {{ module.body_html | safe }}
+    <div class="lm-banner" role="note">
+        <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+    </div>
 </article>
 
 {% if related_assignments %}

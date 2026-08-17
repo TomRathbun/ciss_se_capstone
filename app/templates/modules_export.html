@@ -8,7 +8,13 @@
             Choose all modules, one track, or a custom set. <strong class="text-gray-300">Download PDF</strong>
             builds a file on the server. <strong class="text-gray-300">Preview &amp; print</strong> opens a
             light pack you can Save as PDF from the browser (better for Mermaid figures).
+            Every PDF page is stamped <strong class="text-gray-300">{{ proprietary_marking }}</strong>
+            in the header and footer.
         </p>
+        <div class="lm-banner mt-3 max-w-2xl" role="note">
+            <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+            <span class="lm-banner-notice">{{ proprietary_notice }}</span>
+        </div>
     </div>
     <a href="/modules{% if track_filter %}?track={{ track_filter }}{% endif %}" class="text-sm text-primary-400">← Modules</a>
 </div>

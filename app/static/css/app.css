@@ -638,6 +638,39 @@ body.demo-mode-active .demo-toolbar {
     flex-shrink: 0;
 }
 
+/* ── Lockheed Martin proprietary marking ──────────────────── */
+.lm-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    text-align: center;
+    padding: 0.45rem 0.85rem;
+    margin: 0 0 1rem;
+    border: 1px solid rgba(180, 83, 9, 0.45);
+    border-radius: 0.55rem;
+    background: rgba(120, 53, 15, 0.28);
+    color: #fdba74;
+}
+.lm-banner-mark {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fdba74;
+}
+.lm-banner-notice {
+    font-size: 0.68rem;
+    letter-spacing: 0.01em;
+    color: #fed7aa;
+    max-width: 46rem;
+    line-height: 1.4;
+}
+.lm-print-chrome {
+    display: none;
+}
+
 @media print {
     .collage-bg,
     .scanlines,
@@ -646,7 +679,8 @@ body.demo-mode-active .demo-toolbar {
     .teach-chrome,
     .module-mode-dock,
     .teach-toolbar,
-    .demo-toolbar {
+    .demo-toolbar,
+    .print-toolbar {
         display: none !important;
     }
     body {
@@ -655,7 +689,7 @@ body.demo-mode-active .demo-toolbar {
     }
     main {
         max-width: none !important;
-        padding: 0 !important;
+        padding: 0.4in 0 !important;
         margin: 0 !important;
     }
     .card {
@@ -663,5 +697,44 @@ body.demo-mode-active .demo-toolbar {
         border: none;
         backdrop-filter: none;
     }
+    .lm-banner {
+        background: #fff7ed;
+        border-color: #b45309;
+        color: #7c2d12;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .lm-banner-mark,
+    .lm-banner-notice {
+        color: #7c2d12;
+    }
+    .lm-print-chrome {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #7c2d12;
+        z-index: 9999;
+        background: #fff;
+    }
+    .lm-print-header {
+        top: 0;
+        padding: 6pt 0 4pt;
+        border-bottom: 0.6pt solid #b45309;
+    }
+    .lm-print-footer {
+        bottom: 0;
+        padding: 4pt 0 6pt;
+        border-top: 0.6pt solid #b45309;
+    }
+    @page {
+        margin: 0.75in 0.65in;
+    }
 }
+
 
