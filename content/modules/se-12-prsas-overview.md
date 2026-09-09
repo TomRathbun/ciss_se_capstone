@@ -1,9 +1,11 @@
 # PRSAS Implementation — Shared Kickoff
 
-> **Phase:** main-project implementation (after SE-A10 framing).  
+> **Phase:** main-project implementation (after SE-A10 framing **and** the common **ops-prsas-intro**).  
 > **Document:** [UC-CISS_PROJECT-001](/content/project/radar_sa_project.md) in the course repo.  
 > **Audience:** every track. Read this before your discipline modules.  
 > **Classification:** unclassified lab only.
+
+**Same Monday:** **ops-prsas-intro** is the first hour (why the picture exists). This module is the **contracts** hour (what we freeze). Do not mix them.
 
 ## Learning outcomes
 

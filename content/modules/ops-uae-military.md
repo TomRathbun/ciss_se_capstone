@@ -30,8 +30,8 @@ CISS work sits next to **UAE operational language** and stakeholders. Interns wh
 ## Ops track roadmap
 
 ```text
-UAE Military Context  →  CONOPS & AOC  →  ATO Planning  →  ATO Execution  →  Weapons (public)  →  Capstone
-   (this module)
+Why you are here (week 1)  →  UAE Military Context  →  CONOPS & AOC  →  ATO Planning  →  ATO Execution  →  Weapons (public)  →  PRSAS intro  →  Capstone picture
+                              (this module)
 ```
 
 ---

@@ -143,6 +143,14 @@ modules:
     summary: Walk the living system and its SE artifacts; connect FR-IDs to real code and export.
     offline: false
 
+  - id: ops-why-here
+    order: 11
+    track: mil
+    title: Why You Are Here
+    duration_min: 45
+    summary: Week-1 all-hands opener. One picture, four rooms; military stays a block in weeks 10–11; PRSAS is the joint capstone. Unclassified.
+    offline: true
+
   - id: ops-uae-military
     order: 12
     track: mil
@@ -583,6 +591,15 @@ modules:
     title: PRSAS — Host Hardening & Deployment Automation
     duration_min: 150
     summary: firewalld + SELinux + auditd aligned to the allow-list; Ansible or PowerCLI rebuild.
+    offline: true
+
+  - id: ops-prsas-intro
+    order: 59
+    track: mil
+    phase: capstone
+    title: PRSAS Intro — The Picture That Keeps a Country
+    duration_min: 75
+    summary: Common week-14 opener. Tie ATO/CONOPS to the three-site teaching picture; public 2026 UAE AD episode; then se-12 contracts. Not live C2.
     offline: true
 
   - id: ops-04-prsas-picture
