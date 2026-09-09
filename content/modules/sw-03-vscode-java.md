@@ -108,7 +108,7 @@ VS Code’s Java Language Server and Maven/Gradle tooling expect a full JDK.
 
 On the systems you will administer (RHEL family):
 
-- `yum` / `dnf` packages may provide older OpenJDK builds.  
+- `dnf` packages on **RHEL 10.2** provide OpenJDK **21** (and AppStream **25**), not Java 8. If the program still requires Java 8 for JBoss/AMQ, that is a documented alternative JDK — never assume `dnf install java` gives you 8.  
 - For developer machines, common approaches are:  
   - Direct Temurin / Corretto installers or tarballs  
   - **SDKMAN!** (`sdk install java …`) or **asdf** for easy multi-version switching  

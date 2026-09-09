@@ -102,8 +102,8 @@ shift                 # drop $1
 ## Conditionals
 
 ```bash
-if [[ -f /etc/redhat-release ]]; then
-  echo "RHEL-like host"
+if [[ -f /etc/os-release ]]; then
+  echo "RHEL-like host: $(. /etc/os-release; echo $NAME $VERSION_ID)"
 elif [[ -d /opt/ciss ]]; then
   echo "app dir exists"
 else
@@ -210,7 +210,7 @@ cp -a /etc/myapp.conf "myapp.conf.bak.${ts}"
 
 ## Drill (40 min)
 
-1. Write `host-report.sh` that prints: hostname, RHEL release, disk, memory, listening ports summary.  
+1. Write `host-report.sh` that prints: hostname, `/etc/os-release` VERSION_ID, disk (`df -hT`), memory, `nmcli device status`, listening ports (`ss -lntp` summary).  
 2. Accept optional output file: `./host-report.sh /tmp/report.txt`.  
 3. Exit `2` on bad args; `1` on failure; `0` on success.  
 4. Run under `bash -n host-report.sh` (syntax check).  
@@ -228,8 +228,8 @@ cp -a /etc/myapp.conf "myapp.conf.bak.${ts}"
 | Bash manual | `man bash` · [GNU Bash manual](https://www.gnu.org/software/bash/manual/) |
 | ShellCheck | [shellcheck.net](https://www.shellcheck.net/) |
 | Style | Google shell style guide (search title) — useful defaults |
-| RHEL commands | Course **RHEL 7 and Essential Linux Commands** |
+| RHEL commands | Course **RHEL 10.2 and Essential Linux Commands** |
 
 ## Next
 
-**Package management** — yum/dnf, npm, pip/uv, Maven/Java artifacts, and when to use which.
+**Package management** — DNF 5, npm, pip/uv, Maven/Java artifacts, and when to use which.
