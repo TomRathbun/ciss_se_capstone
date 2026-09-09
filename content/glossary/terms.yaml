@@ -287,6 +287,7 @@ terms:
       X.509 extension listing the DNS names and IPs a certificate is valid for.
       Modern TLS clients match the name they connect to against SAN, not CN.
       Issue both the FQDN and the short hostname (amq-c-01.ciss-lab.local and amq-c-01).
+      Connecting by IP requires an `IP:` SAN — a DNS-only SAN does not cover a literal address.
   - term: CSR
     definition: >
       Certificate Signing Request. Public key plus names, sent to a CA. Build with
@@ -311,6 +312,22 @@ terms:
       libpq/Postgres client mode that encrypts *and* checks CA plus hostname/SAN.
       `sslmode=require` encrypts but does not verify the certificate — not “TLS done.”
       Course default when Postgres TLS is on.
+  - term: checkend
+    definition: >
+      `openssl x509 -checkend N` exits 1 if the certificate expires within N seconds.
+      Course watch is 30 days (`$((30 * 86400))`). A weekly systemd timer plus this
+      check is how CISS notices expiry before the exercise, not during it.
+  - term: EKU (extendedKeyUsage)
+    definition: >
+      X.509 extension stating what the key is for. TLS server leaves need `serverAuth`
+      (`SSL server : Yes` in `openssl x509 -purpose`). A clientAuth-only cert will
+      fail on AMQ 61617 / httpd. Put it on the CSR (`-addext`) and keep it with
+      `-copy_extensions copy`.
+  - term: fullchain
+    definition: >
+      PEM file with the leaf certificate first, then intermediates / issuing CA.
+      httpd `SSLCertificateFile` and nginx `ssl_certificate` often want this one file.
+      The client must already trust the root; do not stuff the private key in fullchain.
   - term: authselect
     definition: >
       RHEL 8+ tool that selects the host identity/auth stack (SSSD, winbind). Replaces
