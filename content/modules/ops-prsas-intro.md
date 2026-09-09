@@ -51,7 +51,15 @@ The people who kept the country up had years of integration behind them. You hav
 
 Projector: play the film, then leave the **live picture** running (three sites, RSA / RSB plots, fused track, COAST).
 
-![PRSAS teaching picture — Remote A, Remote B, Central; fused gold tracks. Fictional theater, not a basing map.](/static/images/prsas/teaching-picture.jpg)
+<video class="prsas-film" autoplay muted loop playsinline controls poster="/static/images/prsas/teaching-picture.jpg">
+  <source src="/static/images/prsas/picture.mp4" type="video/mp4">
+</video>
+<p class="prsas-caption">Projector film · CISS-TEACH · fictional theater</p>
+
+<object class="prsas-live" type="image/svg+xml" data="/static/images/prsas/live-picture.svg" aria-label="Live teaching picture — plots fuse at Central">
+  <img src="/static/images/prsas/teaching-picture.jpg" alt="PRSAS teaching picture — Remote A, Remote B, Central; fused gold tracks. Fictional theater, not a basing map.">
+</object>
+<p class="prsas-caption">Live teaching picture · plots → fused track · not live C2</p>
 
 *CISS-TEACH. Stylized gulf. No real unit, no real site.*
 

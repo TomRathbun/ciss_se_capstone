@@ -67,11 +67,15 @@ Play the **teaching picture** (stylized gulf, three sites, fused tracks). Say ou
 3. The lines between them are **a path that can lie** if NET or ADMIN is sloppy.  
 4. The operator’s job is to **say COAST when the plot died**, not to decorate the screen.
 
-This still is the classroom architecture poster — fictional theater, not a basing map:
+<video class="prsas-film" autoplay muted loop playsinline controls poster="/static/images/prsas/teaching-picture.jpg">
+  <source src="/static/images/prsas/picture.mp4" type="video/mp4">
+</video>
+<p class="prsas-caption">Projector film · CISS-TEACH · fictional theater</p>
 
-![PRSAS teaching picture — three sites, fused tracks, unclassified classroom architecture](/static/images/prsas/teaching-picture.jpg)
-
-*CISS-TEACH. Not live C2. Not a real deployment.*
+<object class="prsas-live" type="image/svg+xml" data="/static/images/prsas/live-picture.svg" aria-label="Live teaching picture — three sites, fused track">
+  <img src="/static/images/prsas/teaching-picture.jpg" alt="PRSAS teaching picture — three sites, fused tracks, unclassified classroom architecture">
+</object>
+<p class="prsas-caption">Live teaching picture · CISS-TEACH · not a basing map</p>
 
 ## 10-minute floor exercise
 
