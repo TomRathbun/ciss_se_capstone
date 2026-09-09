@@ -164,7 +164,7 @@ When “SSH works on host A but not B,” compare HBAC allow rules and host grou
 | **SSH** | SSSD + pam_sss; key vs password vs GSSAPI |
 | **NFS** | Often Kerberos (`sec=krb5`) — needs keytabs and time sync |
 | **Postgres / apps** | LDAP auth or app-level group mapping |
-| **Jenkins / GitLab** | SSO or group-based project access |
+| **GitLab** | SSO or group-based project and CI access |
 | **Sudo** | Central rules vs local `/etc/sudoers.d` |
 
 ---

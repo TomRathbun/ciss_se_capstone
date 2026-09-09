@@ -26,7 +26,7 @@ tracks:
     order: 2
     short: SW
     title: Software Development
-    summary: Git and workflow; Python→Java bridge; Java (JDBC, ActiveMQ, daemons, JavaFX) and Jenkins; PRSAS simulator, daemon, and SA client.
+    summary: Git and workflow; Python→Java bridge; Java (JDBC, ActiveMQ, daemons, JavaFX) and GitLab CI/CD; PRSAS simulator, daemon, and SA client.
     color: sw
     status: active
 
@@ -264,12 +264,12 @@ modules:
     summary: Stages/scenes/layouts, controls and events, FXML option, UI-thread safety, thin UI over services.
     offline: true
 
-  - id: sw-08-jenkins-cicd
+  - id: sw-08-gitlab-cicd
     order: 29
     track: sw
-    title: CI/CD and Jenkins
+    title: CI/CD and GitLab
     duration_min: 120
-    summary: CI/CD concepts; Jenkins jobs/pipelines; build-test-publish to Nexus; mapping to GitLab CI for CISS labs.
+    summary: GitLab CI/CD (pipelines, jobs, runners, .gitlab-ci.yml); build-test-publish to Nexus; self-hosted RHEL 10.2 runners.
     offline: false
 
   # --- Networking (older Juniper / Junos intern path) ---
@@ -1043,10 +1043,10 @@ assignments:
     order: 29
     track: sw
     title: CI Pipeline for Your Lab Project
-    module_id: sw-08-jenkins-cicd
-    due_session: "After sw-08-jenkins-cicd"
+    module_id: sw-08-gitlab-cicd
+    due_session: "After sw-08-gitlab-cicd"
     weight: 15
-    summary: GitLab CI or Jenkins pipeline; break/fix; artifact/Nexus story; SE verification note.
+    summary: GitLab CI/CD pipeline (.gitlab-ci.yml); break/fix; artifact/Nexus story; SE verification note.
     rubric:
       - dimension: automation
         max_points: 15

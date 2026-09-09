@@ -86,7 +86,7 @@ If an external tutorial shows `docker run`, translate it to: **service on the as
 | Track | Overlap with admin / integration |
 |-------|----------------------------------|
 | **Systems Engineering** | V&V evidence, environments as system boundary |
-| **Software** | Deploy jars/workers on VMs; Jenkins; ActiveMQ; Postgres; JDK location on 10.2 |
+| **Software** | Deploy jars/workers on VMs; GitLab CI/CD; ActiveMQ; Postgres; JDK location on 10.2 |
 | **Networking** | Ports, DNS, firewalld/nft, TLS on the wire, NFS |
 | **Military** | Training systems and C2-adjacent labs must stay usable |
 

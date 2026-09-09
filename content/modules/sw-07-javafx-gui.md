@@ -271,5 +271,5 @@ Commit UI code separately from later JDBC wiring if you combine with the Postgre
 
 ## Next
 
-**CI/CD and Jenkins** — automate build and test of your Java (and JavaFX) projects; green pipeline before merge.  
+**CI/CD and GitLab** — automate build and test of your Java (and JavaFX) projects with `.gitlab-ci.yml`; green pipeline before merge.  
 Also combine GUI work with **PostgreSQL** / **ActiveMQ** via a thin service layer; long-running consumers often live in a **daemon**, not the desktop process.

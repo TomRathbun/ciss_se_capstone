@@ -285,6 +285,17 @@ terms:
     definition: >
       RHEL 8+ tool that selects the host identity/auth stack (SSSD, winbind). Replaces
       RHEL 7 authconfig, which does not exist on 10.2.
+  - term: GitLab CI/CD
+    definition: >
+      Course CI for CISS. Pipelines are defined in `.gitlab-ci.yml` (jobs, stages,
+      rules, artifacts) and executed by a GitLab Runner (shell executor on RHEL 10.2
+      lab VMs). Interns who say “GitLab Actions” mean this — GitLab does not use
+      `.github/workflows`. Jenkins is not taught.
+  - term: GitLab Runner
+    definition: >
+      Process that executes GitLab CI/CD jobs. CISS default is a shell executor on
+      the RHEL 10.2 golden image (JDK 21 / Maven from Nexus). Docker executor only
+      with an internal image — do not pull from Docker Hub on an air-gapped guest.
   - term: Podman
     definition: >
       Daemonless container engine on RHEL 10. Course default runtime is still a VM, not
