@@ -44,7 +44,7 @@ Language app deps          OS packages
       │                        │
       └────────►  Nexus  ◄─────┘
                    ▲
-              CI (Jenkins) publish
+              CI (GitLab) publish
 ```
 
 ---
@@ -421,7 +421,7 @@ When a build fails with “Could not resolve…”:
 4. Artifact not yet published  
 5. Version typo  
 
-Coordinate with **Jenkins** (SW track CI module): CI often publishes; apps consume.
+Coordinate with **GitLab CI/CD** (SW track CI module): the pipeline often publishes; apps consume.
 
 ---
 
@@ -470,7 +470,7 @@ Coordinate with **Jenkins** (SW track CI module): CI often publishes; apps consu
 | uv | [docs.astral.sh/uv](https://docs.astral.sh/uv/) |
 | Maven | [maven.apache.org](https://maven.apache.org/guides/) · `mvn -o` |
 | Nexus | [Sonatype Nexus docs](https://help.sonatype.com/repomanager3) |
-| Program CI | SW module **CI/CD and Jenkins** |
+| Program CI | SW module **CI/CD and GitLab** |
 
 ## Next
 

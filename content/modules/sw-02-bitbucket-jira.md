@@ -19,6 +19,7 @@ You will **learn what the program does**, then **practice the same habits** on C
 | Work item / ticket | **Jira** Deficiency Report (`DR-###`) | GitLab **Issue** (or paper/stand-in ticket with same `DR-###` key) |
 | Git remote host | **Bitbucket** | **GitLab** |
 | Review + integrate | Bitbucket **Pull Request (PR)** → `main` | GitLab **Merge Request (MR)** → `main` |
+| CI | **GitLab CI/CD** (`.gitlab-ci.yml`) | Same — not Jenkins, not GitHub Actions |
 | Artifacts / deps | **Nexus** | Nexus if provided, or Maven Central / lab mirror |
 | Git commands | Same (`clone`, `branch`, `commit`, `push`) | Same |
 
@@ -29,7 +30,7 @@ SAME DISCIPLINE                          DIFFERENT UI / HOST
 2. Branch named DR-123           →       Bitbucket    |  GitLab
 3. Commit + push                 →       git (identical)
 4. Request review into main      →       Pull Request |  Merge Request
-5. Review, CI, merge             →       Bitbucket UI |  GitLab UI
+5. Review, CI, merge             →       GitLab pipeline + MR UI
 6. Consume / publish jars        →       Nexus        |  lab Nexus or Central
 ```
 
@@ -110,8 +111,8 @@ On the **CISS Capstone** course host you practice with **GitLab**. Translate eac
 | Bitbucket **branch** `DR-42` | GitLab **branch** `DR-42` | Same branch name |
 | Bitbucket **Pull Request** | GitLab **Merge Request (MR)** | Request review into `main` |
 | Bitbucket **approve / merge** | GitLab **approve / merge** | Human review before integrate |
-| Pipeline on PR | Pipeline on MR (`.gitlab-ci.yml`) and/or **Jenkins** | Fix red pipelines before merge |
-| **Jenkins** (program CI) | Lab Jenkins and/or GitLab CI | Same idea: automated build/test |
+| Pipeline on PR | Pipeline on MR (`.gitlab-ci.yml`) | Fix red pipelines before merge |
+| CI server | **GitLab CI/CD** (jobs, runners) | Same idea: automated build/test. Not Jenkins. |
 | Nexus | Lab Nexus **or** public Central via lab mirror | Resolve deps; no secrets in Git |
 
 ### B1. Clone the CISS GitLab project
@@ -195,6 +196,7 @@ Jira: open DR-42                     Issue or stand-in: DR-42
 git checkout -b DR-42                git checkout -b DR-42
 git push origin DR-42                git push origin DR-42
 Bitbucket: Pull Request → main       GitLab: Merge Request → main
+GitLab CI/CD pipeline must be green  GitLab CI/CD pipeline must be green
 Merge after review                   Merge after review
 Nexus serves / stores jars           Lab Nexus or Central
 ```
@@ -254,4 +256,4 @@ Offline fallback: write branch name, commit message, and full MR/PR body locally
 
 ## Next
 
-**From Python to Java** — translate your mental model; then **VS Code for Java** on `DR-###` branches. Later: **CI/CD and Jenkins**.
+**From Python to Java** — translate your mental model; then **VS Code for Java** on `DR-###` branches. Later: **CI/CD and GitLab**.

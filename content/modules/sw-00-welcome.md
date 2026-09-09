@@ -1,8 +1,8 @@
 # Software Development — Track Overview
 
 > **Track status:** active foundation path.  
-> **Program (work):** Jira (`DR-###`), Bitbucket PRs, **Jenkins** CI, Nexus.  
-> **CISS lab:** same habits on **GitLab** (MRs + pipelines) and/or lab Jenkins. Plus Java, PostgreSQL, ActiveMQ, JavaFX.  
+> **Program (work):** Jira (`DR-###`), Bitbucket PRs historically; **CISS ships on GitLab**.  
+> **CISS lab:** **GitLab** for git (MRs) **and** CI/CD (pipelines). Plus Java, PostgreSQL, ActiveMQ, JavaFX. **No Jenkins.**  
 > **Runtime:** labs use **VMs** (not Docker) for brokers, databases, and app hosts.
 
 ## Learning outcomes
@@ -11,7 +11,7 @@ After this overview you can:
 
 - Explain how **software development** supports the CISS selection pathway  
 - Distinguish **program tools** (Jira / Bitbucket / Nexus) from **CISS lab tools** (GitLab) while keeping one workflow  
-- Navigate the **module path** (Git → team workflow → **Python→Java** → Java tooling → data/messaging → daemons → JavaFX → **CI/CD/Jenkins**)  
+- Navigate the **module path** (Git → team workflow → **Python→Java** → Java tooling → data/messaging → daemons → JavaFX → **CI/CD / GitLab**)  
 - State the **hiring bar**: Python is a translation aid; **Java** is what the contract pays for  
 - Relate software craft to **systems engineering** artifacts (requirements, interfaces, V&V)  
 
@@ -23,7 +23,7 @@ CISS needs engineers who can **build and ship** software with discipline — not
 |-------|------------------------|
 | **Craft** | Clear design, readable code, sensible structure |
 | **Quality** | Tests, reviews, defect thinking |
-| **Delivery** | Jira DRs + Bitbucket PRs + **Jenkins** at work; **GitLab MRs/CI** in CISS lab; Nexus for artifacts |
+| **Delivery** | Jira DRs + review-into-`main`; **GitLab MRs + GitLab CI/CD**; Nexus for artifacts |
 | **Integration** | Databases, ActiveMQ, long-running workers, desktop UIs **on lab VMs** |
 | **Teamwork** | Review culture, integrity (same professionalism bar as SE) |
 
@@ -48,7 +48,7 @@ The bridge module sits **after Git/workflow** and **before** VS Code/Java labs. 
 | Ticket | **Jira** `DR-###` | GitLab Issue / stand-in still labeled `DR-###` |
 | Git host | **Bitbucket** | **GitLab** |
 | Review | **Pull Request** → `main` | **Merge Request** → `main` |
-| CI | **Jenkins** | GitLab CI and/or lab **Jenkins** |
+| CI | **GitLab CI/CD** (`.gitlab-ci.yml` + runner) | Same — **not Jenkins**, not GitHub Actions |
 | Artifacts | **Nexus** | Lab Nexus or Maven Central |
 | Runtime | **VMs** (vSphere / ESXi guests, **RHEL 10.2**) | Same — **not Docker as the default**; Podman is the native container tool if you must |
 | Git CLI | Same | Same |
@@ -57,9 +57,9 @@ The bridge module sits **after Git/workflow** and **before** VS Code/Java labs. 
 ### Standard change flow
 
 ```text
-PROGRAM:  Jira DR-123 → branch DR-123 → push Bitbucket → Jenkins CI → PR → main → Nexus
-CISS LAB: DR-123 → branch DR-123 → push GitLab → pipeline (GitLab CI / Jenkins) → MR → main
-                 ↑ same discipline, different host / button names
+CISS LAB:  DR-123 → branch DR-123 → push GitLab → GitLab CI/CD pipeline → MR → main → (Nexus)
+PROGRAM:   same discipline; git host may still be described as Bitbucket in old docs — CI for this course is GitLab
+                 ↑ ticket → branch → green pipeline → review → main
 ```
 
 ## Module path (this track)
@@ -74,7 +74,7 @@ CISS LAB: DR-123 → branch DR-123 → push GitLab → pipeline (GitLab CI / Jen
 | 6 | **AMQP with Java (ActiveMQ)** | Publish/consume JMS; factories / pooling |
 | 7 | **Java Daemons** | Long-running consumers and scheduled jobs |
 | 8 | **JavaFX for Desktop GUIs** | Operator/engineer desktop UIs |
-| 9 | **CI/CD and Jenkins** | Automated build/test/publish; map to GitLab CI |
+| 9 | **CI/CD and GitLab** | Automated build/test/publish with `.gitlab-ci.yml`; green pipeline before merge |
 
 ## Lab prerequisites (cumulative)
 
@@ -88,7 +88,7 @@ CISS LAB: DR-123 → branch DR-123 → push GitLab → pipeline (GitLab CI / Jen
 | ActiveMQ | **ActiveMQ on a lab VM** (`61616`, console often `8161`) |
 | Daemons | Prior ActiveMQ + optional Postgres on the same or linked VMs |
 | JavaFX | OpenJFX libs / javafx-maven-plugin (or lab template) |
-| CI/CD | Access to Jenkins and/or GitLab pipelines (instructor) |
+| CI/CD | GitLab project with a runner (instructor); `.gitlab-ci.yml` |
 
 Record **hostname / IP, port, username** for each service from the lab sheet — do not assume `localhost` unless your code runs on the same VM as the service.
 
