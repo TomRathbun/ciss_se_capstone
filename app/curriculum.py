@@ -400,7 +400,142 @@ def assignments_for_module(module_id: str) -> list[dict]:
 
 
 def load_schedule() -> dict:
-    return _read_yaml(CONTENT_DIR / "schedule" / "cohort.yaml") or {"sessions": []}
+    """Load cohort.yaml and resolve module/assignment ids to titles + tracks.
+
+    New schema uses `lanes` keyed by track id. Old flat `modules:` lists still
+    work — they become a single `se` lane so an un-migrated file does not 500.
+    """
+    raw = _read_yaml(CONTENT_DIR / "schedule" / "cohort.yaml") or {"sessions": []}
+    mod_by_id = {m["id"]: m for m in list_modules()}
+    asg_by_id = {a["id"]: a for a in list_assignments()}
+    track_map = _track_map()
+
+    def _resolve_mod(mid: str) -> dict:
+        m = mod_by_id.get(mid) or {}
+        tid = normalize_track_id(m.get("track") or "")
+        meta = track_map.get(tid) or {}
+        return {
+            "id": mid,
+            "title": m.get("title") or mid,
+            "track": tid or "se",
+            "track_short": meta.get("short") or (tid or "SE").upper(),
+            "track_color": meta.get("color") or tid or "se",
+        }
+
+    def _resolve_asg(aid: str) -> dict:
+        a = asg_by_id.get(aid) or {}
+        tid = normalize_track_id(a.get("track") or "")
+        meta = track_map.get(tid) or {}
+        return {
+            "id": aid,
+            "title": a.get("title") or aid,
+            "track": tid or "se",
+            "track_short": meta.get("short") or (tid or "SE").upper(),
+            "track_color": meta.get("color") or tid or "se",
+        }
+
+    def _lane(raw_lane: dict, track_id: str) -> dict:
+        meta = track_map.get(track_id) or {}
+        return {
+            "track": track_id,
+            "track_short": meta.get("short") or track_id.upper(),
+            "track_color": meta.get("color") or track_id,
+            "track_title": meta.get("title") or track_id,
+            "title": raw_lane.get("title") or "",
+            "modules": [_resolve_mod(x) for x in (raw_lane.get("modules") or [])],
+            "assignment_assigned": [
+                _resolve_asg(x) for x in (raw_lane.get("assignment_assigned") or [])
+            ],
+            "assignment_due": [
+                _resolve_asg(x) for x in (raw_lane.get("assignment_due") or [])
+            ],
+        }
+
+    sessions: list[dict] = []
+    for s in raw.get("sessions") or []:
+        row = dict(s)
+        audience = row.get("audience") or "track"
+        row["audience"] = audience
+        row["common"] = audience == "all" or bool(row.get("common"))
+        lanes_raw = row.get("lanes")
+        if not lanes_raw:
+            # Back-compat: old SE-only sessions.
+            lanes_raw = {
+                "se": {
+                    "modules": row.get("modules") or [],
+                    "assignment_assigned": row.get("assignment_assigned") or [],
+                    "assignment_due": row.get("assignment_due") or [],
+                }
+            }
+        row["lane_list"] = [_lane(v, k) for k, v in lanes_raw.items()]
+        sessions.append(row)
+
+    weeks: list[dict] = []
+    by_week: dict[int, dict] = {}
+    for s in sessions:
+        w = int(s.get("week") or 0)
+        bucket = by_week.get(w)
+        if bucket is None:
+            bucket = {
+                "week": w,
+                "common": False,
+                "phase": "foundation",
+                "sessions": [],
+            }
+            by_week[w] = bucket
+            weeks.append(bucket)
+        bucket["sessions"].append(s)
+        if s.get("common"):
+            bucket["common"] = True
+        if w >= 14:
+            bucket["phase"] = "capstone"
+        elif w >= 12:
+            bucket["phase"] = "case"
+        elif w >= 10:
+            bucket["phase"] = "military"
+        else:
+            bucket["phase"] = "foundation"
+
+    out = dict(raw)
+    out["sessions"] = sessions
+    out["weeks"] = weeks
+    return out
+
+
+def filter_schedule(schedule: dict, track_id: str | None) -> dict:
+    """Keep one intern's lane plus military (common to every track).
+
+    `audience: all` sessions (military weeks, PRSAS kickoff/demo) stay in full
+    so a filtered view still shows the room everyone sits in together.
+    """
+    if not track_id:
+        return schedule
+    weeks: list[dict] = []
+    for w in schedule.get("weeks") or []:
+        sessions: list[dict] = []
+        for s in w.get("sessions") or []:
+            lanes = s.get("lane_list") or []
+            if s.get("common"):
+                vis = list(lanes)
+            else:
+                vis = [
+                    lane
+                    for lane in lanes
+                    if lane.get("track") in {track_id, "mil"}
+                ]
+            if not vis:
+                continue
+            row = dict(s)
+            row["lane_list"] = vis
+            sessions.append(row)
+        if not sessions:
+            continue
+        bucket = dict(w)
+        bucket["sessions"] = sessions
+        weeks.append(bucket)
+    out = dict(schedule)
+    out["weeks"] = weeks
+    return out
 
 
 def load_glossary() -> list[dict]:

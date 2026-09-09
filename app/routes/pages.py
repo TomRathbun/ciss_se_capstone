@@ -42,6 +42,7 @@ from app.curriculum import (
     modules_for_export,
     load_glossary,
     load_schedule,
+    filter_schedule,
     load_selection_criteria,
     module_neighbors,
     modules_by_track,
@@ -385,11 +386,25 @@ async def assignment_submit(
 
 
 @router.get("/schedule", response_class=HTMLResponse)
-async def schedule_page(request: Request, db: Session = Depends(get_db)):
+async def schedule_page(
+    request: Request,
+    db: Session = Depends(get_db),
+    track: str | None = None,
+):
+    tid = normalize_track_id(track) if track else None
+    if tid and tid not in {t["id"] for t in list_tracks()}:
+        tid = None
     return templates.TemplateResponse(
         "schedule.html",
-        _ctx(request, db, schedule=load_schedule()),
+        _ctx(
+            request,
+            db,
+            schedule=filter_schedule(load_schedule(), tid),
+            tracks=list_tracks(),
+            track_filter=tid,
+        ),
     )
+
 
 
 @router.get("/glossary", response_class=HTMLResponse)

@@ -1,301 +1,747 @@
-# Default cohort rhythm: Monday deep session, Thursday Q&A / grade
+# CISS intern cohort — Monday deep session, Thursday Q&A / grade.
 # Instructor can skip lecture weeks and insert ops-only or project weeks.
 #
-# One SE module per Monday (Week 1 pairs welcome + what-is-SE).
-# Thursday is the check for that week's take-home.
-# Software, Networking, and SysAdmin tracks run their own module order
-# in parallel (NET: net-00-welcome … net-10-troubleshoot on older Juniper).
+# Model (this is a multi-track course, not SE-only):
+#   Weeks 1–9   each intern is in ONE discipline room (SE / SW / NET / ADMIN)
+#   Weeks 10–11 MILITARY is COMMON — every intern, every track
+#   Weeks 12–13 leftover discipline modules + SE living case (others may sit in)
+#   Weeks 14–18 PRSAS capstone — all tracks in the same problem
+#
+# Session `audience`:
+#   track — intern attends their primary-track lane only
+#   all   — everyone in the room (military + PRSAS kickoff / demo)
+#
+# Lanes are keyed by catalog track id (se, sw, net, admin, mil).
 
 cohort_id: 2026-UAE-interns
 timezone: Asia/Dubai
+tracks_in_parallel: [se, sw, net, admin]
+common_track: mil
 pattern: >
-  Typical week: Monday 3–4h introduce one SE module + workshop.
-  Thursday shorter: questions, peer review, grading of that week's assignment.
-  Military ops weeks sit after the SE spine (V&V), then the ETAS walk and SA preview.
+  Typical week: Monday 3–4h introduce that track’s module + workshop.
+  Thursday shorter: questions, peer review, grading of that week’s assignment.
+  Four discipline tracks run in PARALLEL (an intern is in one room).
+  Military ops weeks (10–11) are COMMON to every intern regardless of track.
+  PRSAS (14–18) is a joint capstone; each track still owns its artifacts.
 
 sessions:
+  # ---------- Week 1 — kickoff ----------
   - id: w1-mon
     week: 1
     day: Monday
-    title: Kickoff — Welcome, selection, what SE is
-    modules: [se-00-welcome, se-01-what-is-se]
+    title: Discipline kickoff
     type: lecture_workshop
-    assignment_assigned: [se-a00-track-plan, se-a01-se-literacy]
+    audience: track
+    lanes:
+      se:
+        title: Welcome, selection, what SE is
+        modules: [se-00-welcome, se-01-what-is-se]
+        assignment_assigned: [se-a00-track-plan, se-a01-se-literacy]
+      sw:
+        title: SW welcome + Git daily loop
+        modules: [sw-00-welcome, sw-01-git]
+        assignment_assigned: [sw-a00-track-plan, sw-a01-git-practice]
+      net:
+        title: NET welcome + general networking
+        modules: [net-00-welcome, net-01-general]
+        assignment_assigned: [net-a00-track-plan, net-a01-general]
+      admin:
+        title: Admin welcome + RHEL 10.2 survival
+        modules: [admin-00-welcome, admin-01-rhel10-linux]
+        assignment_assigned: [admin-a00-track-plan, admin-a01-linux-lab]
 
   - id: w1-thu
     week: 1
     day: Thursday
-    title: Q&A — SE-A00 + SE-A01 due
-    modules: [se-00-welcome, se-01-what-is-se]
+    title: Q&A — week-1 plans + first lab
     type: qa_grade
-    assignment_due: [se-a00-track-plan, se-a01-se-literacy]
+    audience: track
+    lanes:
+      se:
+        modules: [se-00-welcome, se-01-what-is-se]
+        assignment_due: [se-a00-track-plan, se-a01-se-literacy]
+      sw:
+        modules: [sw-00-welcome, sw-01-git]
+        assignment_due: [sw-a00-track-plan, sw-a01-git-practice]
+      net:
+        modules: [net-00-welcome, net-01-general]
+        assignment_due: [net-a00-track-plan, net-a01-general]
+      admin:
+        modules: [admin-00-welcome, admin-01-rhel10-linux]
+        assignment_due: [admin-a00-track-plan, admin-a01-linux-lab]
 
+  # ---------- Week 2 ----------
   - id: w2-mon
     week: 2
     day: Monday
-    title: Vision, stakeholders & needs
-    modules: [se-02-stakeholders]
+    title: Foundations
     type: lecture_workshop
-    assignment_assigned: [a1-context]
+    audience: track
+    lanes:
+      se:
+        title: Vision, stakeholders & needs
+        modules: [se-02-stakeholders]
+        assignment_assigned: [a1-context]
+      sw:
+        title: Team workflow — Jira/Bitbucket → GitLab
+        modules: [sw-02-bitbucket-jira]
+        assignment_assigned: [sw-a02-workflow-mr]
+      net:
+        title: Network foundations — addressing & path
+        modules: [net-01-foundations]
+        assignment_assigned: [net-a01-addressing]
+      admin:
+        title: Bash programming for admins
+        modules: [admin-02-bash]
+        assignment_assigned: [admin-a02-bash-script]
 
   - id: w2-thu
     week: 2
     day: Thursday
-    title: A1 due — vision / needs / context
-    modules: [se-02-stakeholders]
+    title: Q&A — week-2 take-homes
     type: qa_grade
-    assignment_due: [a1-context]
+    audience: track
+    lanes:
+      se:
+        modules: [se-02-stakeholders]
+        assignment_due: [a1-context]
+      sw:
+        modules: [sw-02-bitbucket-jira]
+        assignment_due: [sw-a02-workflow-mr]
+      net:
+        modules: [net-01-foundations]
+        assignment_due: [net-a01-addressing]
+      admin:
+        modules: [admin-02-bash]
+        assignment_due: [admin-a02-bash-script]
 
+  # ---------- Week 3 ----------
   - id: w3-mon
     week: 3
     day: Monday
-    title: Use cases from needs
-    modules: [se-03-usecases]
+    title: Use cases / Java bridge / Junos / packages
     type: lecture_workshop
-    assignment_assigned: [se-a03-usecases]
+    audience: track
+    lanes:
+      se:
+        title: Use cases from needs
+        modules: [se-03-usecases]
+        assignment_assigned: [se-a03-usecases]
+      sw:
+        title: From Python to Java
+        modules: [sw-03-python-java]
+        assignment_assigned: [sw-a03-python-java]
+      net:
+        title: Junos CLI and the commit model
+        modules: [net-02-junos-cli]
+        assignment_assigned: [net-a02-junos-cli]
+      admin:
+        title: Package management (incl. air-gap)
+        modules: [admin-03-package-management]
+        assignment_assigned: [admin-a03-packages]
 
   - id: w3-thu
     week: 3
     day: Thursday
-    title: SE-A03 due — use-case briefs
-    modules: [se-03-usecases]
+    title: Q&A — week-3 take-homes
     type: qa_grade
-    assignment_due: [se-a03-usecases]
+    audience: track
+    lanes:
+      se:
+        modules: [se-03-usecases]
+        assignment_due: [se-a03-usecases]
+      sw:
+        modules: [sw-03-python-java]
+        assignment_due: [sw-a03-python-java]
+      net:
+        modules: [net-02-junos-cli]
+        assignment_due: [net-a02-junos-cli]
+      admin:
+        modules: [admin-03-package-management]
+        assignment_due: [admin-a03-packages]
 
+  # ---------- Week 4 ----------
   - id: w4-mon
     week: 4
     day: Monday
-    title: Requirements & acceptance criteria
-    modules: [se-04-requirements]
+    title: Requirements / Java tooling / switching / TLS
     type: lecture_workshop
-    assignment_assigned: [a2-requirements]
+    audience: track
+    lanes:
+      se:
+        title: Requirements & acceptance criteria
+        modules: [se-04-requirements]
+        assignment_assigned: [a2-requirements]
+      sw:
+        title: VS Code for Java
+        modules: [sw-03-vscode-java]
+        assignment_assigned: [sw-a03-java-env]
+      net:
+        title: EX switching — VLANs, trunks, VC
+        modules: [net-03-switching]
+        assignment_assigned: [net-a03-switching]
+      admin:
+        title: TLS certificate management (inspect + lab CA)
+        modules: [admin-04-tls-certs]
+        assignment_assigned: [admin-a04-tls, admin-a04-lab-ca, admin-a04-operate]
 
   - id: w4-thu
     week: 4
     day: Thursday
-    title: A2 draft coaching (4 FRs + 2 ACs minimum)
-    modules: [se-04-requirements]
+    title: Q&A — week-4 take-homes (TLS is a long week)
     type: qa_grade
+    audience: track
+    lanes:
+      se:
+        modules: [se-04-requirements]
+      sw:
+        modules: [sw-03-vscode-java]
+        assignment_due: [sw-a03-java-env]
+      net:
+        modules: [net-03-switching]
+        assignment_due: [net-a03-switching]
+      admin:
+        modules: [admin-04-tls-certs]
+        assignment_due: [admin-a04-tls, admin-a04-lab-ca, admin-a04-operate]
 
+  # ---------- Week 5 ----------
   - id: w5-mon
     week: 5
     day: Monday
-    title: Architecture views & allocation
-    modules: [se-05-architecture]
+    title: Architecture / JDBC / SRX / IDM
     type: lecture_workshop
-    assignment_assigned: [se-a05-architecture]
+    audience: track
+    lanes:
+      se:
+        title: Architecture views & allocation
+        modules: [se-05-architecture]
+        assignment_assigned: [se-a05-architecture]
+      sw:
+        title: PostgreSQL with Java (JDBC)
+        modules: [sw-04-java-postgresql]
+        assignment_assigned: [sw-a04-jdbc]
+      net:
+        title: SRX — zones, policy, NAT
+        modules: [net-04-srx-firewall]
+        assignment_assigned: [net-a04-srx-zones]
+      admin:
+        title: Identity — AD and FreeIPA
+        modules: [admin-05-idm-ad-ipa]
+        assignment_assigned: [admin-a05-idm]
 
   - id: w5-thu
     week: 5
     day: Thursday
-    title: A2 final + SE-A05 due
-    modules: [se-04-requirements, se-05-architecture]
+    title: Q&A — week-5 take-homes
     type: qa_grade
-    assignment_due: [a2-requirements, se-a05-architecture]
+    audience: track
+    lanes:
+      se:
+        modules: [se-04-requirements, se-05-architecture]
+        assignment_due: [a2-requirements, se-a05-architecture]
+      sw:
+        modules: [sw-04-java-postgresql]
+        assignment_due: [sw-a04-jdbc]
+      net:
+        modules: [net-04-srx-firewall]
+        assignment_due: [net-a04-srx-zones]
+      admin:
+        modules: [admin-05-idm-ad-ipa]
+        assignment_due: [admin-a05-idm]
 
+  # ---------- Week 6 ----------
   - id: w6-mon
     week: 6
     day: Monday
-    title: Behavior — states & sequences
-    modules: [se-06-behavior]
+    title: Behavior / AMQP / OSPF / NFS
     type: lecture_workshop
-    assignment_assigned: [a3-behavior]
+    audience: track
+    lanes:
+      se:
+        title: Behavior — states & sequences
+        modules: [se-06-behavior]
+        assignment_assigned: [a3-behavior]
+      sw:
+        title: AMQP with Java (ActiveMQ)
+        modules: [sw-05-java-amqp]
+        assignment_assigned: [sw-a05-amqp]
+      net:
+        title: Interior routing — statics and OSPF
+        modules: [net-05-igp-ospf]
+        assignment_assigned: [net-a05-ospf]
+      admin:
+        title: NFS setup and configuration
+        modules: [admin-06-nfs]
+        assignment_assigned: [admin-a06-nfs]
 
   - id: w6-thu
     week: 6
     day: Thursday
-    title: A3 due — state + sequence
-    modules: [se-06-behavior]
+    title: Q&A — week-6 take-homes
     type: qa_grade
-    assignment_due: [a3-behavior]
+    audience: track
+    lanes:
+      se:
+        modules: [se-06-behavior]
+        assignment_due: [a3-behavior]
+      sw:
+        modules: [sw-05-java-amqp]
+        assignment_due: [sw-a05-amqp]
+      net:
+        modules: [net-05-igp-ospf]
+        assignment_due: [net-a05-ospf]
+      admin:
+        modules: [admin-06-nfs]
+        assignment_due: [admin-a06-nfs]
 
+  # ---------- Week 7 ----------
   - id: w7-mon
     week: 7
     day: Monday
-    title: Interfaces & ICDs
-    modules: [se-07-interfaces]
+    title: ICDs / daemons / BGP / vSphere
     type: lecture_workshop
-    assignment_assigned: [a7-icd-messaging-api]
+    audience: track
+    lanes:
+      se:
+        title: Interfaces & ICDs
+        modules: [se-07-interfaces]
+        assignment_assigned: [a7-icd-messaging-api]
+      sw:
+        title: Java daemons and background services
+        modules: [sw-06-java-daemons]
+        assignment_assigned: [sw-a06-daemon]
+      net:
+        title: BGP — external and internal
+        modules: [net-06-bgp]
+        assignment_assigned: [net-a06-bgp]
+      admin:
+        title: vSphere, vSAN, VDI, ESXi
+        modules: [admin-07-vsphere-vsan-vdi]
+        assignment_assigned: [admin-a07-vsphere]
 
   - id: w7-thu
     week: 7
     day: Thursday
-    title: A7 due — messaging + API ICD
-    modules: [se-07-interfaces]
+    title: Q&A — week-7 take-homes
     type: qa_grade
-    assignment_due: [a7-icd-messaging-api]
+    audience: track
+    lanes:
+      se:
+        modules: [se-07-interfaces]
+        assignment_due: [a7-icd-messaging-api]
+      sw:
+        modules: [sw-06-java-daemons]
+        assignment_due: [sw-a06-daemon]
+      net:
+        modules: [net-06-bgp]
+        assignment_due: [net-a06-bgp]
+      admin:
+        modules: [admin-07-vsphere-vsan-vdi]
+        assignment_due: [admin-a07-vsphere]
 
+  # ---------- Week 8 ----------
   - id: w8-mon
     week: 8
     day: Monday
-    title: Architecture frameworks & MBSE literacy
-    modules: [se-11-mbse-frameworks]
+    title: MBSE / JavaFX / MPLS / Postgres admin
     type: lecture_workshop
-    assignment_assigned: [se-a11-mbse-literacy]
+    audience: track
+    lanes:
+      se:
+        title: Architecture frameworks & MBSE literacy
+        modules: [se-11-mbse-frameworks]
+        assignment_assigned: [se-a11-mbse-literacy]
+      sw:
+        title: JavaFX for desktop GUIs
+        modules: [sw-07-javafx-gui]
+        assignment_assigned: [sw-a07-javafx]
+      net:
+        title: MPLS tunnels — LDP, RSVP-TE, L3VPN
+        modules: [net-07-mpls]
+        assignment_assigned: [net-a07-mpls]
+      admin:
+        title: PostgreSQL for admins
+        modules: [admin-08-postgres-admin]
+        assignment_assigned: [admin-a08-postgres]
 
   - id: w8-thu
     week: 8
     day: Thursday
-    title: SE-A11 due — literacy brief
-    modules: [se-11-mbse-frameworks]
+    title: Q&A — week-8 take-homes
     type: qa_grade
-    assignment_due: [se-a11-mbse-literacy]
+    audience: track
+    lanes:
+      se:
+        modules: [se-11-mbse-frameworks]
+        assignment_due: [se-a11-mbse-literacy]
+      sw:
+        modules: [sw-07-javafx-gui]
+        assignment_due: [sw-a07-javafx]
+      net:
+        modules: [net-07-mpls]
+        assignment_due: [net-a07-mpls]
+      admin:
+        modules: [admin-08-postgres-admin]
+        assignment_due: [admin-a08-postgres]
 
+  # ---------- Week 9 ----------
   - id: w9-mon
     week: 9
     day: Monday
-    title: Verification, validation & traceability
-    modules: [se-08-vv-trace]
+    title: V&V / GitLab CI / IPsec / troubleshooting
     type: lecture_workshop
-    assignment_assigned: [a4-trace-vv]
+    audience: track
+    lanes:
+      se:
+        title: Verification, validation & traceability
+        modules: [se-08-vv-trace]
+        assignment_assigned: [a4-trace-vv]
+      sw:
+        title: CI/CD and GitLab
+        modules: [sw-08-gitlab-cicd]
+        assignment_assigned: [sw-a08-cicd]
+      net:
+        title: Encryptors and IPsec
+        modules: [net-08-encryptors]
+        assignment_assigned: [net-a08-encryptors]
+      admin:
+        title: Troubleshooting methodology
+        modules: [admin-09-troubleshooting]
+        assignment_assigned: [admin-a09-troubleshoot]
 
   - id: w9-thu
     week: 9
     day: Thursday
-    title: A4 due — RTM + V&V plan
-    modules: [se-08-vv-trace]
+    title: Q&A — week-9 take-homes
     type: qa_grade
-    assignment_due: [a4-trace-vv]
+    audience: track
+    lanes:
+      se:
+        modules: [se-08-vv-trace]
+        assignment_due: [a4-trace-vv]
+      sw:
+        modules: [sw-08-gitlab-cicd]
+        assignment_due: [sw-a08-cicd]
+      net:
+        modules: [net-08-encryptors]
+        assignment_due: [net-a08-encryptors]
+      admin:
+        modules: [admin-09-troubleshooting]
+        assignment_due: [admin-a09-troubleshoot]
 
+  # ---------- Weeks 10–11 MILITARY — COMMON TO ALL TRACKS ----------
   - id: w10-mon
     week: 10
     day: Monday
-    title: Military ops — UAE context, CONOPS/AOC
-    modules: [ops-uae-military, ops-00-conops-aoc]
+    title: Military ops — UAE context, CONOPS / AOC
     type: lecture_ops
-    assignment_assigned: [a5-ops-mission]
+    audience: all
+    lanes:
+      mil:
+        title: All interns — UAE military context + CONOPS/AOC
+        modules: [ops-uae-military, ops-00-conops-aoc]
+        assignment_assigned: [a5-ops-mission]
 
   - id: w10-thu
     week: 10
     day: Thursday
-    title: A5 coaching — mission-card draft
-    modules: [ops-00-conops-aoc]
+    title: A5 coaching — mission-card draft (all tracks)
     type: qa_grade
+    audience: all
+    lanes:
+      mil:
+        modules: [ops-00-conops-aoc]
 
   - id: w11-mon
     week: 11
     day: Monday
     title: Military ops — ATO planning, execution, platforms
-    modules: [ops-01-ato-planning, ops-02-ato-execution, ops-03-weapons-context]
     type: lecture_ops
+    audience: all
+    lanes:
+      mil:
+        title: All interns — ATO + weapons/platforms context
+        modules: [ops-01-ato-planning, ops-02-ato-execution, ops-03-weapons-context]
 
   - id: w11-thu
     week: 11
     day: Thursday
-    title: A5 due — mission card + execution annex
-    modules: [ops-01-ato-planning]
+    title: A5 due — mission card + execution annex (all tracks)
     type: qa_grade
-    assignment_due: [a5-ops-mission]
+    audience: all
+    lanes:
+      mil:
+        modules: [ops-01-ato-planning]
+        assignment_due: [a5-ops-mission]
 
+  # ---------- Weeks 12–13 leftover + SE living case ----------
   - id: w12-mon
     week: 12
     day: Monday
-    title: Living case study — SDC Time Tracker (ETAS)
-    modules: [se-09-case-etas]
+    title: Living case / leftover modules
     type: case_study
-    assignment_assigned: [se-a09-etas-walk]
+    audience: track
+    lanes:
+      se:
+        title: Living case — SDC Time Tracker (ETAS)
+        modules: [se-09-case-etas]
+        assignment_assigned: [se-a09-etas-walk]
+      sw:
+        title: Sit with SE on ETAS — how Java/AMQ/DB show up in a real system
+        modules: [se-09-case-etas]
+      net:
+        title: HA and change control
+        modules: [net-09-ha-change]
+        assignment_assigned: [net-a09-change-ha]
+      admin:
+        title: Documentation and trouble tickets
+        modules: [admin-10-documentation-tickets]
+        assignment_assigned: [admin-a10-tickets]
 
   - id: w12-thu
     week: 12
     day: Thursday
-    title: SE-A09 due — artifact hunt
-    modules: [se-09-case-etas]
+    title: Q&A — week-12 take-homes
     type: qa_grade
-    assignment_due: [se-a09-etas-walk]
+    audience: track
+    lanes:
+      se:
+        modules: [se-09-case-etas]
+        assignment_due: [se-a09-etas-walk]
+      sw:
+        modules: [se-09-case-etas]
+      net:
+        modules: [net-09-ha-change]
+        assignment_due: [net-a09-change-ha]
+      admin:
+        modules: [admin-10-documentation-tickets]
+        assignment_due: [admin-a10-tickets]
 
-  - id: later
+  - id: w13-mon
     week: 13
     day: Monday
-    title: Capstone preview — radar SA framing
-    modules: [se-10-capstone-preview]
+    title: Capstone preview / leftover modules
     type: project
-    assignment_assigned: [se-a10-sa-framing]
+    audience: track
+    lanes:
+      se:
+        title: Capstone preview — radar SA framing
+        modules: [se-10-capstone-preview]
+        assignment_assigned: [se-a10-sa-framing]
+      sw:
+        title: Sit with SE on SA framing — ICD the SW track will implement
+        modules: [se-10-capstone-preview]
+      net:
+        title: Network troubleshooting on Junos
+        modules: [net-10-troubleshoot]
+        assignment_assigned: [net-a10-troubleshoot]
+      admin:
+        title: Sit with SE on SA framing — hosts, certs, and Postgres the SA needs
+        modules: [se-10-capstone-preview]
 
-  - id: later-thu
+  - id: w13-thu
     week: 13
     day: Thursday
-    title: SE-A10 due — SA framing pack
-    modules: [se-10-capstone-preview]
+    title: Q&A — week-13 take-homes
     type: qa_grade
-    assignment_due: [se-a10-sa-framing]
+    audience: track
+    lanes:
+      se:
+        modules: [se-10-capstone-preview]
+        assignment_due: [se-a10-sa-framing]
+      sw:
+        modules: [se-10-capstone-preview]
+      net:
+        modules: [net-10-troubleshoot]
+        assignment_due: [net-a10-troubleshoot]
+      admin:
+        modules: [se-10-capstone-preview]
 
+  # ---------- Weeks 14–18 PRSAS — joint capstone ----------
   - id: w14-mon
     week: 14
     day: Monday
     title: PRSAS kickoff — shared contracts (all tracks)
-    modules: [se-12-prsas-overview]
     type: project
-    assignment_assigned: [se-a12-prsas-overview]
+    audience: all
+    lanes:
+      se:
+        title: Shared kickoff — interface & ownership map
+        modules: [se-12-prsas-overview]
+        assignment_assigned: [se-a12-prsas-overview]
 
   - id: w14-thu
     week: 14
     day: Thursday
     title: SE-A12 due — interface & ownership map
-    modules: [se-12-prsas-overview]
     type: qa_grade
-    assignment_due: [se-a12-prsas-overview]
+    audience: all
+    lanes:
+      se:
+        modules: [se-12-prsas-overview]
+        assignment_due: [se-a12-prsas-overview]
 
   - id: w15-mon
     week: 15
     day: Monday
-    title: PRSAS — CONOPS / simulator / topology / provision (parallel tracks)
-    modules: [se-13-prsas-conops, sw-09-prsas-simulator, net-11-prsas-topology, admin-11-prsas-provision, ops-04-prsas-picture]
+    title: PRSAS — CONOPS / simulator / topology / provision / picture
     type: project
-    assignment_assigned: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
+    audience: track
+    lanes:
+      se:
+        title: PRSAS CONOPS
+        modules: [se-13-prsas-conops]
+        assignment_assigned: [se-a13-prsas-conops]
+      sw:
+        title: Radar message simulator
+        modules: [sw-09-prsas-simulator]
+        assignment_assigned: [sw-a09-prsas-simulator]
+      net:
+        title: Three-site topology
+        modules: [net-11-prsas-topology]
+        assignment_assigned: [net-a11-prsas-topology]
+      admin:
+        title: VM provisioning
+        modules: [admin-11-prsas-provision]
+        assignment_assigned: [admin-a11-prsas-provision]
+      mil:
+        title: Operator picture (common literacy)
+        modules: [ops-04-prsas-picture]
+        assignment_assigned: [mil-a04-prsas-picture]
 
   - id: w15-thu
     week: 15
     day: Thursday
     title: PRSAS week-15 artifacts due
-    modules: [se-13-prsas-conops]
     type: qa_grade
-    assignment_due: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
+    audience: track
+    lanes:
+      se:
+        modules: [se-13-prsas-conops]
+        assignment_due: [se-a13-prsas-conops]
+      sw:
+        modules: [sw-09-prsas-simulator]
+        assignment_due: [sw-a09-prsas-simulator]
+      net:
+        modules: [net-11-prsas-topology]
+        assignment_due: [net-a11-prsas-topology]
+      admin:
+        modules: [admin-11-prsas-provision]
+        assignment_due: [admin-a11-prsas-provision]
+      mil:
+        modules: [ops-04-prsas-picture]
+        assignment_due: [mil-a04-prsas-picture]
 
   - id: w16-mon
     week: 16
     day: Monday
-    title: PRSAS — schema & MBSE / daemon / IPsec / IDM-certs
-    modules: [se-14-prsas-mbse-schema, sw-10-prsas-daemon, net-12-prsas-secure-path, admin-12-prsas-idm-certs]
+    title: PRSAS — schema / daemon / IPsec / IDM-certs
     type: project
-    assignment_assigned: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
+    audience: track
+    lanes:
+      se:
+        title: MBSE artifacts & track schema
+        modules: [se-14-prsas-mbse-schema]
+        assignment_assigned: [se-a14-prsas-mbse-schema]
+      sw:
+        title: Track processing daemon
+        modules: [sw-10-prsas-daemon]
+        assignment_assigned: [sw-a10-prsas-daemon]
+      net:
+        title: Firewalls & site-to-site IPsec
+        modules: [net-12-prsas-secure-path]
+        assignment_assigned: [net-a12-prsas-secure-path]
+      admin:
+        title: Identity & lab certificates
+        modules: [admin-12-prsas-idm-certs]
+        assignment_assigned: [admin-a12-prsas-idm-certs]
 
   - id: w16-thu
     week: 16
     day: Thursday
     title: PRSAS week-16 artifacts due
-    modules: [se-14-prsas-mbse-schema]
     type: qa_grade
-    assignment_due: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
+    audience: track
+    lanes:
+      se:
+        modules: [se-14-prsas-mbse-schema]
+        assignment_due: [se-a14-prsas-mbse-schema]
+      sw:
+        modules: [sw-10-prsas-daemon]
+        assignment_due: [sw-a10-prsas-daemon]
+      net:
+        modules: [net-12-prsas-secure-path]
+        assignment_due: [net-a12-prsas-secure-path]
+      admin:
+        modules: [admin-12-prsas-idm-certs]
+        assignment_due: [admin-a12-prsas-idm-certs]
 
   - id: w17-mon
     week: 17
     day: Monday
     title: PRSAS — client, validate, harden; virt study opens
-    modules: [sw-11-prsas-client, net-13-prsas-validate, admin-13-prsas-harden-automate, se-15-prsas-virt-lessons]
     type: project
-    assignment_assigned: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate, se-a15-prsas-virt-lessons]
+    audience: track
+    lanes:
+      se:
+        title: Virtualization study & lessons-learned (opens)
+        modules: [se-15-prsas-virt-lessons]
+        assignment_assigned: [se-a15-prsas-virt-lessons]
+      sw:
+        title: Situational awareness client
+        modules: [sw-11-prsas-client]
+        assignment_assigned: [sw-a11-prsas-client]
+      net:
+        title: Path validation & config guide
+        modules: [net-13-prsas-validate]
+        assignment_assigned: [net-a13-prsas-validate]
+      admin:
+        title: Host hardening & deployment automation
+        modules: [admin-13-prsas-harden-automate]
+        assignment_assigned: [admin-a13-prsas-harden-automate]
 
   - id: w17-thu
     week: 17
     day: Thursday
     title: PRSAS week-17 artifacts due
-    modules: [sw-11-prsas-client]
     type: qa_grade
-    assignment_due: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate]
+    audience: track
+    lanes:
+      sw:
+        modules: [sw-11-prsas-client]
+        assignment_due: [sw-a11-prsas-client]
+      net:
+        modules: [net-13-prsas-validate]
+        assignment_due: [net-a13-prsas-validate]
+      admin:
+        modules: [admin-13-prsas-harden-automate]
+        assignment_due: [admin-a13-prsas-harden-automate]
 
   - id: w18-mon
     week: 18
     day: Monday
     title: PRSAS integration demo & lessons-learned
-    modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
     type: project
-    assignment_assigned: [sw-a12-prsas-integrate]
+    audience: all
+    lanes:
+      se:
+        title: Lessons-learned close-out
+        modules: [se-15-prsas-virt-lessons]
+      sw:
+        title: Integration & demo
+        modules: [sw-12-prsas-integrate]
+        assignment_assigned: [sw-a12-prsas-integrate]
 
   - id: w18-thu
     week: 18
     day: Thursday
-    title: SW-A12 + SE-A15 due — close-out
-    modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
+    title: Close-out — SW-A12 + SE-A15
     type: qa_grade
-    assignment_due: [sw-a12-prsas-integrate, se-a15-prsas-virt-lessons]
-
+    audience: all
+    lanes:
+      se:
+        modules: [se-15-prsas-virt-lessons]
+        assignment_due: [se-a15-prsas-virt-lessons]
+      sw:
+        modules: [sw-12-prsas-integrate]
+        assignment_due: [sw-a12-prsas-integrate]
