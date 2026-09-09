@@ -10,7 +10,7 @@ After this module you can:
 - Create **service principals / users** for daemon, AMQ, and operators  
 - Run a **lab CA** and issue TLS certs for AMQ, Postgres (optional), and clients  
 - Install trust bundles on every PRSAS VM  
-- Diagnose **name mismatch, expired, incomplete chain** without pasting private keys (you already practiced this in **ADMIN-A04B**)  
+- Diagnose **name mismatch, expired, incomplete chain** without pasting private keys (you already practiced this in **ADMIN-A04B** / **A04C**)  
 
 ## Identity model
 
@@ -35,7 +35,7 @@ If IPA cannot be fully built this week, document the **gap** and use a local `ss
 | `trk-c-01` client | clientAuth | daemon trust/key |
 | UI / browser | clientAuth or user cert | `ui-c-01` |
 
-ActiveMQ TLS listens on **61617**. Need **server cert + CA**. Mutual TLS is extra credit if the week allows. The lab-CA workflow is **admin-04** (ADMIN-A04B); this module installs that identity on the PRSAS VMs.
+ActiveMQ TLS listens on **61617**. Need **server cert + CA**. Mutual TLS is extra credit if the week allows. The lab-CA workflow is **admin-04** (ADMIN-A04B issue, ADMIN-A04C install/watch); this module installs that identity on the PRSAS VMs.
 
 ```bash
 # inspect — never cat the key

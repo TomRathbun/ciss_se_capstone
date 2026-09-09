@@ -54,7 +54,7 @@ Module **admin-01** opens with the full delta table. Instructors: project it. In
 | 1 | **RHEL 10.2 and Essential Linux Commands** | Navigate hosts, NetworkManager, DNF 5, `systemctl`/`journalctl`, translate RHEL 7 habits |
 | 2 | **Bash programming** | Scripts, errors, quoting, admin patterns |
 | 3 | **Package management** | dnf/rpm, npm, pip/uv, Maven, Nexus |
-| 4 | **TLS certificate management** | Inspect with OpenSSL 3.5, issue from a lab CA, SAN, trust stores, crypto-policies, induced failures |
+| 4 | **TLS certificate management** | Inspect with OpenSSL 3.5, issue from a lab CA, SAN/EKU, install, checkend watch, crypto-policies |
 | 5 | **Identity Management — AD and FreeIPA** | Central identity, Kerberos, SSSD, HBAC |
 | 6 | **NFS setup and configuration** | Exports, mounts, permissions, Kerberos shares |
 | 7 | **vSphere, vSAN, VDI, and ESXi** | Hypervisor vocabulary, VM lifecycle, storage |

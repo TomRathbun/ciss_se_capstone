@@ -406,8 +406,8 @@ modules:
     order: 44
     track: admin
     title: TLS Certificate Management
-    duration_min: 180
-    summary: OpenSSL 3.5 on RHEL 10.2; SAN vs CN; lab CA issue/install; s_client/verify; OS vs Java trust; crypto-policies; induced TLS failures.
+    duration_min: 210
+    summary: OpenSSL 3.5 on RHEL 10.2; SAN (DNS+IP) vs CN; EKU; lab CA issue/install; s_client/verify; OS vs Java trust; crypto-policies; checkend watch; renewal; induced TLS failures.
     offline: true
 
   - id: admin-05-idm-ad-ipa
@@ -1142,14 +1142,14 @@ assignments:
     module_id: admin-04-tls-certs
     due_session: "After admin-04-tls-certs"
     weight: 10
-    summary: OpenSSL 3.5 + crypto-policies; SAN/dates/checkend; s_client with SNI; chain verify; four failure rows; require vs verify-full; anti-patterns.
+    summary: OpenSSL 3.5 + crypto-policies + clock; SAN/dates/purpose/serial/checkend; s_client with SNI; chain verify; five failure rows; require vs verify-full; anti-patterns.
     rubric:
       - dimension: inspection
         max_points: 15
-        description: OpenSSL 3.5 evidence — dates, SAN, s_client, verify, checkend
+        description: OpenSSL 3.5 evidence — dates, SAN, purpose, serial, s_client, verify, checkend, clock
       - dimension: diagnosis
         max_points: 10
-        description: Four failure rows; require vs verify-full
+        description: Five failure rows; require vs verify-full
       - dimension: communication
         max_points: 5
         description: Ticket-ready notes; flags named; no secrets
@@ -1157,21 +1157,40 @@ assignments:
   - id: admin-a04-lab-ca
     order: 44
     track: admin
-    title: Lab CA — Issue, Install, Break, Fix
+    title: Lab CA — Issue, Break, Fix
     module_id: admin-04-tls-certs
     due_session: "After admin-04-tls-certs"
     weight: 15
-    summary: Mini lab CA; SAN leaf with copy_extensions; s_server/s_client green; three induced failures and fix; PKCS#12 for AMQ; no keys in Git.
+    summary: Mini lab CA; SAN+EKU leaf with copy_extensions; fullchain; s_server/s_client green; three induced failures and fix; PKCS#12 command for AMQ; no keys in Git.
     rubric:
       - dimension: issue
         max_points: 15
-        description: Lab CA + SAN leaf; copy_extensions; key modes
+        description: Lab CA + SAN + EKU leaf; copy_extensions; key modes; fullchain order
       - dimension: prove
         max_points: 10
         description: Green handshake; three induced failures with fix
       - dimension: communication
         max_points: 5
         description: No secrets; SW can consume lab-ca.crt
+
+  - id: admin-a04-operate
+    order: 44
+    track: admin
+    title: TLS Install, Watch, Renew
+    module_id: admin-04-tls-certs
+    due_session: "After admin-04-tls-certs"
+    weight: 10
+    summary: Install A04B identity on a listener; trust distribution; checkend watch/timer; renewal dry-run; air-gap revocation note; runbook.
+    rubric:
+      - dimension: install
+        max_points: 15
+        description: Files in place; modes; reload/restart; green s_client on the listener
+      - dimension: operate
+        max_points: 10
+        description: Watch script + failing/passing checkend; renewal dry-run
+      - dimension: communication
+        max_points: 5
+        description: Runbook; trust distribution; no secrets
 
   - id: admin-a05-idm
     order: 45
