@@ -2,9 +2,11 @@
 # Instructor can skip lecture weeks and insert ops-only or project weeks.
 #
 # Model (this is a multi-track course, not SE-only):
+#   Week 1      45 min all-hands opener (ops-why-here), then four rooms
 #   Weeks 1–9   each intern is in ONE discipline room (SE / SW / NET / ADMIN)
 #   Weeks 10–11 MILITARY is COMMON — every intern, every track
 #   Weeks 12–13 leftover discipline modules + SE living case (others may sit in)
+#   Week 14     common PRSAS intro (ops-prsas-intro), then contracts (se-12)
 #   Weeks 14–18 PRSAS capstone — all tracks in the same problem
 #
 # Session `audience`:
@@ -25,7 +27,18 @@ pattern: >
   PRSAS (14–18) is a joint capstone; each track still owns its artifacts.
 
 sessions:
-  # ---------- Week 1 — kickoff ----------
+  # ---------- Week 1 — common opener, then kickoff ----------
+  - id: w1-open
+    week: 1
+    day: Monday
+    title: Why you are here — one picture, four rooms
+    type: lecture_ops
+    audience: all
+    lanes:
+      mil:
+        title: All interns — 45 min opener, then split
+        modules: [ops-why-here]
+
   - id: w1-mon
     week: 1
     day: Monday
@@ -558,6 +571,17 @@ sessions:
         modules: [se-10-capstone-preview]
 
   # ---------- Weeks 14–18 PRSAS — joint capstone ----------
+  - id: w14-intro
+    week: 14
+    day: Monday
+    title: PRSAS intro — the picture that keeps a country
+    type: lecture_ops
+    audience: all
+    lanes:
+      mil:
+        title: All interns — motivation + teaching picture, then contracts
+        modules: [ops-prsas-intro]
+
   - id: w14-mon
     week: 14
     day: Monday

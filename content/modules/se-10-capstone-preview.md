@@ -12,7 +12,7 @@ After this module you can:
 
 ## Status
 
-This is a **real framing week**, not a teaser slide. The later prototype / full capstone (feeds, scoring, UI) opens after this pack exists. **SE-A10** is the Thursday artifact.
+This is a **real framing week**, not a teaser slide. The later prototype / full capstone (feeds, scoring, UI) opens after this pack exists. **SE-A10** is the Thursday artifact. Week 14 Monday starts with the common **ops-prsas-intro** (why the picture exists), then **se-12** freezes contracts.
 
 Do **not** use real classified tracks, site names, unit tasking, or controlled ICDs.
 
