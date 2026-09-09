@@ -84,6 +84,18 @@ journalctl -u myapp -n 100 --no-pager
 journalctl -p err..alert -n 50
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-b` | This **b**oot only |
+| `-n N` | Last **n** N lines |
+| `-f` | **f**ollow (like `tail -f`) |
+| `-u UNIT` | This systemd **u**nit |
+| `-p RANGE` | **p**riority (`err..alert`) |
+| `--since` / `--until` | Time window |
+| `--no-pager` | Print to the terminal; do not open `less` |
+| `less +F` | `less` in follow mode (Ctrl+C then `q`) |
+| `less +G` | Jump to end of file |
+
 ---
 
 ### `grep` — finding signal in noise
@@ -170,6 +182,18 @@ ping -c 3 target
 curl -vI https://target:8443/health
 ```
 
+| Flag | Meaning in the examples |
+|------|-------------------------|
+| `ss -l` | **l**istening sockets only |
+| `ss -a` | **a**ll sockets (listening + established) |
+| `ss -n` | **n**umeric — do not resolve `22` → `ssh` |
+| `ss -t` | **t**cp |
+| `ss -p` | show owning **p**rocess / PID |
+| `ip -br` | **br**ief one-liner per NIC |
+| `ping -c 3` | send **c**ount 3, then stop |
+| `curl -I` | headers only (HEAD) |
+| `curl -v` | **v**erbose — request/response handshake (TLS included) |
+
 Map failure: DNS → route → TCP → TLS → app HTTP → app logic.
 
 ---
@@ -182,6 +206,16 @@ du -sh /var/log/* | sort -h | tail
 ls -ltr /var/log/app/              # newest last
 find /opt/app -name "*.log" -mtime -1
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `df -h` / `du -sh` | **h**uman sizes; `du -s` = **s**ummary of each path |
+| `sort -h` | **h**uman-numeric (`1K`, `2M`, `1G`) |
+| `ls -l` | **l**ong listing |
+| `ls -t` | sort by **t**ime |
+| `ls -r` | **r**everse (so `-ltr` = newest last) |
+| `find -name "*.log"` | basename matches glob |
+| `find -mtime -1` | modified in the last **1** day (`-1` = less than 1) |
 
 ---
 

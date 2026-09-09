@@ -200,6 +200,34 @@ rpm -q bash
 dnf provides /usr/bin/ss          # which package owns this path?
 ```
 
+### Flags in the survival kit
+
+Every clustered flag in the examples above is in this table. Do not leave interns decoding `ss -lntp` by guesswork.
+
+| Example | Decode |
+|---------|--------|
+| `ls -la` | **l**ong listing, **a**ll (including dotfiles) |
+| `tree -L 2` | **L**evels — depth 2 |
+| `du -sh` | **s**ummary of this path, **h**uman sizes |
+| `df -hT` | **h**uman sizes, filesystem **T**ype (10.2 root is XFS) |
+| `journalctl -b -n 50 --no-pager` | this **b**oot, last **n** 50 lines, do not invoke `less` |
+| `journalctl -p err..alert` | **p**riority from err through alert |
+| `tail -n 50` | last **n** 50 lines |
+| `grep -n` | print line **n**umbers |
+| `grep -R` | **R**ecursive |
+| `ps aux` | BSD form: all users, with CPU/MEM |
+| `ps aux --sort=-%mem` | sort by memory, highest first (`-` = descending) |
+| `kill -9` | SIGKILL — last resort (default `kill` is SIGTERM) |
+| `ip -br addr` | **br**ief, one line per NIC |
+| `ss -lntp` | **l**istening, **n**umeric ports, **t**cp, **p**rocess/PID |
+| `ping -c 3` | **c**ount 3, then stop |
+| `curl -I` | headers only (HTTP HEAD) |
+| `chmod 640` | owner rw-, group r--, other --- (table above) |
+| `cp -a` | **a**rchive — recurse and preserve mode, owner, timestamps, links |
+| `mkdir -p` | create **p**arents; no error if the directory exists |
+| `tar czf` / `tar xzf` | **c**reate / e**x**tract, g**z**ip, **f**ile |
+| `find -name` | match basename against glob |
+
 ---
 
 ## systemd on RHEL 10.2 (services)

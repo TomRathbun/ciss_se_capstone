@@ -1123,7 +1123,7 @@ assignments:
     module_id: admin-03-package-management
     due_session: "After admin-03-package-management"
     weight: 10
-    summary: yum/rpm evidence, language ecosystems, Nexus role, change mini-plan.
+    summary: dnf/rpm evidence, language ecosystems, Nexus role, change mini-plan.
     rubric:
       - dimension: coverage
         max_points: 15

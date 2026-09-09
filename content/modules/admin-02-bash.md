@@ -55,19 +55,41 @@ chmod +x check-disk.sh
 ./check-disk.sh 70
 ```
 
+### Every flag and trick in that script
+
+Nothing in the example is “mystery syntax.” Each bit is in this table; the rest of the module drills them.
+
+| Bit | Meaning |
+|-----|---------|
+| `#!/usr/bin/env bash` | Portable shebang — find `bash` on `$PATH` |
+| `set -euo pipefail` | Strict mode — table in the next subsection. **Not** the same as `[[ -e ]]` |
+| `hostname -f` | Print the **F**QDN. `2>/dev/null` discards the error if `-f` is unavailable, then we fall back to `hostname` |
+| `"${1:-80}"` | Use `$1` if set and non-empty, otherwise `80` |
+| `"${1:-}"` | Same form; default is empty (used in the `-h` test) |
+| `df -P -h` | `-P` POSIX portable (one filesystem per line, no wrapping — required so `read` gets six fields). `-h` human sizes |
+| `tail -n +2` | Start at line **2** — drop the `df` header |
+| `read -r` | **r**aw: do not treat `\` as an escape. Always use `-r` unless you have a reason not to |
+| `${pct%\%}` | Strip the shortest suffix matching `%` (`80%` → `80`) |
+| `(( num >= THRESHOLD ))` | **Arithmetic** test on integers. Different from `[[ ]]` string/file tests |
+| `>&2` | Write to stderr (covered under redirection) |
+| `exit 2` | Usage error. `0` = success, `1` = generic failure, `2` = bad args |
+
 ### Shebang and permissions
 
 - `#!/usr/bin/env bash` — portable bash lookup  
-- `chmod +x` — executable bit  
+- `chmod +x` — executable bit (`+x` = add execute for the file’s mode)  
 - Prefer `./script.sh` over `bash script.sh` once executable  
+- `bash -n script.sh` — **syntax check only**, do not run. Use this before you execute a new script (drill item 4)
 
 ### `set -euo pipefail`
 
 | Option | Effect |
 |--------|--------|
-| `-e` | Exit on command failure |
-| `-u` | Error on unset variables |
-| `-o pipefail` | Pipeline fails if any stage fails |
+| `-e` | **E**xit the script when a command fails (non-zero status) |
+| `-u` | Error on **u**nset variables |
+| `-o pipefail` | Pipeline fails if **any** stage fails (not only the last) |
+
+`set -e` is a **shell option**. It is not the file test `[[ -e "$path" ]]` (exists) used in loops below. Interns mix these up — say both names out loud when you teach this slide.
 
 For intentional failures (`grep` no match), handle explicitly or temporarily `set +e`.
 
@@ -88,7 +110,9 @@ cp -- "$file" "$dest"
 |------|-----|
 | `"$var"` | Default safe expansion |
 | `'literal'` | No expansion |
-| `"${var:-default}"` | Default if unset/empty |
+| `"${var:-default}"` | Default if unset or empty |
+| `"${var%suffix}"` | Strip shortest matching suffix (`${pct%\%}` in the skeleton) |
+| `cp --` | End of options — a filename starting with `-` is not a flag |
 
 ## Arguments
 
@@ -96,8 +120,18 @@ cp -- "$file" "$dest"
 echo "script=$0"
 echo "argc=$#"
 echo "arg1=${1:-}"
-shift                 # drop $1
+shift                 # drop $1; $2 becomes $1
 ```
+
+| Special | Meaning |
+|---------|---------|
+| `$0` | Script name as invoked |
+| `$1`, `$2`, … | Positional arguments |
+| `$#` | Argument count |
+| `"$@"` | All args, each a separate word (prefer this) |
+| `"$*"` | All args joined as one string (fine for a log line) |
+| `$?` | Exit status of the last command |
+| `shift` | Discard `$1` and renumber the rest |
 
 ## Conditionals
 
@@ -115,23 +149,39 @@ fi
 
 | Test | Meaning |
 |------|---------|
-| `-f` | regular file |
-| `-d` | directory |
-| `-x` | executable |
-| `-n` / `-z` | non-empty / empty string |
-| `==`, `!=`, `-eq`, `-lt` | string / integer compares inside `[[ ]]` |
+| `-e` | Path **exists** (regular file, directory, or symlink) |
+| `-f` | Exists **and** is a regular file |
+| `-d` | Exists **and** is a directory |
+| `-x` | Exists **and** is executable by you |
+| `-s` | Exists **and** is a non-empty file |
+| `-n` / `-z` | String is non-empty / empty |
+| `==` / `!=` | String compare inside `[[ ]]` |
+| `-eq` `-ne` `-lt` `-le` `-gt` `-ge` | Integer compare inside `[[ ]]` |
+| `(( n >= 80 ))` | Arithmetic compare (integers). Used in the skeleton |
 
 Prefer `[[ ... ]]` over legacy `[ ... ]` in bash.
 
+`[[ -e ]]` vs `set -e`: the first is a **path test**; the second is “abort the script on failure.” Same letter, different language.
+
 ## Loops
+
+`for` walks a list. `while read` walks lines.
+
+| Word / flag | Meaning |
+|-------------|---------|
+| `continue` | Skip the rest of **this** iteration; go to the next item |
+| `break` | Leave the loop entirely |
+| `read -r` | Read one line; `-r` = raw (`\` is not an escape) |
+
+The glob loop uses `[[ -e "$f" ]]` on purpose. If `/var/log/*.log` matches **nothing**, bash leaves the **literal** string `/var/log/*.log`. `-e` is false, so `continue` skips it. (`-f` would also skip the literal, but would skip directories too; `-e` is the “did this glob hit a real path?” test.)
 
 ```bash
 for f in /var/log/*.log; do
-  [[ -e "$f" ]] || continue
+  [[ -e "$f" ]] || continue   # skip unmatched glob; -e = exists
   echo "log=$f"
 done
 
-while read -r line; do
+while read -r line; do        # -r = raw
   echo "saw:$line"
 done < /etc/hosts
 ```
@@ -152,7 +202,10 @@ need_cmd jq   # only if required
 | Code | Convention |
 |------|------------|
 | `0` | success |
-| non-zero | failure (`1` generic, `2` usage) |
+| `1` | generic failure |
+| `2` | usage / bad arguments |
+
+`"$*"` in `die` is intentional: the error message is one string. Use `"$@"` when you must preserve argument boundaries (passing through to another command).
 
 ```bash
 ./check-disk.sh
@@ -165,9 +218,19 @@ echo $?    # last exit code
 cmd > out.txt          # stdout to file
 cmd 2> err.txt         # stderr
 cmd > out.txt 2>&1     # both
+cmd >/dev/null 2>&1    # discard both
 cmd | tee out.txt      # screen + file
 cmd1 | cmd2 | cmd3
 ```
+
+| Bit | Meaning |
+|-----|---------|
+| `>` | Truncate/create file, write stdout |
+| `>>` | Append stdout |
+| `2>` | Redirect stderr |
+| `2>&1` | Send stderr to wherever stdout currently goes |
+| `< file` | Stdin from file (`while read` above) |
+| `/dev/null` | Bit bucket |
 
 ## Safe patterns for admins
 
@@ -180,6 +243,11 @@ cmd1 | cmd2 | cmd3
 ```bash
 install -d -m 755 "$HOME/ciss-lab"
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `install -d` | Create a **d**irectory (and parents), like `mkdir -p` |
+| `-m 755` | Set **m**ode (owner rwx, group/other r-x) |
 
 ## Mini patterns you will reuse
 
@@ -199,7 +267,12 @@ wait_port() {
 wait_port 127.0.0.1 61616 || die "ActiveMQ not listening"
 ```
 
-(`/dev/tcp` is bash-specific; fine on RHEL bash.)
+| Bit | Meaning |
+|-----|---------|
+| `local` | Variable scoped to the function |
+| `seq 1 30` | Print integers 1 through 30 (30 tries) |
+| `/dev/tcp/HOST/PORT` | Bash-specific TCP probe; fine on RHEL bash |
+| `return 0` / `return 1` | Function success / failure (does not exit the script) |
 
 ### Timestamped backup
 
@@ -208,12 +281,14 @@ ts=$(date +%Y%m%d-%H%M%S)
 cp -a /etc/myapp.conf "myapp.conf.bak.${ts}"
 ```
 
+`cp -a` = **a**rchive: copy recursively and preserve mode, owner, timestamps, and links. Same flag as in admin-01.
+
 ## Drill (40 min)
 
 1. Write `host-report.sh` that prints: hostname, `/etc/os-release` VERSION_ID, disk (`df -hT`), memory, `nmcli device status`, listening ports (`ss -lntp` summary).  
 2. Accept optional output file: `./host-report.sh /tmp/report.txt`.  
 3. Exit `2` on bad args; `1` on failure; `0` on success.  
-4. Run under `bash -n host-report.sh` (syntax check).  
+4. Run under `bash -n host-report.sh` (syntax check only — `-n` = no-execute).  
 5. Commit on `DR-###` with a clear message (CISS GitLab lab).  
 
 ## Integrity
@@ -226,6 +301,7 @@ cp -a /etc/myapp.conf "myapp.conf.bak.${ts}"
 | Topic | Source |
 |-------|--------|
 | Bash manual | `man bash` · [GNU Bash manual](https://www.gnu.org/software/bash/manual/) |
+| Test operators | `help test` · `man bash` (CONDITIONAL EXPRESSIONS) |
 | ShellCheck | [shellcheck.net](https://www.shellcheck.net/) |
 | Style | Google shell style guide (search title) — useful defaults |
 | RHEL commands | Course **RHEL 10.2 and Essential Linux Commands** |
