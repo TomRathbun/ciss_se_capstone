@@ -110,7 +110,7 @@ Production uses an organizational CA or public CA — you rarely invent trust ro
 
 | Platform | Typical trust location |
 |----------|------------------------|
-| RHEL | `/etc/pki/tls/certs/ca-bundle.crt` (update via `ca-certificates` / yum) |
+| RHEL 10.2 | `/etc/pki/tls/certs/ca-bundle.crt` (update via `ca-certificates` / `dnf` + `update-ca-trust extract`); check `update-crypto-policies --show` |
 | Java | `$JAVA_HOME/lib/security/cacerts` (or custom truststore) |
 | Browser | Own store (not the same as your service account) |
 | App config | Explicit path to PEM / JKS / PKCS12 |

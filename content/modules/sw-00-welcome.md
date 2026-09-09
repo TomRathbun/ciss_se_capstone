@@ -50,7 +50,7 @@ The bridge module sits **after Git/workflow** and **before** VS Code/Java labs. 
 | Review | **Pull Request** → `main` | **Merge Request** → `main` |
 | CI | **Jenkins** | GitLab CI and/or lab **Jenkins** |
 | Artifacts | **Nexus** | Lab Nexus or Maven Central |
-| Runtime | **VMs** (vSphere / ESXi guests, RHEL-class) | Same — **not Docker as the default** |
+| Runtime | **VMs** (vSphere / ESXi guests, **RHEL 10.2**) | Same — **not Docker as the default**; Podman is the native container tool if you must |
 | Git CLI | Same | Same |
 | Java / DB / messaging / GUI | Same stack taught in later modules | Same |
 

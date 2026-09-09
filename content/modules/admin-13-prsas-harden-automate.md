@@ -6,7 +6,7 @@
 
 After this module you can:
 
-- Apply **firewalld** zones that *match* the NET allow-list (host layer, not a second religion)  
+- Apply **firewalld** (nftables backend on RHEL 10.2) zones that *match* the NET allow-list (host layer, not a second religion). Do not write `iptables -A` runbooks — `iptables-nft-services` is deprecated in 10.2  
 - Keep **SELinux enforcing** with documented booleans/ports for AMQ and Postgres  
 - Turn on **auditd** useful rules (auth, privileged, cert dir)  
 - Ship an **Ansible** (or PowerCLI) playbook that rebuilds a guest from the golden image  

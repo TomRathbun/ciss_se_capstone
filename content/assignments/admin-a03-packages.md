@@ -8,7 +8,7 @@ Show you can work across **OS packages** and **language/org artifacts** without 
 
 ## Deliverables
 
-1. **RPM/yum evidence:** query an installed package; show version; explain one dependency or what provides a binary you care about.
+1. **RPM/dnf evidence:** on RHEL 10.2, query an installed package with `dnf info` / `rpm -q`; show version; explain one dependency or `dnf provides` for a binary you care about. Record `dnf --version`.
 2. **Language ecosystem note (pick two of: pip/uv, npm, Maven):** where installs land, what not to commit, how you isolate projects.
 3. **Nexus paragraph:** role of an org artifact hub vs public PyPI/npm/Maven Central.
 4. **Change mini-plan:** install or upgrade *one* lab package (or dry-run): pre-check, command, verify, rollback idea.

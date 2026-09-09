@@ -251,3 +251,34 @@ terms:
   - term: radar.output
     definition: ActiveMQ topic where the track daemon publishes fused SYSTEM_TRACK updates for SA clients.
 
+  - term: RHEL 10.2
+    definition: >
+      Lab OS for the CISS admin track (May 2026 minor of Red Hat Enterprise Linux 10).
+      Kernel 6.12, systemd 257, DNF 5, NetworkManager-only, firewalld/nftables,
+      Python 3.12+ (AppStream 3.14), OpenJDK 21/25, PostgreSQL 18, chrony, cgroup v2,
+      OpenSSH ML-KEM. Not in-place-upgradable from RHEL 7.
+  - term: DNF 5
+    definition: >
+      The RHEL 10 package manager (replaces yum on RHEL 7 and DNF 4 on RHEL 8/9).
+      Course standard is `dnf`; `yum` may exist only as a wrapper. Repo files still
+      live in /etc/yum.repos.d/.
+  - term: NetworkManager keyfile
+    definition: >
+      Persistent NIC configuration on RHEL 10 (`/etc/NetworkManager/system-connections/*.nmconnection`).
+      Replaces RHEL 7 ifcfg-* files under /etc/sysconfig/network-scripts/, which are gone.
+  - term: nftables
+    definition: >
+      Kernel packet-filter backend used by firewalld on RHEL 10.2. iptables-nft-services
+      is deprecated in 10.2 — teach firewall-cmd, not iptables -A.
+  - term: crypto-policies
+    definition: >
+      System-wide TLS/SSH/crypto baseline on RHEL (`update-crypto-policies --show`).
+      RHEL 10.2 FUTURE policy prefers hybrid ML-KEM; old TLS 1.0/ssh-rsa configs fail.
+  - term: authselect
+    definition: >
+      RHEL 8+ tool that selects the host identity/auth stack (SSSD, winbind). Replaces
+      RHEL 7 authconfig, which does not exist on 10.2.
+  - term: Podman
+    definition: >
+      Daemonless container engine on RHEL 10. Course default runtime is still a VM, not
+      a container; if a lab needs containers, use podman not Docker.

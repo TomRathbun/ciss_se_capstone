@@ -63,8 +63,9 @@ SE link: troubleshooting evidence is often the raw material for **defect reports
 ### `tail` and `less` — watching and paging logs
 
 ```bash
-tail -n 100 /var/log/messages
-tail -f /var/log/messages              # follow (Ctrl+C)
+journalctl -b -n 100 --no-pager       # this boot first on RHEL 10.2
+journalctl -f                          # follow the journal (Ctrl+C)
+tail -n 100 /var/log/messages          # only if rsyslog is installed
 tail -n 50 -f /var/log/app/*.log      # last 50 then follow
 
 less /var/log/messages                # navigate: /search  n  N  g  G  q
@@ -160,10 +161,11 @@ kill -9 <pid>        # last resort; can corrupt data
 ### Network path — quick probes
 
 ```bash
-ss -lntp                 # listening sockets + PIDs
+ss -lntp                 # listening sockets + PIDs (not netstat)
 ss -antp | head
-ip addr
+ip -br addr
 ip route
+nmcli device status      # NetworkManager is the stack on 10.2
 ping -c 3 target
 curl -vI https://target:8443/health
 ```

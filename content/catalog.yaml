@@ -42,7 +42,7 @@ tracks:
     order: 4
     short: ADMIN
     title: System Administration & Integration
-    summary: RHEL/Linux, bash, packages, TLS, IDM, NFS, vSphere, Postgres, tickets; PRSAS VM, IPA/CA, harden/Ansible.
+    summary: RHEL 10.2/Linux, bash, DNF 5, TLS, IDM, NFS, vSphere, Postgres 18, tickets; PRSAS VM, IPA/CA, harden/Ansible.
     color: admin
     status: active
 
@@ -375,15 +375,15 @@ modules:
     track: admin
     title: System Administration & Integration — Track Overview
     duration_min: 45
-    summary: Admin track path — RHEL, bash, packages, TLS, IDM, NFS, vSphere, Postgres, troubleshooting, tickets; bridge from software builds to running systems.
+    summary: Admin track path — RHEL 10.2, bash, DNF 5, TLS, IDM, NFS, vSphere, Postgres 18, troubleshooting, tickets; bridge from software builds to running systems.
     offline: false
 
-  - id: admin-01-rhel7-linux
+  - id: admin-01-rhel10-linux
     order: 41
     track: admin
-    title: RHEL 7 and Essential Linux Commands
+    title: RHEL 10.2 and Essential Linux Commands
     duration_min: 120
-    summary: Filesystem, processes, users, network discovery, systemctl/journalctl, SELinux/firewall awareness.
+    summary: Filesystem, processes, users, NetworkManager, DNF 5, systemctl/journalctl, SELinux/firewalld; RHEL 7 → 10.2 translation.
     offline: true
 
   - id: admin-02-bash
@@ -399,7 +399,7 @@ modules:
     track: admin
     title: Package Management Systems
     duration_min: 120
-    summary: yum/rpm, npm, pip and uv, Maven/Java, and Nexus as org package hub.
+    summary: DNF 5/rpm on RHEL 10.2, npm, pip and uv, Maven/Java, and Nexus as org package hub.
     offline: true
 
   - id: admin-04-tls-certs
@@ -439,7 +439,7 @@ modules:
     track: admin
     title: PostgreSQL Database Management for Admins
     duration_min: 120
-    summary: Roles and databases; admin SQL (activity, size, locks); grants; vacuum; backup/restore awareness.
+    summary: Roles and databases on PostgreSQL 18 (RHEL 10.2); admin SQL (activity, size, locks); grants; vacuum; backup/restore awareness.
     offline: true
 
   - id: admin-09-troubleshooting
@@ -1081,11 +1081,11 @@ assignments:
   - id: admin-a01-linux-lab
     order: 41
     track: admin
-    title: RHEL/Linux Discovery Lab
-    module_id: admin-01-rhel7-linux
-    due_session: "After admin-01-rhel7-linux"
+    title: RHEL 10.2/Linux Discovery Lab
+    module_id: admin-01-rhel10-linux
+    due_session: "After admin-01-rhel10-linux"
     weight: 10
-    summary: Host identity, ps/ss/systemctl/journalctl evidence pack, safety risks.
+    summary: Host identity on RHEL 10.2, nmcli/ss/dnf/systemctl/journalctl evidence pack, RHEL 7 anti-patterns, safety risks.
     rubric:
       - dimension: discovery
         max_points: 15
