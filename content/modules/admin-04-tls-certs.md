@@ -55,6 +55,14 @@ openssl x509 -in server.crt -noout -dates -subject -issuer
 openssl x509 -in server.crt -noout -ext subjectAltName
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-in FILE` | Read this certificate |
+| `-text` | Human-readable dump (subject, SAN, dates, extensions) |
+| `-noout` | Do **not** reprint the PEM — inspect only |
+| `-dates` / `-subject` / `-issuer` | Print just those fields |
+| `-ext subjectAltName` | Print the SAN extension (the names clients actually check) |
+
 Check:
 
 1. **Not Before / Not After** — expired?  
@@ -71,6 +79,12 @@ openssl s_client -connect host.example.com:443 -servername host.example.com </de
 echo | openssl s_client -connect host.example.com:443 -servername host.example.com 2>/dev/null | openssl x509 -noout -text | head
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-connect host:port` | TCP target |
+| `-servername NAME` | SNI — send this hostname (needed when the IP hosts several certs) |
+| `</dev/null` or `echo \|` | Close stdin so `s_client` does not wait for you to type |
+
 ### Verify a chain
 
 ```bash
@@ -79,11 +93,18 @@ openssl verify -CAfile lab-root.pem server.crt
 openssl verify -CAfile root.pem -untrusted intermediate.pem server.crt
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-CAfile` | Trust this PEM as the root |
+| `-untrusted` | Intermediate certs that complete the chain but are not the trust anchor |
+
 ### Fingerprint (compare out-of-band)
 
 ```bash
 openssl x509 -in server.crt -noout -fingerprint -sha256
 ```
+
+`-fingerprint -sha256` — SHA-256 fingerprint for out-of-band compare.
 
 ## Creating a lab key + CSR (practice only)
 
@@ -95,6 +116,15 @@ openssl req -new -key service.key -out service.csr \
   -subj "/CN=service.ciss-lab.local/O=CISS Lab"
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `genrsa … 2048` | Generate a 2048-bit RSA key |
+| `-out FILE` | Write here |
+| `chmod 600` | Owner read/write only — private key mode |
+| `req -new` | Build a CSR from that key |
+| `-key FILE` | Use this private key |
+| `-subj /CN=…` | Subject on the command line (no interactive prompt) |
+
 For modern hostnames, prefer a config with **subjectAltName** (SAN). Ask the lab for the standard CSR template — programs often require SAN = FQDN.
 
 **Self-signed** (lab only):
@@ -103,6 +133,13 @@ For modern hostnames, prefer a config with **subjectAltName** (SAN). Ask the lab
 openssl req -x509 -new -nodes -key service.key -sha256 -days 365 \
   -out service.crt -subj "/CN=service.ciss-lab.local"
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `req -x509` | Self-signed cert (lab only) — skip the CA |
+| `-nodes` | Do **not** encrypt the key with a passphrase |
+| `-sha256` | Sign with SHA-256 |
+| `-days 365` | Validity |
 
 Production uses an organizational CA or public CA — you rarely invent trust roots yourself.
 
