@@ -474,4 +474,4 @@ Coordinate with **GitLab CI/CD** (SW track CI module): the pipeline often publis
 
 ## Next
 
-**TLS certificate management** — trust stores, keys, CSRs, crypto-policies, and fixing HTTPS/AMQPS failures.
+**TLS certificate management** — OpenSSL 3.5 inspect, lab CA with SAN, OS vs Java trust, crypto-policies, ADMIN-A04 + ADMIN-A04B.

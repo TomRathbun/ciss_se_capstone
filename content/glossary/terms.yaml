@@ -281,6 +281,36 @@ terms:
     definition: >
       System-wide TLS/SSH/crypto baseline on RHEL (`update-crypto-policies --show`).
       RHEL 10.2 FUTURE policy prefers hybrid ML-KEM; old TLS 1.0/ssh-rsa configs fail.
+      Course default is DEFAULT. Do not `--set LEGACY` to make an old client handshake.
+  - term: SAN (Subject Alternative Name)
+    definition: >
+      X.509 extension listing the DNS names and IPs a certificate is valid for.
+      Modern TLS clients match the name they connect to against SAN, not CN.
+      Issue both the FQDN and the short hostname (amq-c-01.ciss-lab.local and amq-c-01).
+  - term: CSR
+    definition: >
+      Certificate Signing Request. Public key plus names, sent to a CA. Build with
+      `openssl req -new` and put SAN on the request (`-addext subjectAltName=`).
+      OpenSSL 3 signing must use `-copy_extensions copy` or the SAN is silently dropped.
+  - term: trust store
+    definition: >
+      The set of CA certs a *particular client* will accept. OS bundle
+      (`update-ca-trust` → ca-bundle.crt), Java PKCS#12, and the browser are three
+      different stores. “Firefox likes it” does not mean the AMQ JMS client will.
+  - term: PKCS#12
+    definition: >
+      `.p12` / `.pfx` bag holding a private key plus certs. Course format for Java
+      and ActiveMQ (`broker.p12`). Treat it as a key (mode 600, never Git). Prefer
+      PKCS#12 over creating new JKS stores.
+  - term: SNI
+    definition: >
+      Server Name Indication. TLS ClientHello field so one IP can present different
+      certificates. `openssl s_client -servername NAME` must match the name the app uses.
+  - term: sslmode=verify-full
+    definition: >
+      libpq/Postgres client mode that encrypts *and* checks CA plus hostname/SAN.
+      `sslmode=require` encrypts but does not verify the certificate — not “TLS done.”
+      Course default when Postgres TLS is on.
   - term: authselect
     definition: >
       RHEL 8+ tool that selects the host identity/auth stack (SSSD, winbind). Replaces

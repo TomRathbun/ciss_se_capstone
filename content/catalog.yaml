@@ -406,8 +406,8 @@ modules:
     order: 44
     track: admin
     title: TLS Certificate Management
-    duration_min: 120
-    summary: Certs, keys, CSRs, chains, OpenSSL inspect/verify, trust stores, common TLS failures.
+    duration_min: 180
+    summary: OpenSSL 3.5 on RHEL 10.2; SAN vs CN; lab CA issue/install; s_client/verify; OS vs Java trust; crypto-policies; induced TLS failures.
     offline: true
 
   - id: admin-05-idm-ad-ipa
@@ -1142,17 +1142,36 @@ assignments:
     module_id: admin-04-tls-certs
     due_session: "After admin-04-tls-certs"
     weight: 10
-    summary: OpenSSL cert report, chain check, failure scenarios, ops impact.
+    summary: OpenSSL 3.5 + crypto-policies; SAN/dates/checkend; s_client with SNI; chain verify; four failure rows; require vs verify-full; anti-patterns.
     rubric:
       - dimension: inspection
         max_points: 15
-        description: Correct OpenSSL evidence
+        description: OpenSSL 3.5 evidence — dates, SAN, s_client, verify, checkend
       - dimension: diagnosis
         max_points: 10
-        description: Failure scenarios accurate
+        description: Four failure rows; require vs verify-full
       - dimension: communication
         max_points: 5
-        description: Ticket-ready notes
+        description: Ticket-ready notes; flags named; no secrets
+
+  - id: admin-a04-lab-ca
+    order: 44
+    track: admin
+    title: Lab CA — Issue, Install, Break, Fix
+    module_id: admin-04-tls-certs
+    due_session: "After admin-04-tls-certs"
+    weight: 15
+    summary: Mini lab CA; SAN leaf with copy_extensions; s_server/s_client green; three induced failures and fix; PKCS#12 for AMQ; no keys in Git.
+    rubric:
+      - dimension: issue
+        max_points: 15
+        description: Lab CA + SAN leaf; copy_extensions; key modes
+      - dimension: prove
+        max_points: 10
+        description: Green handshake; three induced failures with fix
+      - dimension: communication
+        max_points: 5
+        description: No secrets; SW can consume lab-ca.crt
 
   - id: admin-a05-idm
     order: 45
