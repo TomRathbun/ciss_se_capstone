@@ -261,7 +261,14 @@ terms:
     definition: >
       The RHEL 10 package manager (replaces yum on RHEL 7 and DNF 4 on RHEL 8/9).
       Course standard is `dnf`; `yum` may exist only as a wrapper. Repo files still
-      live in /etc/yum.repos.d/.
+      live in /etc/yum.repos.d/. Air-gapped labs use `dnf download --resolve --alldeps`
+      (not yumdownloader) and `file://` or Nexus baseurls; `dnf offline reboot` is a
+      reboot-safe transaction, not “no internet.”
+  - term: air-gapped repo
+    definition: >
+      A DNF/npm/pip/Maven source that lives inside the enclave (Nexus, Satellite,
+      RHEL 10.2 DVD ISO, USB bag with createrepo_c). Guests use baseurl=file:// or an
+      internal HTTP URL. gpgcheck stays 1. Not the same as `dnf install --offline`.
   - term: NetworkManager keyfile
     definition: >
       Persistent NIC configuration on RHEL 10 (`/etc/NetworkManager/system-connections/*.nmconnection`).

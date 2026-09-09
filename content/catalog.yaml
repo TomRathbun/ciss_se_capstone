@@ -399,7 +399,7 @@ modules:
     track: admin
     title: Package Management Systems
     duration_min: 120
-    summary: DNF 5/rpm on RHEL 10.2, npm, pip and uv, Maven/Java, and Nexus as org package hub.
+    summary: DNF 5/rpm on RHEL 10.2, air-gapped ISO/USB/Nexus, npm, pip and uv, Maven/Java.
     offline: true
 
   - id: admin-04-tls-certs
@@ -1123,11 +1123,11 @@ assignments:
     module_id: admin-03-package-management
     due_session: "After admin-03-package-management"
     weight: 10
-    summary: dnf/rpm evidence, language ecosystems, Nexus role, change mini-plan.
+    summary: dnf/rpm evidence, air-gap install plan, language ecosystems, Nexus, change mini-plan.
     rubric:
       - dimension: coverage
         max_points: 15
-        description: OS + language + Nexus thinking
+        description: OS + language + Nexus + air-gap thinking
       - dimension: change_control
         max_points: 10
         description: Plan with verify/rollback
