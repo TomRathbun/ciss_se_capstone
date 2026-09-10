@@ -2,7 +2,7 @@
 # Instructor can skip lecture weeks and insert ops-only or project weeks.
 #
 # Model (this is a multi-track course, not SE-only):
-#   Week 1      45 min all-hands opener (ops-why-here), then four rooms
+#   Week 1      60 min all-hands opener (ops-why-here), then four rooms
 #   Weeks 1–9   each intern is in ONE discipline room (SE / SW / NET / ADMIN)
 #   Weeks 10–11 MILITARY is COMMON — every intern, every track
 #   Weeks 12–13 leftover discipline modules + SE living case (others may sit in)
@@ -36,7 +36,7 @@ sessions:
     audience: all
     lanes:
       mil:
-        title: All interns — 45 min opener, then split
+        title: All interns — 60 min opener, then split
         modules: [ops-why-here]
 
   - id: w1-mon

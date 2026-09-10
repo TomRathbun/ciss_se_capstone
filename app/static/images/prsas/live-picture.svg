@@ -1,62 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="PRSAS teaching picture: two remote radars fuse at central. Fictional theater, not live C2.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="PRSAS teaching picture: two overlapping radar coverage disks, dual-feed fusion at central. Fictional theater, not live C2.">
   <defs>
     <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#182234"/>
       <stop offset="1" stop-color="#0d1522"/>
     </linearGradient>
     <radialGradient id="sweepA" cx="0" cy="0" r="1">
-      <stop offset="0" stop-color="#5eead4" stop-opacity="0.45"/>
+      <stop offset="0" stop-color="#5eead4" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#5eead4" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="sweepB" cx="0" cy="0" r="1">
-      <stop offset="0" stop-color="#e4b56a" stop-opacity="0.45"/>
+      <stop offset="0" stop-color="#e4b56a" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#e4b56a" stop-opacity="0"/>
     </radialGradient>
+    <clipPath id="diskA">
+      <circle cx="210" cy="248" r="250"/>
+    </clipPath>
+    <clipPath id="diskB">
+      <circle cx="590" cy="168" r="250"/>
+    </clipPath>
   </defs>
   <rect width="800" height="420" fill="#070b12"/>
   <path d="M0 270 C140 210 250 330 400 300 C560 260 690 160 800 210 L800 420 L0 420 Z" fill="url(#land)" stroke="#c9a227" stroke-opacity="0.35"/>
   <text x="16" y="24" fill="#8b9bb4" font-family="ui-monospace, monospace" font-size="11">CISS-TEACH · fictional theater · not live C2</text>
-  <line x1="148" y1="248" x2="400" y2="332" stroke="#5eead4" stroke-opacity="0.4" stroke-dasharray="4 6"/>
-  <line x1="656" y1="176" x2="400" y2="332" stroke="#e4b56a" stroke-opacity="0.4" stroke-dasharray="4 6"/>
-  <g transform="translate(148 248)">
-    <path d="M0 0 L90 -28 L90 28 Z" fill="url(#sweepA)">
+
+  <!-- Coverage volumes — RSA cyan, RSB amber; intersection is dual-feed -->
+  <circle cx="210" cy="248" r="250" fill="#5eead4" fill-opacity="0.09" stroke="#5eead4" stroke-opacity="0.5" stroke-width="1.25" stroke-dasharray="5 7"/>
+  <circle cx="590" cy="168" r="250" fill="#e4b56a" fill-opacity="0.09" stroke="#e4b56a" stroke-opacity="0.5" stroke-width="1.25" stroke-dasharray="5 7"/>
+  <g clip-path="url(#diskA)">
+    <circle cx="590" cy="168" r="250" fill="#c9a227" fill-opacity="0.22"/>
+  </g>
+  <g clip-path="url(#diskB)">
+    <circle cx="210" cy="248" r="250" fill="none" stroke="#c9a227" stroke-opacity="0.55" stroke-width="1.4" stroke-dasharray="3 5"/>
+  </g>
+  <text x="400" y="198" text-anchor="middle" fill="#c9a227" font-family="ui-monospace, monospace" font-size="11">DUAL-FEED</text>
+  <text x="400" y="212" text-anchor="middle" fill="#8b9bb4" font-family="ui-monospace, monospace" font-size="9">RSA ∩ RSB</text>
+
+  <line x1="210" y1="248" x2="400" y2="336" stroke="#5eead4" stroke-opacity="0.4" stroke-dasharray="4 6"/>
+  <line x1="590" y1="168" x2="400" y2="336" stroke="#e4b56a" stroke-opacity="0.4" stroke-dasharray="4 6"/>
+
+  <g transform="translate(210 248)">
+    <path d="M0 0 L110 -34 L110 34 Z" fill="url(#sweepA)">
       <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="7s" repeatCount="indefinite"/>
     </path>
     <circle r="5" fill="#5eead4"/>
     <text x="10" y="-12" fill="#e8eef7" font-family="IBM Plex Sans, sans-serif" font-size="12">Remote A · RSA</text>
   </g>
-  <g transform="translate(656 176)">
-    <path d="M0 0 L90 -28 L90 28 Z" fill="url(#sweepB)">
+  <g transform="translate(590 168)">
+    <path d="M0 0 L110 -34 L110 34 Z" fill="url(#sweepB)">
       <animateTransform attributeName="transform" type="rotate" from="40" to="400" dur="8s" repeatCount="indefinite"/>
     </path>
     <circle r="5" fill="#e4b56a"/>
     <text x="10" y="-12" fill="#e8eef7" font-family="IBM Plex Sans, sans-serif" font-size="12">Remote B · RSB</text>
   </g>
-  <g transform="translate(400 332)">
+  <g transform="translate(400 336)">
     <circle r="7" fill="#c9a227"/>
     <text x="12" y="-10" fill="#e8eef7" font-family="IBM Plex Sans, sans-serif" font-size="12">Central · fusion</text>
   </g>
+
   <g>
     <circle r="3.5" fill="#5eead4">
-      <animateMotion dur="12s" repeatCount="indefinite" path="M 720 70 C 600 90 520 160 430 250"/>
+      <animateMotion dur="12s" repeatCount="indefinite" path="M 720 58 C 560 90 470 150 400 208"/>
     </circle>
     <circle r="3.5" fill="#e4b56a">
-      <animateMotion dur="12s" begin="1.8s" repeatCount="indefinite" path="M 740 55 C 620 80 540 150 445 240"/>
+      <animateMotion dur="12s" begin="1.8s" repeatCount="indefinite" path="M 740 48 C 580 80 490 140 412 200"/>
     </circle>
     <g>
       <circle r="3" fill="#c9a227"/>
       <circle r="9" fill="none" stroke="#c9a227" stroke-width="2">
         <animate attributeName="opacity" values="0;0;1;1;1;0.4;1" keyTimes="0;0.32;0.38;0.7;0.85;0.9;1" dur="12s" repeatCount="indefinite"/>
       </circle>
-      <animateMotion dur="12s" begin="3.6s" repeatCount="indefinite" path="M 730 62 C 610 85 530 155 438 245"/>
+      <animateMotion dur="12s" begin="3.6s" repeatCount="indefinite" path="M 730 53 C 570 85 480 145 406 204"/>
     </g>
   </g>
+
   <g>
-    <rect x="560" y="14" width="224" height="36" rx="6" fill="#121a28" stroke="#c9a227" stroke-opacity="0.4"/>
-    <text x="572" y="37" fill="#c9a227" font-family="ui-monospace, monospace" font-size="12">
+    <rect x="548" y="14" width="236" height="36" rx="6" fill="#121a28" stroke="#c9a227" stroke-opacity="0.4"/>
+    <text x="560" y="37" fill="#c9a227" font-family="ui-monospace, monospace" font-size="12">
       FUSED · Mode 3/A 4301
       <animate attributeName="opacity" values="0;0;1;1;1" keyTimes="0;0.3;0.38;0.9;1" dur="12s" repeatCount="indefinite"/>
     </text>
   </g>
-  <text x="16" y="404" fill="#8b9bb4" font-family="IBM Plex Sans, sans-serif" font-size="11">SW sim · NET path · ADMIN host · SE contract · MIL voice</text>
+  <text x="16" y="404" fill="#8b9bb4" font-family="IBM Plex Sans, sans-serif" font-size="11">Overlapping coverage · SW sim · NET path · ADMIN host · SE contract · MIL voice</text>
 </svg>

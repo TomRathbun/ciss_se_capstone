@@ -11,7 +11,7 @@ You will:
    **Vision → Needs → Use cases → Requirements (EARS)**  
    with typed links: **derives_from**, **traces_to**, **allocated_to** (not a vague “refine”).  
    *We deliberately stop before Design in the first weeks* — jumping to design is the most common intern mistake. Architecture and allocation come later.
-3. Learn enough **UAE military context** and **air operations** language (ranks, public systems, CONOPS/AOC, ATO planning/execution) to work around planning products. Military weeks are **common to every track** (weeks 10–11), not an SE add-on. Week 1 Monday opens with a **45-minute all-hands** (**ops-why-here**) before you split rooms.
+3. Learn enough **UAE military context** and **air operations** language (ranks, public systems, CONOPS/AOC, ATO planning/execution) to work around planning products. Military weeks are **common to every track** (weeks 10–11), not an SE add-on. Week 1 Monday opens with a **60-minute all-hands** (**ops-why-here**) before you split rooms.
 4. Practice on a **living case study** — **SDC Time Tracker (ETAS)**, an electronic time-and-attendance system for FOSC support staff that already has requirements, states, sequences, and export interfaces.
 5. Produce graded **artifacts**. Scores and professionalism determine selection.
 

@@ -147,8 +147,8 @@ modules:
     order: 11
     track: mil
     title: Why You Are Here
-    duration_min: 45
-    summary: Week-1 all-hands opener. One picture, four rooms; military stays a block in weeks 10–11; PRSAS is the joint capstone. Unclassified.
+    duration_min: 60
+    summary: Week-1 all-hands opener. Dated 28 Feb 2026 recap, layered AD, Lockheed Martin / THAAD, EADGE-T as named ground C2, collective engineering effort. Unclassified.
     offline: true
 
   - id: ops-uae-military
