@@ -12,7 +12,7 @@ After this module you can:
 - Restate **why a fused air picture exists** using weeks 10–11 language (detect → assess, COP, ATO)  
 - Place **PRSAS** on the right side of a hard line: *classroom shape* of a picture, **not** live C2, **not** THAAD/Patriot  
 - Point at the three-site teaching picture and say what **each track** owes it  
-- Use one public episode (Iranian attacks on the UAE from **28 February 2026**, MoD/WAM) **without** inventing rates, basing, or ROE  
+- Use the week-1 public episode (Iranian attacks on the UAE from **28 February 2026**, MoD/WAM) **without** re-scoreboarding or inventing rates, basing, or ROE  
 - Hand off into **se-12** without mixing CONOPS-the-feeling with contracts-the-ICD
 
 ## The line from weeks 10–11
@@ -33,33 +33,31 @@ If the glass lies, CONOPS is fan fiction and ATO is a guess. That is the whole c
 
 ## Why this problem is not academic
 
-From **28 February 2026**, Iran launched missiles and drones at the UAE. The Ministry of Defence, via WAM and on-the-record briefings, said UAE air force and air defence **detected and intercepted** the large majority of those raids using a **layered** architecture (public families: **THAAD**, **Patriot**, SHORAD). Public reporting also recorded **fatalities and injuries**, including from **interception debris** — defence is not a video game, and this module will not pretend otherwise.
+You already heard the dated recap in week 1 (**ops-why-here**): from **28 February 2026**, Iran launched missiles and drones at the UAE; MoD / WAM described a **layered** defence (public families: **THAAD**, **Patriot**, SHORAD, fighters, industry EW); Lockheed Martin is the public **THAAD** OEM; **EADGE-T** is the named ground C2 this pathway sits next to; the work was a **collective** of network, systems, and software engineers, integrators, and SMEs. Do **not** re-scoreboard those figures today. Numbers moved by the day. The point after ATO is:
 
-Numbers in the press **moved by the day**. Interns do **not** memorize a scoreboard. Interns remember three public facts:
-
-1. **Sensors and a picture** had to exist *before* an interceptor had something true to shoot at.  
-2. **Layered AD** (high / medium / short) is a system of systems — the same idea as your three-site lab, at a different scale and classification.  
+1. **Sensors and a picture** had to exist *before* an interceptor had something true to shoot at — including **overlapping** coverage, not a single heroic radar.  
+2. **Layered AD** is a system of systems — the same idea as your three-site lab, at a different scale and classification.  
 3. **People** watched the glass, spoke on the net, and lived with debris when the intercept was the least-bad outcome.
 
-**Integrity:** this paragraph is **open-source civic memory**, not an order-of-battle. Do not add bases, battery counts, ROE, or “we have the intercept rate.” If you need a citation in a slide, use a **dated** WAM / MoD clip the instructor hands you.
+**Integrity:** that recap is **open-source civic memory**, not an order-of-battle. Do not add bases, battery counts, ROE, or “we have the intercept rate.” If you need a citation in a slide, use a **dated** WAM / MoD clip the instructor hands you.
 
-PRSAS is **not** that shield. THAAD and Patriot are not your Java homework. You are building a **classroom analogue of the picture**: two simulated radars, a path that can be encrypted and firewalled, a daemon that correlates, a glass an intern can brief, hosts and certs that do not silently rot.
+PRSAS is **not** that shield and is **not EADGE-T**. THAAD and Patriot are not your Java homework. You are building a **classroom analogue of the picture**: two simulated radars with **overlapping coverage**, a path that can be encrypted and firewalled, a daemon that correlates, a glass an intern can brief, hosts and certs that do not silently rot.
 
 The people who kept the country up had years of integration behind them. You have five weeks. So we freeze the contracts on **se-12** and each track owns one failure mode.
 
 ## The teaching picture
 
-Projector: play the film, then leave the **live picture** running (three sites, RSA / RSB plots, fused track, COAST).
+Projector: play the film, then leave the **live picture** running (overlapping RSA / RSB coverage, dual-feed lens, fused track, COAST).
 
 <video class="prsas-film" autoplay muted loop playsinline controls poster="/static/images/prsas/teaching-picture.jpg">
   <source src="/static/images/prsas/picture.mp4" type="video/mp4">
 </video>
-<p class="prsas-caption">Projector film · CISS-TEACH · fictional theater</p>
+<p class="prsas-caption">Projector film · overlapping coverage · dual-feed · CISS-TEACH · fictional theater</p>
 
-<object class="prsas-live" type="image/svg+xml" data="/static/images/prsas/live-picture.svg" aria-label="Live teaching picture — plots fuse at Central">
-  <img src="/static/images/prsas/teaching-picture.jpg" alt="PRSAS teaching picture — Remote A, Remote B, Central; fused gold tracks. Fictional theater, not a basing map.">
+<object class="prsas-live" type="image/svg+xml" data="/static/images/prsas/live-picture.svg" aria-label="Live teaching picture — overlapping radars fuse at Central">
+  <img src="/static/images/prsas/teaching-picture.jpg" alt="PRSAS teaching picture — overlapping RSA/RSB coverage, dual-feed lens. Fictional theater, not a basing map.">
 </object>
-<p class="prsas-caption">Live teaching picture · plots → fused track · not live C2</p>
+<p class="prsas-caption">Live teaching picture · RSA ∩ RSB = dual-feed · not live C2</p>
 
 *CISS-TEACH. Stylized gulf. No real unit, no real site.*
 
