@@ -17,6 +17,28 @@ EDITABLE_KINDS = {
     "assignments": CONTENT_DIR / "assignments",
 }
 
+# Frozen pre-Masdar lessons. Live files in EDITABLE_KINDS win on id collision.
+ADDITIONAL_KINDS = {
+    "modules": CONTENT_DIR / "additional" / "modules",
+    "assignments": CONTENT_DIR / "additional" / "assignments",
+}
+
+PHASE_ORDER = {
+    "foundation": 1,
+    "kickoff": 2,
+    "depth": 3,
+    "capstone": 4,
+    "additional": 5,
+}
+
+PHASE_LABELS = {
+    "foundation": "Foundation · weeks 1–4",
+    "kickoff": "Capstone kickoff · week 5",
+    "depth": "Depth · week 6+",
+    "capstone": "PRSAS capstone",
+    "additional": "Additional / archived lessons",
+}
+
 
 def _read_yaml(path: Path) -> Any:
     if not path.exists():
@@ -25,10 +47,9 @@ def _read_yaml(path: Path) -> Any:
         return yaml.safe_load(f)
 
 
-# catalog.yaml is parsed on almost every page. Re-reading it once per module /
-# assignment (via _track_map) froze the single worker after the catalog grew.
+# catalog.yaml (+ additional/catalog.yaml) is parsed on almost every page.
 _catalog_cache: dict | None = None
-_catalog_mtime: float | None = None
+_catalog_mtime: tuple[float, float] | None = None
 
 
 def _unescape_code(code: str) -> str:
@@ -100,17 +121,33 @@ def _md_to_html(text: str) -> str:
 def list_editable_files() -> list[dict]:
     """List markdown files the instructor may edit in-app."""
     items: list[dict] = []
-    for kind, folder in EDITABLE_KINDS.items():
-        if not folder.is_dir():
-            continue
-        for path in sorted(folder.glob("*.md")):
-            items.append({
-                "kind": kind,
-                "id": path.stem,
-                "path": f"{kind}/{path.name}",
-                "title": path.stem.replace("-", " ").replace("_", " ").title(),
-                "bytes": path.stat().st_size,
-            })
+    seen: set[tuple[str, str]] = set()
+    scans = (
+        (EDITABLE_KINDS, False),
+        (ADDITIONAL_KINDS, True),
+    )
+    for roots, archived in scans:
+        for kind, folder in roots.items():
+            if not folder.is_dir():
+                continue
+            for path in sorted(folder.glob("*.md")):
+                key = (kind, path.stem)
+                if key in seen:
+                    continue
+                seen.add(key)
+                rel = (
+                    f"additional/{kind}/{path.name}"
+                    if archived
+                    else f"{kind}/{path.name}"
+                )
+                items.append({
+                    "kind": kind,
+                    "id": path.stem,
+                    "path": rel,
+                    "title": path.stem.replace("-", " ").replace("_", " ").title(),
+                    "bytes": path.stat().st_size,
+                    "archived": archived,
+                })
     # Prefer catalog titles when available
     title_map = {m["id"]: m["title"] for m in list_modules()}
     for a in list_assignments():
@@ -122,14 +159,19 @@ def list_editable_files() -> list[dict]:
 
 
 def resolve_editable_path(kind: str, content_id: str) -> Path | None:
-    """Safe path under content/modules|assignments only."""
+    """Safe path under content/modules|assignments (or additional copies)."""
     if kind not in EDITABLE_KINDS:
         return None
     if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,80}", content_id or ""):
         return None
-    path = EDITABLE_KINDS[kind] / f"{content_id}.md"
+    primary = EDITABLE_KINDS[kind] / f"{content_id}.md"
+    extra = ADDITIONAL_KINDS[kind] / f"{content_id}.md"
+    path = primary if primary.is_file() else extra if extra.is_file() else primary
     try:
-        path.resolve().relative_to(EDITABLE_KINDS[kind].resolve())
+        if path.is_file():
+            path.resolve().relative_to(path.parent.resolve())
+        else:
+            primary.resolve().relative_to(EDITABLE_KINDS[kind].resolve())
     except ValueError:
         return None
     return path
@@ -168,19 +210,54 @@ _DEFAULT_TRACKS: list[dict] = [
 ]
 
 
-def load_catalog() -> dict:
-    """Load catalog.yaml, reusing the parse until the file's mtime changes."""
-    global _catalog_cache, _catalog_mtime
-    path = CONTENT_DIR / "catalog.yaml"
+def normalize_phase(raw: str | None, *, default: str = "foundation") -> str:
+    p = (raw or default).strip().lower()
+    return p if p in PHASE_ORDER else default
+
+
+def _merge_by_id(primary: list | None, extra: list | None, *, extra_phase: str | None = None) -> list[dict]:
+    """Primary catalog rows win on id. Extra rows can be stamped with a phase."""
+    by_id: dict[str, dict] = {}
+    for row in extra or []:
+        if not isinstance(row, dict) or not row.get("id"):
+            continue
+        item = dict(row)
+        if extra_phase:
+            item["phase"] = extra_phase
+        by_id[item["id"]] = item
+    for row in primary or []:
+        if not isinstance(row, dict) or not row.get("id"):
+            continue
+        by_id[row["id"]] = dict(row)
+    return list(by_id.values())
+
+
+def _file_mtime(path: Path) -> float:
     try:
-        mtime = path.stat().st_mtime
+        return path.stat().st_mtime
     except OSError:
-        return {}
-    if _catalog_cache is not None and _catalog_mtime == mtime:
+        return 0.0
+
+
+def load_catalog() -> dict:
+    """Load live catalog.yaml merged with archived additional/catalog.yaml."""
+    global _catalog_cache, _catalog_mtime
+    primary_path = CONTENT_DIR / "catalog.yaml"
+    extra_path = CONTENT_DIR / "additional" / "catalog.yaml"
+    stamp = (_file_mtime(primary_path), _file_mtime(extra_path))
+    if _catalog_cache is not None and _catalog_mtime == stamp:
         return _catalog_cache
-    data = _read_yaml(path) or {}
+    primary = _read_yaml(primary_path) or {}
+    extra = _read_yaml(extra_path) or {}
+    data = dict(primary)
+    data["modules"] = _merge_by_id(
+        primary.get("modules"), extra.get("modules"), extra_phase="additional"
+    )
+    data["assignments"] = _merge_by_id(
+        primary.get("assignments"), extra.get("assignments"), extra_phase="additional"
+    )
     _catalog_cache = data
-    _catalog_mtime = mtime
+    _catalog_mtime = stamp
     return data
 
 
@@ -217,8 +294,18 @@ def list_tracks() -> list[dict]:
     for t in _raw_tracks():
         tid = t["id"]
         row = dict(t)
+        def _is_additional(row: dict) -> bool:
+            return normalize_phase(row.get("phase")) == "additional"
+
         row["module_count"] = sum(
-            1 for m in raw_modules if normalize_track_id(m.get("track")) == tid
+            1
+            for m in raw_modules
+            if normalize_track_id(m.get("track")) == tid and not _is_additional(m)
+        )
+        row["additional_count"] = sum(
+            1
+            for m in raw_modules
+            if normalize_track_id(m.get("track")) == tid and _is_additional(m)
         )
         row["assignment_count"] = sum(
             1
@@ -235,6 +322,7 @@ def list_tracks() -> list[dict]:
                 )
             )
             == tid
+            and not _is_additional(a)
         )
         out.append(row)
     return out
@@ -248,6 +336,8 @@ def get_track(track_id: str) -> dict | None:
 def _enrich_module(m: dict, track_map: dict[str, dict] | None = None) -> dict:
     row = dict(m)
     row["track"] = normalize_track_id(row.get("track"))
+    row["phase"] = normalize_phase(row.get("phase"))
+    row["phase_label"] = PHASE_LABELS.get(row["phase"], row["phase"])
     track_meta = (track_map if track_map is not None else _track_map()).get(row["track"]) or {}
     row["track_title"] = track_meta.get("title") or row["track"]
     row["track_short"] = track_meta.get("short") or row["track"].upper()
@@ -256,15 +346,44 @@ def _enrich_module(m: dict, track_map: dict[str, dict] | None = None) -> dict:
     return row
 
 
-def list_modules(track: str | None = None) -> list[dict]:
+def _module_sort_key(m: dict) -> tuple:
+    return (
+        PHASE_ORDER.get(m.get("phase"), 99),
+        m.get("order", 99),
+        m.get("id") or "",
+    )
+
+
+def list_modules(track: str | None = None, *, phase: str | None = None) -> list[dict]:
     catalog = load_catalog()
     track_map = _track_map()
     modules = [_enrich_module(m, track_map) for m in (catalog.get("modules") or [])]
-    modules = sorted(modules, key=lambda m: m.get("order", 99))
+    modules = sorted(modules, key=_module_sort_key)
     if track:
         tid = normalize_track_id(track)
         modules = [m for m in modules if m.get("track") == tid]
+    if phase:
+        want = normalize_phase(phase)
+        modules = [m for m in modules if m.get("phase") == want]
     return modules
+
+
+def group_by_phase(items: list[dict]) -> list[dict]:
+    """Group already-enriched modules or assignments by phase, empty phases omitted."""
+    buckets: dict[str, list[dict]] = {p: [] for p in PHASE_ORDER}
+    for item in items:
+        buckets.setdefault(item.get("phase") or "foundation", []).append(item)
+    out: list[dict] = []
+    for p, rank in sorted(PHASE_ORDER.items(), key=lambda kv: kv[1]):
+        group = buckets.get(p) or []
+        if not group:
+            continue
+        out.append({
+            "id": p,
+            "title": PHASE_LABELS.get(p, p),
+            "entries": group,
+        })
+    return out
 
 
 def modules_by_track() -> list[dict]:
@@ -273,16 +392,29 @@ def modules_by_track() -> list[dict]:
     result: list[dict] = []
     for t in list_tracks():
         row = dict(t)
-        row["modules"] = [m for m in all_mods if m.get("track") == t["id"]]
+        live = [m for m in all_mods if m.get("track") == t["id"] and m.get("phase") != "additional"]
+        archived = [m for m in all_mods if m.get("track") == t["id"] and m.get("phase") == "additional"]
+        row["modules"] = live
+        row["additional_modules"] = archived
+        row["phases"] = group_by_phase(
+            [m for m in all_mods if m.get("track") == t["id"]]
+        )
         result.append(row)
     return result
+
+
+def _markdown_path(kind: str, content_id: str) -> Path:
+    primary = CONTENT_DIR / kind / f"{content_id}.md"
+    if primary.is_file():
+        return primary
+    return CONTENT_DIR / "additional" / kind / f"{content_id}.md"
 
 
 def get_module(module_id: str) -> dict | None:
     for m in list_modules():
         if m.get("id") == module_id:
-            body_path = CONTENT_DIR / "modules" / f"{module_id}.md"
-            body_md = body_path.read_text(encoding="utf-8") if body_path.exists() else ""
+            body_path = _markdown_path("modules", module_id)
+            body_md = body_path.read_text(encoding="utf-8") if body_path.is_file() else ""
             m = dict(m)
             m["body_html"] = _md_to_html(body_md)
             m["body_md"] = body_md
@@ -312,15 +444,20 @@ def module_neighbors(
 ) -> tuple[dict | None, dict | None, int, int]:
     """Return (prev, next, index_1based, total).
 
-    By default navigates within the same track so multi-track catalogs
-    do not jump from SE into military mid-sequence.
+    By default navigates within the same track and phase so foundation
+    does not jump into archived additional lessons.
     """
     modules = list_modules()
     current = next((m for m in modules if m.get("id") == module_id), None)
     if not current:
         return None, None, 0, 0
     if within_track:
-        modules = [m for m in modules if m.get("track") == current.get("track")]
+        modules = [
+            m
+            for m in modules
+            if m.get("track") == current.get("track")
+            and m.get("phase") == current.get("phase")
+        ]
     total = len(modules)
     for i, m in enumerate(modules):
         if m.get("id") == module_id:
@@ -345,6 +482,8 @@ def _enrich_assignment(
             }
         track = module_track_by_id.get(row["module_id"])
     row["track"] = normalize_track_id(track)
+    row["phase"] = normalize_phase(row.get("phase"))
+    row["phase_label"] = PHASE_LABELS.get(row["phase"], row["phase"])
     track_meta = (track_map if track_map is not None else _track_map()).get(row["track"]) or {}
     row["track_title"] = track_meta.get("title") or row["track"]
     row["track_short"] = track_meta.get("short") or row["track"].upper()
@@ -365,7 +504,14 @@ def list_assignments(track: str | None = None) -> list[dict]:
         )
         for a in (catalog.get("assignments") or [])
     ]
-    items = sorted(items, key=lambda a: a.get("order", 99))
+    items = sorted(
+        items,
+        key=lambda a: (
+            PHASE_ORDER.get(a.get("phase"), 99),
+            a.get("order", 99),
+            a.get("id") or "",
+        ),
+    )
     if track:
         tid = normalize_track_id(track)
         items = [a for a in items if a.get("track") == tid]
@@ -377,7 +523,14 @@ def assignments_by_track() -> list[dict]:
     result: list[dict] = []
     for t in list_tracks():
         row = dict(t)
-        row["assignments"] = [a for a in all_asg if a.get("track") == t["id"]]
+        live = [a for a in all_asg if a.get("track") == t["id"] and a.get("phase") != "additional"]
+        row["assignments"] = live
+        row["additional_assignments"] = [
+            a for a in all_asg if a.get("track") == t["id"] and a.get("phase") == "additional"
+        ]
+        row["phases"] = group_by_phase(
+            [a for a in all_asg if a.get("track") == t["id"]]
+        )
         result.append(row)
     return result
 
@@ -385,8 +538,8 @@ def assignments_by_track() -> list[dict]:
 def get_assignment(assignment_id: str) -> dict | None:
     for a in list_assignments():
         if a.get("id") == assignment_id:
-            body_path = CONTENT_DIR / "assignments" / f"{assignment_id}.md"
-            body_md = body_path.read_text(encoding="utf-8") if body_path.exists() else ""
+            body_path = _markdown_path("assignments", assignment_id)
+            body_md = body_path.read_text(encoding="utf-8") if body_path.is_file() else ""
             a = dict(a)
             a["body_html"] = _md_to_html(body_md)
             a["rubric"] = a.get("rubric") or []

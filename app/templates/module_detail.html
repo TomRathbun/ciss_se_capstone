@@ -55,11 +55,18 @@
 
     <div class="flex items-center gap-2 mt-1 mb-2">
         <a href="/modules?track={{ module.track }}" class="badge badge-{{ module.track_color }} no-underline">{{ module.track_short }}</a>
+        <span class="badge badge-{{ module.phase }}">{{ module.phase_label }}</span>
         <span class="text-xs text-gray-600">~{{ module.duration_min }} min</span>
         {% if completed %}<span class="badge badge-weight">completed</span>{% endif %}
     </div>
     <h1 class="text-3xl font-bold">{{ module.title }}</h1>
     <p class="text-gray-500 mt-2">{{ module.summary }}</p>
+    {% if module.additional_of %}
+    <p class="text-sm text-gray-500 mt-3">
+        Long-form original (archived):
+        <a class="text-primary-400 hover:text-primary-300" href="/modules/{{ module.additional_of }}">{{ module.additional_of }}</a>
+    </p>
+    {% endif %}
 </div>
 
 <article id="module-article" class="card p-6 md:p-8 prose-course">
@@ -70,9 +77,9 @@
 {% set weekly = related_assignments | rejectattr('due_session', 'equalto', 'Ongoing') | list %}
 {% set ongoing = related_assignments | selectattr('due_session', 'equalto', 'Ongoing') | list %}
 {% if weekly %}
-<section class="mt-6 card p-5" aria-label="Thursday assignment">
-    <p class="text-[10px] uppercase tracking-wide text-gray-600 mb-2">This week’s take-home</p>
-    <p class="text-sm text-gray-400 mb-3">Taught Monday · work Monday–Wednesday · check Thursday.</p>
+<section class="mt-6 card p-5" aria-label="Morning assignment">
+    <p class="text-[10px] uppercase tracking-wide text-gray-600 mb-2">Tomorrow morning (~2 hours)</p>
+    <p class="text-sm text-gray-400 mb-3">Assigned this afternoon. Due before the next afternoon lecture. Stop at two hours and turn in what you have.</p>
     <div class="space-y-2">
         {% for a in weekly %}
         <a href="/assignments/{{ a.id }}" class="block rounded-lg border border-white/10 p-3 hover:border-primary-500/40">

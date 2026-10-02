@@ -1,301 +1,590 @@
-# Default cohort rhythm: Monday deep session, Thursday Q&A / grade
-# Instructor can skip lecture weeks and insert ops-only or project weeks.
-#
-# One SE module per Monday (Week 1 pairs welcome + what-is-SE).
-# Thursday is the check for that week's take-home.
-# Software, Networking, and SysAdmin tracks run their own module order
-# in parallel (NET: net-00-welcome … net-10-troubleshoot on older Juniper).
+# Masdar afternoon model. One LM SME from the SDC (Al Dhafra) each weekday.
+# Morning at Masdar: intern work on yesterday's assignment (~2 hours).
+# Afternoon: lecture / review / exercise / assign.
+# Friday is flex (SE workshop, integration, or TAA-cleared military).
+# SDC on-site after week 24 is not in this calendar until approvals exist.
 
 cohort_id: 2026-UAE-interns
 timezone: Asia/Dubai
 pattern: >
-  Typical week: Monday 3–4h introduce one SE module + workshop.
-  Thursday shorter: questions, peer review, grading of that week's assignment.
-  Military ops weeks sit after the SE spine (V&V), then the ETAS walk and SA preview.
+  Morning: intern work on the assignment from yesterday's discipline (~2 hours), due before
+  that day's afternoon lecture. Afternoon: one SME teaches (Mon SE, Tue NET, Wed SW,
+  Thu Admin, Fri flex). Weeks 1–4 all-hands. Week 5 capstone kickoff (all-hands).
+  Week 6+ electives; SE remains mandatory. Military lectures only after TAA review.
 
 sessions:
+  # ----- Week 1 foundation -----
   - id: w1-mon
     week: 1
     day: Monday
-    title: Kickoff — Welcome, selection, what SE is
-    modules: [se-00-welcome, se-01-what-is-se]
+    title: SE — What SE is
+    modules: [se-f01-what-se-is]
     type: lecture_workshop
-    assignment_assigned: [se-a00-track-plan, se-a01-se-literacy]
-
+    assignment_assigned: [se-fa01-what-se-is, se-fa00-professional]
+  - id: w1-tue
+    week: 1
+    day: Tuesday
+    title: NET — How a network is built
+    modules: [net-f01-how-built]
+    type: lecture_workshop
+    assignment_due: [se-fa01-what-se-is]
+    assignment_assigned: [net-fa01-how-built]
+  - id: w1-wed
+    week: 1
+    day: Wednesday
+    title: SW — Git as daily craft
+    modules: [sw-f01-git]
+    type: lecture_workshop
+    assignment_due: [net-fa01-how-built]
+    assignment_assigned: [sw-fa01-git]
   - id: w1-thu
     week: 1
     day: Thursday
-    title: Q&A — SE-A00 + SE-A01 due
-    modules: [se-00-welcome, se-01-what-is-se]
-    type: qa_grade
-    assignment_due: [se-a00-track-plan, se-a01-se-literacy]
+    title: ADMIN — Linux on a VM
+    modules: [admin-f01-linux-vm]
+    type: lecture_workshop
+    assignment_due: [sw-fa01-git]
+    assignment_assigned: [admin-fa01-linux-vm]
+  - id: w1-fri
+    week: 1
+    day: Friday
+    title: Flex — workshop / catch-up (military only if TAA-cleared)
+    modules: []
+    type: flex
+    assignment_due: [admin-fa01-linux-vm]
 
+  # ----- Week 2 -----
   - id: w2-mon
     week: 2
     day: Monday
-    title: Vision, stakeholders & needs
-    modules: [se-02-stakeholders]
+    title: SE — Needs → use cases
+    modules: [se-f02-needs-usecases]
     type: lecture_workshop
-    assignment_assigned: [a1-context]
-
+    assignment_assigned: [se-fa02-needs-usecases]
+  - id: w2-tue
+    week: 2
+    day: Tuesday
+    title: NET — Addressing
+    modules: [net-f02-addressing]
+    type: lecture_workshop
+    assignment_due: [se-fa02-needs-usecases]
+    assignment_assigned: [net-fa02-addressing]
+  - id: w2-wed
+    week: 2
+    day: Wednesday
+    title: SW — How a team ships a change
+    modules: [sw-f02-team-change]
+    type: lecture_workshop
+    assignment_due: [net-fa02-addressing]
+    assignment_assigned: [sw-fa02-team-change]
   - id: w2-thu
     week: 2
     day: Thursday
-    title: A1 due — vision / needs / context
-    modules: [se-02-stakeholders]
-    type: qa_grade
-    assignment_due: [a1-context]
+    title: ADMIN — See what the machine is doing
+    modules: [admin-f02-see-machine]
+    type: lecture_workshop
+    assignment_due: [sw-fa02-team-change]
+    assignment_assigned: [admin-fa02-see-machine]
+  - id: w2-fri
+    week: 2
+    day: Friday
+    title: Flex — workshop / catch-up
+    modules: []
+    type: flex
+    assignment_due: [admin-fa02-see-machine]
 
+  # ----- Week 3 -----
   - id: w3-mon
     week: 3
     day: Monday
-    title: Use cases from needs
-    modules: [se-03-usecases]
+    title: SE — Requirements that can be tested
+    modules: [se-f03-requirements]
     type: lecture_workshop
-    assignment_assigned: [se-a03-usecases]
-
+    assignment_assigned: [se-fa03-requirements]
+  - id: w3-tue
+    week: 3
+    day: Tuesday
+    title: NET — Conversations on the wire
+    modules: [net-f03-on-the-wire]
+    type: lecture_workshop
+    assignment_due: [se-fa03-requirements]
+    assignment_assigned: [net-fa03-on-the-wire]
+  - id: w3-wed
+    week: 3
+    day: Wednesday
+    title: SW — Reading and writing code
+    modules: [sw-f03-reading-code]
+    type: lecture_workshop
+    assignment_due: [net-fa03-on-the-wire]
+    assignment_assigned: [sw-fa03-reading-code]
   - id: w3-thu
     week: 3
     day: Thursday
-    title: SE-A03 due — use-case briefs
-    modules: [se-03-usecases]
-    type: qa_grade
-    assignment_due: [se-a03-usecases]
+    title: ADMIN — Software on the host
+    modules: [admin-f03-software-host]
+    type: lecture_workshop
+    assignment_due: [sw-fa03-reading-code]
+    assignment_assigned: [admin-fa03-software-host]
+  - id: w3-fri
+    week: 3
+    day: Friday
+    title: Flex — workshop / catch-up
+    modules: []
+    type: flex
+    assignment_due: [admin-fa03-software-host]
 
+  # ----- Week 4 -----
   - id: w4-mon
     week: 4
     day: Monday
-    title: Requirements & acceptance criteria
-    modules: [se-04-requirements]
+    title: SE — Reading the system
+    modules: [se-f04-reading-the-system]
     type: lecture_workshop
-    assignment_assigned: [a2-requirements]
-
+    assignment_assigned: [se-fa04-reading-system]
+  - id: w4-tue
+    week: 4
+    day: Tuesday
+    title: NET — Test before you guess
+    modules: [net-f04-test-path]
+    type: lecture_workshop
+    assignment_due: [se-fa04-reading-system]
+    assignment_assigned: [net-fa04-test-path]
+  - id: w4-wed
+    week: 4
+    day: Wednesday
+    title: SW — Services, not scripts
+    modules: [sw-f04-services]
+    type: lecture_workshop
+    assignment_due: [net-fa04-test-path]
+    assignment_assigned: [sw-fa04-services]
   - id: w4-thu
     week: 4
     day: Thursday
-    title: A2 draft coaching (4 FRs + 2 ACs minimum)
-    modules: [se-04-requirements]
-    type: qa_grade
+    title: ADMIN — Trust and identity
+    modules: [admin-f04-trust-identity]
+    type: lecture_workshop
+    assignment_due: [sw-fa04-services]
+    assignment_assigned: [admin-fa04-trust-identity]
+  - id: w4-fri
+    week: 4
+    day: Friday
+    title: Flex — electives briefing / catch-up
+    modules: []
+    type: flex
+    assignment_due: [admin-fa04-trust-identity]
 
+  # ----- Week 5 kickoff (all-hands) -----
   - id: w5-mon
     week: 5
     day: Monday
-    title: Architecture views & allocation
-    modules: [se-05-architecture]
-    type: lecture_workshop
-    assignment_assigned: [se-a05-architecture]
-
+    title: Capstone kickoff — PRSAS overview + SE work
+    modules: [se-k01-prsas-overview, se-k02-se-work]
+    type: project
+    assignment_assigned: [se-ka01-overview, se-ka02-se-work]
+  - id: w5-tue
+    week: 5
+    day: Tuesday
+    title: Capstone kickoff — Networking work
+    modules: [net-k01-net-work]
+    type: project
+    assignment_due: [se-ka01-overview, se-ka02-se-work]
+    assignment_assigned: [net-ka01-net-work]
+  - id: w5-wed
+    week: 5
+    day: Wednesday
+    title: Capstone kickoff — Software work
+    modules: [sw-k01-sw-work]
+    type: project
+    assignment_due: [net-ka01-net-work]
+    assignment_assigned: [sw-ka01-sw-work]
   - id: w5-thu
     week: 5
     day: Thursday
-    title: A2 final + SE-A05 due
-    modules: [se-04-requirements, se-05-architecture]
-    type: qa_grade
-    assignment_due: [a2-requirements, se-a05-architecture]
+    title: Capstone kickoff — Admin work
+    modules: [admin-k01-admin-work]
+    type: project
+    assignment_due: [sw-ka01-sw-work]
+    assignment_assigned: [admin-ka01-admin-work]
+  - id: w5-fri
+    week: 5
+    day: Friday
+    title: Flex — elective choice / integration
+    modules: []
+    type: flex
+    assignment_due: [admin-ka01-admin-work]
 
+  # ----- Weeks 6–14 depth (electives; SE mandatory) -----
   - id: w6-mon
     week: 6
     day: Monday
-    title: Behavior — states & sequences
-    modules: [se-06-behavior]
+    title: SE depth — Architecture views
+    modules: [se-d01-architecture]
     type: lecture_workshop
-    assignment_assigned: [a3-behavior]
-
+    assignment_assigned: [se-da01-architecture]
+  - id: w6-tue
+    week: 6
+    day: Tuesday
+    title: NET depth — Junos commit model
+    modules: [net-d01-junos]
+    type: lecture_workshop
+    assignment_due: [se-da01-architecture]
+    assignment_assigned: [net-da01-junos]
+  - id: w6-wed
+    week: 6
+    day: Wednesday
+    title: SW depth — Python to Java
+    modules: [sw-d01-python-java]
+    type: lecture_workshop
+    assignment_due: [net-da01-junos]
+    assignment_assigned: [sw-da01-python-java]
   - id: w6-thu
     week: 6
     day: Thursday
-    title: A3 due — state + sequence
-    modules: [se-06-behavior]
-    type: qa_grade
-    assignment_due: [a3-behavior]
+    title: ADMIN depth — Bash
+    modules: [admin-d01-bash]
+    type: lecture_workshop
+    assignment_due: [sw-da01-python-java]
+    assignment_assigned: [admin-da01-bash]
+  - id: w6-fri
+    week: 6
+    day: Friday
+    title: Flex — review / TAA military if cleared
+    type: flex
+    assignment_due: [admin-da01-bash]
 
   - id: w7-mon
     week: 7
     day: Monday
-    title: Interfaces & ICDs
-    modules: [se-07-interfaces]
+    title: SE depth — Behavior
+    modules: [se-d02-behavior]
     type: lecture_workshop
-    assignment_assigned: [a7-icd-messaging-api]
-
+    assignment_assigned: [se-da02-behavior]
+  - id: w7-tue
+    week: 7
+    day: Tuesday
+    title: NET depth — EX switching
+    modules: [net-d02-switching]
+    type: lecture_workshop
+    assignment_due: [se-da02-behavior]
+    assignment_assigned: [net-da02-switching]
+  - id: w7-wed
+    week: 7
+    day: Wednesday
+    title: SW depth — Java tooling
+    modules: [sw-d02-java-tooling]
+    type: lecture_workshop
+    assignment_due: [net-da02-switching]
+    assignment_assigned: [sw-da02-java-tooling]
   - id: w7-thu
     week: 7
     day: Thursday
-    title: A7 due — messaging + API ICD
-    modules: [se-07-interfaces]
-    type: qa_grade
-    assignment_due: [a7-icd-messaging-api]
+    title: ADMIN depth — TLS
+    modules: [admin-d02-tls]
+    type: lecture_workshop
+    assignment_due: [sw-da02-java-tooling]
+    assignment_assigned: [admin-da02-tls]
+  - id: w7-fri
+    week: 7
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da02-tls]
 
   - id: w8-mon
     week: 8
     day: Monday
-    title: Architecture frameworks & MBSE literacy
-    modules: [se-11-mbse-frameworks]
+    title: SE depth — Interfaces & ICDs
+    modules: [se-d03-interfaces]
     type: lecture_workshop
-    assignment_assigned: [se-a11-mbse-literacy]
-
+    assignment_assigned: [se-da03-icd]
+  - id: w8-tue
+    week: 8
+    day: Tuesday
+    title: NET depth — SRX zones
+    modules: [net-d03-srx]
+    type: lecture_workshop
+    assignment_due: [se-da03-icd]
+    assignment_assigned: [net-da03-srx]
+  - id: w8-wed
+    week: 8
+    day: Wednesday
+    title: SW depth — JDBC
+    modules: [sw-d03-jdbc]
+    type: lecture_workshop
+    assignment_due: [net-da03-srx]
+    assignment_assigned: [sw-da03-jdbc]
   - id: w8-thu
     week: 8
     day: Thursday
-    title: SE-A11 due — literacy brief
-    modules: [se-11-mbse-frameworks]
-    type: qa_grade
-    assignment_due: [se-a11-mbse-literacy]
+    title: ADMIN depth — Identity
+    modules: [admin-d03-idm]
+    type: lecture_workshop
+    assignment_due: [sw-da03-jdbc]
+    assignment_assigned: [admin-da03-idm]
+  - id: w8-fri
+    week: 8
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da03-idm]
 
   - id: w9-mon
     week: 9
     day: Monday
-    title: Verification, validation & traceability
-    modules: [se-08-vv-trace]
+    title: SE depth — MBSE literacy
+    modules: [se-d04-mbse]
     type: lecture_workshop
-    assignment_assigned: [a4-trace-vv]
-
+    assignment_assigned: [se-da04-mbse]
+  - id: w9-tue
+    week: 9
+    day: Tuesday
+    title: NET depth — OSPF
+    modules: [net-d04-ospf]
+    type: lecture_workshop
+    assignment_due: [se-da04-mbse]
+    assignment_assigned: [net-da04-ospf]
+  - id: w9-wed
+    week: 9
+    day: Wednesday
+    title: SW depth — AMQP
+    modules: [sw-d04-amqp]
+    type: lecture_workshop
+    assignment_due: [net-da04-ospf]
+    assignment_assigned: [sw-da04-amqp]
   - id: w9-thu
     week: 9
     day: Thursday
-    title: A4 due — RTM + V&V plan
-    modules: [se-08-vv-trace]
-    type: qa_grade
-    assignment_due: [a4-trace-vv]
+    title: ADMIN depth — NFS
+    modules: [admin-d04-nfs]
+    type: lecture_workshop
+    assignment_due: [sw-da04-amqp]
+    assignment_assigned: [admin-da04-nfs]
+  - id: w9-fri
+    week: 9
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da04-nfs]
 
   - id: w10-mon
     week: 10
     day: Monday
-    title: Military ops — UAE context, CONOPS/AOC
-    modules: [ops-uae-military, ops-00-conops-aoc]
-    type: lecture_ops
-    assignment_assigned: [a5-ops-mission]
-
+    title: SE depth — V&V and trace
+    modules: [se-d05-vv-trace]
+    type: lecture_workshop
+    assignment_assigned: [se-da05-vv]
+  - id: w10-tue
+    week: 10
+    day: Tuesday
+    title: NET depth — BGP
+    modules: [net-d05-bgp]
+    type: lecture_workshop
+    assignment_due: [se-da05-vv]
+    assignment_assigned: [net-da05-bgp]
+  - id: w10-wed
+    week: 10
+    day: Wednesday
+    title: SW depth — Daemons
+    modules: [sw-d05-daemons]
+    type: lecture_workshop
+    assignment_due: [net-da05-bgp]
+    assignment_assigned: [sw-da05-daemons]
   - id: w10-thu
     week: 10
     day: Thursday
-    title: A5 coaching — mission-card draft
-    modules: [ops-00-conops-aoc]
-    type: qa_grade
+    title: ADMIN depth — vSphere
+    modules: [admin-d05-vsphere]
+    type: lecture_workshop
+    assignment_due: [sw-da05-daemons]
+    assignment_assigned: [admin-da05-vsphere]
+  - id: w10-fri
+    week: 10
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da05-vsphere]
 
   - id: w11-mon
     week: 11
     day: Monday
-    title: Military ops — ATO planning, execution, platforms
-    modules: [ops-01-ato-planning, ops-02-ato-execution, ops-03-weapons-context]
-    type: lecture_ops
-
+    title: SE depth — ETAS case study
+    modules: [se-d06-etas]
+    type: case_study
+    assignment_assigned: [se-da06-etas]
+  - id: w11-tue
+    week: 11
+    day: Tuesday
+    title: NET depth — MPLS
+    modules: [net-d06-mpls]
+    type: lecture_workshop
+    assignment_due: [se-da06-etas]
+    assignment_assigned: [net-da06-mpls]
+  - id: w11-wed
+    week: 11
+    day: Wednesday
+    title: SW depth — JavaFX
+    modules: [sw-d06-javafx]
+    type: lecture_workshop
+    assignment_due: [net-da06-mpls]
+    assignment_assigned: [sw-da06-javafx]
   - id: w11-thu
     week: 11
     day: Thursday
-    title: A5 due — mission card + execution annex
-    modules: [ops-01-ato-planning]
-    type: qa_grade
-    assignment_due: [a5-ops-mission]
+    title: ADMIN depth — PostgreSQL
+    modules: [admin-d06-postgres]
+    type: lecture_workshop
+    assignment_due: [sw-da06-javafx]
+    assignment_assigned: [admin-da06-postgres]
+  - id: w11-fri
+    week: 11
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da06-postgres]
 
   - id: w12-mon
     week: 12
     day: Monday
-    title: Living case study — SDC Time Tracker (ETAS)
-    modules: [se-09-case-etas]
-    type: case_study
-    assignment_assigned: [se-a09-etas-walk]
-
+    title: SE — PRSAS shared contracts (capstone)
+    modules: [se-12-prsas-overview]
+    type: project
+    assignment_assigned: [se-a12-prsas-overview]
+  - id: w12-tue
+    week: 12
+    day: Tuesday
+    title: NET depth — IPsec
+    modules: [net-d07-ipsec]
+    type: lecture_workshop
+    assignment_due: [se-a12-prsas-overview]
+    assignment_assigned: [net-da07-ipsec]
+  - id: w12-wed
+    week: 12
+    day: Wednesday
+    title: SW depth — CI/CD
+    modules: [sw-d07-cicd]
+    type: lecture_workshop
+    assignment_due: [net-da07-ipsec]
+    assignment_assigned: [sw-da07-cicd]
   - id: w12-thu
     week: 12
     day: Thursday
-    title: SE-A09 due — artifact hunt
-    modules: [se-09-case-etas]
-    type: qa_grade
-    assignment_due: [se-a09-etas-walk]
+    title: ADMIN depth — Host troubleshooting
+    modules: [admin-d07-troubleshoot]
+    type: lecture_workshop
+    assignment_due: [sw-da07-cicd]
+    assignment_assigned: [admin-da07-troubleshoot]
+  - id: w12-fri
+    week: 12
+    day: Friday
+    title: Flex
+    type: flex
+    assignment_due: [admin-da07-troubleshoot]
 
-  - id: later
+  - id: w13-mon
     week: 13
     day: Monday
-    title: Capstone preview — radar SA framing
-    modules: [se-10-capstone-preview]
+    title: SE capstone — PRSAS CONOPS
+    modules: [se-13-prsas-conops]
     type: project
-    assignment_assigned: [se-a10-sa-framing]
-
-  - id: later-thu
+    assignment_assigned: [se-a13-prsas-conops]
+  - id: w13-tue
+    week: 13
+    day: Tuesday
+    title: NET depth — HA and change
+    modules: [net-d08-ha-change]
+    type: lecture_workshop
+    assignment_assigned: [net-da08-ha-change]
+  - id: w13-wed
+    week: 13
+    day: Wednesday
+    title: SW capstone — Radar simulator
+    modules: [sw-09-prsas-simulator]
+    type: project
+    assignment_assigned: [sw-a09-prsas-simulator]
+  - id: w13-thu
     week: 13
     day: Thursday
-    title: SE-A10 due — SA framing pack
-    modules: [se-10-capstone-preview]
-    type: qa_grade
-    assignment_due: [se-a10-sa-framing]
+    title: ADMIN depth — Tickets and runbooks
+    modules: [admin-d08-tickets]
+    type: lecture_workshop
+    assignment_assigned: [admin-da08-tickets]
+  - id: w13-fri
+    week: 13
+    day: Friday
+    title: Flex — capstone integration
+    type: flex
 
   - id: w14-mon
     week: 14
     day: Monday
-    title: PRSAS kickoff — shared contracts (all tracks)
-    modules: [se-12-prsas-overview]
+    title: SE capstone — MBSE & track schema
+    modules: [se-14-prsas-mbse-schema]
     type: project
-    assignment_assigned: [se-a12-prsas-overview]
-
+    assignment_assigned: [se-a14-prsas-mbse-schema]
+  - id: w14-tue
+    week: 14
+    day: Tuesday
+    title: NET depth — Junos troubleshooting
+    modules: [net-d09-troubleshoot]
+    type: lecture_workshop
+    assignment_assigned: [net-da09-troubleshoot]
+  - id: w14-wed
+    week: 14
+    day: Wednesday
+    title: SW capstone — Track daemon
+    modules: [sw-10-prsas-daemon]
+    type: project
+    assignment_assigned: [sw-a10-prsas-daemon]
   - id: w14-thu
     week: 14
     day: Thursday
-    title: SE-A12 due — interface & ownership map
-    modules: [se-12-prsas-overview]
-    type: qa_grade
-    assignment_due: [se-a12-prsas-overview]
+    title: ADMIN capstone — VM provision
+    modules: [admin-11-prsas-provision]
+    type: project
+    assignment_assigned: [admin-a11-prsas-provision]
+  - id: w14-fri
+    week: 14
+    day: Friday
+    title: Flex — capstone integration
+    type: flex
 
   - id: w15-mon
     week: 15
     day: Monday
-    title: PRSAS — CONOPS / simulator / topology / provision (parallel tracks)
-    modules: [se-13-prsas-conops, sw-09-prsas-simulator, net-11-prsas-topology, admin-11-prsas-provision, ops-04-prsas-picture]
+    title: Parallel PRSAS — virt study opens; NET topology; ADMIN identity
+    modules: [se-15-prsas-virt-lessons, net-11-prsas-topology, admin-12-prsas-idm-certs, ops-04-prsas-picture]
     type: project
-    assignment_assigned: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
-
-  - id: w15-thu
-    week: 15
-    day: Thursday
-    title: PRSAS week-15 artifacts due
-    modules: [se-13-prsas-conops]
-    type: qa_grade
-    assignment_due: [se-a13-prsas-conops, sw-a09-prsas-simulator, net-a11-prsas-topology, admin-a11-prsas-provision, mil-a04-prsas-picture]
-
+    assignment_assigned: [net-a11-prsas-topology, admin-a12-prsas-idm-certs, mil-a04-prsas-picture]
   - id: w16-mon
     week: 16
     day: Monday
-    title: PRSAS — schema & MBSE / daemon / IPsec / IDM-certs
-    modules: [se-14-prsas-mbse-schema, sw-10-prsas-daemon, net-12-prsas-secure-path, admin-12-prsas-idm-certs]
+    title: Parallel PRSAS — SW client; NET IPsec; ADMIN harden
+    modules: [sw-11-prsas-client, net-12-prsas-secure-path, admin-13-prsas-harden-automate]
     type: project
-    assignment_assigned: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
-
-  - id: w16-thu
-    week: 16
-    day: Thursday
-    title: PRSAS week-16 artifacts due
-    modules: [se-14-prsas-mbse-schema]
-    type: qa_grade
-    assignment_due: [se-a14-prsas-mbse-schema, sw-a10-prsas-daemon, net-a12-prsas-secure-path, admin-a12-prsas-idm-certs]
-
+    assignment_assigned: [sw-a11-prsas-client, net-a12-prsas-secure-path, admin-a13-prsas-harden-automate]
   - id: w17-mon
     week: 17
     day: Monday
-    title: PRSAS — client, validate, harden; virt study opens
-    modules: [sw-11-prsas-client, net-13-prsas-validate, admin-13-prsas-harden-automate, se-15-prsas-virt-lessons]
+    title: Parallel PRSAS — validate path; integration
+    modules: [net-13-prsas-validate, sw-12-prsas-integrate]
     type: project
-    assignment_assigned: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate, se-a15-prsas-virt-lessons]
-
-  - id: w17-thu
-    week: 17
-    day: Thursday
-    title: PRSAS week-17 artifacts due
-    modules: [sw-11-prsas-client]
-    type: qa_grade
-    assignment_due: [sw-a11-prsas-client, net-a13-prsas-validate, admin-a13-prsas-harden-automate]
-
+    assignment_assigned: [net-a13-prsas-validate, sw-a12-prsas-integrate]
   - id: w18-mon
     week: 18
     day: Monday
     title: PRSAS integration demo & lessons-learned
     modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
     type: project
-    assignment_assigned: [sw-a12-prsas-integrate]
-
-  - id: w18-thu
-    week: 18
-    day: Thursday
-    title: SW-A12 + SE-A15 due — close-out
-    modules: [sw-12-prsas-integrate, se-15-prsas-virt-lessons]
-    type: qa_grade
     assignment_due: [sw-a12-prsas-integrate, se-a15-prsas-virt-lessons]
 
+  - id: w19-later
+    week: 19
+    day: Monday
+    title: Weeks 19–24 — continue Masdar review / teach / assign loop on remaining capstone work
+    type: project
+
+  - id: w25-sdc
+    week: 25
+    day: Monday
+    title: Weeks 25–36 — Masdar continues; SDC on-site only if approvals exist (not promised)
+    type: note

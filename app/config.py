@@ -12,7 +12,7 @@ SESSION_COOKIE = "ciss_se_session"
 SESSION_MAX_AGE = 12 * 60 * 60  # 12 hours
 
 APP_NAME = "CISS Capstone"
-APP_TAGLINE = "SE · Software · Networking · SysAdmin · Military · Candidate Assessment"
+APP_TAGLINE = "Masdar afternoons · common foundation · capstone-driven depth · candidate assessment"
 APP_VERSION = "0.1.0"
 
 # Link to the living ETAS case study (time tracker SE page)

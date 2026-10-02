@@ -2,7 +2,7 @@
 
 **Systems Engineering · Military Operations · Intern Selection**
 
-A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Time Tracker: dark UI, module-based learning, rubric grading to **distinguish candidates** for the main project.
+A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Time Tracker: dark UI, module-based learning, rubric grading to **distinguish candidates** for the main project. Delivery is the Masdar-afternoon model (common foundation, week-5 kickoff, then depth).
 
 ## Purpose
 
@@ -26,11 +26,25 @@ A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Ti
 
 Docker may appear in external reading; for CISS work, prefer the **assigned VM** and document connection details (host, port, user) in your notes.
 
-## Rhythm
+## Rhythm (Masdar afternoons)
 
-- **Monday** — 3–4h introduce topic + workshop  
-- **Thursday** — Q&A, peer feedback, grading  
-- Not every week is an SE lecture; ops weeks and catch-up are scheduled  
+Lockheed Martin SMEs work at the Software Development Center (Al Dhafra AFB). Interns stay at the Masdar City LM office. One expert travels each weekday afternoon (~30 minutes).
+
+| | |
+|--|--|
+| **Morning** | Interns do yesterday’s assignment (~2 hours), due before that day’s lecture |
+| **Mon afternoon** | Systems Engineering (mandatory all 36 weeks) |
+| **Tue afternoon** | Networking |
+| **Wed afternoon** | Software |
+| **Thu afternoon** | System Administration |
+| **Fri afternoon** | Flex (SE workshop, integration, or a **TAA-cleared** military lecture) |
+
+**Weeks 1–4** — all interns attend every lecture (general literacy).  
+**Week 5** — capstone kickoff (PRSAS).  
+**Week 6+** — electives; everyone stays in SE.  
+**Weeks 25–36** — Masdar continues. SDC on-site is **not** on the intern calendar until approvals exist.
+
+Pre-Masdar lessons are preserved under **Additional / archived** (`content/additional/`). Do not delete them.
 
 See `content/schedule/cohort.yaml`.
 
@@ -75,13 +89,16 @@ Reload now watches only `app/` and `content/`, not `.venv`.
 
 ```
 content/
-  catalog.yaml              # modules + assignment metadata + rubrics
-  selection_criteria.yaml   # how candidates are judged
-  schedule/cohort.yaml      # Mon/Thu plan
+  catalog.yaml                 # live Masdar path (foundation, kickoff, depth, PRSAS)
+  additional/                  # archived pre-Masdar lessons (do not delete)
+    catalog.yaml
+    modules/*.md
+    assignments/*.md
+  schedule/cohort.yaml         # Mon–Fri afternoon plan
   glossary/terms.yaml
-  modules/*.md              # lecture / reading bodies
-  assignments/*.md          # student-facing briefs
-  project/radar_sa_project.md  # UC-CISS_PROJECT-001 PRSAS (+ sister LLAP note)
+  modules/*.md                 # live lecture bodies
+  assignments/*.md             # live ~2h morning briefs
+  project/radar_sa_project.md  # UC-CISS_PROJECT-001 PRSAS
 ```
 
 Edit Markdown and YAML; restart not always required for content (read on each request).
@@ -100,25 +117,9 @@ Edit Markdown and YAML; restart not always required for content (read on each re
 
 ## Scoring (discrimination)
 
-Assignment weights (SE track, from catalog — one Thursday take-home per module):
+Live intern-selection scores use **foundation + kickoff + depth** assignments (each track sums to 100%). Each lecture assigns a **~2 hour** packet due the next morning.
 
-| ID | Module | Focus | Weight |
-|----|--------|--------|--------|
-| SE-A00 | se-00 | Track plan & artifact map | 3% |
-| SE-A01 | se-01 | SE literacy / failure-mode brief | 5% |
-| A1 | se-02 | Vision, context & stakeholders | 10% |
-| SE-A03 | se-03 | Use cases from needs | 8% |
-| A2 | se-04 | Requirements + ACs (two-week) | 16% |
-| SE-A05 | se-05 | Architecture views & allocation | 8% |
-| A3 | se-06 | State + sequence | 10% |
-| A7 | se-07 | Messaging + API ICD | 8% |
-| SE-A11 | se-11 | MBSE / frameworks literacy | 5% |
-| A4 | se-08 | RTM + V&V | 10% |
-| SE-A09 | se-09 | ETAS artifact hunt | 5% |
-| SE-A10 | se-10 | Radar SA framing pack | 5% |
-| A6 | se-00 | Professionalism (ongoing) | 7% |
-
-Military ops mission card (**A5**, 15% of the MIL track) is separate. Overall % = weighted average of **foundation** assignments that have grades. **PRSAS / capstone** assignments (`phase: capstone` in the catalog) are scored on a separate 100%-per-track scale so they do not dilute intern-selection standings. Instructor **recommended** flag is separate judgment for main-project select.
+**PRSAS / capstone** assignments (`phase: capstone`) are scored on a separate 100%-per-track scale. **Additional / archived** pre-Masdar assignments do not affect the leaderboard. Instructor **recommended** flag is separate judgment for main-project select.
 
 ## Ports
 

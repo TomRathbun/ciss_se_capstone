@@ -29,10 +29,13 @@ from app.config import (
     UPLOAD_URL_PREFIX,
 )
 from app.curriculum import (
+    PHASE_LABELS,
+    PHASE_ORDER,
     assignments_by_track,
     assignments_for_module,
     get_assignment,
     get_module,
+    group_by_phase,
     list_assignments,
     list_editable_files,
     list_modules,
@@ -43,6 +46,7 @@ from app.curriculum import (
     load_selection_criteria,
     module_neighbors,
     modules_by_track,
+    normalize_phase,
     normalize_track_id,
     read_editable,
     write_editable,
@@ -145,6 +149,10 @@ async def modules_index(request: Request, db: Session = Depends(get_db)):
     track = request.query_params.get("track")
     if track:
         track = normalize_track_id(track)
+    phase = request.query_params.get("phase")
+    if phase:
+        phase = normalize_phase(phase)
+    modules = list_modules(track=track, phase=phase)
     return templates.TemplateResponse(
         "modules.html",
         _ctx(
@@ -152,7 +160,11 @@ async def modules_index(request: Request, db: Session = Depends(get_db)):
             db,
             tracks=list_tracks(),
             track_filter=track,
-            modules=list_modules(track=track) if track else list_modules(),
+            phase_filter=phase,
+            phase_labels=PHASE_LABELS,
+            phase_order=list(PHASE_ORDER.keys()),
+            modules=modules,
+            modules_by_phase=group_by_phase(modules),
             tracks_with_modules=modules_by_track(),
         ),
     )
@@ -309,7 +321,12 @@ async def assignments_index(request: Request, db: Session = Depends(get_db)):
     track = request.query_params.get("track")
     if track:
         track = normalize_track_id(track)
+    phase = request.query_params.get("phase")
+    if phase:
+        phase = normalize_phase(phase)
     items = list_assignments(track=track) if track else list_assignments()
+    if phase:
+        items = [a for a in items if a.get("phase") == phase]
     statuses = {}
     if user and user.role == Role.student:
         for a in items:
@@ -324,6 +341,10 @@ async def assignments_index(request: Request, db: Session = Depends(get_db)):
             statuses=statuses,
             tracks=list_tracks(),
             track_filter=track,
+            phase_filter=phase,
+            phase_labels=PHASE_LABELS,
+            phase_order=list(PHASE_ORDER.keys()),
+            assignments_by_phase=group_by_phase(items),
             tracks_with_assignments=assignments_by_track(),
         ),
     )

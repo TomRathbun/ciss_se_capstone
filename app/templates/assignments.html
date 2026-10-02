@@ -2,7 +2,7 @@
 {% block title %}Assignments — {{ app_name }}{% endblock %}
 {% block content %}
 <h1 class="text-3xl font-bold mb-2">Assignments</h1>
-<p class="text-gray-500 text-sm mb-6">Graded work used for selection ranking. Each assignment belongs to a discipline track. Read rubrics carefully.</p>
+<p class="text-gray-500 text-sm mb-6">Morning work (~2 hours) due before the next afternoon lecture. Foundation and depth scores rank candidates. Archived pre-Masdar assignments sit under Additional and do not affect the leaderboard.</p>
 
 <div class="flex flex-wrap gap-2 mb-8">
     <a href="/assignments"
@@ -18,13 +18,27 @@
     {% endfor %}
 </div>
 
-{% if track_filter %}
+<div class="flex flex-wrap gap-2 mb-8">
+    <a href="/assignments{% if track_filter %}?track={{ track_filter }}{% endif %}"
+       class="badge {% if not phase_filter %}badge-weight{% else %}badge-additional opacity-70 hover:opacity-100{% endif %} no-underline">
+        All phases
+    </a>
+    {% for p in phase_order %}
+    <a href="/assignments?phase={{ p }}{% if track_filter %}&amp;track={{ track_filter }}{% endif %}"
+       class="badge badge-{{ p }} no-underline {% if phase_filter != p %}opacity-70 hover:opacity-100{% endif %}">
+        {{ phase_labels[p] }}
+    </a>
+    {% endfor %}
+</div>
+
+{% if track_filter or phase_filter %}
 <div class="space-y-3">
     {% for a in assignments %}
     <a href="/assignments/{{ a.id }}" class="card p-5 block hover:border-primary-500/25">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2 flex-wrap">
                 <span class="badge badge-{{ a.track_color }}">{{ a.track_short }}</span>
+                <span class="badge badge-{{ a.phase }}">{{ a.phase }}</span>
                 <p class="font-semibold text-white">{{ a.title }}</p>
             </div>
             <div class="flex items-center gap-2">
@@ -49,14 +63,18 @@
             <span class="badge badge-{{ t.color }}">{{ t.short }}</span>
             {{ t.title }}
         </h2>
-        {% if t.assignments %}
+        {% if t.phases %}
+        {% for g in t.phases %}
+        <h3 class="text-xs font-bold tracking-wide uppercase text-gray-500 mt-5 mb-2">{{ g.title }}</h3>
         <div class="space-y-2">
-            {% for a in t.assignments %}
+            {% for a in g.entries %}
             <a href="/assignments/{{ a.id }}" class="card p-4 block hover:border-primary-500/25">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <p class="font-semibold text-white text-sm">{{ a.title }}</p>
                     <div class="flex items-center gap-2">
+                        {% if a.phase != 'additional' %}
                         <span class="badge badge-weight">{{ a.weight }}%</span>
+                        {% endif %}
                         {% if statuses.get(a.id) %}
                         <span class="text-xs text-gray-500">{{ statuses[a.id] }}</span>
                         {% endif %}
@@ -67,6 +85,7 @@
             </a>
             {% endfor %}
         </div>
+        {% endfor %}
         {% else %}
         <p class="text-sm text-gray-600">No graded assignments in this track yet.</p>
         {% endif %}

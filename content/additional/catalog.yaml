@@ -1,0 +1,1802 @@
+# ARCHIVED pre-Masdar catalog (September 2026 freeze).
+# Merged at runtime with phase=additional. Live path is content/catalog.yaml.
+# Do not delete. Edit live lessons under content/modules and content/assignments.
+
+course:
+  title: CISS Capstone (archived pre-Masdar lessons)
+  subtitle: Frozen original pathway — available in the app as Additional lessons
+  purpose: >
+    Prepare and assess interns for selection onto the main CISS engineering project.
+    Each discipline track (systems engineering, software development, networking,
+    system administration/integration, and military operations) can grow its own
+    modules and graded assignments. Scores distinguish top performers.
+
+# Canonical tracks. Module/assignment `track` field must match an id below
+# (legacy catalog value `ops` is accepted as an alias for `mil`).
+tracks:
+  - id: se
+    order: 1
+    short: SE
+    title: Systems Engineering
+    summary: Vision → needs → use cases → requirements → architecture → behavior → ICDs → V&V → PRSAS implementation.
+    color: se
+    status: active
+
+  - id: sw
+    order: 2
+    short: SW
+    title: Software Development
+    summary: Git and workflow; Python→Java bridge; Java (JDBC, ActiveMQ, daemons, JavaFX) and Jenkins; PRSAS simulator, daemon, and SA client.
+    color: sw
+    status: active
+
+  - id: net
+    order: 3
+    short: NET
+    title: Networking
+    summary: General networking, then older Juniper (EX, SRX, IPsec, OSPF/BGP, MPLS); PRSAS three-site fabric and tunnels.
+    color: net
+    status: active
+
+  - id: admin
+    order: 4
+    short: ADMIN
+    title: System Administration & Integration
+    summary: RHEL/Linux, bash, packages, TLS, IDM, NFS, vSphere, Postgres, tickets; PRSAS VM, IPA/CA, harden/Ansible.
+    color: admin
+    status: active
+
+  - id: mil
+    order: 5
+    short: MIL
+    title: Military Operations
+    summary: UAE military context, CONOPS/AOC, ATO planning & execution, platforms; PRSAS operator picture.
+    color: mil
+    status: active
+
+modules:
+  - id: se-00-welcome
+    order: 1
+    track: se
+    title: Welcome & How This Course Works
+    duration_min: 45
+    summary: Course purpose, learning objectives, selection rubric, Monday/Thursday rhythm, SE tool literacy (artifacts first, simplest clear tool), overview activities, and where diagrams fit.
+    offline: false
+
+  - id: se-01-what-is-se
+    order: 2
+    track: se
+    title: What Is Systems Engineering?
+    duration_min: 90
+    summary: Vision → needs → use cases → requirements → design with derives_from / traces_to / allocated_to links; why SE matters; aerospace history cases.
+    offline: true
+
+  - id: se-02-stakeholders
+    order: 3
+    track: se
+    title: Vision, Stakeholders & Needs
+    duration_min: 120
+    summary: Vision statement for shared perspective; stakeholders; needs grammar (As… we need… so that…); context & scope.
+    offline: true
+
+  - id: se-03-usecases
+    order: 4
+    track: se
+    title: Use Cases from Needs
+    duration_min: 90
+    summary: Derive use cases from needs; actors, main success scenario, extensions; bridge to EARS requirements.
+    offline: true
+
+  - id: se-04-requirements
+    order: 5
+    track: se
+    title: Requirements & Acceptance Criteria
+    duration_min: 120
+    summary: Shall language, EARS grammar, IDs, NFRs, ACs that prove FRs without papering over vague shalls.
+    offline: true
+
+  - id: se-05-architecture
+    order: 6
+    track: se
+    title: Architecture Views
+    duration_min: 120
+    summary: Diagram catalog (context, container, component, deployment, package, data); FR allocation; design decisions; brief MBSE/framework awareness.
+    offline: true
+
+  - id: se-06-behavior
+    order: 7
+    track: se
+    title: Behavior — States & Sequences
+    duration_min: 150
+    summary: State vs status; state syntax (trigger/guard/activity); EARS→state mapping; hierarchical states; sequence diagrams.
+    offline: true
+
+  - id: se-07-interfaces
+    order: 8
+    track: se
+    title: Interfaces & ICDs
+    duration_min: 120
+    summary: Messaging ICDs (content, Tx/Rx, rates; ASTERIX Cat062) vs API ICDs (REST ops, params, errors); file ICDs; partial examples.
+    offline: true
+
+  - id: se-11-mbse-frameworks
+    order: 9
+    track: se
+    title: Architecture Frameworks & MBSE Literacy
+    duration_min: 90
+    summary: MBSE vs documents; UML vs SysML; DoDAF/MODAF/NAF/UAF; map course artifacts to OV/SV-style products.
+    offline: true
+
+  - id: se-08-vv-trace
+    order: 10
+    track: se
+    title: Verification, Validation & Traceability
+    duration_min: 90
+    summary: Verify vs validate; requirement → design → test; building a trace matrix.
+    offline: true
+
+  - id: se-09-case-etas
+    order: 11
+    track: se
+    title: Case Study — SDC Time Tracker (ETAS)
+    duration_min: 120
+    summary: Walk the living system and its SE artifacts; connect FR-IDs to real code and export.
+    offline: false
+
+  - id: ops-uae-military
+    order: 12
+    track: mil
+    title: UAE Military Context (Open Source)
+    duration_min: 90
+    summary: UAE Armed Forces branches, leadership, ranks, platforms, SHORAD/layered AD, and radar families (open source).
+    offline: true
+
+  - id: ops-00-conops-aoc
+    order: 13
+    track: mil
+    title: Military Ops — CONOPS & Air Operations Center
+    duration_min: 120
+    summary: CONOPS & AOC with glossary, detect-to-assess workflow, VCS/Link16, roles, self-check, and SE-linked scenario. SME lecture.
+    offline: true
+
+  - id: ops-01-ato-planning
+    order: 14
+    track: mil
+    title: Military Ops — Air Tasking Order (Planning)
+    duration_min: 150
+    summary: ATO planning vs execution; planning factors; sample mission card; self-check; starts A5.
+    offline: true
+
+  - id: ops-02-ato-execution
+    order: 15
+    track: mil
+    title: Military Ops — ATO Execution
+    duration_min: 150
+    summary: Execution steps, change drivers, state-chart parallel, annex/AAR templates, self-check.
+    offline: true
+
+  - id: ops-03-weapons-context
+    order: 16
+    track: mil
+    title: Weapons & Platforms Context (Lockheed Heritage)
+    duration_min: 90
+    summary: Public platform/weapon vocabulary for mission cards; integrity rules; one-page brief; self-check.
+    offline: true
+
+  - id: se-10-capstone-preview
+    order: 17
+    track: se
+    title: Capstone Preview — Radar Situational Awareness
+    duration_min: 90
+    summary: Frame a two-feed unclassified SA problem with the full SE chain; SE-A10 starter pack (not a placeholder teaser).
+    offline: false
+
+  # --- Software Development ---
+  - id: sw-00-welcome
+    order: 20
+    track: sw
+    title: Software Development — Track Overview
+    duration_min: 45
+    summary: Program tooling map; Python is an on-ramp; Java is the contract language; path through Git, Java, data, ActiveMQ, daemons, JavaFX.
+    offline: false
+
+  - id: sw-01-git
+    order: 21
+    track: sw
+    title: Working with Git
+    duration_min: 90
+    summary: Daily Git loop, DR-### branch names, commits, recovery commands, team history habits.
+    offline: true
+
+  - id: sw-02-bitbucket-jira
+    order: 22
+    track: sw
+    title: Team Workflow — Jira, Bitbucket, Nexus → GitLab
+    duration_min: 90
+    summary: Program DR/Bitbucket/PR/Nexus workflow; translate and practice the same habits on CISS GitLab MRs.
+    offline: false
+
+  - id: sw-03-python-java
+    order: 23
+    track: sw
+    title: From Python to Java
+    duration_min: 90
+    summary: Python as a translation aid only; types, equals, packages, Maven vs pip; hiring bar is Java for the contract.
+    offline: true
+
+  - id: sw-03-vscode-java
+    order: 24
+    track: sw
+    title: VS Code for Java Development
+    duration_min: 90
+    summary: Recommended Java extensions; Java versions (LTS, OpenJDK vs Oracle, JDK/JRE, licenses); Java 8 baseline + upgrade path; Spring/Spring Boot note; Maven projects, run/debug, navigation.
+    offline: true
+
+  - id: sw-04-java-postgresql
+    order: 25
+    track: sw
+    title: PostgreSQL with Java (JDBC)
+    duration_min: 120
+    summary: JDBC, PreparedStatement, transactions; connection pools (HikariCP); JBoss datasources in standalone.xml and JNDI; trade-offs.
+    offline: true
+
+  - id: sw-05-java-amqp
+    order: 26
+    track: sw
+    title: AMQP Messaging with Java (ActiveMQ)
+    duration_min: 120
+    summary: JMS publish/consume; ConnectionFactory and pooling; JBoss resource adapters / JNDI factories; ack modes; ICD-style payloads; trade-offs.
+    offline: true
+
+  - id: sw-06-java-daemons
+    order: 27
+    track: sw
+    title: Java Daemons and Background Services
+    duration_min: 120
+    summary: Long-running workers, lifecycle/shutdown hooks, hosting ActiveMQ consumers and scheduled jobs.
+    offline: true
+
+  - id: sw-07-javafx-gui
+    order: 28
+    track: sw
+    title: JavaFX for Desktop GUIs
+    duration_min: 120
+    summary: Stages/scenes/layouts, controls and events, FXML option, UI-thread safety, thin UI over services.
+    offline: true
+
+  - id: sw-08-jenkins-cicd
+    order: 29
+    track: sw
+    title: CI/CD and Jenkins
+    duration_min: 120
+    summary: CI/CD concepts; Jenkins jobs/pipelines; build-test-publish to Nexus; mapping to GitLab CI for CISS labs.
+    offline: false
+
+  # --- Networking (older Juniper / Junos intern path) ---
+  - id: net-00-welcome
+    order: 30
+    track: net
+    title: Networking — Track Overview
+    duration_min: 45
+    summary: General networking then Juniper intern path on older EX/SRX/PE; shared fabric; commit discipline; links to SE, admin, and military.
+    offline: false
+
+  - id: net-01-general
+    order: 31
+    track: net
+    title: General Networking
+    duration_min: 120
+    summary: Vendor-neutral LAN/WAN, device roles, layers, DHCP/DNS, default gateway, NAT, common ports, test order.
+    offline: true
+
+  - id: net-01-foundations
+    order: 32
+    track: net
+    title: Network Foundations
+    duration_min: 120
+    summary: OSI/TCP-IP, IPv4/CIDR, Ethernet/VLAN/ARP, TCP vs UDP, ping and traceroute as tests.
+    offline: true
+
+  - id: net-02-junos-cli
+    order: 33
+    track: net
+    title: Junos CLI and the Commit Model
+    duration_min: 120
+    summary: RE vs PFE; candidate vs active; set/display set; commit check/confirmed/rollback; older EX/SRX interface names.
+    offline: true
+
+  - id: net-03-switching
+    order: 34
+    track: net
+    title: EX Switching — VLANs, Trunks, and Virtual Chassis
+    duration_min: 120
+    summary: Access vs trunk on older EX (port-mode vs ELS); RSTP; EX4200 Virtual Chassis; handoff to the SRX.
+    offline: true
+
+  - id: net-04-srx-firewall
+    order: 35
+    track: net
+    title: SRX Firewalls — Zones, Policies, and NAT
+    duration_min: 150
+    summary: Older SRX families; zones; host-inbound-traffic; first-match policy; source NAT; flow sessions.
+    offline: true
+
+  - id: net-05-igp-ospf
+    order: 36
+    track: net
+    title: Interior Routing — Static Routes and OSPF
+    duration_min: 120
+    summary: show route and preference; statics; OSPF area 0, neighbors, lo0; IGP as a gate for BGP/MPLS.
+    offline: true
+
+  - id: net-06-bgp
+    order: 37
+    track: net
+    title: BGP — External and Internal
+    duration_min: 150
+    summary: eBGP vs iBGP; neighbor states; Junos policy-statement export; local-pref, AS-path, next-hop-self.
+    offline: true
+
+  - id: net-07-mpls
+    order: 38
+    track: net
+    title: MPLS Tunnels — LDP, RSVP-TE, and L3VPN
+    duration_min: 150
+    summary: LSPs as tunnels; LDP vs RSVP-TE; inet.3; VRF/RD/RT; branch SRX as CE not PE.
+    offline: true
+
+  - id: net-08-encryptors
+    order: 39
+    track: net
+    title: Encryptors and IPsec
+    duration_min: 120
+    summary: Route-based st0 IPsec on older SRX; proxy-IDs; red/black discipline; dedicated inline encryptor awareness.
+    offline: true
+
+  - id: net-09-ha-change
+    order: 40
+    track: net
+    title: HA and Change Control
+    duration_min: 90
+    summary: commit confirmed, rescue, rollback; SRX chassis cluster vocabulary; EX VC split; change tickets.
+    offline: true
+
+  - id: net-10-troubleshoot
+    order: 41
+    track: net
+    title: Network Troubleshooting on Junos
+    duration_min: 120
+    summary: Layered method; Junos show/monitor evidence packs; avoid traceoptions and blast-radius clears on old boxes.
+    offline: true
+
+  # --- System Administration & Integration ---
+  - id: admin-00-welcome
+    order: 40
+    track: admin
+    title: System Administration & Integration — Track Overview
+    duration_min: 45
+    summary: Admin track path — RHEL, bash, packages, TLS, IDM, NFS, vSphere, Postgres, troubleshooting, tickets; bridge from software builds to running systems.
+    offline: false
+
+  - id: admin-01-rhel7-linux
+    order: 41
+    track: admin
+    title: RHEL 7 and Essential Linux Commands
+    duration_min: 120
+    summary: Filesystem, processes, users, network discovery, systemctl/journalctl, SELinux/firewall awareness.
+    offline: true
+
+  - id: admin-02-bash
+    order: 42
+    track: admin
+    title: Bash Programming for Admins
+    duration_min: 120
+    summary: Scripts, quoting, args, conditionals, loops, set -euo pipefail, safe admin patterns.
+    offline: true
+
+  - id: admin-03-package-management
+    order: 43
+    track: admin
+    title: Package Management Systems
+    duration_min: 120
+    summary: yum/rpm, npm, pip and uv, Maven/Java, and Nexus as org package hub.
+    offline: true
+
+  - id: admin-04-tls-certs
+    order: 44
+    track: admin
+    title: TLS Certificate Management
+    duration_min: 120
+    summary: Certs, keys, CSRs, chains, OpenSSL inspect/verify, trust stores, common TLS failures.
+    offline: true
+
+  - id: admin-05-idm-ad-ipa
+    order: 45
+    track: admin
+    title: Identity Management — Active Directory and FreeIPA
+    duration_min: 120
+    summary: Central identity; AD vs FreeIPA; SSSD/realm; Kerberos; groups, HBAC, sudo; login troubleshooting.
+    offline: true
+
+  - id: admin-06-nfs
+    order: 46
+    track: admin
+    title: NFS Setup and Configuration
+    duration_min: 120
+    summary: Exports and mounts; NFSv3/v4; UID mapping; firewall; Kerberos-aware shares; showmount/exportfs.
+    offline: true
+
+  - id: admin-07-vsphere-vsan-vdi
+    order: 47
+    track: admin
+    title: vSphere, vSAN, VDI, and ESXi
+    duration_min: 120
+    summary: ESXi/vCenter vocabulary; VM lifecycle; datastores and vSAN; port groups; VDI awareness; snapshot discipline.
+    offline: true
+
+  - id: admin-08-postgres-admin
+    order: 48
+    track: admin
+    title: PostgreSQL Database Management for Admins
+    duration_min: 120
+    summary: Roles and databases; admin SQL (activity, size, locks); grants; vacuum; backup/restore awareness.
+    offline: true
+
+  - id: admin-09-troubleshooting
+    order: 49
+    track: admin
+    title: Troubleshooting Methodology and Essential Tools
+    duration_min: 120
+    summary: Symptom→hypothesis→test method; deep dive on grep, tail, less, journalctl, ps aux, ss; evidence packs.
+    offline: true
+
+  - id: admin-10-documentation-tickets
+    order: 50
+    track: admin
+    title: Documentation Procedures and Trouble Tickets
+    duration_min: 90
+    summary: Ticket anatomy; incident vs change vs request; runbooks; evidence standards; resolution notes.
+    offline: true
+
+  # --- PRSAS implementation (UC-CISS_PROJECT-001) — scored in phase: capstone ---
+  - id: se-12-prsas-overview
+    order: 18
+    track: se
+    phase: capstone
+    title: PRSAS Implementation — Shared Kickoff
+    duration_min: 90
+    summary: UC-CISS_PROJECT-001 three-site picture; role map; frozen topics, ports, and CISS-TEACH-1 payload. All tracks attend.
+    offline: false
+
+  - id: se-13-prsas-conops
+    order: 19
+    track: se
+    phase: capstone
+    title: PRSAS CONOPS
+    duration_min: 120
+    summary: Operational concept for the lab air picture — stakeholders, mission threads, unwanted paths, in/out of scope.
+    offline: true
+
+  - id: se-14-prsas-mbse-schema
+    order: 20
+    track: se
+    phase: capstone
+    title: PRSAS MBSE Artifacts & Track Schema
+    duration_min: 150
+    summary: Sequence, hybrid track lifecycle, logical components, FR allocation, PostgreSQL schema with Mode 3/A key.
+    offline: true
+
+  - id: se-15-prsas-virt-lessons
+    order: 21
+    track: se
+    phase: capstone
+    title: PRSAS Virtualization Study & Lessons-Learned
+    duration_min: 120
+    summary: VM baseline vs two-component container PoC; measured comparison; close-out report and migration verdict.
+    offline: false
+
+  - id: sw-09-prsas-simulator
+    order: 51
+    track: sw
+    phase: capstone
+    title: PRSAS — Radar Message Simulator
+    duration_min: 150
+    summary: Java ASTERIX-like Cat 062 publisher (CISS-TEACH-1) on sim-a/sim-b; scenarios, throttle, TLS JMS to radar.input.
+    offline: true
+
+  - id: sw-10-prsas-daemon
+    order: 52
+    track: sw
+    phase: capstone
+    title: PRSAS — Track Processing Daemon
+    duration_min: 180
+    summary: systemd Java worker — correlate on Mode 3/A, coast/drop/conflict, JDBC persist, publish radar.output.
+    offline: true
+
+  - id: sw-11-prsas-client
+    order: 53
+    track: sw
+    phase: capstone
+    title: PRSAS — Situational Awareness Client
+    duration_min: 180
+    summary: Authenticated JavaFX or web+Java bridge; bulk load; live topic; map with Mode 3/A, vectors, trails, conflict.
+    offline: true
+
+  - id: sw-12-prsas-integrate
+    order: 54
+    track: sw
+    phase: capstone
+    title: PRSAS — Integration & Container PoC
+    duration_min: 150
+    summary: End-to-end test card across three stacks; containerize sim + daemon; numbers for the SE virt study.
+    offline: false
+
+  - id: net-11-prsas-topology
+    order: 55
+    track: net
+    phase: capstone
+    title: PRSAS — Three-Site Topology
+    duration_min: 120
+    summary: Remote A / Remote B / Central VLANs and addressing; EX/SRX placement; allow-list intent.
+    offline: true
+
+  - id: net-12-prsas-secure-path
+    order: 56
+    track: net
+    phase: capstone
+    title: PRSAS — Firewalls & Site-to-Site IPsec
+    duration_min: 150
+    summary: SRX zones and least-privilege policies; two route-based IPsec tunnels onto Central.
+    offline: true
+
+  - id: net-13-prsas-validate
+    order: 57
+    track: net
+    phase: capstone
+    title: PRSAS — Path Validation & Config Guide
+    duration_min: 120
+    summary: Layered proof that 61617 works; negative tests; replayable network configuration guide.
+    offline: true
+
+  - id: admin-11-prsas-provision
+    order: 58
+    track: admin
+    phase: capstone
+    title: PRSAS — VM Provisioning
+    duration_min: 120
+    summary: Golden image and guest inventory on the correct port groups; snapshot discipline.
+    offline: true
+
+  - id: admin-12-prsas-idm-certs
+    order: 59
+    track: admin
+    phase: capstone
+    title: PRSAS — Identity & Lab Certificates
+    duration_min: 150
+    summary: FreeIPA/OpenLDAP principals; lab CA; AMQ TLS certs and trust bundles.
+    offline: true
+
+  - id: admin-13-prsas-harden-automate
+    order: 60
+    track: admin
+    phase: capstone
+    title: PRSAS — Host Hardening & Deployment Automation
+    duration_min: 150
+    summary: firewalld + SELinux + auditd aligned to the allow-list; Ansible or PowerCLI rebuild.
+    offline: true
+
+  - id: ops-04-prsas-picture
+    order: 61
+    track: mil
+    phase: capstone
+    title: PRSAS — Air Picture for Operators
+    duration_min: 90
+    summary: Unclassified fused-picture literacy; watch script; supervisor conflict disposition; demo voice.
+    offline: true
+
+
+assignments:
+  # SE take-homes: one per module, Monday assign / Thursday check. Weights sum to 100%.
+  # A3b / A3c / A7c remain as in-class workshop briefs under content/assignments/ (not separately weighted).
+  - id: se-a00-track-plan
+    order: 1
+    track: se
+    title: SE Track Plan & Artifact Map
+    module_id: se-00-welcome
+    due_session: "Week 1 Thursday"
+    weight: 3
+    summary: Personal plan, artifact/tool map, design-first trap, integrity habits.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + map + trap story + integrity
+      - dimension: accuracy
+        max_points: 10
+        description: Correct chain order and module mapping
+      - dimension: communication
+        max_points: 5
+        description: Peer could follow your plan
+
+  - id: se-a01-se-literacy
+    order: 2
+    track: se
+    title: What Is SE? Failure-Mode Brief
+    module_id: se-01-what-is-se
+    due_session: "Week 1 Thursday"
+    weight: 5
+    summary: SE definition, daily-app chain walk, public failure mapped to a missing artifact.
+    rubric:
+      - dimension: literacy
+        max_points: 10
+        description: Accurate SE definition and chain
+      - dimension: case_analysis
+        max_points: 10
+        description: Failure mapped to a real missing artifact
+      - dimension: communication
+        max_points: 5
+        description: Tables a peer can grade in 5 minutes
+
+  - id: a1-context
+    order: 3
+    track: se
+    title: Vision, Context & Stakeholders
+    module_id: se-02-stakeholders
+    due_session: "Week 2 Thursday"
+    weight: 10
+    summary: Short vision, needs grammar, context diagram, stakeholder table.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Vision + needs grammar; major actors and external systems identified
+      - dimension: boundary_clarity
+        max_points: 10
+        description: Clear in-scope / out-of-scope; vision/need/design not mixed
+      - dimension: communication
+        max_points: 5
+        description: Readable by a non-author engineer; shared perspective is clear
+
+  - id: se-a03-usecases
+    order: 4
+    track: se
+    title: Use Cases from Needs
+    module_id: se-03-usecases
+    due_session: "Week 3 Thursday"
+    weight: 8
+    summary: UC index, two full briefs with extensions, rejected UC, trace table.
+    rubric:
+      - dimension: derivation
+        max_points: 15
+        description: UCs clearly traces_to named needs; vision check present
+      - dimension: completeness
+        max_points: 10
+        description: Index + 2 full briefs + reject + trace table
+      - dimension: communication
+        max_points: 5
+        description: A peer could write EARS from your extensions
+
+  - id: a2-requirements
+    order: 5
+    track: se
+    title: Requirements Pack (EARS + acceptance)
+    module_id: se-04-requirements
+    due_session: "Week 5 Thursday"
+    weight: 16
+    summary: 8–12 FRs in EARS form, 3 NFRs with IDs; 5 ACs in Given/When/Then form.
+    rubric:
+      - dimension: testability
+        max_points: 15
+        description: Requirements and ACs are objectively testable; ACs prove FRs without adding hidden rules
+      - dimension: shall_quality
+        max_points: 10
+        description: Correct EARS and shall; FR stands alone without needing the AC to explain it
+      - dimension: coverage
+        max_points: 10
+        description: WHEN + WHILE + IF/THEN represented; happy path and key errors
+      - dimension: communication
+        max_points: 5
+        description: Clear IDs, pattern tags, and structure
+
+  - id: se-a05-architecture
+    order: 6
+    track: se
+    title: Architecture Views & Allocation
+    module_id: se-05-architecture
+    due_session: "Week 5 Thursday"
+    weight: 8
+    summary: Context, structure, deployment (VMs); FR allocation; one design decision.
+    rubric:
+      - dimension: views
+        max_points: 15
+        description: Distinct context + structure + deployment
+      - dimension: allocation
+        max_points: 10
+        description: FRs mapped to real elements; decision recorded
+      - dimension: communication
+        max_points: 5
+        description: Peer can brief the structure in 3 minutes
+
+  - id: a3-behavior
+    order: 7
+    track: se
+    title: State Chart + Sequence (your feature)
+    module_id: se-06-behavior
+    due_session: "Week 6 Thursday"
+    weight: 10
+    summary: One state machine and one sequence for a chosen feature; FR mapping; reject paths.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Legal/illegal transitions and messages make sense
+      - dimension: consistency
+        max_points: 10
+        description: Aligns with stated requirements; chart and sequence agree
+      - dimension: communication
+        max_points: 5
+        description: Labels readable; legend if needed
+
+  - id: a7-icd-messaging-api
+    order: 8
+    track: se
+    title: Messaging ICD + API ICD (partial)
+    module_id: se-07-interfaces
+    due_session: "Week 7 Thursday"
+    weight: 8
+    summary: Partial messaging ICD (content, Tx/Rx, rates) and partial REST API ICD (ops, params, errors).
+    rubric:
+      - dimension: messaging_completeness
+        max_points: 10
+        description: Content + Tx/Rx + rates present and coherent
+      - dimension: api_completeness
+        max_points: 10
+        description: Operations + detailed op + errors present
+      - dimension: communication
+        max_points: 5
+        description: Tables readable; version/owner clear
+
+  - id: se-a11-mbse-literacy
+    order: 9
+    track: se
+    title: Frameworks & MBSE Literacy Brief
+    module_id: se-11-mbse-frameworks
+    due_session: "Week 8 Thursday"
+    weight: 5
+    summary: MBSE vs documents; UML vs SysML; map your artifacts to OV/SV-style products.
+    rubric:
+      - dimension: literacy
+        max_points: 10
+        description: MBSE / UML / SysML / framework idea is correct
+      - dimension: mapping
+        max_points: 10
+        description: Your real artifacts mapped, not generic slogans
+      - dimension: integrity
+        max_points: 5
+        description: Honest claim vs non-claim
+
+  - id: a4-trace-vv
+    order: 10
+    track: se
+    title: Traceability & V&V Plan
+    module_id: se-08-vv-trace
+    due_session: "Week 9 Thursday"
+    weight: 10
+    summary: RTM for your FRs + verification method per FR; short validation approach.
+    rubric:
+      - dimension: traceability
+        max_points: 15
+        description: Every FR maps to design idea and test method
+      - dimension: vv_clarity
+        max_points: 10
+        description: Clear verify vs validate activities
+      - dimension: communication
+        max_points: 5
+        description: Table usable by an independent tester
+
+  - id: se-a09-etas-walk
+    order: 11
+    track: se
+    title: ETAS Case Study Artifact Hunt
+    module_id: se-09-case-etas
+    due_session: "Week 12 Thursday"
+    weight: 5
+    summary: Hunt live ETAS artifacts; BEOD boundary test; steal-for-SA reflection.
+    rubric:
+      - dimension: hunt
+        max_points: 10
+        description: Real artifacts located and quoted
+      - dimension: analysis
+        max_points: 10
+        description: Boundary + AC alignment thinking
+      - dimension: transfer
+        max_points: 5
+        description: SA steal-list is specific
+
+  - id: se-a10-sa-framing
+    order: 12
+    track: se
+    title: Radar SA Framing Pack
+    module_id: se-10-capstone-preview
+    due_session: "Week 13 Thursday"
+    weight: 5
+    summary: Unclassified SA starter pack — vision through mini RTM for two-feed picture.
+    rubric:
+      - dimension: chain_completeness
+        max_points: 15
+        description: Vision through RTM present and linked
+      - dimension: testability
+        max_points: 10
+        description: EARS + ACs + verify method are objective
+      - dimension: communication
+        max_points: 5
+        description: Unclassified; peer could continue the pack
+
+  - id: a6-professional
+    order: 13
+    track: se
+    title: Professionalism & Participation
+    module_id: se-00-welcome
+    due_session: "Ongoing"
+    weight: 7
+    summary: Attendance, questions on Thursday, peer review quality, integrity.
+    rubric:
+      - dimension: engagement
+        max_points: 10
+        description: Shows up prepared; constructive questions
+      - dimension: collaboration
+        max_points: 5
+        description: Helps peers without doing their work
+      - dimension: integrity
+        max_points: 5
+        description: Own work; cites sources
+
+  - id: a5-ops-mission
+    order: 17
+    track: mil
+    title: Mini Mission Card (Planning + Execution notes)
+    module_id: ops-01-ato-planning
+    due_session: "Week 11 Thursday"
+    weight: 15
+    summary: Unclassified mission card + execution annex + public platform justification (A5).
+    rubric:
+      - dimension: operational_realism
+        max_points: 10
+        description: Planning factors, contingencies, and voice/datalink thinking at intern level
+      - dimension: structure
+        max_points: 10
+        description: Planning vs execution annex distinct; template fields complete
+      - dimension: communication
+        max_points: 5
+        description: Clear for a peer to brief from in ~2 minutes
+
+  # --- Software Development (weights sum to 100% within track) ---
+  - id: sw-a00-track-plan
+    order: 20
+    track: sw
+    title: Software Track Plan & Tooling Map
+    module_id: sw-00-welcome
+    due_session: "After SW welcome"
+    weight: 5
+    summary: Track plan, program vs CISS tooling map, SE links, integrity habits.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + tooling table + SE links + integrity
+      - dimension: accuracy
+        max_points: 10
+        description: Correct program vs lab mapping
+      - dimension: communication
+        max_points: 5
+        description: Clear enough for a peer to follow
+
+  - id: sw-a01-git-practice
+    order: 21
+    track: sw
+    title: Git Daily Loop Lab
+    module_id: sw-01-git
+    due_session: "After sw-01-git"
+    weight: 10
+    summary: Branch, commit, push, and safe recovery with command evidence.
+    rubric:
+      - dimension: process
+        max_points: 15
+        description: Full daily loop with evidence
+      - dimension: recovery
+        max_points: 10
+        description: Safe recovery demonstrated
+      - dimension: communication
+        max_points: 5
+        description: Log and messages readable
+
+  - id: sw-a02-workflow-mr
+    order: 22
+    track: sw
+    title: Ticket → Branch → MR Workflow
+    module_id: sw-02-bitbucket-jira
+    due_session: "After sw-02-bitbucket-jira"
+    weight: 10
+    summary: DR-style ticket, branch, GitLab MR, review checklist, Nexus note.
+    rubric:
+      - dimension: workflow_fidelity
+        max_points: 15
+        description: Ticket → branch → MR chain intact
+      - dimension: review_quality
+        max_points: 10
+        description: Checklist would catch real defects
+      - dimension: communication
+        max_points: 5
+        description: MR usable by a peer reviewer
+
+  - id: sw-a03-python-java
+    order: 23
+    track: sw
+    title: Python → Java Translation
+    module_id: sw-03-python-java
+    due_session: "After sw-03-python-java"
+    weight: 10
+    summary: Translate a given Python function to compiling Java; mapping table; hiring-bar note.
+    rubric:
+      - dimension: translation
+        max_points: 15
+        description: Correct Java; same behavior
+      - dimension: literacy
+        max_points: 10
+        description: Mapping table + ==/types understood
+      - dimension: communication
+        max_points: 5
+        description: Evidence + honest hiring-bar note
+
+  - id: sw-a03-java-env
+    order: 24
+    track: sw
+    title: Java Tooling & Mini Project
+    module_id: sw-03-vscode-java
+    due_session: "After sw-03-vscode-java"
+    weight: 5
+    summary: JDK/Maven/VS Code environment sheet, runnable Maven app, debug evidence.
+    rubric:
+      - dimension: environment
+        max_points: 10
+        description: Reproducible tooling notes
+      - dimension: runnable
+        max_points: 15
+        description: Project runs; debug shown
+      - dimension: communication
+        max_points: 5
+        description: README clear
+
+  - id: sw-a04-jdbc
+    order: 25
+    track: sw
+    title: JDBC Repository Slice
+    module_id: sw-04-java-postgresql
+    due_session: "After sw-04-java-postgresql"
+    weight: 10
+    summary: Schema + PreparedStatement CRUD, transaction commit/rollback, secret handling.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: CRUD + transaction behavior works
+      - dimension: safety
+        max_points: 10
+        description: PreparedStatement + secret handling
+      - dimension: communication
+        max_points: 5
+        description: Schema and notes clear
+
+  - id: sw-a05-amqp
+    order: 26
+    track: sw
+    title: ActiveMQ Publish / Consume Lab
+    module_id: sw-05-java-amqp
+    due_session: "After sw-05-java-amqp"
+    weight: 15
+    summary: ICD-style payload, producer/consumer, ack mode, failure mode, runbook.
+    rubric:
+      - dimension: messaging
+        max_points: 15
+        description: Produce + consume works end-to-end
+      - dimension: interface_thinking
+        max_points: 10
+        description: ICD-style payload + ack note
+      - dimension: communication
+        max_points: 5
+        description: Runbook peer-usable
+
+  - id: sw-a06-daemon
+    order: 27
+    track: sw
+    title: Java Daemon / Worker
+    module_id: sw-06-java-daemons
+    due_session: "After sw-06-java-daemons"
+    weight: 10
+    summary: Long-running process with work loop, graceful shutdown, lifecycle diagram.
+    rubric:
+      - dimension: lifecycle
+        max_points: 15
+        description: Start/run/stop correct
+      - dimension: robustness
+        max_points: 10
+        description: Graceful shutdown + sane loop
+      - dimension: communication
+        max_points: 5
+        description: Diagram + ops notes clear
+
+  - id: sw-a07-javafx
+    order: 28
+    track: sw
+    title: JavaFX Mini Console
+    module_id: sw-07-javafx-gui
+    due_session: "After sw-07-javafx-gui"
+    weight: 10
+    summary: Thin JavaFX UI over a simple service idea; UI-thread note; use-case link.
+    rubric:
+      - dimension: ui_structure
+        max_points: 15
+        description: Working JavaFX UI with real controls
+      - dimension: se_alignment
+        max_points: 10
+        description: Thin UI; use-case / FR thinking
+      - dimension: communication
+        max_points: 5
+        description: Screenshot + run notes
+
+  - id: sw-a08-cicd
+    order: 29
+    track: sw
+    title: CI Pipeline for Your Lab Project
+    module_id: sw-08-jenkins-cicd
+    due_session: "After sw-08-jenkins-cicd"
+    weight: 15
+    summary: GitLab CI or Jenkins pipeline; break/fix; artifact/Nexus story; SE verification note.
+    rubric:
+      - dimension: automation
+        max_points: 15
+        description: Working multi-stage pipeline
+      - dimension: diagnosis
+        max_points: 10
+        description: Break/fix with log evidence
+      - dimension: communication
+        max_points: 5
+        description: Artifact + SE note clear
+
+  # --- System Administration & Integration (weights sum to 100% within track) ---
+  - id: admin-a00-track-plan
+    order: 40
+    track: admin
+    title: Admin Track Plan & Ops Map
+    module_id: admin-00-welcome
+    due_session: "After admin welcome"
+    weight: 5
+    summary: Track plan, SW runtime ↔ admin module map, SE links, safety rules.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + map + SE links + safety
+      - dimension: accuracy
+        max_points: 10
+        description: Correct module ↔ runtime links
+      - dimension: communication
+        max_points: 5
+        description: Clear for a peer
+
+  - id: admin-a01-linux-lab
+    order: 41
+    track: admin
+    title: RHEL/Linux Discovery Lab
+    module_id: admin-01-rhel7-linux
+    due_session: "After admin-01-rhel7-linux"
+    weight: 10
+    summary: Host identity, ps/ss/systemctl/journalctl evidence pack, safety risks.
+    rubric:
+      - dimension: discovery
+        max_points: 15
+        description: Broad, correct evidence pack
+      - dimension: safety
+        max_points: 10
+        description: Non-destructive; good redaction
+      - dimension: communication
+        max_points: 5
+        description: Labeled, reproducible
+
+  - id: admin-a02-bash-script
+    order: 42
+    track: admin
+    title: Safe Admin Bash Script
+    module_id: admin-02-bash
+    due_session: "After admin-02-bash"
+    weight: 15
+    summary: Practical admin script with safe defaults, sample run, failure path.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Script works; failure path clear
+      - dimension: safety
+        max_points: 10
+        description: Quoting, set flags, no foot-guns
+      - dimension: communication
+        max_points: 5
+        description: Help text and notes usable
+
+  - id: admin-a03-packages
+    order: 43
+    track: admin
+    title: Package & Artifact Hygiene
+    module_id: admin-03-package-management
+    due_session: "After admin-03-package-management"
+    weight: 10
+    summary: yum/rpm evidence, language ecosystems, Nexus role, change mini-plan.
+    rubric:
+      - dimension: coverage
+        max_points: 15
+        description: OS + language + Nexus thinking
+      - dimension: change_control
+        max_points: 10
+        description: Plan with verify/rollback
+      - dimension: communication
+        max_points: 5
+        description: Clear anti-pattern list
+
+  - id: admin-a04-tls
+    order: 44
+    track: admin
+    title: TLS Certificate Inspection Lab
+    module_id: admin-04-tls-certs
+    due_session: "After admin-04-tls-certs"
+    weight: 10
+    summary: OpenSSL cert report, chain check, failure scenarios, ops impact.
+    rubric:
+      - dimension: inspection
+        max_points: 15
+        description: Correct OpenSSL evidence
+      - dimension: diagnosis
+        max_points: 10
+        description: Failure scenarios accurate
+      - dimension: communication
+        max_points: 5
+        description: Ticket-ready notes
+
+  - id: admin-a05-idm
+    order: 45
+    track: admin
+    title: Identity Lookup & Access Notes
+    module_id: admin-05-idm-ad-ipa
+    due_session: "After admin-05-idm-ad-ipa"
+    weight: 10
+    summary: AD/IPA environment note, lookups, access model, login incident story.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Real lookups or honest constraints
+      - dimension: troubleshooting
+        max_points: 10
+        description: Structured incident story
+      - dimension: communication
+        max_points: 5
+        description: Clear access model
+
+  - id: admin-a06-nfs
+    order: 46
+    track: admin
+    title: NFS Export / Mount Worksheet
+    module_id: admin-06-nfs
+    due_session: "After admin-06-nfs"
+    weight: 10
+    summary: Share design, export/mount, UID risk, failure matrix.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Coherent export/mount design
+      - dimension: ops_checks
+        max_points: 10
+        description: Verification + failure matrix
+      - dimension: communication
+        max_points: 5
+        description: Ticket-ready worksheet
+
+  - id: admin-a07-vsphere
+    order: 47
+    track: admin
+    title: vSphere Vocabulary & VM Lifecycle Brief
+    module_id: admin-07-vsphere-vsan-vdi
+    due_session: "After admin-07-vsphere-vsan-vdi"
+    weight: 5
+    summary: Stack vocabulary, lifecycle risks, escalation evidence list.
+    rubric:
+      - dimension: vocabulary
+        max_points: 10
+        description: Accurate definitions
+      - dimension: operational_judgment
+        max_points: 10
+        description: Lifecycle risks + evidence list
+      - dimension: communication
+        max_points: 5
+        description: Brief is scannable
+
+  - id: admin-a08-postgres
+    order: 48
+    track: admin
+    title: PostgreSQL Operator Checks
+    module_id: admin-08-postgres-admin
+    due_session: "After admin-08-postgres-admin"
+    weight: 10
+    summary: Health SQL, role design, vacuum/backup awareness, JDBC handoff URL shape.
+    rubric:
+      - dimension: checks
+        max_points: 15
+        description: Useful health evidence
+      - dimension: privilege_design
+        max_points: 10
+        description: Sensible roles/grants
+      - dimension: communication
+        max_points: 5
+        description: SW-handoff ready
+
+  - id: admin-a09-troubleshoot
+    order: 49
+    track: admin
+    title: Structured Troubleshooting Case
+    module_id: admin-09-troubleshooting
+    due_session: "After admin-09-troubleshooting"
+    weight: 10
+    summary: Symptom→hypothesis→test case with core tool evidence and prevention.
+    rubric:
+      - dimension: method
+        max_points: 15
+        description: Structured, hypothesis-driven
+      - dimension: tooling
+        max_points: 10
+        description: Right tools, good excerpts
+      - dimension: communication
+        max_points: 5
+        description: Handoff-quality pack
+
+  - id: admin-a10-tickets
+    order: 50
+    track: admin
+    title: Ticket, Runbook & Resolution Pack
+    module_id: admin-10-documentation-tickets
+    due_session: "After admin-10-documentation-tickets"
+    weight: 5
+    summary: Incident + request + change examples, executable runbook, resolution notes.
+    rubric:
+      - dimension: ticket_quality
+        max_points: 10
+        description: Actionable incident + correct types
+      - dimension: runbook
+        max_points: 10
+        description: Executable steps
+      - dimension: communication
+        max_points: 5
+        description: Clear resolution/follow-ups
+
+  # --- Networking (weights sum to 100% within track) ---
+  - id: net-a00-track-plan
+    order: 30
+    track: net
+    title: Networking Track Plan & Fabric Map
+    module_id: net-00-welcome
+    due_session: "After net welcome"
+    weight: 5
+    summary: Track plan, Site-A/B fabric map, addressing, SE links, safety rules.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Plan + fabric + addressing + SE + safety
+      - dimension: accuracy
+        max_points: 10
+        description: Correct roles/platforms; honest lab vs worksheet
+      - dimension: communication
+        max_points: 5
+        description: Peer could use the map on Monday
+
+  - id: net-a01-general
+    order: 31
+    track: net
+    title: General Networking Brief
+    module_id: net-01-general
+    due_session: "After net-01-general"
+    weight: 10
+    summary: Vendor-neutral roles, layers, DHCP/DNS, ports, test order, NAT vs firewall.
+    rubric:
+      - dimension: literacy
+        max_points: 15
+        description: Roles, layers, DHCP/DNS/gateway, NAT vs firewall
+      - dimension: method
+        max_points: 10
+        description: Sensible test order; ports accurate
+      - dimension: communication
+        max_points: 5
+        description: Tables a non-author intern can use
+
+  - id: net-a01-addressing
+    order: 32
+    track: net
+    title: Addressing & Path Worksheet
+    module_id: net-01-foundations
+    due_session: "After net-01-foundations"
+    weight: 5
+    summary: IPv4 math, ARP vs route, Site-A→Site-B path sketch, ping vs HTTPS.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Subnet math and ARP/on-link reasoning
+      - dimension: path_clarity
+        max_points: 10
+        description: Sketch a peer can brief
+      - dimension: communication
+        max_points: 5
+        description: Tables readable; units labeled
+
+  - id: net-a02-junos-cli
+    order: 33
+    track: net
+    title: Junos CLI & Commit Lab
+    module_id: net-02-junos-cli
+    due_session: "After net-02-junos-cli"
+    weight: 10
+    summary: Version/interfaces evidence; candidate vs active; safe description change or discard.
+    rubric:
+      - dimension: process
+        max_points: 15
+        description: Modes, compare, commit/rollback understood
+      - dimension: safety
+        max_points: 10
+        description: Exclusive/confirmed/rescue thinking; no blast radius
+      - dimension: communication
+        max_points: 5
+        description: Labeled excerpts a peer can repeat
+
+  - id: net-a03-switching
+    order: 34
+    track: net
+    title: EX VLAN / Trunk Worksheet
+    module_id: net-03-switching
+    due_session: "After net-03-switching"
+    weight: 10
+    summary: Access/trunk table, ELS vs port-mode, LLDP, new VLAN-10 port sets, gateway handoff.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Coherent access/trunk/VLAN/handoff
+      - dimension: evidence
+        max_points: 10
+        description: Real show output or honest worksheet + source
+      - dimension: communication
+        max_points: 5
+        description: Table + sets a peer could apply
+
+  - id: net-a04-srx-zones
+    order: 35
+    track: net
+    title: SRX Zones, Policy & NAT Pack
+    module_id: net-04-srx-firewall
+    due_session: "After net-04-srx-firewall"
+    weight: 10
+    summary: Zone table, host-inbound, least-privilege policies, NAT note, session evidence.
+    rubric:
+      - dimension: correctness
+        max_points: 15
+        description: Zones, host-inbound, first-match policy, NAT story
+      - dimension: security_judgment
+        max_points: 10
+        description: Least privilege; no lab-breaking permit-all
+      - dimension: communication
+        max_points: 5
+        description: Tables + sets ticket-ready
+
+  - id: net-a05-ospf
+    order: 36
+    track: net
+    title: OSPF Neighbor Lab
+    module_id: net-05-igp-ospf
+    due_session: "After net-05-igp-ospf"
+    weight: 10
+    summary: show route/neighbor, lo0-passive design, loopback ping, IGP fault table.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Neighbor + route evidence correctly read
+      - dimension: design
+        max_points: 10
+        description: Valid Junos OSPF shape including SRX inbound if needed
+      - dimension: communication
+        max_points: 5
+        description: Fault table usable on a night shift
+
+  - id: net-a06-bgp
+    order: 37
+    track: net
+    title: BGP Neighbor & Policy Lab
+    module_id: net-06-bgp
+    due_session: "After net-06-bgp"
+    weight: 10
+    summary: eBGP/iBGP map, neighbor states, tight export policy, next-hop-self note.
+    rubric:
+      - dimension: protocol
+        max_points: 15
+        description: States, eBGP/iBGP, attributes used correctly
+      - dimension: policy
+        max_points: 10
+        description: Tight export; Junos policy shape
+      - dimension: communication
+        max_points: 5
+        description: Summary a peer can peer-review
+
+  - id: net-a07-mpls
+    order: 38
+    track: net
+    title: MPLS Tunnel & L3VPN Worksheet
+    module_id: net-07-mpls
+    due_session: "After net-07-mpls"
+    weight: 10
+    summary: LSP/LDP/RSVP evidence, inet.3, VRF RD/RT design, CE vs PE honesty.
+    rubric:
+      - dimension: concepts
+        max_points: 15
+        description: LSP, LDP/RSVP, VRF, RD/RT, inet.3
+      - dimension: design
+        max_points: 10
+        description: Coherent PE set list / chain
+      - dimension: communication
+        max_points: 5
+        description: Worksheet a second intern could implement
+
+  - id: net-a08-encryptors
+    order: 39
+    track: net
+    title: IPsec / Encryptor Pack
+    module_id: net-08-encryptors
+    due_session: "After net-08-encryptors"
+    weight: 10
+    summary: Red/black diagram, IKE/IPsec proposals, st0 design, dedicated-encryptor checks.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Matching proposals, st0, zones, routes, policies
+      - dimension: ops_discipline
+        max_points: 10
+        description: Red/black, redaction, dedicated-box restraint
+      - dimension: communication
+        max_points: 5
+        description: Diagram + matrix + sets
+
+  - id: net-a09-change-ha
+    order: 40
+    track: net
+    title: Change Plan & HA Vocabulary
+    module_id: net-09-ha-change
+    due_session: "After net-09-ha-change"
+    weight: 5
+    summary: commit confirmed change plan; chassis cluster / VC vocabulary; what not to touch.
+    rubric:
+      - dimension: change_control
+        max_points: 10
+        description: Baseline, confirmed commit, verify, backout
+      - dimension: operational_judgment
+        max_points: 10
+        description: HA vocabulary; what not to touch
+      - dimension: communication
+        max_points: 5
+        description: Plan a peer could run
+
+  - id: net-a10-troubleshoot
+    order: 41
+    track: net
+    title: Layered Junos Troubleshooting Case
+    module_id: net-10-troubleshoot
+    due_session: "After net-10-troubleshoot"
+    weight: 5
+    summary: Symptom→hypothesis case with Junos evidence across two or more layers.
+    rubric:
+      - dimension: method
+        max_points: 15
+        description: Ordered layers; hypothesis-driven
+      - dimension: tooling
+        max_points: 10
+        description: Right Junos shows; useful excerpts
+      - dimension: communication
+        max_points: 5
+        description: Handoff-quality pack
+
+
+  # --- PRSAS implementation assignments (phase: capstone).
+  # Weights sum to 100% *within each track's capstone phase*.
+  # Selection / intern leaderboard uses foundation assignments only.
+  - id: se-a12-prsas-overview
+    order: 60
+    track: se
+    phase: capstone
+    title: PRSAS Interface & Ownership Map
+    module_id: se-12-prsas-overview
+    due_session: "Week 14 Thursday"
+    weight: 10
+    summary: Frozen ports, topics, CISS-TEACH-1 payload, ownership, integration risks.
+    rubric:
+      - dimension: completeness
+        max_points: 10
+        description: Use case, ownership, ports, payload, risks
+      - dimension: contract_clarity
+        max_points: 10
+        description: Another track could implement without you
+      - dimension: communication
+        max_points: 5
+        description: Tables first; unclassified
+
+  - id: se-a13-prsas-conops
+    order: 61
+    track: se
+    phase: capstone
+    title: PRSAS CONOPS
+    module_id: se-13-prsas-conops
+    due_session: "Week 15 Thursday"
+    weight: 25
+    summary: Operational concept — threads, unwanted paths, stakeholders, scope.
+    rubric:
+      - dimension: operational_clarity
+        max_points: 15
+        description: Thread + unwanted paths are usable
+      - dimension: scope_discipline
+        max_points: 10
+        description: In/out honest; no gold plate
+      - dimension: communication
+        max_points: 5
+        description: 4–6 pages, not a novella
+
+  - id: se-a14-prsas-mbse-schema
+    order: 62
+    track: se
+    phase: capstone
+    title: PRSAS MBSE Pack & Track Schema
+    module_id: se-14-prsas-mbse-schema
+    due_session: "Week 16 Thursday"
+    weight: 35
+    summary: Sequence, hybrid state, components, allocation, Postgres DDL.
+    rubric:
+      - dimension: model_quality
+        max_points: 15
+        description: Sequence + hybrid state + components coherent
+      - dimension: schema
+        max_points: 10
+        description: Implementable DDL; key and history exist
+      - dimension: allocation
+        max_points: 5
+        description: FRs land on real elements
+
+  - id: se-a15-prsas-virt-lessons
+    order: 63
+    track: se
+    phase: capstone
+    title: Virtualization Comparison & Lessons-Learned
+    module_id: se-15-prsas-virt-lessons
+    due_session: "Week 17 Thursday"
+    weight: 30
+    summary: VM vs container numbers; recommendations; migration verdict.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Fair, labelled measurements or honest gap
+      - dimension: judgment
+        max_points: 10
+        description: Recommendations a program lead could act on
+      - dimension: communication
+        max_points: 5
+        description: Report a hiring panel can skim
+
+  - id: sw-a09-prsas-simulator
+    order: 70
+    track: sw
+    phase: capstone
+    title: Radar Message Simulator
+    module_id: sw-09-prsas-simulator
+    due_session: "After sw-09-prsas-simulator"
+    weight: 25
+    summary: Java Cat 062-like publisher; four scenarios; TLS JMS to radar.input.
+    rubric:
+      - dimension: publisher
+        max_points: 15
+        description: Real publish path; two site identities
+      - dimension: scenarios
+        max_points: 10
+        description: Four scenarios; throttle/start-stop
+      - dimension: communication
+        max_points: 5
+        description: Runbook a peer can execute
+
+  - id: sw-a10-prsas-daemon
+    order: 71
+    track: sw
+    phase: capstone
+    title: Track Processing Daemon
+    module_id: sw-10-prsas-daemon
+    due_session: "After sw-10-prsas-daemon"
+    weight: 30
+    summary: Correlate, persist, publish; coast/conflict/drop; systemd worker.
+    rubric:
+      - dimension: lifecycle
+        max_points: 15
+        description: States implemented and tested
+      - dimension: persistence
+        max_points: 10
+        description: Schema used; history exists
+      - dimension: robustness
+        max_points: 5
+        description: Blip behaviour documented
+
+  - id: sw-a11-prsas-client
+    order: 72
+    track: sw
+    phase: capstone
+    title: Situational Awareness Client
+    module_id: sw-11-prsas-client
+    due_session: "After sw-11-prsas-client"
+    weight: 25
+    summary: Auth, bulk load, live map, conflict styling, reconnect.
+    rubric:
+      - dimension: picture
+        max_points: 15
+        description: Map + labels + conflict visible
+      - dimension: integration
+        max_points: 10
+        description: Bulk + live + auth story
+      - dimension: communication
+        max_points: 5
+        description: Screenshot + run notes
+
+  - id: sw-a12-prsas-integrate
+    order: 73
+    track: sw
+    phase: capstone
+    title: Integration & Container PoC
+    module_id: sw-12-prsas-integrate
+    due_session: "After sw-12-prsas-integrate"
+    weight: 20
+    summary: E2E test card; sim+daemon images; numbers for SE-A15.
+    rubric:
+      - dimension: e2e
+        max_points: 15
+        description: Honest card; conflict and recover attempted
+      - dimension: poc
+        max_points: 10
+        description: Two components containerized; numbers
+      - dimension: communication
+        max_points: 5
+        description: SE can paste your table
+
+  - id: net-a11-prsas-topology
+    order: 80
+    track: net
+    phase: capstone
+    title: PRSAS Topology & Addressing
+    module_id: net-11-prsas-topology
+    due_session: "After net-11-prsas-topology"
+    weight: 30
+    summary: Three-site diagram, VLANs, host IPs, deny-by-default allow-list.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Three sites, VLANs, overlays coherent
+      - dimension: security_intent
+        max_points: 10
+        description: Least privilege allow-list
+      - dimension: communication
+        max_points: 5
+        description: ADMIN-usable addressing
+
+  - id: net-a12-prsas-secure-path
+    order: 81
+    track: net
+    phase: capstone
+    title: PRSAS Firewalls & IPsec
+    module_id: net-12-prsas-secure-path
+    due_session: "After net-12-prsas-secure-path"
+    weight: 40
+    summary: Zones, policies, two route-based tunnels; PSK redacted.
+    rubric:
+      - dimension: design
+        max_points: 15
+        description: Zones, policies, both tunnels
+      - dimension: ops_discipline
+        max_points: 10
+        description: Redaction, red/black, commit safety
+      - dimension: communication
+        max_points: 5
+        description: Sets a peer could commit-check
+
+  - id: net-a13-prsas-validate
+    order: 82
+    track: net
+    phase: capstone
+    title: Path Validation & Config Guide
+    module_id: net-13-prsas-validate
+    due_session: "After net-13-prsas-validate"
+    weight: 30
+    summary: Layered 61617 proof, negative tests, replayable config guide.
+    rubric:
+      - dimension: evidence
+        max_points: 15
+        description: Layered, includes 61617
+      - dimension: guide
+        max_points: 10
+        description: Replayable; backout present
+      - dimension: communication
+        max_points: 5
+        description: SW handout is short and true
+
+  - id: admin-a11-prsas-provision
+    order: 90
+    track: admin
+    phase: capstone
+    title: PRSAS VM Provision Pack
+    module_id: admin-11-prsas-provision
+    due_session: "After admin-11-prsas-provision"
+    weight: 30
+    summary: Golden image, inventory, snapshots, correct port groups.
+    rubric:
+      - dimension: inventory
+        max_points: 15
+        description: Complete, placed on correct VLANs
+      - dimension: image_discipline
+        max_points: 10
+        description: Golden image + snapshots thought through
+      - dimension: communication
+        max_points: 5
+        description: SW can SSH from the table
+
+  - id: admin-a12-prsas-idm-certs
+    order: 91
+    track: admin
+    phase: capstone
+    title: PRSAS Identity & Certificates
+    module_id: admin-12-prsas-idm-certs
+    due_session: "After admin-12-prsas-idm-certs"
+    weight: 35
+    summary: IPA/LDAP principals, lab CA, AMQ TLS, no keys in Git.
+    rubric:
+      - dimension: identity
+        max_points: 15
+        description: Sensible principals and access
+      - dimension: tls
+        max_points: 10
+        description: Real inspect evidence; SAN thinking
+      - dimension: communication
+        max_points: 5
+        description: SW/NET can trust the bundle
+
+  - id: admin-a13-prsas-harden-automate
+    order: 92
+    track: admin
+    phase: capstone
+    title: Harden & Automate
+    module_id: admin-13-prsas-harden-automate
+    due_session: "After admin-13-prsas-harden-automate"
+    weight: 35
+    summary: firewalld, SELinux, auditd, Ansible/PowerCLI rebuild.
+    rubric:
+      - dimension: hardening
+        max_points: 15
+        description: Host firewall + SELinux + audit thought
+      - dimension: automation
+        max_points: 10
+        description: Idempotent, useful role
+      - dimension: communication
+        max_points: 5
+        description: Runbook SW-12 can follow
+
+  - id: mil-a04-prsas-picture
+    order: 100
+    track: mil
+    phase: capstone
+    title: Air Picture Annex & Watch Script
+    module_id: ops-04-prsas-picture
+    due_session: "After ops-04-prsas-picture"
+    weight: 100
+    summary: Unclassified picture annex, glossary, 10-minute watch script, demo voice.
+    rubric:
+      - dimension: operational_honesty
+        max_points: 15
+        description: Picture vs C2 over-claim is clear
+      - dimension: script
+        max_points: 10
+        description: Runnable in the demo
+      - dimension: communication
+        max_points: 5
+        description: Annex fits one page

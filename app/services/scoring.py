@@ -12,13 +12,18 @@ from app.models import Candidate, Role, Score, Submission
 
 
 def assignment_phase(meta: dict) -> str:
-    """Foundation (selection) vs capstone (PRSAS implementation).
+    """Selection bucket for a catalog assignment.
 
-    Missing ``phase`` is treated as foundation so existing catalog rows
-    keep intern-selection scoring unchanged.
+    ``kickoff`` and ``depth`` count with foundation (intern selection).
+    ``additional`` is archived pre-Masdar work and is excluded from the
+    default leaderboard. ``capstone`` is PRSAS implementation.
     """
     raw = (meta.get("phase") or "foundation").strip().lower()
-    return raw if raw in {"foundation", "capstone"} else "foundation"
+    if raw in {"kickoff", "depth"}:
+        return "foundation"
+    if raw in {"foundation", "capstone", "additional"}:
+        return raw
+    return "foundation"
 
 
 def _phase_included(meta: dict, phase: str | None) -> bool:

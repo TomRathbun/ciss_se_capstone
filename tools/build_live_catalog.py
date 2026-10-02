@@ -1,0 +1,460 @@
+"""Build content/catalog.yaml for the Masdar afternoon path.
+
+Archived pre-Masdar lessons live in content/additional/catalog.yaml and are
+merged at runtime with phase=additional. This file is the live path only,
+plus the PRSAS capstone pack (same ids, so they win over the archive).
+"""
+from __future__ import annotations
+
+from pathlib import Path
+
+import yaml
+
+ROOT = Path(__file__).resolve().parents[1]
+ADDITIONAL = ROOT / "content" / "additional" / "catalog.yaml"
+OUT = ROOT / "content" / "catalog.yaml"
+
+PRSAS_MODULE_IDS = {
+    "se-12-prsas-overview",
+    "se-13-prsas-conops",
+    "se-14-prsas-mbse-schema",
+    "se-15-prsas-virt-lessons",
+    "sw-09-prsas-simulator",
+    "sw-10-prsas-daemon",
+    "sw-11-prsas-client",
+    "sw-12-prsas-integrate",
+    "net-11-prsas-topology",
+    "net-12-prsas-secure-path",
+    "net-13-prsas-validate",
+    "admin-11-prsas-provision",
+    "admin-12-prsas-idm-certs",
+    "admin-13-prsas-harden-automate",
+    "ops-04-prsas-picture",
+}
+PRSAS_ASSIGNMENT_IDS = {
+    "se-a12-prsas-overview",
+    "se-a13-prsas-conops",
+    "se-a14-prsas-mbse-schema",
+    "se-a15-prsas-virt-lessons",
+    "sw-a09-prsas-simulator",
+    "sw-a10-prsas-daemon",
+    "sw-a11-prsas-client",
+    "sw-a12-prsas-integrate",
+    "net-a11-prsas-topology",
+    "net-a12-prsas-secure-path",
+    "net-a13-prsas-validate",
+    "admin-a11-prsas-provision",
+    "admin-a12-prsas-idm-certs",
+    "admin-a13-prsas-harden-automate",
+    "mil-a04-prsas-picture",
+}
+
+R3 = [
+    {"dimension": "completeness", "max_points": 10, "description": "All required artifacts present"},
+    {"dimension": "accuracy", "max_points": 10, "description": "Technically right at intern level"},
+    {"dimension": "communication", "max_points": 5, "description": "A peer can grade it in five minutes"},
+]
+
+
+def m(id, order, track, phase, title, duration_min, summary, **extra):
+    row = {
+        "id": id,
+        "order": order,
+        "track": track,
+        "phase": phase,
+        "title": title,
+        "duration_min": duration_min,
+        "summary": summary,
+        "offline": extra.pop("offline", True),
+    }
+    row.update(extra)
+    return row
+
+
+def a(id, order, track, phase, title, module_id, due, weight, summary, rubric=None):
+    return {
+        "id": id,
+        "order": order,
+        "track": track,
+        "phase": phase,
+        "title": title,
+        "module_id": module_id,
+        "due_session": due,
+        "weight": weight,
+        "summary": summary,
+        "rubric": rubric or R3,
+    }
+
+
+MODULES = [
+    # --- SE foundation ---
+    m("se-f01-what-se-is", 1, "se", "foundation", "What SE is", 150,
+      "Why programs fail when people jump to design; vision as a shared picture; stakeholders; artifacts have owners and versions."),
+    m("se-f02-needs-usecases", 2, "se", "foundation", "Needs → use cases", 150,
+      "Who benefits and so that what; actors and the main success scenario; extensions; need traces_to use case."),
+    m("se-f03-requirements", 3, "se", "foundation", "Requirements that can be tested", 150,
+      "Shall language and EARS; acceptance criteria; IDs and NFRs; do not hide design inside a requirement."),
+    m("se-f04-reading-the-system", 4, "se", "foundation", "Reading the system", 150,
+      "Context, structure, and deployment views; a simple sequence and state; verify vs validate; how SE coordinates the other three."),
+    # --- SE kickoff ---
+    m("se-k01-prsas-overview", 5, "se", "kickoff", "PRSAS capstone overview", 150,
+      "All-hands: three-site unclassified air picture, shared contracts, what week 5 is for, and how electives start next week."),
+    m("se-k02-se-work", 6, "se", "kickoff", "SE work on the capstone", 120,
+      "What Systems Engineering must accomplish on PRSAS: CONOPS, MBSE, schema, V&V, virt study, lessons-learned."),
+    # --- SE depth ---
+    m("se-d01-architecture", 7, "se", "depth", "Architecture views & allocation", 150,
+      "Context, container, component, deployment; FR allocation; one recorded design decision.",
+      additional_of="se-05-architecture"),
+    m("se-d02-behavior", 8, "se", "depth", "Behavior — states & sequences", 150,
+      "State vs status; trigger/guard/activity; one state machine and one sequence for a feature.",
+      additional_of="se-06-behavior"),
+    m("se-d03-interfaces", 9, "se", "depth", "Interfaces & ICDs", 150,
+      "Messaging ICD vs API ICD; rates, Tx/Rx, errors; the contract comes before the parser.",
+      additional_of="se-07-interfaces"),
+    m("se-d04-mbse", 10, "se", "depth", "MBSE & architecture frameworks", 120,
+      "MBSE vs documents; UML vs SysML; honest mapping of our artifacts to OV/SV-style products.",
+      additional_of="se-11-mbse-frameworks"),
+    m("se-d05-vv-trace", 11, "se", "depth", "Verification, validation & trace", 150,
+      "Verify vs validate; requirement → design → test; building a usable RTM.",
+      additional_of="se-08-vv-trace"),
+    m("se-d06-etas", 12, "se", "depth", "Case study — SDC Time Tracker (ETAS)", 150,
+      "Walk a living system’s SE artifacts; steal habits for PRSAS.",
+      additional_of="se-09-case-etas"),
+
+    # --- NET foundation ---
+    m("net-f01-how-built", 1, "net", "foundation", "How a network is built", 150,
+      "LAN vs WAN; switch, router, firewall; OSI/TCP-IP enough to debug a conversation; packets must arrive."),
+    m("net-f02-addressing", 2, "net", "foundation", "Addressing", 150,
+      "IPv4, mask, default gateway; DHCP and DNS; what a subnet is for; write an address plan a peer can read."),
+    m("net-f03-on-the-wire", 3, "net", "foundation", "Conversations on the wire", 150,
+      "TCP vs UDP; common ports; VLAN and NAT as ideas; the allowed-path mindset."),
+    m("net-f04-test-path", 4, "net", "foundation", "Test before you guess", 150,
+      "Ping, traceroute, layered evidence; change control; hold Junos/OSPF/BGP/MPLS/IPsec for depth."),
+    m("net-k01-net-work", 5, "net", "kickoff", "Networking work on the capstone", 120,
+      "What Networking must accomplish on PRSAS: three-site topology, firewalls, IPsec, path validation, config guide."),
+    m("net-d01-junos", 6, "net", "depth", "Junos CLI and the commit model", 150,
+      "RE vs PFE; candidate vs active; commit check/confirmed/rollback on older EX/SRX.",
+      additional_of="net-02-junos-cli"),
+    m("net-d02-switching", 7, "net", "depth", "EX switching — VLANs, trunks, VC", 150,
+      "Access vs trunk on older EX; RSTP; EX4200 Virtual Chassis; handoff to the SRX.",
+      additional_of="net-03-switching"),
+    m("net-d03-srx", 8, "net", "depth", "SRX firewalls — zones, policy, NAT", 150,
+      "Older SRX families; zones; first-match policy; source NAT; flow sessions.",
+      additional_of="net-04-srx-firewall"),
+    m("net-d04-ospf", 9, "net", "depth", "Interior routing — static and OSPF", 150,
+      "show route; statics; OSPF area 0, neighbors, lo0; IGP as a gate for BGP/MPLS.",
+      additional_of="net-05-igp-ospf"),
+    m("net-d05-bgp", 10, "net", "depth", "BGP — external and internal", 150,
+      "eBGP vs iBGP; neighbor states; Junos policy-statement; next-hop-self.",
+      additional_of="net-06-bgp"),
+    m("net-d06-mpls", 11, "net", "depth", "MPLS tunnels — LDP, RSVP-TE, L3VPN", 150,
+      "LSPs as tunnels; inet.3; VRF/RD/RT; branch SRX as CE not PE.",
+      additional_of="net-07-mpls"),
+    m("net-d07-ipsec", 12, "net", "depth", "Encryptors and IPsec", 150,
+      "Route-based st0 IPsec on older SRX; proxy-IDs; red/black discipline.",
+      additional_of="net-08-encryptors"),
+    m("net-d08-ha-change", 13, "net", "depth", "HA and change control", 120,
+      "commit confirmed, rescue, rollback; chassis cluster vocabulary; change tickets.",
+      additional_of="net-09-ha-change"),
+    m("net-d09-troubleshoot", 14, "net", "depth", "Network troubleshooting on Junos", 150,
+      "Layered method; show/monitor evidence packs; avoid blast-radius clears on old boxes.",
+      additional_of="net-10-troubleshoot"),
+
+    # --- SW foundation ---
+    m("sw-f01-git", 1, "sw", "foundation", "Git as daily craft", 150,
+      "Clone, branch, commit, push; history you would not be ashamed of; recovery without destroying the repo."),
+    m("sw-f02-team-change", 2, "sw", "foundation", "How a team ships a change", 150,
+      "Ticket → branch → review → merge; what a good review comment looks like; you do not merge your own unchecked work."),
+    m("sw-f03-reading-code", 3, "sw", "foundation", "Reading and writing code", 150,
+      "Python may be how you think; Java is the contract language; secrets never in Git; code implements a requirement."),
+    m("sw-f04-services", 4, "sw", "foundation", "Services, not scripts", 150,
+      "A process that talks to a database; a process that publishes/consumes a message; ICD before parser."),
+    m("sw-k01-sw-work", 5, "sw", "kickoff", "Software work on the capstone", 120,
+      "What Software must accomplish on PRSAS: simulators, track daemon, SA client, integration."),
+    m("sw-d01-python-java", 6, "sw", "depth", "From Python to Java", 150,
+      "Translate mental models; types, equals, packages, Maven; hiring bar is Java.",
+      additional_of="sw-03-python-java"),
+    m("sw-d02-java-tooling", 7, "sw", "depth", "VS Code for Java", 150,
+      "JDK, Maven, run/debug, Java 8 baseline and upgrade path.",
+      additional_of="sw-03-vscode-java"),
+    m("sw-d03-jdbc", 8, "sw", "depth", "PostgreSQL with Java (JDBC)", 150,
+      "PreparedStatement, transactions, pools; secrets handling.",
+      additional_of="sw-04-java-postgresql"),
+    m("sw-d04-amqp", 9, "sw", "depth", "AMQP messaging with Java", 150,
+      "JMS publish/consume on ActiveMQ; ack modes; ICD-style payloads.",
+      additional_of="sw-05-java-amqp"),
+    m("sw-d05-daemons", 10, "sw", "depth", "Java daemons and background services", 150,
+      "Long-running workers, shutdown hooks, systemd, consumers and scheduled jobs.",
+      additional_of="sw-06-java-daemons"),
+    m("sw-d06-javafx", 11, "sw", "depth", "JavaFX for desktop GUIs", 150,
+      "Stages/scenes, UI-thread safety, thin UI over services.",
+      additional_of="sw-07-javafx-gui"),
+    m("sw-d07-cicd", 12, "sw", "depth", "CI/CD and Jenkins", 150,
+      "Build-test-publish; Jenkins jobs; map to GitLab CI for CISS labs.",
+      additional_of="sw-08-jenkins-cicd"),
+
+    # --- ADMIN foundation ---
+    m("admin-f01-linux-vm", 1, "admin", "foundation", "Linux on a VM", 150,
+      "RHEL-class guests, not Docker-first; filesystem, users, processes; systemctl; least privilege."),
+    m("admin-f02-see-machine", 2, "admin", "foundation", "See what the machine is doing", 150,
+      "Logs and journalctl; symptom → hypothesis → test; tickets; evidence packs."),
+    m("admin-f03-software-host", 3, "admin", "foundation", "Software on the host", 150,
+      "Packages and where they come from; works-on-my-laptop is not a deployment; secrets; snapshots as ideas."),
+    m("admin-f04-trust-identity", 4, "admin", "foundation", "Trust and identity", 150,
+      "What a certificate is in one page; why every box should not have its own password file; hold FreeIPA/vSAN/Ansible."),
+    m("admin-k01-admin-work", 5, "admin", "kickoff", "Admin work on the capstone", 120,
+      "What System Administration must accomplish on PRSAS: VMs, identity, certs, hardening, rebuild automation."),
+    m("admin-d01-bash", 6, "admin", "depth", "Bash programming for admins", 150,
+      "Scripts, quoting, set -euo pipefail, safe admin patterns.",
+      additional_of="admin-02-bash"),
+    m("admin-d02-tls", 7, "admin", "depth", "TLS certificate management", 150,
+      "Certs, keys, CSRs, chains, OpenSSL inspect/verify, trust stores.",
+      additional_of="admin-04-tls-certs"),
+    m("admin-d03-idm", 8, "admin", "depth", "Identity — AD and FreeIPA", 150,
+      "Central identity; SSSD; Kerberos; groups, HBAC, sudo.",
+      additional_of="admin-05-idm-ad-ipa"),
+    m("admin-d04-nfs", 9, "admin", "depth", "NFS setup and configuration", 150,
+      "Exports and mounts; UID mapping; firewall; Kerberos-aware shares.",
+      additional_of="admin-06-nfs"),
+    m("admin-d05-vsphere", 10, "admin", "depth", "vSphere, vSAN, VDI, and ESXi", 150,
+      "Hypervisor vocabulary; VM lifecycle; datastores; snapshot discipline.",
+      additional_of="admin-07-vsphere-vsan-vdi"),
+    m("admin-d06-postgres", 11, "admin", "depth", "PostgreSQL for admins", 150,
+      "Roles, activity, size, locks, grants, backup awareness.",
+      additional_of="admin-08-postgres-admin"),
+    m("admin-d07-troubleshoot", 12, "admin", "depth", "Troubleshooting methodology", 150,
+      "Deep dive on grep, tail, journalctl, ps, ss; evidence packs.",
+      additional_of="admin-09-troubleshooting"),
+    m("admin-d08-tickets", 13, "admin", "depth", "Documentation and trouble tickets", 120,
+      "Incident vs change vs request; runbooks; resolution notes.",
+      additional_of="admin-10-documentation-tickets"),
+]
+
+ASSIGNMENTS = [
+    a("se-fa00-professional", 0, "se", "foundation", "Professionalism & participation",
+      "se-f01-what-se-is", "Ongoing", 8,
+      "Attendance, morning work turned in on time, peer review quality, integrity."),
+    a("se-fa01-what-se-is", 1, "se", "foundation", "SE definition and failure map",
+      "se-f01-what-se-is", "Week 1 Tuesday morning", 8,
+      "One-paragraph SE definition, daily-app chain, one public failure mapped to a missing artifact."),
+    a("se-fa02-needs-usecases", 2, "se", "foundation", "Needs and two use-case briefs",
+      "se-f02-needs-usecases", "Week 2 Tuesday morning", 8,
+      "Needs grammar table, two use-case briefs, one rejected use case, trace table."),
+    a("se-fa03-requirements", 3, "se", "foundation", "Six testable shalls",
+      "se-f03-requirements", "Week 3 Tuesday morning", 8,
+      "Six EARS shalls with IDs, two ACs, one labeled design-not-requirement."),
+    a("se-fa04-reading-system", 4, "se", "foundation", "Context sketch and V&V note",
+      "se-f04-reading-the-system", "Week 4 Tuesday morning", 8,
+      "Context diagram, one sequence, verify-vs-validate table for three shalls."),
+    a("se-ka01-overview", 5, "se", "kickoff", "PRSAS one-minute brief",
+      "se-k01-prsas-overview", "Week 5 Tuesday morning", 6,
+      "One-page restatement of the three-site picture, contracts, and what each track owns."),
+    a("se-ka02-se-work", 6, "se", "kickoff", "SE accomplishment list",
+      "se-k02-se-work", "Week 5 Tuesday morning", 6,
+      "SE work breakdown for PRSAS with first-week artifacts and owners."),
+    a("se-da01-architecture", 7, "se", "depth", "Architecture views pack",
+      "se-d01-architecture", "Week 6 Tuesday morning", 8,
+      "Context + structure + deployment; FR allocation; one decision record."),
+    a("se-da02-behavior", 8, "se", "depth", "State + sequence",
+      "se-d02-behavior", "Week 7 Tuesday morning", 8,
+      "One state machine and one sequence for a chosen PRSAS feature."),
+    a("se-da03-icd", 9, "se", "depth", "Partial messaging + API ICD",
+      "se-d03-interfaces", "Week 8 Tuesday morning", 8,
+      "Partial messaging ICD and partial REST ICD for a PRSAS interface."),
+    a("se-da04-mbse", 10, "se", "depth", "MBSE literacy brief",
+      "se-d04-mbse", "Week 9 Tuesday morning", 8,
+      "MBSE vs documents; map your real artifacts to OV/SV-style products."),
+    a("se-da05-vv", 11, "se", "depth", "Mini RTM",
+      "se-d05-vv-trace", "Week 10 Tuesday morning", 8,
+      "RTM for five FRs with a verification method each."),
+    a("se-da06-etas", 12, "se", "depth", "ETAS artifact hunt",
+      "se-d06-etas", "Week 11 Tuesday morning", 8,
+      "Hunt live ETAS artifacts; steal-list for PRSAS."),
+
+    a("net-fa01-how-built", 1, "net", "foundation", "Path and device-roles sheet",
+      "net-f01-how-built", "Week 1 Wednesday morning", 7,
+      "Draw a 5-hop path, fill device roles, name the layer that fails in two stories."),
+    a("net-fa02-addressing", 2, "net", "foundation", "Readable address plan",
+      "net-f02-addressing", "Week 2 Wednesday morning", 7,
+      "IPv4 plan for a tiny site; gateway, DHCP, DNS; three host examples."),
+    a("net-fa03-on-the-wire", 3, "net", "foundation", "Ports and allowed-path table",
+      "net-f03-on-the-wire", "Week 3 Wednesday morning", 7,
+      "TCP vs UDP choices, port table, VLAN/NAT in one paragraph each, allowed-path sketch."),
+    a("net-fa04-test-path", 4, "net", "foundation", "Evidence pack for a dead path",
+      "net-f04-test-path", "Week 4 Wednesday morning", 7,
+      "Layered test order for a given failure story; what you would capture; what you would not guess."),
+    a("net-ka01-net-work", 5, "net", "kickoff", "NET accomplishment list",
+      "net-k01-net-work", "Week 5 Wednesday morning", 9,
+      "Networking work breakdown for PRSAS with topology questions you still need answered."),
+    a("net-da01-junos", 6, "net", "depth", "Commit-model lab sheet",
+      "net-d01-junos", "Week 6 Wednesday morning", 7,
+      "Candidate vs active; commit check/confirmed/rollback written as a procedure."),
+    a("net-da02-switching", 7, "net", "depth", "VLAN/trunk design",
+      "net-d02-switching", "Week 7 Wednesday morning", 7,
+      "Access vs trunk plan for a small EX closet; RSTP note."),
+    a("net-da03-srx", 8, "net", "depth", "Zone and policy sketch",
+      "net-d03-srx", "Week 8 Wednesday morning", 7,
+      "Zones, one allow-list policy set, NAT note, what you would show to prove a session."),
+    a("net-da04-ospf", 9, "net", "depth", "OSPF neighbor plan",
+      "net-d04-ospf", "Week 9 Wednesday morning", 7,
+      "Area 0 sketch, lo0, neighbor states you expect, IGP as BGP gate."),
+    a("net-da05-bgp", 10, "net", "depth", "eBGP/iBGP map",
+      "net-d05-bgp", "Week 10 Wednesday morning", 7,
+      "Neighbor map, export policy shape, next-hop-self note."),
+    a("net-da06-mpls", 11, "net", "depth", "LSP vs PE honesty sheet",
+      "net-d06-mpls", "Week 11 Wednesday morning", 7,
+      "LDP vs RSVP in one table; why a branch SRX is CE not PE."),
+    a("net-da07-ipsec", 12, "net", "depth", "IPsec overlay sketch",
+      "net-d07-ipsec", "Week 12 Wednesday morning", 7,
+      "st0 overlay, proxy-IDs, red/black note, PSK handling rule."),
+    a("net-da08-ha-change", 13, "net", "depth", "Change window card",
+      "net-d08-ha-change", "Week 13 Wednesday morning", 7,
+      "commit confirmed procedure, rollback, ticket fields for one change."),
+    a("net-da09-troubleshoot", 14, "net", "depth", "Junos evidence pack",
+      "net-d09-troubleshoot", "Week 14 Wednesday morning", 7,
+      "Layered show/monitor pack for a given symptom; what you will not clear."),
+
+    a("sw-fa01-git", 1, "sw", "foundation", "Git daily-loop evidence",
+      "sw-f01-git", "Week 1 Thursday morning", 8,
+      "Branch, commit, push, and one safe recovery with command evidence."),
+    a("sw-fa02-team-change", 2, "sw", "foundation", "Ticket → MR checklist",
+      "sw-f02-team-change", "Week 2 Thursday morning", 8,
+      "One ticket, one branch name, one MR description, a review checklist a peer could use."),
+    a("sw-fa03-reading-code", 3, "sw", "foundation", "Requirement vs code vs secret",
+      "sw-f03-reading-code", "Week 3 Thursday morning", 8,
+      "Read a short function; map it to a shall; list one secret-handling failure."),
+    a("sw-fa04-services", 4, "sw", "foundation", "Service conversation sketch",
+      "sw-f04-services", "Week 4 Thursday morning", 8,
+      "One process-to-DB and one process-to-message sketch with an ICD field list."),
+    a("sw-ka01-sw-work", 5, "sw", "kickoff", "SW accomplishment list",
+      "sw-k01-sw-work", "Week 5 Thursday morning", 12,
+      "Software work breakdown for simulator, daemon, client, integration."),
+    a("sw-da01-python-java", 6, "sw", "depth", "Python → Java translation",
+      "sw-d01-python-java", "Week 6 Thursday morning", 8,
+      "Translate a given Python function to compiling Java; mapping table."),
+    a("sw-da02-java-tooling", 7, "sw", "depth", "Runnable Maven mini-app",
+      "sw-d02-java-tooling", "Week 7 Thursday morning", 8,
+      "Environment sheet, runnable Maven app, debug evidence."),
+    a("sw-da03-jdbc", 8, "sw", "depth", "JDBC repository slice",
+      "sw-d03-jdbc", "Week 8 Thursday morning", 8,
+      "PreparedStatement CRUD plus commit/rollback note; no secrets in Git."),
+    a("sw-da04-amqp", 9, "sw", "depth", "Publish / consume lab",
+      "sw-d04-amqp", "Week 9 Thursday morning", 8,
+      "ICD-style payload, producer/consumer, ack mode, failure note."),
+    a("sw-da05-daemons", 10, "sw", "depth", "Worker lifecycle sheet",
+      "sw-d05-daemons", "Week 10 Thursday morning", 8,
+      "Start/stop/shutdown story for a long-running consumer."),
+    a("sw-da06-javafx", 11, "sw", "depth", "Thin UI sketch",
+      "sw-d06-javafx", "Week 11 Thursday morning", 8,
+      "Stage/scene sketch and UI-thread rule applied to a live update."),
+    a("sw-da07-cicd", 12, "sw", "depth", "Pipeline map",
+      "sw-d07-cicd", "Week 12 Thursday morning", 8,
+      "Build-test-publish steps mapped to Jenkins and to GitLab CI."),
+
+    a("admin-fa01-linux-vm", 1, "admin", "foundation", "Host literacy sheet",
+      "admin-f01-linux-vm", "Week 1 Friday morning", 7,
+      "Filesystem, users, processes, one service via systemctl — written from a VM, not a laptop Docker."),
+    a("admin-fa02-see-machine", 2, "admin", "foundation", "Evidence pack for a symptom",
+      "admin-f02-see-machine", "Week 2 Friday morning", 7,
+      "Symptom → three hypotheses → what log/command proves each; ticket fields."),
+    a("admin-fa03-software-host", 3, "admin", "foundation", "Install and secret-handling note",
+      "admin-f03-software-host", "Week 3 Friday morning", 7,
+      "How a package gets onto a VM; where secrets must not live; snapshot as rollback idea."),
+    a("admin-fa04-trust-identity", 4, "admin", "foundation", "Certificate one-pager",
+      "admin-f04-trust-identity", "Week 4 Friday morning", 7,
+      "Explain a cert/chain in one page; why local passwords-on-every-box fails."),
+    a("admin-ka01-admin-work", 5, "admin", "kickoff", "Admin accomplishment list",
+      "admin-k01-admin-work", "Week 5 Friday morning", 8,
+      "Admin work breakdown for VMs, identity, certs, harden, rebuild."),
+    a("admin-da01-bash", 6, "admin", "depth", "Safe admin script",
+      "admin-d01-bash", "Week 6 Friday morning", 8,
+      "Small bash script with quoting, args, and set -euo pipefail."),
+    a("admin-da02-tls", 7, "admin", "depth", "Inspect a cert chain",
+      "admin-d02-tls", "Week 7 Friday morning", 8,
+      "OpenSSL inspect/verify notes; expiry; SAN; trust store."),
+    a("admin-da03-idm", 8, "admin", "depth", "Identity design sketch",
+      "admin-d03-idm", "Week 8 Friday morning", 8,
+      "Principals, groups, sudo/HBAC idea, login troubleshooting order."),
+    a("admin-da04-nfs", 9, "admin", "depth", "Export/mount design",
+      "admin-d04-nfs", "Week 9 Friday morning", 8,
+      "One export line, mount options, UID risk, failure matrix."),
+    a("admin-da05-vsphere", 10, "admin", "depth", "VM lifecycle card",
+      "admin-d05-vsphere", "Week 10 Friday morning", 8,
+      "Create/clone/snapshot/delete rules; datastore note; port group."),
+    a("admin-da06-postgres", 11, "admin", "depth", "Admin SQL sheet",
+      "admin-d06-postgres", "Week 11 Friday morning", 8,
+      "Roles, size, activity, locks, backup awareness."),
+    a("admin-da07-troubleshoot", 12, "admin", "depth", "Host evidence pack",
+      "admin-d07-troubleshoot", "Week 12 Friday morning", 8,
+      "grep/journalctl/ps/ss pack for a given symptom."),
+    a("admin-da08-tickets", 13, "admin", "depth", "Ticket and runbook",
+      "admin-d08-tickets", "Week 13 Friday morning", 8,
+      "One incident ticket and a one-page runbook."),
+]
+
+
+def main() -> None:
+    extra = yaml.safe_load(ADDITIONAL.read_text(encoding="utf-8")) or {}
+    prsas_mods = [dict(m) for m in extra.get("modules") or [] if m.get("id") in PRSAS_MODULE_IDS]
+    prsas_asgs = [dict(a) for a in extra.get("assignments") or [] if a.get("id") in PRSAS_ASSIGNMENT_IDS]
+    for row in prsas_mods:
+        row["phase"] = "capstone"
+    for row in prsas_asgs:
+        row["phase"] = "capstone"
+
+    catalog = {
+        "course": {
+            "title": "CISS Capstone",
+            "subtitle": "Masdar afternoons — Foundation · Kickoff · Depth · PRSAS",
+            "purpose": (
+                "36-week intern pathway. Weeks 1–4 all-hands general literacy. "
+                "Week 5 capstone kickoff. Week 6+ electives with SE mandatory. "
+                "Morning assignments (~2 hours) due before the next afternoon lecture. "
+                "Pre-Masdar lessons are preserved as Additional / archived."
+            ),
+        },
+        "tracks": [
+            {
+                "id": "se", "order": 1, "short": "SE", "title": "Systems Engineering",
+                "summary": "Mandatory all 36 weeks. Foundation chain, then architecture/behavior/ICDs/V&V, then PRSAS.",
+                "color": "se", "status": "active",
+            },
+            {
+                "id": "sw", "order": 2, "short": "SW", "title": "Software Development",
+                "summary": "All-hands Git and services literacy, then Java/data/messaging/UI depth, then PRSAS components.",
+                "color": "sw", "status": "active",
+            },
+            {
+                "id": "net", "order": 3, "short": "NET", "title": "Networking",
+                "summary": "All-hands packets and paths, then older Juniper depth, then PRSAS three-site fabric.",
+                "color": "net", "status": "active",
+            },
+            {
+                "id": "admin", "order": 4, "short": "ADMIN", "title": "System Administration & Integration",
+                "summary": "All-hands Linux/logs/packages/trust, then identity/virt/data depth, then PRSAS provision.",
+                "color": "admin", "status": "active",
+            },
+            {
+                "id": "mil", "order": 5, "short": "MIL", "title": "Military Operations",
+                "summary": "Friday-flex only after TAA review. Archived ops lessons sit under Additional.",
+                "color": "mil", "status": "active",
+            },
+        ],
+        "modules": MODULES + prsas_mods,
+        "assignments": ASSIGNMENTS + prsas_asgs,
+    }
+
+    header = (
+        "# CISS Capstone — live Masdar-afternoon catalog\n"
+        "# Archived pre-Masdar lessons: content/additional/catalog.yaml (merged at runtime).\n"
+        "# Generated by tools/build_live_catalog.py. Edit this file or regenerate.\n\n"
+    )
+    OUT.write_text(
+        header + yaml.safe_dump(catalog, sort_keys=False, allow_unicode=True, width=100),
+        encoding="utf-8",
+    )
+    print(f"Wrote {OUT} modules={len(catalog['modules'])} assignments={len(catalog['assignments'])}")
+
+
+if __name__ == "__main__":
+    main()

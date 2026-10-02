@@ -4,7 +4,7 @@
 <div class="flex flex-wrap items-start justify-between gap-3 mb-6">
     <div>
         <h1 class="text-3xl font-bold mb-2">Modules</h1>
-        <p class="text-gray-500 text-sm">Lecture material and offline reading, grouped by discipline track. Mark complete after you finish.</p>
+        <p class="text-gray-500 text-sm">Afternoon lectures at Masdar, grouped by discipline. Foundation first, then kickoff, then depth. Archived pre-Masdar lessons sit under Additional.</p>
     </div>
     <a href="/modules/export{% if track_filter %}?track={{ track_filter }}{% endif %}"
        class="btn-ghost text-sm whitespace-nowrap">Print / PDF</a>
@@ -25,27 +25,46 @@
     {% endfor %}
 </div>
 
-{% if track_filter %}
-    {# Flat list for one track #}
-    <div class="space-y-3">
-        {% for m in modules %}
-        <a href="/modules/{{ m.id }}" class="card p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
-            <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="badge badge-{{ m.track_color }}">{{ m.track_short }}</span>
-                    {% if m.offline %}<span class="text-[10px] text-gray-600">offline-friendly</span>{% endif %}
-                </div>
-                <p class="font-semibold text-white">{{ loop.index }}. {{ m.title }}</p>
-                <p class="text-sm text-gray-500 mt-1">{{ m.summary }}</p>
+<div class="flex flex-wrap gap-2 mb-8">
+    <a href="/modules{% if track_filter %}?track={{ track_filter }}{% endif %}"
+       class="badge {% if not phase_filter %}badge-weight{% else %}badge-additional opacity-70 hover:opacity-100{% endif %} no-underline">
+        All phases
+    </a>
+    {% for p in phase_order %}
+    <a href="/modules?phase={{ p }}{% if track_filter %}&amp;track={{ track_filter }}{% endif %}"
+       class="badge badge-{{ p }} no-underline {% if phase_filter != p %}opacity-70 hover:opacity-100{% endif %}">
+        {{ phase_labels[p] }}
+    </a>
+    {% endfor %}
+</div>
+
+{% if track_filter or phase_filter %}
+    <div class="space-y-8">
+        {% for g in modules_by_phase %}
+        <section>
+            <h2 class="text-sm font-bold tracking-wide uppercase text-gray-400 mb-3">{{ g.title }}</h2>
+            <div class="space-y-2">
+                {% for m in g.entries %}
+                <a href="/modules/{{ m.id }}" class="card p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="badge badge-{{ m.track_color }}">{{ m.track_short }}</span>
+                            <span class="badge badge-{{ m.phase }}">{{ m.phase }}</span>
+                            {% if m.offline %}<span class="text-[10px] text-gray-600">offline-friendly</span>{% endif %}
+                        </div>
+                        <p class="font-semibold text-white">{{ m.title }}</p>
+                        <p class="text-sm text-gray-500 mt-1">{{ m.summary }}</p>
+                    </div>
+                    <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
+                </a>
+                {% endfor %}
             </div>
-            <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
-        </a>
+        </section>
         {% else %}
-        <p class="text-gray-500 text-sm">No modules in this track yet.</p>
+        <p class="text-gray-500 text-sm">No modules in this filter.</p>
         {% endfor %}
     </div>
 {% else %}
-    {# Grouped by track #}
     <div class="space-y-10">
         {% for t in tracks_with_modules %}
         <section id="track-{{ t.id }}">
@@ -59,22 +78,22 @@
                 </div>
                 <a href="/modules?track={{ t.id }}" class="text-xs text-primary-400">Filter this track →</a>
             </div>
-            {% if t.status == 'scaffolding' and t.module_count <= 1 %}
-            <p class="text-xs text-amber-500/80 mb-3">Scaffolding — overview module present; more content forthcoming.</p>
-            {% endif %}
+            {% for g in t.phases %}
+            <h3 class="text-xs font-bold tracking-wide uppercase text-gray-500 mt-5 mb-2">{{ g.title }}</h3>
             <div class="space-y-2">
-                {% for m in t.modules %}
+                {% for m in g.entries %}
                 <a href="/modules/{{ m.id }}" class="card p-4 flex flex-col sm:flex-row sm:items-center gap-3 hover:border-primary-500/25 transition-colors">
                     <div class="flex-1">
-                        <p class="font-semibold text-white text-sm">{{ loop.index }}. {{ m.title }}</p>
+                        <p class="font-semibold text-white text-sm">{{ m.title }}</p>
                         <p class="text-xs text-gray-500 mt-1">{{ m.summary }}</p>
                     </div>
                     <span class="text-xs text-gray-600">{{ m.duration_min }} min</span>
                 </a>
-                {% else %}
-                <p class="text-sm text-gray-600">No modules registered yet.</p>
                 {% endfor %}
             </div>
+            {% else %}
+            <p class="text-sm text-gray-600">No modules registered yet.</p>
+            {% endfor %}
         </section>
         {% endfor %}
     </div>
