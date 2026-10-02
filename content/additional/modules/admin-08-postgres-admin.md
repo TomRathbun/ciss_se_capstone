@@ -50,7 +50,7 @@ PostgreSQL instance (port 5432)
 ## Connect and inspect
 
 ```bash
-sudo systemctl status postgresql       # service name may vary
+sudo systemctl status postgresql       # on RHEL 10.2 AppStream this is often postgresql-18
 psql --version
 # Local peer auth often works for OS user postgres:
 sudo -u postgres psql

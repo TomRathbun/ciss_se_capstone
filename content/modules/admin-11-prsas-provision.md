@@ -6,7 +6,7 @@
 
 After this module you can:
 
-- Build a **golden image** (Rocky / RHEL-class) and clone it per role  
+- Build a **golden image** (**RHEL 10.2** / Rocky 10) and clone it per role  
 - Place VMs on the **correct port group / VLAN** from the NET plan  
 - Size CPU/RAM/disk without “give everyone 16 vCPU”  
 - Deliver a **host inventory** SW can SSH to  
@@ -28,10 +28,13 @@ Add a jump / bastion on mgmt if the instructor wants one. Do **not** put AMQ on 
 
 ## Golden image checklist
 
-- Time sync (chrony) to lab NTP  
-- `sshd` key-only for intern accounts  
-- `firewalld` on, ssh allowed from mgmt  
+- OS is **RHEL 10.2** (or Rocky 10); `/boot` **2 GiB** (10.2 default — 1 GiB RHEL 7 templates will fail)
+- Time sync (**chrony**, not ntpd) to lab NTP  
+- NetworkManager keyfiles only — no `ifcfg-*` leftovers from a converted 7 image  
+- `sshd` key-only for intern accounts; confirm modern host keys (10.2 OpenSSH speaks ML-KEM)  
+- `firewalld` on (nftables backend), ssh allowed from mgmt  
 - SELinux **enforcing** (do not set permissive “to save time”)  
+- DNF repos pointed at the lab mirror / Nexus; `dnf needs-restarting -r` clean after first patch  
 - Cloud-init or a first-boot hostname script  
 - No leftover `/etc/prsas` secrets from a previous cohort  
 
@@ -41,7 +44,7 @@ Document: template name, snapshot name, clone procedure (UI or PowerCLI/govc).
 
 1. **15 min** — Inventory table from NET-A11 IPs (or teaching IPs if NET is late).  
 2. **40 min** — Clone or specify the three remote/central guests you can actually touch this week.  
-3. **25 min** — Evidence: `hostnamectl`, `ip -br a`, `timedatectl` from each live VM.
+3. **25 min** — Evidence: `hostnamectl`, `cat /etc/os-release`, `ip -br a`, `nmcli device status`, `timedatectl` from each live VM.
 
 ## Thursday assignment
 

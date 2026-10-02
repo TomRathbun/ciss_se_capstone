@@ -97,7 +97,7 @@ kdestroy
 
 ```bash
 # Typical high-level flow (do not run on shared lab without approval)
-sudo yum install realmd sssd oddjob oddjob-mkhomedir adcli
+sudo dnf install -y realmd sssd oddjob oddjob-mkhomedir adcli
 sudo realm discover corp.example.com
 sudo realm join corp.example.com -U join-account
 ```
@@ -111,7 +111,7 @@ After join, logins use domain accounts; home dirs may be created via `oddjob-mkh
 | Domain seen | `realm list` |
 | User resolves | `getent passwd 'DOMAIN\user'` or `user@domain` |
 | Groups | `id user` |
-| Time sync | Kerberos is **time-sensitive** — `chronyc tracking` / `ntpq` |
+| Time sync | Kerberos is **time-sensitive** — `chronyc tracking` / `timedatectl` (no `ntpq` on 10.2) |
 | DNS | SRV records for `_ldap._tcp`, `_kerberos._tcp` |
 
 ### Common AD-side failures
@@ -164,7 +164,7 @@ When “SSH works on host A but not B,” compare HBAC allow rules and host grou
 | **SSH** | SSSD + pam_sss; key vs password vs GSSAPI |
 | **NFS** | Often Kerberos (`sec=krb5`) — needs keytabs and time sync |
 | **Postgres / apps** | LDAP auth or app-level group mapping |
-| **Jenkins / GitLab** | SSO or group-based project access |
+| **GitLab** | SSO or group-based project and CI access |
 | **Sudo** | Central rules vs local `/etc/sudoers.d` |
 
 ---
@@ -188,7 +188,7 @@ On a lab host (read-only unless told otherwise):
 1. Report whether the host is domain/IPA-joined (`realm list` or equivalent).  
 2. Resolve your account with `id` and `getent passwd $(whoami)`.  
 3. List group memberships; identify which groups look like authorization groups.  
-4. Check time sync status (chrony/ntp).  
+4. Check time sync status (`chronyc tracking` / `timedatectl` — not ntpd).  
 5. Attempt `klist`; if no tickets, note that (do not force `kinit` with shared passwords).  
 6. Write a short note: “If SSH failed for a domain user, I would check … (5 bullets).”  
 

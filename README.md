@@ -16,13 +16,13 @@ A course web app for CISS intern cohorts (UAE). Same visual family as the SDC Ti
 
 ## Lab environment (important)
 
-**Course and program labs use virtual machines (VMs)** — typically RHEL-compatible guests under **vSphere / ESXi** — not Docker containers as the default runtime.
+**Course and program labs use virtual machines (VMs)** — **RHEL 10.2** (or Rocky/Alma 10) guests under **vSphere / ESXi** — not Docker containers as the default runtime. The admin track was rewritten off RHEL 7; there is no in-place 7 → 10 path.
 
 | Expect | Do not assume |
 |--------|----------------|
 | Postgres, ActiveMQ, JBoss, app hosts as **VMs or services on VMs** | `docker run …` as the primary lab path |
 | Hostnames, IPs, and credentials from the instructor / runbook | Localhost-only single-machine demos unless told otherwise |
-| `systemctl`, packages, firewall, and IDM on the guest OS | Container-only networking mental models |
+| `systemctl`, `dnf`, `nmcli`, firewalld (nft), and IDM on the guest OS | RHEL 7 runbooks (`yum`, `ifcfg-*`, `ifconfig`, `ntpd`, `chkconfig`); container-only networking mental models |
 
 Docker may appear in external reading; for CISS work, prefer the **assigned VM** and document connection details (host, port, user) in your notes.
 

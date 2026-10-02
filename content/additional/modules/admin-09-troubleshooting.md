@@ -63,8 +63,9 @@ SE link: troubleshooting evidence is often the raw material for **defect reports
 ### `tail` and `less` — watching and paging logs
 
 ```bash
-tail -n 100 /var/log/messages
-tail -f /var/log/messages              # follow (Ctrl+C)
+journalctl -b -n 100 --no-pager       # this boot first on RHEL 10.2
+journalctl -f                          # follow the journal (Ctrl+C)
+tail -n 100 /var/log/messages          # only if rsyslog is installed
 tail -n 50 -f /var/log/app/*.log      # last 50 then follow
 
 less /var/log/messages                # navigate: /search  n  N  g  G  q
@@ -82,6 +83,18 @@ journalctl -u sshd --since "2026-08-11 14:00" --until "14:30"
 journalctl -u myapp -n 100 --no-pager
 journalctl -p err..alert -n 50
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `-b` | This **b**oot only |
+| `-n N` | Last **n** N lines |
+| `-f` | **f**ollow (like `tail -f`) |
+| `-u UNIT` | This systemd **u**nit |
+| `-p RANGE` | **p**riority (`err..alert`) |
+| `--since` / `--until` | Time window |
+| `--no-pager` | Print to the terminal; do not open `less` |
+| `less +F` | `less` in follow mode (Ctrl+C then `q`) |
+| `less +G` | Jump to end of file |
 
 ---
 
@@ -160,13 +173,26 @@ kill -9 <pid>        # last resort; can corrupt data
 ### Network path — quick probes
 
 ```bash
-ss -lntp                 # listening sockets + PIDs
+ss -lntp                 # listening sockets + PIDs (not netstat)
 ss -antp | head
-ip addr
+ip -br addr
 ip route
+nmcli device status      # NetworkManager is the stack on 10.2
 ping -c 3 target
 curl -vI https://target:8443/health
 ```
+
+| Flag | Meaning in the examples |
+|------|-------------------------|
+| `ss -l` | **l**istening sockets only |
+| `ss -a` | **a**ll sockets (listening + established) |
+| `ss -n` | **n**umeric — do not resolve `22` → `ssh` |
+| `ss -t` | **t**cp |
+| `ss -p` | show owning **p**rocess / PID |
+| `ip -br` | **br**ief one-liner per NIC |
+| `ping -c 3` | send **c**ount 3, then stop |
+| `curl -I` | headers only (HEAD) |
+| `curl -v` | **v**erbose — request/response handshake (TLS included) |
 
 Map failure: DNS → route → TCP → TLS → app HTTP → app logic.
 
@@ -180,6 +206,16 @@ du -sh /var/log/* | sort -h | tail
 ls -ltr /var/log/app/              # newest last
 find /opt/app -name "*.log" -mtime -1
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `df -h` / `du -sh` | **h**uman sizes; `du -s` = **s**ummary of each path |
+| `sort -h` | **h**uman-numeric (`1K`, `2M`, `1G`) |
+| `ls -l` | **l**ong listing |
+| `ls -t` | sort by **t**ime |
+| `ls -r` | **r**everse (so `-ltr` = newest last) |
+| `find -name "*.log"` | basename matches glob |
+| `find -mtime -1` | modified in the last **1** day (`-1` = less than 1) |
 
 ---
 

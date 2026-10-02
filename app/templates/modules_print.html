@@ -70,15 +70,59 @@
         .print-pack .prose-course a { color: #1d4ed8; }
         .print-toc { margin: 1.5rem 0 2rem; }
         .print-toc li { margin: 0.25rem 0; }
+        .lm-print-chrome { display: none; }
+        .print-cover .lm-banner {
+            margin: 1rem auto 0;
+            max-width: 36rem;
+            background: #fff7ed;
+            border-color: #b45309;
+            color: #7c2d12;
+        }
+        .print-cover .lm-banner-mark,
+        .print-cover .lm-banner-notice { color: #7c2d12; }
+        .print-module .lm-banner {
+            background: #fff7ed;
+            border-color: #b45309;
+            color: #7c2d12;
+        }
+        .print-module .lm-banner-mark,
+        .print-module .lm-banner-notice { color: #7c2d12; }
         @media print {
             .print-toolbar { display: none !important; }
-            .print-pack { max-width: none; padding: 0; }
+            .print-pack { max-width: none; padding: 0.15in 0 0.25in; }
             .print-module { break-before: page; }
             a[href^="http"]::after { content: none !important; }
+            .lm-print-chrome {
+                display: block;
+                position: fixed;
+                left: 0;
+                right: 0;
+                text-align: center;
+                font-size: 8pt;
+                font-weight: 800;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: #7c2d12;
+                z-index: 9999;
+                background: #fff;
+            }
+            .lm-print-header {
+                top: 0;
+                padding: 6pt 0 4pt;
+                border-bottom: 0.6pt solid #b45309;
+            }
+            .lm-print-footer {
+                bottom: 0;
+                padding: 4pt 0 6pt;
+                border-top: 0.6pt solid #b45309;
+            }
+            @page { margin: 0.75in 0.65in; }
         }
     </style>
 </head>
 <body class="module-print-page">
+    <div class="lm-print-chrome lm-print-header" aria-hidden="true">{{ proprietary_marking }}</div>
+    <div class="lm-print-chrome lm-print-footer" aria-hidden="true">{{ proprietary_marking }}</div>
     <div class="print-toolbar">
         <a href="/modules/export">← Change selection</a>
         <button type="button" onclick="window.print()">Print / Save as PDF</button>
@@ -95,7 +139,11 @@
         <header class="print-cover">
             <p style="letter-spacing:0.12em;text-transform:uppercase;font-size:0.7rem;color:#64748b">{{ app_name }}</p>
             <h1>{{ pack_title }}</h1>
-            <p class="print-meta">{{ generated_on }} · Unclassified training · {{ modules|length }} module{{ 's' if modules|length != 1 else '' }}</p>
+            <p class="print-meta">{{ generated_on }} · {{ modules|length }} module{{ 's' if modules|length != 1 else '' }}</p>
+            <div class="lm-banner" role="note">
+                <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+                <span class="lm-banner-notice">{{ proprietary_notice }}</span>
+            </div>
         </header>
 
         <nav class="print-toc" aria-label="Contents">
@@ -111,8 +159,14 @@
         <article class="print-module prose-course" id="mod-{{ m.id }}">
             <p class="print-meta">{{ m.track_short }} · ~{{ m.duration_min }} min · {{ m.id }}</p>
             <h1>{{ m.title }}</h1>
+            <div class="lm-banner" role="note">
+                <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+            </div>
             {% if m.summary %}<p class="print-meta">{{ m.summary }}</p>{% endif %}
             {{ m.body_html | safe }}
+            <div class="lm-banner" role="note">
+                <span class="lm-banner-mark">{{ proprietary_marking }}</span>
+            </div>
         </article>
         {% endfor %}
     </div>

@@ -17,8 +17,8 @@
 ## Ops track roadmap
 
 ```text
-UAE Military Context  →  CONOPS & AOC  →  ATO Planning  →  ATO Execution  →  Weapons & Platforms  →  Capstone
-   (previous)              (this module)     (A5 card)      (execution annex)    (public vocabulary)
+Why you are here (week 1)  →  UAE Military Context  →  CONOPS & AOC  →  ATO Planning  →  ATO Execution  →  Weapons & Platforms  →  PRSAS intro  →  Capstone
+                                 (previous)              (this module)     (A5 card)      (execution annex)    (public vocabulary)
 ```
 
 **Prerequisite:** *UAE Military Context (Open Source)* — branches, ranks, public systems vocabulary.  

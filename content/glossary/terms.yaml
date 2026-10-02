@@ -235,7 +235,7 @@ terms:
   - term: reth
     definition: Redundant Ethernet interface on an SRX chassis cluster; configuration belongs on the reth unit, not only on one node’s child port.
   - term: PRSAS
-    definition: Prototype Radar Situational Awareness System — CISS main-project lab that fuses two simulated ASTERIX-like Cat 062 feeds into a central authenticated air picture (UC-CISS_PROJECT-001).
+    definition: Prototype Radar Situational Awareness System — CISS main-project lab that fuses two simulated ASTERIX-like Cat 062 feeds into a central authenticated air picture (UC-CISS_PROJECT-001). Classroom shape of a picture, not live C2 and not a national missile shield.
   - term: CISS-TEACH-1
     definition: Versioned JSON teaching payload used on radar.input / radar.output. Carries Cat 062 *ideas* (Mode 3/A, WGS-84, time) without claiming official EUROCONTROL binary encoding.
   - term: Mode 3/A
@@ -251,3 +251,99 @@ terms:
   - term: radar.output
     definition: ActiveMQ topic where the track daemon publishes fused SYSTEM_TRACK updates for SA clients.
 
+  - term: RHEL 10.2
+    definition: >
+      Lab OS for the CISS admin track (May 2026 minor of Red Hat Enterprise Linux 10).
+      Kernel 6.12, systemd 257, DNF 5, NetworkManager-only, firewalld/nftables,
+      Python 3.12+ (AppStream 3.14), OpenJDK 21/25, PostgreSQL 18, chrony, cgroup v2,
+      OpenSSH ML-KEM. Not in-place-upgradable from RHEL 7.
+  - term: DNF 5
+    definition: >
+      The RHEL 10 package manager (replaces yum on RHEL 7 and DNF 4 on RHEL 8/9).
+      Course standard is `dnf`; `yum` may exist only as a wrapper. Repo files still
+      live in /etc/yum.repos.d/. Air-gapped labs use `dnf download --resolve --alldeps`
+      (not yumdownloader) and `file://` or Nexus baseurls; `dnf offline reboot` is a
+      reboot-safe transaction, not “no internet.”
+  - term: air-gapped repo
+    definition: >
+      A DNF/npm/pip/Maven source that lives inside the enclave (Nexus, Satellite,
+      RHEL 10.2 DVD ISO, USB bag with createrepo_c). Guests use baseurl=file:// or an
+      internal HTTP URL. gpgcheck stays 1. Not the same as `dnf install --offline`.
+  - term: NetworkManager keyfile
+    definition: >
+      Persistent NIC configuration on RHEL 10 (`/etc/NetworkManager/system-connections/*.nmconnection`).
+      Replaces RHEL 7 ifcfg-* files under /etc/sysconfig/network-scripts/, which are gone.
+  - term: nftables
+    definition: >
+      Kernel packet-filter backend used by firewalld on RHEL 10.2. iptables-nft-services
+      is deprecated in 10.2 — teach firewall-cmd, not iptables -A.
+  - term: crypto-policies
+    definition: >
+      System-wide TLS/SSH/crypto baseline on RHEL (`update-crypto-policies --show`).
+      RHEL 10.2 FUTURE policy prefers hybrid ML-KEM; old TLS 1.0/ssh-rsa configs fail.
+      Course default is DEFAULT. Do not `--set LEGACY` to make an old client handshake.
+  - term: SAN (Subject Alternative Name)
+    definition: >
+      X.509 extension listing the DNS names and IPs a certificate is valid for.
+      Modern TLS clients match the name they connect to against SAN, not CN.
+      Issue both the FQDN and the short hostname (amq-c-01.ciss-lab.local and amq-c-01).
+      Connecting by IP requires an `IP:` SAN — a DNS-only SAN does not cover a literal address.
+  - term: CSR
+    definition: >
+      Certificate Signing Request. Public key plus names, sent to a CA. Build with
+      `openssl req -new` and put SAN on the request (`-addext subjectAltName=`).
+      OpenSSL 3 signing must use `-copy_extensions copy` or the SAN is silently dropped.
+  - term: trust store
+    definition: >
+      The set of CA certs a *particular client* will accept. OS bundle
+      (`update-ca-trust` → ca-bundle.crt), Java PKCS#12, and the browser are three
+      different stores. “Firefox likes it” does not mean the AMQ JMS client will.
+  - term: PKCS#12
+    definition: >
+      `.p12` / `.pfx` bag holding a private key plus certs. Course format for Java
+      and ActiveMQ (`broker.p12`). Treat it as a key (mode 600, never Git). Prefer
+      PKCS#12 over creating new JKS stores.
+  - term: SNI
+    definition: >
+      Server Name Indication. TLS ClientHello field so one IP can present different
+      certificates. `openssl s_client -servername NAME` must match the name the app uses.
+  - term: sslmode=verify-full
+    definition: >
+      libpq/Postgres client mode that encrypts *and* checks CA plus hostname/SAN.
+      `sslmode=require` encrypts but does not verify the certificate — not “TLS done.”
+      Course default when Postgres TLS is on.
+  - term: checkend
+    definition: >
+      `openssl x509 -checkend N` exits 1 if the certificate expires within N seconds.
+      Course watch is 30 days (`$((30 * 86400))`). A weekly systemd timer plus this
+      check is how CISS notices expiry before the exercise, not during it.
+  - term: EKU (extendedKeyUsage)
+    definition: >
+      X.509 extension stating what the key is for. TLS server leaves need `serverAuth`
+      (`SSL server : Yes` in `openssl x509 -purpose`). A clientAuth-only cert will
+      fail on AMQ 61617 / httpd. Put it on the CSR (`-addext`) and keep it with
+      `-copy_extensions copy`.
+  - term: fullchain
+    definition: >
+      PEM file with the leaf certificate first, then intermediates / issuing CA.
+      httpd `SSLCertificateFile` and nginx `ssl_certificate` often want this one file.
+      The client must already trust the root; do not stuff the private key in fullchain.
+  - term: authselect
+    definition: >
+      RHEL 8+ tool that selects the host identity/auth stack (SSSD, winbind). Replaces
+      RHEL 7 authconfig, which does not exist on 10.2.
+  - term: GitLab CI/CD
+    definition: >
+      Course CI for CISS. Pipelines are defined in `.gitlab-ci.yml` (jobs, stages,
+      rules, artifacts) and executed by a GitLab Runner (shell executor on RHEL 10.2
+      lab VMs). Interns who say “GitLab Actions” mean this — GitLab does not use
+      `.github/workflows`. Jenkins is not taught.
+  - term: GitLab Runner
+    definition: >
+      Process that executes GitLab CI/CD jobs. CISS default is a shell executor on
+      the RHEL 10.2 golden image (JDK 21 / Maven from Nexus). Docker executor only
+      with an internal image — do not pull from Docker Hub on an air-gapped guest.
+  - term: Podman
+    definition: >
+      Daemonless container engine on RHEL 10. Course default runtime is still a VM, not
+      a container; if a lab needs containers, use podman not Docker.

@@ -24,6 +24,8 @@ from app.config import (
     CASE_STUDY_APP_URL,
     CASE_STUDY_URL,
     MAX_UPLOAD_BYTES,
+    PROPRIETARY_MARKING,
+    PROPRIETARY_NOTICE,
     SESSION_COOKIE,
     UPLOAD_DIR,
     UPLOAD_URL_PREFIX,
@@ -43,6 +45,7 @@ from app.curriculum import (
     modules_for_export,
     load_glossary,
     load_schedule,
+    filter_schedule,
     load_selection_criteria,
     module_neighbors,
     modules_by_track,
@@ -76,6 +79,8 @@ def _ctx(request: Request, db: Session, **extra):
         "app_version": APP_VERSION,
         "case_study_url": CASE_STUDY_URL,
         "case_study_app_url": CASE_STUDY_APP_URL,
+        "proprietary_marking": PROPRIETARY_MARKING,
+        "proprietary_notice": PROPRIETARY_NOTICE,
     }
     base.update(extra)
     return base
@@ -402,11 +407,25 @@ async def assignment_submit(
 
 
 @router.get("/schedule", response_class=HTMLResponse)
-async def schedule_page(request: Request, db: Session = Depends(get_db)):
+async def schedule_page(
+    request: Request,
+    db: Session = Depends(get_db),
+    track: str | None = None,
+):
+    tid = normalize_track_id(track) if track else None
+    if tid and tid not in {t["id"] for t in list_tracks()}:
+        tid = None
     return templates.TemplateResponse(
         "schedule.html",
-        _ctx(request, db, schedule=load_schedule()),
+        _ctx(
+            request,
+            db,
+            schedule=filter_schedule(load_schedule(), tid),
+            tracks=list_tracks(),
+            track_filter=tid,
+        ),
     )
+
 
 
 @router.get("/glossary", response_class=HTMLResponse)

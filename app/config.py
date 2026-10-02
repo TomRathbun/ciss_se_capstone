@@ -36,8 +36,17 @@ UPLOAD_URL_PREFIX = "/static/uploads/content"
 MAX_UPLOAD_BYTES = int(os.environ.get("CISS_MAX_UPLOAD_BYTES", str(5 * 1024 * 1024)))  # 5 MB
 ALLOWED_IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"}
 
+# Lockheed Martin proprietary marking — shown on every module and
+# repeated in PDF / print headers and footers.
+PROPRIETARY_MARKING = "LOCKHEED MARTIN PROPRIETARY INFORMATION"
+PROPRIETARY_NOTICE = (
+    "This document contains Lockheed Martin Proprietary Information. "
+    "Do not disclose, reproduce, or distribute without written authorization."
+)
+
 # PlantUML public render server (override if self-hosting)
 PLANTUML_SERVER = os.environ.get(
     "CISS_PLANTUML_SERVER",
     "https://www.plantuml.com/plantuml/svg/",
 )
+
